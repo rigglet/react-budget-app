@@ -2,19 +2,23 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { RiDashboard3Fill } from "react-icons/ri";
-import { BsFileSpreadsheet } from "react-icons/bs";
+//import { BsFileSpreadsheet } from "react-icons/bs";
+import { IoFileTrayStackedSharp } from "react-icons/io5";
 
 const SubNav = () => {
+  let isLoaded = true;
   return (
     <StyledNav>
       <StyledLink to="/budgets">
-        <BsFileSpreadsheet className="navIcon" />
+        <IoFileTrayStackedSharp className="navIcon" />
         <h4>Budgets</h4>
       </StyledLink>
-      <StyledLink to="dashboard">
-        <RiDashboard3Fill className="navIcon" />
-        <h4>Dashboard</h4>
-      </StyledLink>
+      {isLoaded && (
+        <StyledLink to="dashboard/">
+          <RiDashboard3Fill className="navIcon" />
+          <h4>Dashboard</h4>
+        </StyledLink>
+      )}
     </StyledNav>
   );
 };
@@ -27,7 +31,9 @@ const StyledNav = styled(motion.div)`
   display: flex;
   align-items: center;
   padding: 0 17vw;
-  box-shadow: 0 10px #000000;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  //box-shadow: 0 3px 5px 5px rgba(0, 0, 0, 0.75);
 `;
 
 const StyledLink = styled(Link)`

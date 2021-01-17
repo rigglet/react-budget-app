@@ -14,11 +14,11 @@ function App() {
       <BrowserRouter>
         <Nav />
         <SubNav />
-        <Route path="/budgets">
-          <Budget />
-        </Route>
-        <Route path="/dashboard">
+        <Route exact path="/dashboard/:id">
           <Dashboard />
+        </Route>
+        <Route exact path="/budgets">
+          <Budget />
         </Route>
       </BrowserRouter>
     </div>

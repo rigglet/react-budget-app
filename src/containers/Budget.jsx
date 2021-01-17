@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//import { Link } from "react-router-dom";
+import BudgetList from "../components/budget/BudgetList";
 
 const Budget = () => {
   return (
     <StyledBudget>
       <div className="left"></div>
       <div className="main">
-        <h1>Budgets</h1>
+        <h2>Budgets</h2>
+        <BudgetList />
       </div>
       <div className="right"></div>
     </StyledBudget>
@@ -30,19 +31,18 @@ const StyledBudget = styled(motion.div)`
   }
   .main {
     grid-area: main;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .right {
     grid-area: right;
   }
+  h2 {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
 `;
-
-// const StyledLink = styled(Link)`
-//   text-decoration: none;
-//   h4 {
-//     color: #848586;
-//     font-weight: 400;
-//     padding: 1rem;
-//   }
-// `;
 
 export default Budget;
