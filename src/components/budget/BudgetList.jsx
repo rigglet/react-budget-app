@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Budget from "./Budget";
 import { getData } from "../../data";
 import Spinner from "../Spinner";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const BudgetList = () => {
-  const [budgetData, setBudgetData] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [budgets, setBudgets] = useContext(GlobalContext);
 
+  console.log(budgets);
   useEffect(() => {
     getData().then(
       (response) => {
-        setBudgetData(response);
+        setBudgets(response);
         setLoading(false);
         //console.log(response);
       },
@@ -20,13 +22,13 @@ const BudgetList = () => {
         console.log("NO RESULT");
       }
     );
-  }, [setLoading]);
+  }, [setLoading, setBudgets]);
 
   return (
     <>
       {!isLoading ? (
         <StyledBudgetList>
-          {budgetData.map((budget) => (
+          {budgets.map((budget) => (
             <Budget budget={budget} key={budget.id} />
           ))}
         </StyledBudgetList>
