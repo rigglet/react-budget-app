@@ -26,6 +26,44 @@ body{
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
 }
+
+button {
+    cursor: pointer;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #00b4ee;
+    transition: all 0.3s ease;
+    outline-style: none;
+    &:active {
+      transform: translateY(1px);
+      transition: none;
+    }
+    &:hover,
+    &:active {
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+      background: rgb(0, 180, 238, 0.5);
+    }
+  }
+
+//React-toastify - Toast close button
+.toastClose{
+    color: #689ed0;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    &:hover{
+        color: transparent;
+        color: grey;
+    }
+    &:active,
+    &:focus {
+      outline-style: none;
+      -moz-outline-style: none;
+      transform: translateY(1px);
+    }
+}
 `;
 
 export default GlobalStyle;

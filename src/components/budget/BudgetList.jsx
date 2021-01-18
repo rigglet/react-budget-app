@@ -10,7 +10,7 @@ const BudgetList = () => {
   const [isLoading, setLoading] = useState(true);
   const [budgets, setBudgets] = useContext(GlobalContext);
 
-  console.log(budgets);
+  //console.log(budgets);
   useEffect(() => {
     getData().then(
       (response) => {

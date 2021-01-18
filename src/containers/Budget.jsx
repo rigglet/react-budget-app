@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import BudgetList from "../components/budget/BudgetList";
+import AddBudgetForm from "../components/budget/AddBudgetForm";
 
 const Budget = () => {
   return (
-    <StyledBudget>
+    <StyledBudgetContainer>
       <div className="left"></div>
       <div className="main">
         <h2>Budgets</h2>
+        <AddBudgetForm />
         <BudgetList />
       </div>
       <div className="right"></div>
-    </StyledBudget>
+    </StyledBudgetContainer>
   );
 };
 
-const StyledBudget = styled(motion.div)`
+const StyledBudgetContainer = styled(motion.div)`
   padding: 1.5rem;
   width: 100vw;
   height: 80vh;

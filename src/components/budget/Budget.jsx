@@ -34,30 +34,14 @@ const StyledBudget = styled(motion.div)`
   border-radius: 4px;
   background-color: #39393c;
   border-left: transparent 0.25rem solid;
+  border-right: transparent 0.25rem solid;
   color: #848586;
   &:hover,
   &:active {
     border-left: #00b4ee 0.25rem solid;
+    //background-color: rgba(57, 57, 60, 0.6);
   }
-  button {
-    cursor: pointer;
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    border: none;
-    background-color: #00b4ee;
-    transition: all 0.3s ease;
-    outline-style: none;
-    &:active {
-      transform: translateY(1px);
-      transition: none;
-    }
-    &:hover,
-    &:active {
-      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
-      background: rgb(0, 180, 238, 0.5);
-    }
-  }
+
   .info {
     display: flex;
     align-items: center;
