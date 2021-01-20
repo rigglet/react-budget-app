@@ -8,21 +8,19 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 const BudgetList = () => {
   const [isLoading, setLoading] = useState(true);
-  const [budgets, setBudgets] = useContext(GlobalContext);
+  const { budgets, loadBudgets } = useContext(GlobalContext);
 
-  //console.log(budgets);
   useEffect(() => {
     getData().then(
       (response) => {
-        setBudgets(response);
+        loadBudgets(response);
         setLoading(false);
-        //console.log(response);
       },
       (reject) => {
         console.log("NO RESULT");
       }
     );
-  }, [setLoading, setBudgets]);
+  }, []);
 
   return (
     <>

@@ -1,14 +1,25 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { BsFileText } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
+//context
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Budget = ({ budget }) => {
   let history = useHistory();
-  const handleBudgetOpen = (id) => {
+
+  const { addCurrentBudget, updateBudgetLoaded } = useContext(GlobalContext);
+
+  const handleBudgetOpen = (budget) => {
     //<Link to={`/budgets/${id}`} />;
     //console.log(`/budgets/${id}`);
-    history.push(`/dashboard/${id}`);
+
+    addCurrentBudget(budget);
+
+    updateBudgetLoaded(true);
+
+    history.push(`/dashboard/${budget.id}/income`);
   };
 
   return (
@@ -18,7 +29,7 @@ const Budget = ({ budget }) => {
         <p>{budget.saveName}</p>
         <p>[ {budget.description} ]</p>
       </div>
-      <button onClick={() => handleBudgetOpen(budget.id)}>OPEN</button>
+      <button onClick={() => handleBudgetOpen(budget)}>OPEN</button>
     </StyledBudget>
   );
 };

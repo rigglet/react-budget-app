@@ -1,27 +1,42 @@
+//import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//import { GlobalContext } from "../context/GlobalContext";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
-  const budgetSelected = true;
+const Sidebar = ({ id }) => {
+  //const { currentBudget } = useContext(GlobalContext);
+  //console.log(`sidebar: ${id}`);
   return (
     <StyledSide>
-      {budgetSelected && (
-        <div>
-          <StyledLink to="">
-            <h4>Income</h4>
-          </StyledLink>
-          <StyledLink to="">
-            <h4>Budget</h4>
-          </StyledLink>
-          <StyledLink to="">
-            <h4>Tracker</h4>
-          </StyledLink>
-          <StyledLink to="">
-            <h4>Overview</h4>
-          </StyledLink>
-        </div>
-      )}
+      <StyledLink
+        to={{
+          pathname: `/dashboard/${id}/income`,
+        }}
+      >
+        <h4>Income</h4>
+      </StyledLink>
+      <StyledLink
+        to={{
+          pathname: `/dashboard/${id}/budget`,
+        }}
+      >
+        <h4>Budget</h4>
+      </StyledLink>
+      <StyledLink
+        to={{
+          pathname: `/dashboard/${id}/tracker`,
+        }}
+      >
+        <h4>Tracker</h4>
+      </StyledLink>
+      <StyledLink
+        to={{
+          pathname: `/dashboard/${id}/overview`,
+        }}
+      >
+        <h4>Overview</h4>
+      </StyledLink>
     </StyledSide>
   );
 };

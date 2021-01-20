@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 //style
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const AddBudgetForm = () => {
   const [formData, setFormData] = useState({ name: "", description: "" });
-  const [budgets, setBudgets] = useContext(GlobalContext);
+  const { addBudget } = useContext(GlobalContext);
 
   const notify = (type) => {
     const toastStyle = {
@@ -81,7 +81,8 @@ const AddBudgetForm = () => {
           date.getFullYear(),
       };
 
-      setBudgets((prevBudgets) => [...prevBudgets, newBudget]);
+      addBudget((prevBudgets) => [...prevBudgets, newBudget], "ADD_NEW_BUDGET");
+      //setBudgets((prevBudgets) => [...prevBudgets, newBudget]);
       setFormData({ name: "", description: "" });
       notify("ADDED");
     } else {

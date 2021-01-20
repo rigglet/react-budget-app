@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
           <Nav />
           <SubNav />
-          <Route exact path="/dashboard/:id">
+          <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route exact path="/budgets">
