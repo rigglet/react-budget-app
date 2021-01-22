@@ -1,21 +1,31 @@
-//import { useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//import { GlobalContext } from "../context/GlobalContext";
+import Sidebar from "../components/Sidebar";
+import { GlobalContext } from "../context/GlobalContext";
+import { useLocation } from "react-router-dom";
+import Income from "../components/settings/Income";
 
 const Dashboard = () => {
+  const { currentBudget } = useContext(GlobalContext);
+
+  const location = useLocation();
+  const subMenu = location.pathname.split("/")[3];
+  //console.log(currentBudget.data.income);
   return (
-    <StyledDashboard>
-      <div className="left"></div>
+    <StyledDash>
+      <div className="left">
+        <Sidebar id={currentBudget.id} />
+      </div>
       <div className="main">
-        <h1>Dashboard</h1>
+        <Income currentBudget={currentBudget} />
       </div>
       <div className="right"></div>
-    </StyledDashboard>
+    </StyledDash>
   );
 };
 
-const StyledDashboard = styled(motion.div)`
+const StyledDash = styled(motion.div)`
   padding: 1.5rem;
   //padding-left: 15vw;
   width: 100vw;

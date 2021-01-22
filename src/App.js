@@ -4,6 +4,7 @@ import { GlobalProvider } from "./context/GlobalContext";
 //containers
 import Budget from "./containers/Budget";
 import Dashboard from "./containers/Dashboard";
+import Settings from "./containers/Settings";
 
 //components
 import Nav from "./components/Nav";
@@ -18,6 +19,9 @@ function App() {
         <BrowserRouter>
           <Nav />
           <SubNav />
+          <Route path="/settings">
+            <Settings />
+          </Route>
           <Route path="/dashboard">
             <Dashboard />
           </Route>

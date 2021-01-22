@@ -7,7 +7,7 @@ export const reducer = (state, action) => {
     addCurrentBudget: "ADD_CURRENT_BUDGET",
     deleteCurrentBudget: "DELETE_CURRENT_BUDGET",
     updateCurrentBudget: "UPDATE_CURRENT_BUDGET",
-    updateBudgetLoaded: "UDATE_ISLOADED",
+    updateBudgetLoaded: "UPDATE_ISLOADED",
   };
 
   switch (action.type) {
@@ -23,10 +23,13 @@ export const reducer = (state, action) => {
         budgets: [action.payload, ...state.budgets],
       };
     case ACTIONS.updateBudget:
-      const bi = state.budgets.filter((item) => item.id !== action.payload.id);
+      //const bi = state.budgets.filter((item) => item.id !== action.payload.id);
       return {
         ...state,
-        budgets: [action.payload, ...bi],
+        budgets: [
+          ...state.budgets.filter((budget) => budget.id !== action.payload.id),
+          action.payload,
+        ],
       };
     case ACTIONS.loadBudgets:
       return {
@@ -46,7 +49,7 @@ export const reducer = (state, action) => {
     case ACTIONS.updateCurrentBudget:
       return {
         ...state,
-        currentBudget: [...state.currentBudget],
+        currentBudget: action.payload,
       };
     case ACTIONS.updateBudgetLoaded:
       return {

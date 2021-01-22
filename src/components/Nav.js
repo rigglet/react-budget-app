@@ -5,6 +5,7 @@ import { FcCalculator } from "react-icons/fc";
 import { GlobalContext } from "../context/GlobalContext";
 import { BsFileSpreadsheet } from "react-icons/bs";
 import { IoFileTrayStackedSharp } from "react-icons/io5";
+import { IoMdSettings } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { RiDashboard3Fill } from "react-icons/ri";
 
@@ -26,10 +27,16 @@ const Nav = () => {
           <h4>Budgets</h4>
         </StyledLink>
         {isBudgetLoaded && (
-          <StyledLink to="/dashboard">
-            <RiDashboard3Fill className="navIcon" />
-            <h4>Dashboard</h4>
-          </StyledLink>
+          <>
+            <StyledLink to="/settings">
+              <IoMdSettings className="navIcon" />
+              <h4>Settings</h4>
+            </StyledLink>
+            <StyledLink to="/dashboard">
+              <RiDashboard3Fill className="navIcon" />
+              <h4>Dashboard</h4>
+            </StyledLink>
+          </>
         )}
       </div>
       <div className="info">

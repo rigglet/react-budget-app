@@ -28,9 +28,12 @@ body{
 }
 
 button {
+  font-weight: lighter;
+  font-size: 10pt;
+  min-width: 100px;
     cursor: pointer;
     color: white;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 4px;
     border: none;
     background-color: #00b4ee;

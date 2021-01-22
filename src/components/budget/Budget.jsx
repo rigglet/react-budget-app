@@ -19,7 +19,7 @@ const Budget = ({ budget }) => {
 
     updateBudgetLoaded(true);
 
-    history.push(`/dashboard/${budget.id}/income`);
+    history.push(`/settings/${budget.id}/income`);
   };
 
   return (

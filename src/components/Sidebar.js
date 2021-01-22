@@ -11,28 +11,28 @@ const Sidebar = ({ id }) => {
     <StyledSide>
       <StyledLink
         to={{
-          pathname: `/dashboard/${id}/income`,
+          pathname: `/settings/${id}/income`,
         }}
       >
         <h4>Income</h4>
       </StyledLink>
       <StyledLink
         to={{
-          pathname: `/dashboard/${id}/budget`,
+          pathname: `/settings/${id}/budget`,
         }}
       >
         <h4>Budget</h4>
       </StyledLink>
       <StyledLink
         to={{
-          pathname: `/dashboard/${id}/tracker`,
+          pathname: `/settings/${id}/tracker`,
         }}
       >
         <h4>Tracker</h4>
       </StyledLink>
       <StyledLink
         to={{
-          pathname: `/dashboard/${id}/overview`,
+          pathname: `/settings/${id}/overview`,
         }}
       >
         <h4>Overview</h4>
