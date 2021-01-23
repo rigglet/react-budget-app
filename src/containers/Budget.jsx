@@ -9,7 +9,7 @@ const Budget = () => {
       <div className="left"></div>
       <div className="main">
         <h2>Budgets</h2>
-        <AddBudgetForm />
+        {/* <AddBudgetForm /> */}
         <BudgetList />
       </div>
       <div className="right"></div>

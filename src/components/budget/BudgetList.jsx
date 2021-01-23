@@ -8,7 +8,9 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 const BudgetList = () => {
   const [isLoading, setLoading] = useState(true);
-  const { budgets, loadBudgets } = useContext(GlobalContext);
+  const { budgets, loadBudgets, currentBudgetId } = useContext(GlobalContext);
+
+  console.log(currentBudgetId);
 
   useEffect(() => {
     getData().then(

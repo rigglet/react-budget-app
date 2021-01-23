@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 //import Budget from "../budget/Budget";
 
-const Income = ({ currentBudget }) => {
+const Overview = ({ currentBudget }) => {
   const { updateBudget } = useContext(GlobalContext);
 
   const [formIncome, setFormIncome] = useState({
@@ -43,7 +43,7 @@ const Income = ({ currentBudget }) => {
 
   return (
     <StyledIncome>
-      <h1>Income</h1>
+      <h1>Overview</h1>
       <form>
         {/* <div className="row">
           <label htmlFor="annual">Annual Salary (Gross)</label>
@@ -191,9 +191,9 @@ const StyledIncome = styled(motion.div)`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
   margin-bottom: 1rem;
   padding: 3rem;
+  width: 100%;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
@@ -245,4 +245,4 @@ const StyledIncome = styled(motion.div)`
   }
 `;
 
-export default Income;
+export default Overview;

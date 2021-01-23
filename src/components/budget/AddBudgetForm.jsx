@@ -66,6 +66,7 @@ const AddBudgetForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(handleValidation(formData));
+
     if (handleValidation(formData)) {
       const date = new Date(Date.now());
       //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
@@ -81,7 +82,7 @@ const AddBudgetForm = () => {
           date.getFullYear(),
       };
 
-      addBudget((prevBudgets) => [...prevBudgets, newBudget], "ADD_NEW_BUDGET");
+      addBudget(newBudget);
       //setBudgets((prevBudgets) => [...prevBudgets, newBudget]);
       setFormData({ name: "", description: "" });
       notify("ADDED");

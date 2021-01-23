@@ -9,16 +9,13 @@ import { GlobalContext } from "../../context/GlobalContext";
 const Budget = ({ budget }) => {
   let history = useHistory();
 
-  const { addCurrentBudget, updateBudgetLoaded } = useContext(GlobalContext);
+  const { updateCurrentBudgetId, updateBudgetLoaded } = useContext(
+    GlobalContext
+  );
 
   const handleBudgetOpen = (budget) => {
-    //<Link to={`/budgets/${id}`} />;
-    //console.log(`/budgets/${id}`);
-
-    addCurrentBudget(budget);
-
+    updateCurrentBudgetId(budget.id);
     updateBudgetLoaded(true);
-
     history.push(`/settings/${budget.id}/income`);
   };
 

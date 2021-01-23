@@ -1,7 +1,7 @@
 export const getData = () => {
   const data = [
     {
-      id: 1,
+      id: "1",
       saveName: "Julie",
       saveDate: "02/10/2020",
       description: "Julie salary budget",
@@ -57,7 +57,7 @@ export const getData = () => {
       },
     },
     {
-      id: 2,
+      id: "2",
       saveName: "Neil",
       saveDate: "02/10/2020",
       description: "Neil salary budget",
@@ -113,7 +113,7 @@ export const getData = () => {
       },
     },
     {
-      id: 3,
+      id: "3",
       saveName: "Basic",
       saveDate: "02/10/2020",
       description: "Basic test figures",

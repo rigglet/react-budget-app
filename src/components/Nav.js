@@ -1,8 +1,8 @@
 import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FcCalculator } from "react-icons/fc";
-import { GlobalContext } from "../context/GlobalContext";
 import { BsFileSpreadsheet } from "react-icons/bs";
 import { IoFileTrayStackedSharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
@@ -10,9 +10,12 @@ import { Link } from "react-router-dom";
 import { RiDashboard3Fill } from "react-icons/ri";
 
 const Nav = () => {
-  const { isBudgetLoaded, currentBudget } = useContext(GlobalContext);
-  console.log(`NAV isBL: ${isBudgetLoaded}`);
-
+  const { currentBudgetId, budgets, isBudgetLoaded } = useContext(
+    GlobalContext
+  );
+  const currentBudget = budgets.filter((b) => b.id === currentBudgetId);
+  //console.log(`isBudgetLoaded:  ${isBudgetLoaded}`);
+  //console.log(currentBudget);
   return (
     <StyledNav>
       <div className="links">
@@ -22,17 +25,29 @@ const Nav = () => {
             <h4>BudgetApp</h4>
           </StyledLink>
         </div>
-        <StyledLink to="/budgets">
+        <StyledLink
+          to={{
+            pathname: `/budgets`,
+          }}
+        >
           <IoFileTrayStackedSharp className="navIcon" />
           <h4>Budgets</h4>
         </StyledLink>
         {isBudgetLoaded && (
           <>
-            <StyledLink to="/settings">
+            <StyledLink
+              to={{
+                pathname: `/settings/${currentBudgetId}/income`,
+              }}
+            >
               <IoMdSettings className="navIcon" />
               <h4>Settings</h4>
             </StyledLink>
-            <StyledLink to="/dashboard">
+            <StyledLink
+              to={{
+                pathname: `/dashboard/${currentBudgetId}`,
+              }}
+            >
               <RiDashboard3Fill className="navIcon" />
               <h4>Dashboard</h4>
             </StyledLink>
@@ -42,7 +57,7 @@ const Nav = () => {
       <div className="info">
         {isBudgetLoaded && (
           <>
-            <p>{currentBudget.saveName}</p>
+            <p>{currentBudget[0].saveName}</p>
             <BsFileSpreadsheet className="navIcon" />
           </>
         )}

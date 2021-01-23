@@ -1,26 +1,31 @@
 export const reducer = (state, action) => {
   const ACTIONS = {
-    deleteBudget: "DELETE_BUDGET",
-    addBudget: "ADD_BUDGET",
-    updateBudget: "UPDATE_BUDGET",
     loadBudgets: "LOAD_BUDGETS",
-    addCurrentBudget: "ADD_CURRENT_BUDGET",
-    deleteCurrentBudget: "DELETE_CURRENT_BUDGET",
-    updateCurrentBudget: "UPDATE_CURRENT_BUDGET",
+    addBudget: "ADD_BUDGET",
+    deleteBudget: "DELETE_BUDGET",
+    updateBudget: "UPDATE_BUDGET",
+    addBudgetItem: "ADD_BUDGET_ITEM",
+    deleteBudgetItem: "DELETE_BUDGET_ITEM",
+    updateCurrentBudgetId: "UPDATE_CURRENT_BUDGET_ID",
     updateBudgetLoaded: "UPDATE_ISLOADED",
   };
 
   switch (action.type) {
     //BUDGETS ACTIONS
-    case ACTIONS.deleteBudget:
+    case ACTIONS.loadBudgets:
       return {
         ...state,
-        budgets: state.budgets.filter((item) => item.id !== action.payload),
+        budgets: [...action.payload],
       };
     case ACTIONS.addBudget:
       return {
         ...state,
         budgets: [action.payload, ...state.budgets],
+      };
+    case ACTIONS.deleteBudget:
+      return {
+        ...state,
+        budgets: state.budgets.filter((item) => item.id !== action.payload),
       };
     case ACTIONS.updateBudget:
       //const bi = state.budgets.filter((item) => item.id !== action.payload.id);
@@ -31,25 +36,23 @@ export const reducer = (state, action) => {
           action.payload,
         ],
       };
-    case ACTIONS.loadBudgets:
+    //BUDGET ITEM
+    // case ACTIONS.addBudgetItem:
+    //   return {
+    //     ...state,
+    //     data: { income: { ...formIncome } },
+    //     budgetItems: {state.budgets.filter((item) => item.id === state.currentBudgetId)},
+    //   };
+    // case ACTIONS.deleteBudgetItem:
+    //   return {
+    //     ...state,
+    //     budgetId: action.payload,
+    //   };
+    //OTHER
+    case ACTIONS.updateCurrentBudgetId:
       return {
         ...state,
-        budgets: [...action.payload],
-      };
-    case ACTIONS.addCurrentBudget:
-      return {
-        ...state,
-        currentBudget: action.payload,
-      };
-    case ACTIONS.deleteCurrentBudget:
-      return {
-        ...state,
-        currentBudget: [],
-      };
-    case ACTIONS.updateCurrentBudget:
-      return {
-        ...state,
-        currentBudget: action.payload,
+        currentBudgetId: action.payload,
       };
     case ACTIONS.updateBudgetLoaded:
       return {

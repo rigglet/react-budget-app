@@ -4,7 +4,7 @@ import { reducer } from "./Reducer";
 //intialState
 const initialState = {
   budgets: [],
-  currentBudget: {},
+  currentBudgetId: "",
   isBudgetLoaded: false,
 };
 
@@ -15,7 +15,7 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  //Actions
+  //BUDGET Actions
   const loadBudgets = (budgets) => {
     dispatch({
       type: "LOAD_BUDGETS",
@@ -40,24 +40,27 @@ export const GlobalProvider = ({ children }) => {
       payload: budget,
     });
   };
-  const addCurrentBudget = (budget) => {
+  //BUDGET ITEM ACTIONS
+  const addBudgetItem = (budget) => {
     dispatch({
-      type: "ADD_CURRENT_BUDGET",
+      type: "ADD_BUDGET_ITEM",
       payload: budget,
     });
   };
-  const removeCurrentBudget = (budget) => {
+  const deleteBudgetItem = (id) => {
     dispatch({
-      type: "REMOVE_CURRENT_BUDGET",
-      payload: budget,
+      type: "DELETE_BUDGET_ITEM",
+      payload: id,
     });
   };
-  const updateCurrentBudget = (budget) => {
+
+  const updateCurrentBudgetId = (id) => {
     dispatch({
-      type: "UPDATE_CURRENT_BUDGET",
-      payload: budget,
+      type: "UPDATE_CURRENT_BUDGET_ID",
+      payload: id,
     });
   };
+
   const updateBudgetLoaded = (loaded) => {
     dispatch({
       type: "UPDATE_ISLOADED",
@@ -69,15 +72,15 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         budgets: state.budgets,
+        currentBudgetId: state.currentBudgetId,
         isBudgetLoaded: state.isBudgetLoaded,
-        currentBudget: state.currentBudget,
-        deleteBudget,
-        addBudget,
-        updateBudget,
         loadBudgets,
-        addCurrentBudget,
-        removeCurrentBudget,
-        updateCurrentBudget,
+        addBudget,
+        deleteBudget,
+        updateBudget,
+        deleteBudgetItem,
+        addBudgetItem,
+        updateCurrentBudgetId,
         updateBudgetLoaded,
       }}
     >
