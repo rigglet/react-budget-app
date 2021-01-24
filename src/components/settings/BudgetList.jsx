@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -6,28 +6,22 @@ import BudgetItem from "./BudgetItem";
 
 const BudgetList = () => {
   const { budgets, currentBudgetId, updateBudget } = useContext(GlobalContext);
-  // const [currentBudget, setCurrentBudget] = useState(
-  //   budgets.filter((budget) => budget.id === currentBudgetId)[0]
-  // );
   const currentBudget = budgets.filter(
     (budget) => budget.id === currentBudgetId
   )[0];
   const budgetItems = currentBudget.data.budgetItems;
-  //console.log(currentBudget);
 
   const deleteBudgetItem = (id) => {
     const newBudget = {
       ...currentBudget,
       data: {
-        //income: currentBudget.data.income,
         ...currentBudget.data,
         budgetItems: budgetItems.filter((item) => item.id !== id),
       },
     };
-    //setCurrentBudget(newBudget);
     updateBudget(newBudget);
-    //console.log(newBudget);
   };
+
   return (
     <StyledBudgetList>
       <div className="header">
@@ -63,7 +57,11 @@ const StyledBudgetList = styled(motion.div)`
   align-items: flex-start;
   justify-content: space-evenly;
   width: 100%;
-
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #39393c;
+  color: #848586;
   .header {
     display: flex;
     width: 100%;
@@ -72,7 +70,6 @@ const StyledBudgetList = styled(motion.div)`
     flex: 1;
     h4 {
       flex: 1;
-      padding: 0rem;
     }
   }
   button {

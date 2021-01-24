@@ -13,10 +13,7 @@ const Dashboard = () => {
   const { currentBudgetId, budgets } = useContext(GlobalContext);
   const currentBudget = budgets.filter(
     (budget) => budget.id === currentBudgetId
-    //console.log(`${budget.id} ${currentBudgetId}`)
-    //budget.id === currentBudgetId
   )[0];
-  //console.log(currentBudget);
 
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];

@@ -15,6 +15,9 @@ const BudgetItem = ({
       <p>{item}</p>
       <p>{frequency}</p>
       <p className="figures">£{amount.toFixed(2)}</p>
+      <form>
+        <input type="checkbox" name="paid" id="paid" />
+      </form>
 
       <button onClick={() => deleteBudgetItem(id)}>Delete</button>
     </StyledItem>
@@ -24,10 +27,15 @@ const BudgetItem = ({
 const StyledItem = styled(motion.div)`
   display: flex;
   align-items: center;
-  min-height: 10vh;
+  min-height: 7vh;
   width: 100%;
   justify-content: space-around;
   p {
+    flex: 1;
+    min-width: 16%;
+  }
+  form {
+    display: inline-flex;
     flex: 1;
   }
 `;

@@ -7,8 +7,9 @@ import { motion } from "framer-motion";
 //import { useHistory } from "react-router-dom";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
-import Allocated from "./Allocated";
+import Allocated from "../dashboard/Allocated";
 import BudgetList from "./BudgetList";
+import BudgetBreakdown from "../dashboard/BudgetBreakdown";
 //import Budget from "../budget/Budget";
 
 const Budget = ({ currentBudget }) => {
@@ -18,59 +19,49 @@ const Budget = ({ currentBudget }) => {
     ...currentBudget.data.income,
   });
 
-  const handleSaveBudget = () => {
-    updateBudget({
-      ...currentBudget,
-      data: { income: { ...formIncome } },
-    });
-    // console.log({
-    //   ...currentBudget,
-    //   data: { income: { ...formIncome } },
-    // });
-  };
-
-  const handleChange = (e) => {
-    setFormIncome(() => ({
-      ...formIncome,
-      [e.target.name]: Number(e.target.value),
-    }));
-  };
-
-  //let totalDeductions = (formIncome.ni + formIncome.tax).toFixed(2);
-  let taxable = (formIncome.annual - formIncome.allowance).toFixed(2);
-
-  //let yearlyNet = (formIncome.annual - totalDeductions).toFixed(2);
-  let monthlyNet = (formIncome.yearlyNet / 12).toFixed(2);
-  let weeklyNet = (formIncome.yearlyNet / 52).toFixed(2);
+  // const handleSaveBudget = () => {
+  //   updateBudget({
+  //     ...currentBudget,
+  //     data: { income: { ...formIncome } },
+  //   });
+  // };
 
   return (
-    <StyledIncome>
-      <h1>Budget</h1>
-      <Allocated />
+    <StyledBudget>
+      <h3>Budget</h3>
+      <div className="charts">
+        <BudgetBreakdown />
+        <Allocated />
+      </div>
       <BudgetList />
-      <button onClick={() => handleSaveBudget()}>SAVE</button>
-    </StyledIncome>
+    </StyledBudget>
   );
 };
 
-const StyledIncome = styled(motion.div)`
+const StyledBudget = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1rem;
-  padding: 3rem;
+  /* padding: 3rem;
   width: 100%;
   border-radius: 4px;
   background-color: #39393c;
-  color: #848586;
+  color: #848586; */
+  .charts {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    justify-content: space-around;
+  }
   .line {
     width: 100%;
     margin: 0.5rem;
     background-color: #848586;
     height: 1px;
   }
-  h1 {
+  h3 {
     margin-bottom: 1rem;
     color: white;
   }
