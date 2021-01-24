@@ -19,6 +19,9 @@ function App() {
         <BrowserRouter>
           <Nav />
           <SubNav />
+          <Route exact path="/">
+            <Budget />
+          </Route>
           <Route path="/settings">
             <Settings />
           </Route>

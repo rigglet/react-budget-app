@@ -10,6 +10,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import Allocated from "../dashboard/Allocated";
 import BudgetList from "./BudgetList";
 import BudgetBreakdown from "../dashboard/BudgetBreakdown";
+import Salary from "../dashboard/Salary";
 //import Budget from "../budget/Budget";
 
 const Budget = ({ currentBudget }) => {
@@ -30,7 +31,7 @@ const Budget = ({ currentBudget }) => {
     <StyledBudget>
       <h3>Budget</h3>
       <div className="charts">
-        <BudgetBreakdown />
+        {/* <BudgetBreakdown /> */}
         <Allocated />
       </div>
       <BudgetList />

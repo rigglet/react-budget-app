@@ -26,21 +26,27 @@ const Salary = () => {
             <h5>Annual (Gross)</h5>
             <p>
               <span className="currencySign">£</span>
-              {annual.toFixed(2)}
+              <span className={annual < 0 ? "negative" : "positive"}>
+                {annual.toFixed(2)}
+              </span>
             </p>
           </div>
           <div className="item">
             <h5>Monthly (Gross)</h5>
             <p>
               <span className="currencySign">£</span>
-              {(annual / 12).toFixed(2)}
+              <span className={annual / 12 < 0 ? "negative" : "positive"}>
+                {(annual / 12).toFixed(2)}
+              </span>
             </p>
           </div>
           <div className="item">
             <h5>Weekly (Gross)</h5>
             <p>
               <span className="currencySign">£</span>
-              {(annual / 52).toFixed(2)}
+              <span className={annual / 52 < 0 ? "negative" : "positive"}>
+                {(annual / 52).toFixed(2)}
+              </span>
             </p>
           </div>
         </div>
@@ -50,21 +56,27 @@ const Salary = () => {
             <h5>Annual (Net)</h5>
             <p>
               <span className="currencySign">£</span>
-              {yearlyNet.toFixed(2)}
+              <span className={yearlyNet < 0 ? "negative" : "positive"}>
+                {yearlyNet.toFixed(2)}
+              </span>
             </p>
           </div>
           <div className="item">
             <h5>Monthly (Net)</h5>
             <p>
               <span className="currencySign">£</span>
-              {monthlyNet.toFixed(2)}
+              <span className={monthlyNet < 0 ? "negative" : "positive"}>
+                {monthlyNet.toFixed(2)}
+              </span>
             </p>
           </div>
           <div className="item">
             <h5>Weekly (Net)</h5>
             <p>
               <span className="currencySign">£</span>
-              {weeklyNet.toFixed(2)}
+              <span className={weeklyNet < 0 ? "negative" : "positive"}>
+                {weeklyNet.toFixed(2)}
+              </span>
             </p>
           </div>
         </div>
@@ -85,10 +97,6 @@ const StyledSalary = styled(motion.div)`
     font-weight: 500;
     margin-bottom: 1rem;
   }
-  .currencySign {
-    //font-weight: bolder;
-    margin-right: 0.25rem;
-  }
   .data {
     display: flex;
     flex-direction: column;
@@ -99,6 +107,10 @@ const StyledSalary = styled(motion.div)`
   .net {
     display: flex;
     justify-content: space-around;
+  }
+  .currencySign {
+    //font-weight: bolder;
+    margin-right: 0.25rem;
   }
 
   @media screen and (max-width: 1100px) {

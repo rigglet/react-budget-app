@@ -50,6 +50,24 @@ button {
       background: rgb(0, 180, 238, 0.5);
     }
   }
+  select{
+    outline-style: none;
+    outline: none;
+    color: #39393c;
+    border-radius: 4px;
+    padding:0.25rem;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+    option{
+      padding:0.25rem;
+    }
+.negative{
+  color: red;
+}
+.positive{
+  color:  #00b4ee;
+}
 
 //React-toastify - Toast close button
 .toastClose{

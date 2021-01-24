@@ -16,7 +16,7 @@ const BudgetItem = ({
       <p>{frequency}</p>
       <p className="figures">£{amount.toFixed(2)}</p>
       <form>
-        <input type="checkbox" name="paid" id="paid" />
+        <input type="checkbox" name={`paid${id}`} />
       </form>
 
       <button onClick={() => deleteBudgetItem(id)}>Delete</button>
