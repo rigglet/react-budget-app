@@ -33,7 +33,9 @@ const BudgetList = () => {
           ))}
         </StyledBudgetList>
       ) : (
-        <Spinner />
+        <StyledSpin>
+          <Spinner />
+        </StyledSpin>
       )}
     </>
   );
@@ -43,6 +45,9 @@ const StyledBudgetList = styled(motion.div)`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+const StyledSpin = styled(motion.div)`
+  align-self: center;
 `;
 
 export default BudgetList;

@@ -6,6 +6,7 @@ const initialState = {
   budgets: [],
   currentBudgetId: "",
   isBudgetLoaded: false,
+  currencySymbol: "£",
 };
 
 //create context
@@ -74,6 +75,7 @@ export const GlobalProvider = ({ children }) => {
         budgets: state.budgets,
         currentBudgetId: state.currentBudgetId,
         isBudgetLoaded: state.isBudgetLoaded,
+        currencySymbol: state.currencySymbol,
         loadBudgets,
         addBudget,
         deleteBudget,

@@ -13,6 +13,7 @@ export const getData = () => {
             item: "rent",
             frequency: "weekly",
             amount: 288.0,
+            paid: true,
           },
           {
             id: 2,
@@ -20,6 +21,7 @@ export const getData = () => {
             item: "phone",
             frequency: "monthly",
             amount: 51.57,
+            paid: false,
           },
           {
             id: 3,
@@ -27,6 +29,7 @@ export const getData = () => {
             item: "council tax",
             frequency: "monthly",
             amount: 11.39,
+            paid: false,
           },
           {
             id: 4,
@@ -34,6 +37,7 @@ export const getData = () => {
             item: "tax",
             frequency: "annually",
             amount: 150.0,
+            paid: false,
           },
           {
             id: 5,
@@ -41,6 +45,7 @@ export const getData = () => {
             item: "insurance",
             frequency: "annually",
             amount: 353.17,
+            paid: false,
           },
         ],
         income: {
@@ -69,6 +74,7 @@ export const getData = () => {
             item: "rent",
             frequency: "weekly",
             amount: 10.0,
+            paid: false,
           },
           {
             id: 2,
@@ -76,6 +82,7 @@ export const getData = () => {
             item: "phone",
             frequency: "monthly",
             amount: 10.0,
+            paid: false,
           },
           {
             id: 3,
@@ -83,6 +90,7 @@ export const getData = () => {
             item: "council tax",
             frequency: "monthly",
             amount: 0.0,
+            paid: false,
           },
           {
             id: 4,
@@ -90,6 +98,7 @@ export const getData = () => {
             item: "tax",
             frequency: "annually",
             amount: 40.0,
+            paid: false,
           },
           {
             id: 5,
@@ -97,6 +106,7 @@ export const getData = () => {
             item: "insurance",
             frequency: "annually",
             amount: 0.17,
+            paid: false,
           },
         ],
         income: {
@@ -125,6 +135,7 @@ export const getData = () => {
             item: "rent",
             frequency: "weekly",
             amount: 1.0,
+            paid: false,
           },
           {
             id: 2,
@@ -132,6 +143,7 @@ export const getData = () => {
             item: "phone",
             frequency: "monthly",
             amount: 2.0,
+            paid: false,
           },
           {
             id: 3,
@@ -139,6 +151,7 @@ export const getData = () => {
             item: "council tax",
             frequency: "monthly",
             amount: 3.0,
+            paid: false,
           },
         ],
         income: {

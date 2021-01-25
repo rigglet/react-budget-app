@@ -3,7 +3,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 //chart
-import { Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 const BudgetBreakdown = () => {
   const [period, setPeriod] = useState("weekly");
@@ -61,40 +61,37 @@ const BudgetBreakdown = () => {
   };
 
   //Chart data
-  const d = [subTotal, remaining];
-  const options = { maintainAspectRatio: true };
+  //const categories = budgetItems.map((b) => b.category);
+  const filteredCategories = [...new Set(budgetItems.map((b) => b.category))];
+  const catFigures = budgetItems.map((b) => b.amount);
   const data = {
-    labels: ["Allocated", "Remaining"],
+    labels: filteredCategories,
     datasets: [
       {
-        backgroundColor: ["#e69a07", "#656b74"],
-        borderColor: ["#00b4ee", "#00b4ee"],
-        label: "Allocated / Remaining",
-        fill: false,
-        lineTension: 0.1,
-        //backgroundColor: "rgba(75,192,192,0.4)",
-        //borderColor: "#e69a07",
-        //borderCapStyle: "butt",
-        //borderDash: [],
-        //borderDashOffset: 0.1,
-        //borderJoinStyle: "miter",
-        pointBorderColor: "rgba(75,192,192,1)",
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: d,
+        //#e69a07
+        //#656b74
+        //#00b4ee
+        //rgba(75,192,192,1)
+        //rgba(220,220,220,1)
+
+        label: "Budget breakdown",
+        backgroundColor: "#e69a07",
+        borderColor: "#00b4ee",
+        borderWidth: 2,
+        hoverBackgroundColor: "#e69a07",
+        hoverBorderColor: "#00b4ee",
+        data: catFigures,
       },
     ],
   };
 
   return (
     <StyledBreakdown>
-      <h4>Budget breakdown by category</h4>
+      <h4>Budget breakdown by category in currency </h4>
+      <h4>Budget breakdown by item in currency </h4>
+      <h4>Budget breakdown by category in % </h4>
+      <h4>Budget breakdown by item in % </h4>
+      <h4>Budget items extrapolated over d/w/m/y </h4>
       <div className="data">
         <div className="info">
           <div className="drop">
@@ -130,7 +127,14 @@ const BudgetBreakdown = () => {
           </div>
         </div>
         <div className="chart">
-          {remaining > 0 && <Doughnut data={data} options={options} />}
+          <Bar
+            data={data}
+            width={100}
+            height={25}
+            options={{
+              maintainAspectRatio: true,
+            }}
+          />
         </div>
       </div>
     </StyledBreakdown>
@@ -139,7 +143,8 @@ const BudgetBreakdown = () => {
 
 const StyledBreakdown = styled(motion.div)`
   padding: 1rem;
-  width: 50%;
+  width: 100%;
+  min-height: 50vh;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
@@ -170,6 +175,8 @@ const StyledBreakdown = styled(motion.div)`
       }
     }
     .chart {
+      height: 100%;
+      width: 100%;
     }
   }
   @media screen and (max-width: 1300px) {

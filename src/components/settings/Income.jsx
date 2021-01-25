@@ -43,7 +43,7 @@ const Income = ({ currentBudget }) => {
 
   return (
     <StyledIncome>
-      <h3>Income</h3>
+      <h4>Income</h4>
       <div className="container">
         <form>
           {/* <div className="row">
@@ -193,12 +193,20 @@ const StyledIncome = styled(motion.div)`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  /* width: 100%;
-  margin-bottom: 1rem;
-  padding: 3rem;
-  border-radius: 4px;
-  background-color: #39393c;
-  color: #848586; */
+  padding: 1rem;
+  h4 {
+    color: white;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .container {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 3rem;
+    border-radius: 4px;
+    background-color: #39393c;
+    color: #848586;
+  }
   .line {
     width: 100%;
     margin: 0.5rem;
@@ -208,14 +216,6 @@ const StyledIncome = styled(motion.div)`
   h3 {
     margin-bottom: 1rem;
     color: white;
-  }
-  .container {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 3rem;
-    border-radius: 4px;
-    background-color: #39393c;
-    color: #848586;
   }
   form {
     display: flex;

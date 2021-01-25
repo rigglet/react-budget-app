@@ -7,7 +7,9 @@ import { Doughnut } from "react-chartjs-2";
 
 const AllocatedRemaining = () => {
   const [period, setPeriod] = useState("weekly");
-  const { budgets, currentBudgetId } = useContext(GlobalContext);
+  const { budgets, currentBudgetId, currencySymbol } = useContext(
+    GlobalContext
+  );
   const currentBudget = budgets.filter(
     (budget) => budget.id === currentBudgetId
   )[0];
@@ -109,13 +111,15 @@ const AllocatedRemaining = () => {
             <div className="item">
               <h5>Allocated</h5>
               <span className={subTotal < 0 ? "negative" : "positive"}>
-                £{subTotal}
+                <span>{currencySymbol}</span>
+                {subTotal}
               </span>
             </div>
             <div className="item">
               <h5>Remaining</h5>
               <span className={remaining < 0 ? "negative" : "positive"}>
-                £{remaining}
+                <span>{currencySymbol}</span>
+                {remaining}
               </span>
             </div>
             <div className="item">
@@ -124,7 +128,8 @@ const AllocatedRemaining = () => {
                 id="total"
                 className={selectedPeriod < 0 ? "negative" : "positive"}
               >
-                £{selectedPeriod}
+                <span>{currencySymbol}</span>
+                {selectedPeriod}
               </span>
             </div>
           </div>

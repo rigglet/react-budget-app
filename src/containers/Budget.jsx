@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import BudgetList from "../components/budget/BudgetList";
-import AddBudgetForm from "../components/budget/AddBudgetForm";
+//import AddBudgetForm from "../components/budget/AddBudgetForm";
 
 const Budget = () => {
   return (
     <StyledBudgetContainer>
       <div className="left"></div>
       <div className="main">
-        <h2>Budgets</h2>
+        {/* <h3>Budgets</h3> */}
         {/* <AddBudgetForm /> */}
         <BudgetList />
       </div>
@@ -35,15 +35,15 @@ const StyledBudgetContainer = styled(motion.div)`
     grid-area: main;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    //align-items: center;
+
+    /* h3 {
+      margin-bottom: 1rem;
+      color: white;
+    } */
   }
   .right {
     grid-area: right;
-  }
-  h2 {
-    color: white;
-    font-weight: 600;
-    margin-bottom: 1rem;
   }
 `;
 

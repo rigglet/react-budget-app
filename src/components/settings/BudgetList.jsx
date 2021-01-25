@@ -24,13 +24,14 @@ const BudgetList = () => {
 
   return (
     <StyledBudgetList>
+      <h4>Budget items</h4>
       <div className="header">
-        <h4>Category</h4>
-        <h4>Item</h4>
-        <h4>Frequency</h4>
-        <h4>Amount</h4>
-        <h4>Paid?</h4>
-        <h4>Actions</h4>
+        <h5>Category</h5>
+        <h5>Item</h5>
+        <h5>Frequency</h5>
+        <h5>Amount</h5>
+        <h5>Paid?</h5>
+        <h5>Actions</h5>
       </div>
 
       {budgetItems
@@ -44,6 +45,7 @@ const BudgetList = () => {
             item={item.item}
             frequency={item.frequency}
             amount={item.amount}
+            paid={item.paid}
             deleteBudgetItem={deleteBudgetItem}
           />
         ))}
@@ -62,18 +64,20 @@ const StyledBudgetList = styled(motion.div)`
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
+  h4 {
+    color: white;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
   .header {
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-evenly;
-    flex: 1;
-    h4 {
-      flex: 1;
+    justify-content: space-between;
+    h5 {
+      justify-self: flex-start;
+      color: #848586;
     }
-  }
-  button {
-    flex: 1;
   }
 `;
 

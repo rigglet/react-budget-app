@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { GlobalContext } from "../../context/GlobalContext";
+import { FaGrin, FaFrown, FaCheckSquare, FaTimesCircle } from "react-icons/fa";
 
 const BudgetItem = ({
   id,
@@ -7,36 +10,58 @@ const BudgetItem = ({
   item,
   frequency,
   amount,
+  paid,
   deleteBudgetItem,
 }) => {
+  const { currencySymbol } = useContext(GlobalContext);
   return (
     <StyledItem>
       <p>{category}</p>
       <p>{item}</p>
       <p>{frequency}</p>
-      <p className="figures">£{amount.toFixed(2)}</p>
-      <form>
-        <input type="checkbox" name={`paid${id}`} />
-      </form>
-
-      <button onClick={() => deleteBudgetItem(id)}>Delete</button>
+      <p>
+        <span>{currencySymbol}</span>
+        {amount.toFixed(2)}
+      </p>
+      <p>
+        {paid ? (
+          <FaCheckSquare className="check" />
+        ) : (
+          <FaTimesCircle className="cross" />
+        )}
+      </p>
+      <p>
+        <button onClick={() => deleteBudgetItem(id)}>Delete</button>
+      </p>
     </StyledItem>
   );
 };
 
 const StyledItem = styled(motion.div)`
   display: flex;
-  align-items: center;
-  min-height: 7vh;
   width: 100%;
+  align-items: center;
   justify-content: space-around;
   p {
-    flex: 1;
-    min-width: 16%;
+    justify-self: flex-start;
+  }
+  .check,
+  .cross {
+    width: 20px;
+    height: 20px;
+  }
+  .check {
+    color: #00b4ee;
+  }
+  .cross {
+    //color: red;
+  }
+  p {
+    //min-width: 16%;
+    padding: 0;
   }
   form {
     display: inline-flex;
-    flex: 1;
   }
 `;
 
