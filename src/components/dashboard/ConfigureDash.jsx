@@ -12,7 +12,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 //import Budget from "../budget/Budget";
 
 const ConfigureDash = () => {
-  const { updateDashboardConfig } = useContext(GlobalContext);
+  //const { updateDashboardConfig } = useContext(GlobalContext);
 
   // const [formIncome, setFormIncome] = useState({
   //   ...currentBudget.data.income,

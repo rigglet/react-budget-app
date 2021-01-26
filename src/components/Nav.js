@@ -163,9 +163,7 @@ const StyledNav = styled(motion.div)`
         font-weight: bolder;
         margin-right: 1rem;
       }
-      /* p {
-        color: white;
-      } */
+
       .selected {
         color: white;
       }

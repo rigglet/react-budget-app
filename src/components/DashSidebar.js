@@ -2,7 +2,8 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 //icons
 import { IoMdSettings } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
@@ -10,34 +11,53 @@ import { MdDashboard } from "react-icons/md";
 
 const DashSidebar = () => {
   const { currentBudgetId } = useContext(GlobalContext);
-  //console.log(`sidebar: ${id}`);
+  const location = useLocation();
+  const path = location.pathname.split("/")[3];
+  //console.log({ path });
   return (
     <StyledSide>
-      <StyledLink
-        to={{
-          pathname: `/dashboard/${currentBudgetId}/view`,
-        }}
-      >
-        <MdDashboard className="navIcon" />
-        <h4>View Dashboard</h4>
-      </StyledLink>
-      <StyledLink
-        to={{
-          pathname: `/dashboard/${currentBudgetId}/settings`,
-        }}
-      >
-        <IoMdSettings className="navIcon" />
-        <h4>Settings</h4>
-      </StyledLink>
+      <ul>
+        <li>
+          <Link
+            to={{
+              pathname: `/dashboard/${currentBudgetId}/view`,
+            }}
+          >
+            <MdDashboard
+              className={path === "view" ? "navIconSelected" : "navIcon"}
+            />
+            <p className={path === "view" ? "selected" : ""}>Dashboard</p>
+          </Link>
+          <Line
+            transition={{ duration: 0.75 }}
+            initial={{ width: "0%" }}
+            animate={{ width: path === "view" ? "70%" : "0%" }}
+          />
+        </li>
+        <li>
+          <Link
+            to={{
+              pathname: `/dashboard/${currentBudgetId}/settings`,
+            }}
+          >
+            <IoMdSettings
+              className={path === "settings" ? "navIconSelected" : "navIcon"}
+            />
+            <p className={path === "settings" ? "selected" : ""}>Settings</p>
+          </Link>
+          <Line
+            transition={{ duration: 0.75 }}
+            initial={{ width: "0%" }}
+            animate={{ width: path === "settings" ? "70%" : "0%" }}
+          />
+        </li>
+      </ul>
     </StyledSide>
   );
 };
 
 const StyledSide = styled(motion.div)`
-  //position: absolute;
-  //margin: 1rem;
   width: 15vw;
-  gap: 1rem;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
@@ -45,24 +65,53 @@ const StyledSide = styled(motion.div)`
   flex-direction: column;
   align-items: left;
   padding: 1rem;
-  flex-shrink: 1;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-decoration: none;
+    li {
+      margin-right: 1rem;
+      text-decoration: none;
+      position: relative;
+      a {
+        display: flex;
+        align-items: center;
+        //justify-content: center;
+        color: #848586;
+        text-decoration: none;
+        font-weight: bolder;
+        //margin-bottom: 1rem;
+        padding: 0.5rem 0;
+      }
+
+      .selected {
+        color: white;
+      }
+      .navIcon {
+        margin-right: 0.5rem;
+        color: #848586;
+        height: 25px;
+        width: 25px;
+      }
+      .navIconSelected {
+        margin-right: 0.5rem;
+        color: white;
+        height: 25px;
+        width: 25px;
+      }
+    }
+  }
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  .navIcon {
-    height: 25px;
-    width: 25px;
-    color: #848586;
-  }
-  h4 {
-    padding: 0;
-    color: #848586;
-    font-weight: 400;
-    padding: 0.5rem;
-  }
+const Line = styled(motion.div)`
+  height: 0.15rem;
+  //background: #00b4ee;
+  background: #e69a07;
+  //width: 100%;
+  position: absolute;
+  bottom: -1%;
 `;
 
 export default DashSidebar;

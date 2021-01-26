@@ -2,8 +2,8 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
-import { FaGrin, FaFrown, FaCheckSquare, FaTimesCircle } from "react-icons/fa";
-
+import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
+//FaGrin, FaFrown,
 const BudgetItem = ({
   id,
   category,

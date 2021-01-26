@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+//import { useState, useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 //number input
@@ -6,19 +6,19 @@ import { motion } from "framer-motion";
 //import { BsFileText } from "react-icons/bs";
 //import { useHistory } from "react-router-dom";
 //context
-import { GlobalContext } from "../../context/GlobalContext";
+//import { GlobalContext } from "../../context/GlobalContext";
 import Allocated from "../dashboard/Allocated";
 import BudgetList from "./BudgetList";
-import BudgetBreakdown from "../dashboard/BudgetBreakdown";
-import Salary from "../dashboard/Salary";
+//import BudgetBreakdown from "../dashboard/BudgetBreakdown";
+//import Salary from "../dashboard/Salary";
 //import Budget from "../budget/Budget";
 
 const Budget = ({ currentBudget }) => {
-  const { updateBudget } = useContext(GlobalContext);
+  //const { updateBudget } = useContext(GlobalContext);
 
-  const [formIncome, setFormIncome] = useState({
-    ...currentBudget.data.income,
-  });
+  // const [formIncome, setFormIncome] = useState({
+  //   ...currentBudget.data.income,
+  // });
 
   // const handleSaveBudget = () => {
   //   updateBudget({
