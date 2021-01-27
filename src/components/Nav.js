@@ -17,8 +17,9 @@ const Nav = () => {
   const { currentBudgetId, budgets, isBudgetLoaded } = useContext(
     GlobalContext
   );
+  //console.log({ currentBudgetId });
   const currentBudget = budgets.filter((b) => b.id === currentBudgetId);
-
+  //console.log({ currentBudget });
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   //console.log({ path });

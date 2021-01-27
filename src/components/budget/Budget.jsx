@@ -36,9 +36,9 @@ const StyledBudget = styled(motion.div)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   width: 100%;
-  height: 8vh;
+  //height: 8vh;
   border-radius: 4px;
   background-color: #39393c;
   border-left: transparent 0.25rem solid;

@@ -1,17 +1,17 @@
-import { useContext } from "react";
+//import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { GlobalContext } from "../context/GlobalContext";
+//import { GlobalContext } from "../context/GlobalContext";
 import { Link, useLocation } from "react-router-dom";
 //import { RiFundsBoxLine } from "react-icons/ri";
 import { FaWallet, FaChartBar, FaRegMoneyBillAlt } from "react-icons/fa";
 import { BiAbacus } from "react-icons/bi";
 
 const Sidebar = ({ id }) => {
-  const { currentBudgetId } = useContext(GlobalContext);
+  //const { currentBudgetId } = useContext(GlobalContext);
   const location = useLocation();
   const path = location.pathname.split("/")[3];
-  console.log({ path });
+  //console.log({ path });
   return (
     <StyledSide>
       <ul>

@@ -13,12 +13,17 @@ const Tracker = ({ currentBudget }) => {
   //const { updateBudget } = useContext(GlobalContext);
 
   return (
-    <StyledIncome>
-      <h1>Tracker</h1>
-    </StyledIncome>
+    <StyledTracker>
+      <h3>Tracker</h3>
+    </StyledTracker>
   );
 };
 
-const StyledIncome = styled(motion.div)``;
+const StyledTracker = styled(motion.div)`
+  h3 {
+    color: white;
+    margin-bottom: 1rem;
+  }
+`;
 
 export default Tracker;

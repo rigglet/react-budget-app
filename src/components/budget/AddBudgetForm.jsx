@@ -5,22 +5,20 @@ import { motion } from "framer-motion";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { saveBudgetLocally } from "../../util";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
-//icon
-//import { FaWindowClose } from "react-icons/fa";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 
 const AddBudgetForm = () => {
   const [formData, setFormData] = useState({ name: "", description: "" });
-  const { addBudget } = useContext(GlobalContext);
+  const { addBudget, budgets } = useContext(GlobalContext);
 
   const notify = (type) => {
     const toastStyle = {
       position: "bottom-center",
-      //autoClose: 1000,
+      autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -48,7 +46,7 @@ const AddBudgetForm = () => {
 
   const handleValidation = (formData) => {
     let valid = true;
-    console.log(formData.name.length);
+    //console.log(formData.name.length);
     if (formData.name.length < 5 || formData.description.length < 5) {
       valid = false;
     }
@@ -65,7 +63,7 @@ const AddBudgetForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(handleValidation(formData));
+    //console.log(handleValidation(formData));
 
     if (handleValidation(formData)) {
       const date = new Date(Date.now());
@@ -80,10 +78,27 @@ const AddBudgetForm = () => {
           (date.getMonth() + 1) +
           "/" +
           date.getFullYear(),
+        data: {
+          budgetItems: new Array(),
+          income: {
+            annual: "",
+            allowance: "",
+            taxable: "",
+            tax: "",
+            ni: "",
+            contributions: "",
+            yearlyNet: "",
+            monthlyNet: "",
+            weeklyNet: "",
+          },
+        },
       };
 
+      //add budget to app context
       addBudget(newBudget);
-      //setBudgets((prevBudgets) => [...prevBudgets, newBudget]);
+      //save budget to local storage
+      saveBudgetLocally(budgets, newBudget);
+      //reset form
       setFormData({ name: "", description: "" });
       notify("ADDED");
     } else {
@@ -142,7 +157,7 @@ const StyledAddbudgetForm = styled(motion.div)`
   align-items: flex-start;
   //justify-content: space-between;
   margin-bottom: 2rem;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   min-width: 100%;
   min-height: 8vh;
   border-radius: 4px;
@@ -150,6 +165,8 @@ const StyledAddbudgetForm = styled(motion.div)`
   border-left: transparent 0.25rem solid;
   color: #848586;
   h4 {
+    color: white;
+    font-weight: 500;
     margin-bottom: 1rem;
   }
   form {
@@ -157,6 +174,7 @@ const StyledAddbudgetForm = styled(motion.div)`
     align-items: center;
     justify-content: space-between;
     font-size: 10pt;
+    width: 100%;
   }
   label {
     margin-right: 0.25rem;

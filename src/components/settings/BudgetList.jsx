@@ -59,11 +59,12 @@ const StyledBudgetList = styled(motion.div)`
   align-items: flex-start;
   justify-content: space-evenly;
   width: 100%;
-  margin-top: 1.5rem;
+  //margin-top: 1.5rem;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
+  row-gap: 0.5rem;
   h4 {
     color: white;
     font-weight: 500;

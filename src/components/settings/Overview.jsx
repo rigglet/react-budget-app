@@ -12,9 +12,18 @@ import { motion } from "framer-motion";
 const Overview = ({ currentBudget }) => {
   //const { updateBudget } = useContext(GlobalContext);
 
-  return <StyledIncome></StyledIncome>;
+  return (
+    <StyledOverview>
+      <h3>Overview</h3>
+    </StyledOverview>
+  );
 };
 
-const StyledIncome = styled(motion.div)``;
+const StyledOverview = styled(motion.div)`
+  h3 {
+    color: white;
+    margin-bottom: 1rem;
+  }
+`;
 
 export default Overview;

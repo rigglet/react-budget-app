@@ -17,8 +17,8 @@ const Salary = () => {
     monthlyNet,
     yearlyNet,
   } = currentBudget.data.income;
-  //console.log(income);
 
+  console.log({ currentBudget });
   return (
     <StyledSalary>
       <h4>Salary gross and net breakdown</h4>
@@ -27,27 +27,27 @@ const Salary = () => {
           <div className="item">
             <h5>Annual (Gross)</h5>
             <p>
-              <span>{currencySymbol}</span>
+              <span className="symbol">{currencySymbol}</span>
               <span className={annual < 0 ? "negative" : "positive"}>
-                {annual.toFixed(2)}
+                {Number(annual).toFixed(2) || 0}
               </span>
             </p>
           </div>
           <div className="item">
             <h5>Monthly (Gross)</h5>
             <p>
-              <span>{currencySymbol}</span>
+              <span className="symbol">{currencySymbol}</span>
               <span className={annual / 12 < 0 ? "negative" : "positive"}>
-                {(annual / 12).toFixed(2)}
+                {Number(annual / 12).toFixed(2)}
               </span>
             </p>
           </div>
           <div className="item">
             <h5>Weekly (Gross)</h5>
             <p>
-              <span>{currencySymbol}</span>
+              <span className="symbol">{currencySymbol}</span>
               <span className={annual / 52 < 0 ? "negative" : "positive"}>
-                {(annual / 52).toFixed(2)}
+                {Number(annual / 52).toFixed(2)}
               </span>
             </p>
           </div>
@@ -57,27 +57,27 @@ const Salary = () => {
           <div className="item">
             <h5>Annual (Net)</h5>
             <p>
-              <span>{currencySymbol}</span>
+              <span className="symbol">{currencySymbol}</span>
               <span className={yearlyNet < 0 ? "negative" : "positive"}>
-                {yearlyNet.toFixed(2)}
+                {Number(yearlyNet).toFixed(2)}
               </span>
             </p>
           </div>
           <div className="item">
             <h5>Monthly (Net)</h5>
             <p>
-              <span>{currencySymbol}</span>
+              <span className="symbol">{currencySymbol}</span>
               <span className={monthlyNet < 0 ? "negative" : "positive"}>
-                {monthlyNet.toFixed(2)}
+                {Number(monthlyNet).toFixed(2)}
               </span>
             </p>
           </div>
           <div className="item">
             <h5>Weekly (Net)</h5>
             <p>
-              <span>{currencySymbol}</span>
+              <span className="symbol">{currencySymbol}</span>
               <span className={weeklyNet < 0 ? "negative" : "positive"}>
-                {weeklyNet.toFixed(2)}
+                {Number(weeklyNet).toFixed(2)}
               </span>
             </p>
           </div>
@@ -104,16 +104,19 @@ const StyledSalary = styled(motion.div)`
     flex-direction: column;
     gap: 1rem;
     //width: 100%;
+    .symbol {
+      margin-right: 0.25rem;
+    }
   }
   .gross,
   .net {
     display: flex;
     justify-content: space-around;
   }
-  .currencySign {
+  /* .currencySign {
     //font-weight: bolder;
     margin-right: 0.25rem;
-  }
+  } */
 
   @media screen and (max-width: 1100px) {
     .gross,

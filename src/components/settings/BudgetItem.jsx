@@ -21,7 +21,7 @@ const BudgetItem = ({
       <p>{frequency}</p>
       <p>
         <span>{currencySymbol}</span>
-        {amount.toFixed(2)}
+        {amount}
       </p>
       <p>
         {paid ? (

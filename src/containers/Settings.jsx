@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
-  console.log(subMenu);
+  //console.log(subMenu);
   return (
     <StyledDash>
       <div className="left">
@@ -36,11 +36,6 @@ const Dashboard = () => {
 
 const StyledDash = styled(motion.div)`
   padding: 1.5rem;
-  //padding-left: 15vw;
-  width: 100vw;
-  height: 80vh;
-  background-color: #1f2023;
-  color: #848586;
   display: grid;
   grid-template-columns: 15vw auto 15vw;
   grid-template-rows: auto;
@@ -55,16 +50,6 @@ const StyledDash = styled(motion.div)`
   .right {
     grid-area: right;
   }
-  /* align-items: left; */
 `;
-
-// const StyledLink = styled(Link)`
-//   text-decoration: none;
-//   h4 {
-//     color: #848586;
-//     font-weight: 400;
-//     padding: 1rem;
-//   }
-// `;
 
 export default Dashboard;

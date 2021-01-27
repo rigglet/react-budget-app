@@ -10,15 +10,17 @@ const AllocatedRemaining = () => {
   const { budgets, currentBudgetId, currencySymbol } = useContext(
     GlobalContext
   );
+  console.log({ currentBudgetId });
   const currentBudget = budgets.filter(
     (budget) => budget.id === currentBudgetId
   )[0];
   const budgetItems = currentBudget.data.budgetItems;
+  console.log({ budgetItems });
   const income = currentBudget.data.income;
   let yearlyAllocated = "";
 
   //allocated total as a yearly figure
-  if (budgetItems.length > 0) {
+  if (budgetItems.length) {
     yearlyAllocated = budgetItems
       .map((item) => {
         if (item.frequency === "weekly") {
@@ -42,15 +44,15 @@ const AllocatedRemaining = () => {
   switch (period) {
     case "weekly":
       selectedPeriod = income.weeklyNet;
-      subTotal = (yearlyAllocated / 52).toFixed(2);
+      subTotal = Number(yearlyAllocated / 52).toFixed(2);
       break;
     case "monthly":
       selectedPeriod = income.monthlyNet;
-      subTotal = (yearlyAllocated / 12).toFixed(2);
+      subTotal = Number(yearlyAllocated / 12).toFixed(2);
       break;
     case "annually":
       selectedPeriod = income.yearlyNet;
-      subTotal = yearlyAllocated.toFixed(2);
+      subTotal = Number(yearlyAllocated).toFixed(2);
       break;
     default:
       selectedPeriod = income.weeklyNet;
@@ -110,26 +112,26 @@ const AllocatedRemaining = () => {
           <div className="figures">
             <div className="item">
               <h5>Allocated</h5>
+              <span className="symbol">{currencySymbol}</span>
               <span className={subTotal < 0 ? "negative" : "positive"}>
-                <span>{currencySymbol}</span>
                 {subTotal}
               </span>
             </div>
             <div className="item">
               <h5>Remaining</h5>
+              <span className="symbol">{currencySymbol}</span>
               <span className={remaining < 0 ? "negative" : "positive"}>
-                <span>{currencySymbol}</span>
                 {remaining}
               </span>
             </div>
             <div className="item">
               <h5>Total</h5>
+              <span className="symbol">{currencySymbol}</span>
               <span
                 id="total"
                 className={selectedPeriod < 0 ? "negative" : "positive"}
               >
-                <span>{currencySymbol}</span>
-                {selectedPeriod}
+                {selectedPeriod || 0}
               </span>
             </div>
           </div>
@@ -172,6 +174,11 @@ const StyledAllocated = styled(motion.div)`
       .figures {
         display: flex;
         gap: 1rem;
+        .item {
+          .symbol {
+            margin-right: 0.25rem;
+          }
+        }
       }
     }
     .chart {

@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { updateBudgetLocally } from "../../util";
 //number input
 //import NumericInput from "react-numeric-input";
 //import { BsFileText } from "react-icons/bs";
@@ -10,22 +11,12 @@ import { GlobalContext } from "../../context/GlobalContext";
 //import Budget from "../budget/Budget";
 
 const Income = ({ currentBudget }) => {
-  const { updateBudget } = useContext(GlobalContext);
+  const { updateBudget, budgets } = useContext(GlobalContext);
 
   const [formIncome, setFormIncome] = useState({
     ...currentBudget.data.income,
   });
-
-  const handleSaveBudget = () => {
-    updateBudget({
-      ...currentBudget,
-      data: { income: { ...formIncome } },
-    });
-    // console.log({
-    //   ...currentBudget,
-    //   data: { income: { ...formIncome } },
-    // });
-  };
+  //console.log({ ...currentBudget.data.income });
 
   const handleChange = (e) => {
     setFormIncome(() => ({
@@ -41,9 +32,39 @@ const Income = ({ currentBudget }) => {
   let monthlyNet = (formIncome.yearlyNet / 12).toFixed(2);
   let weeklyNet = (formIncome.yearlyNet / 52).toFixed(2);
 
+  const handleSaveBudget = () => {
+    //update global provider
+    updateBudget({
+      ...currentBudget,
+      data: {
+        ...currentBudget.data,
+        income: {
+          ...formIncome,
+          monthlyNet: monthlyNet,
+          weeklyNet: weeklyNet,
+          taxable: taxable,
+        },
+      },
+    });
+
+    // update local storage
+    updateBudgetLocally(budgets, {
+      ...currentBudget,
+      data: {
+        ...currentBudget.data,
+        income: {
+          ...formIncome,
+          monthlyNet: monthlyNet,
+          weeklyNet: weeklyNet,
+          taxable: taxable,
+        },
+      },
+    });
+  };
+
   return (
     <StyledIncome>
-      <h4>Income</h4>
+      <h3>Income</h3>
       <div className="container">
         <form>
           {/* <div className="row">
@@ -70,7 +91,7 @@ const Income = ({ currentBudget }) => {
               type="number"
               name="annual"
               id="annual"
-              value={formIncome.annual}
+              value={formIncome.annual || ""}
               onChange={handleChange}
               // onBlur={() => handleFormat}
             />
@@ -83,7 +104,7 @@ const Income = ({ currentBudget }) => {
               name="allowance"
               id="allowance"
               step="10"
-              value={formIncome.allowance}
+              value={formIncome.allowance || ""}
               onChange={handleChange}
             />
           </div>
@@ -96,8 +117,8 @@ const Income = ({ currentBudget }) => {
               id="taxable"
               step="10"
               //value={formIncome.taxable.toFixed(2)}
-              value={taxable}
-              //onChange={handleChange}
+              value={taxable || ""}
+              onChange={handleChange}
               readOnly
             />
           </div>
@@ -110,7 +131,7 @@ const Income = ({ currentBudget }) => {
               name="tax"
               id="tax"
               step="10"
-              value={formIncome.tax}
+              value={formIncome.tax || ""}
               onChange={handleChange}
             />
           </div>
@@ -122,7 +143,7 @@ const Income = ({ currentBudget }) => {
               name="ni"
               id="ni"
               step="10"
-              value={formIncome.ni}
+              value={formIncome.ni || ""}
               onChange={handleChange}
             />
           </div>
@@ -134,7 +155,7 @@ const Income = ({ currentBudget }) => {
               name="contributions"
               id="contributions"
               step="10"
-              value={formIncome.contributions}
+              value={formIncome.contributions || ""}
               //value={totalDeductions}
               onChange={handleChange}
               //readOnly
@@ -149,8 +170,8 @@ const Income = ({ currentBudget }) => {
               name="weeklyNet"
               id="weeklyNet"
               //value={formIncome.weeklyNet.toFixed(2)}
-              value={weeklyNet}
-              //onChange={handleChange}
+              value={weeklyNet || ""}
+              onChange={handleChange}
               readOnly
             />
           </div>
@@ -162,8 +183,8 @@ const Income = ({ currentBudget }) => {
               name="monthlyNet"
               id="monthlyNet"
               //value={formIncome.monthlyNet.toFixed(2)}
-              value={monthlyNet}
-              //onChange={handleChange}
+              value={monthlyNet || ""}
+              onChange={handleChange}
               readOnly
             />
           </div>
@@ -174,7 +195,7 @@ const Income = ({ currentBudget }) => {
               type="number"
               name="yearlyNet"
               id="yearlyNet"
-              value={formIncome.yearlyNet}
+              value={formIncome.yearlyNet || ""}
               //value={yearlyNet}
               onChange={handleChange}
               //readOnly
@@ -189,14 +210,9 @@ const Income = ({ currentBudget }) => {
 };
 
 const StyledIncome = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 1rem;
-  h4 {
+  h3 {
     color: white;
-    font-weight: 500;
+    //font-weight: 500;
     margin-bottom: 1rem;
   }
   .container {
@@ -238,7 +254,8 @@ const StyledIncome = styled(motion.div)`
       border: transparent solid 2px;
       color: #848586;
       &:hover,
-      &:active {
+      &:active,
+      &:focus {
         outline: #00b4ee solid 2px;
         color: white;
       }
