@@ -16,34 +16,58 @@ const BudgetItem = ({
   const { currencySymbol } = useContext(GlobalContext);
   return (
     <StyledItem>
-      <p>{category}</p>
+      <td>
+        <p>{category}</p>
+      </td>
+      <td>
+        <p>{item}</p>
+      </td>
+      <td>
+        <p>{frequency}</p>
+      </td>
+      <td>
+        <p>{amount}</p>
+      </td>
+      <td>
+        <p>
+          {paid ? (
+            <FaCheckSquare className="check" />
+          ) : (
+            <FaTimesCircle className="cross" />
+          )}
+        </p>
+      </td>
+      <td>
+        <p>
+          <button onClick={() => deleteBudgetItem(id)}>Delete</button>
+        </p>
+      </td>
+
+      {/* <p>{category}</p>
       <p>{item}</p>
       <p>{frequency}</p>
       <p>
-        <span>{currencySymbol}</span>
+      <span>{currencySymbol}</span>
         {amount}
-      </p>
-      <p>
+        </p>
+        <p>
         {paid ? (
           <FaCheckSquare className="check" />
-        ) : (
-          <FaTimesCircle className="cross" />
-        )}
-      </p>
+          ) : (
+            <FaTimesCircle className="cross" />
+            )}
+            </p>
       <p>
         <button onClick={() => deleteBudgetItem(id)}>Delete</button>
-      </p>
+      </p> */}
     </StyledItem>
   );
 };
 
-const StyledItem = styled(motion.div)`
-  display: flex;
+const StyledItem = styled(motion.tr)`
   width: 100%;
-  align-items: center;
-  justify-content: space-around;
   p {
-    justify-self: flex-start;
+    text-align: center;
   }
   .check,
   .cross {
@@ -55,10 +79,6 @@ const StyledItem = styled(motion.div)`
   }
   .cross {
     //color: red;
-  }
-  p {
-    //min-width: 16%;
-    padding: 0;
   }
   form {
     display: inline-flex;

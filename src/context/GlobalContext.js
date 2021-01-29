@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
-
+//import { getWidgets } from "../data";
 //intialState
 const initialState = {
   budgets: [],
@@ -68,6 +68,12 @@ export const GlobalProvider = ({ children }) => {
       payload: loaded,
     });
   };
+  // const updateWidgets = (widgets) => {
+  //   dispatch({
+  //     type: "UPDATE_WIDGETS",
+  //     payload: widgets,
+  //   });
+  // };
 
   return (
     <GlobalContext.Provider
@@ -76,6 +82,7 @@ export const GlobalProvider = ({ children }) => {
         currentBudgetId: state.currentBudgetId,
         isBudgetLoaded: state.isBudgetLoaded,
         currencySymbol: state.currencySymbol,
+        //widgets: state.widgets,
         loadBudgets,
         addBudget,
         deleteBudget,
@@ -84,6 +91,7 @@ export const GlobalProvider = ({ children }) => {
         addBudgetItem,
         updateCurrentBudgetId,
         updateBudgetLoaded,
+        //updateWidgets,
       }}
     >
       {children}

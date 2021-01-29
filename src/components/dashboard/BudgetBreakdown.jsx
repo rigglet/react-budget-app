@@ -88,10 +88,6 @@ const BudgetBreakdown = () => {
   return (
     <StyledBreakdown>
       <h4>Budget breakdown by category in currency </h4>
-      <h4>Budget breakdown by item in currency </h4>
-      <h4>Budget breakdown by category in % </h4>
-      <h4>Budget breakdown by item in % </h4>
-      <h4>Budget items extrapolated over d/w/m/y </h4>
       <div className="data">
         <div className="info">
           <div className="drop">

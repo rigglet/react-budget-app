@@ -14,19 +14,6 @@ import BudgetBreakdown from "../dashboard/BudgetBreakdown";
 import Salary from "../dashboard/Salary";
 
 const Budget = ({ currentBudget }) => {
-  //const { updateBudget } = useContext(GlobalContext);
-
-  // const [formIncome, setFormIncome] = useState({
-  //   ...currentBudget.data.income,
-  // });
-
-  // const handleSaveBudget = () => {
-  //   updateBudget({
-  //     ...currentBudget,
-  //     data: { income: { ...formIncome } },
-  //   });
-  // };
-
   return (
     <StyledBudget>
       <h3>Budget</h3>

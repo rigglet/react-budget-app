@@ -8,6 +8,7 @@ export const reducer = (state, action) => {
     deleteBudgetItem: "DELETE_BUDGET_ITEM",
     updateCurrentBudgetId: "UPDATE_CURRENT_BUDGET_ID",
     updateBudgetLoaded: "UPDATE_ISLOADED",
+    //updateWidgets: "UPDATE_WIDGETS",
   };
 
   switch (action.type) {
@@ -59,6 +60,11 @@ export const reducer = (state, action) => {
         ...state,
         isBudgetLoaded: action.payload,
       };
+    // case ACTIONS.updateWidgets:
+    //   return {
+    //     ...state,
+    //     widgets: action.payload,
+    //   };
     default:
       return state;
   }

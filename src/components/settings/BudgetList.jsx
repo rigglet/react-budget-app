@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 import BudgetItem from "./BudgetItem";
+import { updateBudgetLocally } from "../../util";
 
 const BudgetList = () => {
   const { budgets, currentBudgetId, updateBudget } = useContext(GlobalContext);
@@ -19,66 +20,81 @@ const BudgetList = () => {
         budgetItems: budgetItems.filter((item) => item.id !== id),
       },
     };
+
+    //update global context
     updateBudget(newBudget);
+
+    //update local storage
+    updateBudgetLocally(budgets, newBudget);
   };
 
   return (
     <StyledBudgetList>
       <h4>Budget items</h4>
-      <div className="header">
-        <h5>Category</h5>
-        <h5>Item</h5>
-        <h5>Frequency</h5>
-        <h5>Amount</h5>
-        <h5>Paid?</h5>
-        <h5>Actions</h5>
-      </div>
+      <table>
+        <tr>
+          <th>
+            <h5>Category</h5>
+          </th>
+          <th>
+            <h5>Item</h5>
+          </th>
+          <th>
+            <h5>Frequency</h5>
+          </th>
+          <th>
+            <h5>Amount</h5>
+          </th>
+          <th>
+            <h5>Paid?</h5>
+          </th>
+          <th>
+            <h5>Actions</h5>
+          </th>
+        </tr>
 
-      {budgetItems
-        .sort((a, b) => (a.category > b.category ? 1 : -1))
-        //.sort((a, b) => (a.item > b.item ? 1 : -1))
-        .map((item) => (
-          <BudgetItem
-            key={item.id}
-            id={item.id}
-            category={item.category}
-            item={item.item}
-            frequency={item.frequency}
-            amount={item.amount}
-            paid={item.paid}
-            deleteBudgetItem={deleteBudgetItem}
-          />
-        ))}
+        {budgetItems
+          .sort((a, b) => (a.category > b.category ? 1 : -1))
+          //.sort((a, b) => (a.item > b.item ? 1 : -1))
+          .map((item) => (
+            <BudgetItem
+              key={item.id}
+              id={item.id}
+              category={item.category}
+              item={item.item}
+              frequency={item.frequency}
+              amount={item.amount}
+              paid={item.paid}
+              deleteBudgetItem={deleteBudgetItem}
+            />
+          ))}
+      </table>
     </StyledBudgetList>
   );
 };
 
 const StyledBudgetList = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  width: 100%;
+  //display: flex;
+  //flex-direction: column;
+  //align-items: flex-start;
+  //justify-content: space-evenly;
+  //width: 100%;
   //margin-top: 1.5rem;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
-  row-gap: 0.5rem;
+  //row-gap: 0.5rem;
+  table {
+    width: 100%;
+  }
   h4 {
     color: white;
     font-weight: 500;
     margin-bottom: 1rem;
   }
-  .header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    h5 {
-      justify-self: flex-start;
-      color: #848586;
-    }
+  h5 {
+    color: #848586;
   }
 `;
 

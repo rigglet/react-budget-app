@@ -1,27 +1,53 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//number input
-//import NumericInput from "react-numeric-input";
-//import { BsFileText } from "react-icons/bs";
-//RiEyeCloseLine
-//RiEye2Line
-//import { useHistory } from "react-router-dom";
+import { RiEyeCloseLine, RiEye2Line } from "react-icons/ri";
+
 //context
 import { GlobalContext } from "../../context/GlobalContext";
-//import Budget from "../budget/Budget";
+import { updateBudgetLocally } from "../../util";
 
 const ConfigureDash = () => {
-  //const { updateDashboardConfig } = useContext(GlobalContext);
+  const { budgets, currentBudgetId, updateBudget } = useContext(GlobalContext);
+  const currentBudget = budgets.filter(
+    (budget) => budget.id === currentBudgetId
+  )[0];
 
-  // const [formIncome, setFormIncome] = useState({
-  //   ...currentBudget.data.income,
-  // });
+  //const widgets = budgets.filter((budget) => budget.id === currentBudgetId)[0].widgets;
+  const [widgets, setWidgets] = useState(
+    budgets.filter((budget) => budget.id === currentBudgetId)[0].widgets
+  );
 
-  const handleSaveConfig = (e) => {
-    // setFormIncome(() => ({
-    //   [e.target.name]: Number(e.target.value),
-    // }));
+  //update global context with local data
+
+  const handleSaveConfig = () => {
+    //updateWidgets(widgets);
+    //updateBudget(newBudget);
+    updateBudgetLocally(budgets, currentBudget);
+  };
+
+  const handleChangeSetting = (name, index) => {
+    setWidgets([
+      ...widgets.filter((item) => item.name !== name),
+      { name, selected: !widgets[index].selected },
+    ]);
+
+    updateBudget({
+      ...currentBudget,
+      widgets: [
+        ...widgets.filter((item) => item.name !== name),
+        { name, selected: !widgets[index].selected },
+      ],
+    });
+
+    //updateBudget(newBudget);
+    // console.log({
+    //   ...currentBudget,
+    //   widgets: [
+    //     ...widgets.filter((item) => item.name !== name),
+    //     { name, selected: !widgets[index].selected },
+    //   ],
+    // });
   };
 
   return (
@@ -31,11 +57,28 @@ const ConfigureDash = () => {
         <h5>Income widgets</h5>
         <div className="line"></div>
         <h5>Budget widgets</h5>
-        <p>Budget breakdown by category in currency </p>
-        <p>Budget breakdown by item in currency </p>
-        <p>Budget breakdown by category in % </p>
-        <p>Budget breakdown by item in % </p>
-        <p>Budget items extrapolated over d/w/m/y </p>
+
+        {widgets
+          .sort((a, b) => (a.name > b.name ? 1 : -1))
+          .map((item, index) => (
+            <div className="selection" key={item.name}>
+              <p>{item.name} </p>
+              <div className="iconSelect">
+                {item.selected ? (
+                  <RiEye2Line
+                    className="icon open"
+                    onClick={() => handleChangeSetting(item.name, index)}
+                  />
+                ) : (
+                  <RiEyeCloseLine
+                    className="icon"
+                    onClick={() => handleChangeSetting(item.name, index)}
+                  />
+                )}
+              </div>
+            </div>
+          ))}
+
         <div className="line"></div>
         <button onClick={() => handleSaveConfig()}>SAVE</button>
       </div>
@@ -44,53 +87,64 @@ const ConfigureDash = () => {
 };
 
 const StyledIncome = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
-  color: #848586;
+  //color: #848586;
+  input[type="checkbox"] {
+    opacity: 0;
+  }
   h4 {
     color: white;
     font-weight: 500;
     margin-bottom: 1rem;
   }
-  h3 {
-    //margin-bottom: 1rem;
-    //color: white;
+  .selection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5rem;
+  }
+  .iconSelect {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+  }
+  .line {
+    width: 100%;
+    margin: 1rem 0;
+    //margin: 0.5rem;
+    background-color: #848586;
+    height: 1px;
+  }
+  .icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+  .open {
+    color: white;
+  }
+  h5 {
+    margin-bottom: 0.5rem;
   }
   .container {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 3rem;
-    border-radius: 4px;
-    background-color: #39393c;
-    color: #848586;
-    .line {
-      width: 100%;
-      margin: 0.5rem;
-      background-color: #848586;
-      height: 1px;
-    }
-    h4 {
-      color: white;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
+    //width: 100%;
+    //margin-bottom: 1rem;
+    //padding: 3rem;
+    //border-radius: 4px;
+    //background-color: #39393c;
+    //color: #848586;
   }
   button {
-    margin-top: 1rem;
+    //margin-top: 1rem;
   }
 
   p {
-    color: #848586;
+    //color: #848586;
     //color: white;
-    //padding-left: 1rem;
-    //font-size: 10pt;
+    padding-bottom: 0.25rem;
+    font-size: 12pt;
   }
 `;
 

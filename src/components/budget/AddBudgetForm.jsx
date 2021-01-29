@@ -10,6 +10,7 @@ import { saveBudgetLocally } from "../../util";
 import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
+import { getWidgets } from "../../data";
 
 const AddBudgetForm = () => {
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -92,6 +93,7 @@ const AddBudgetForm = () => {
             weeklyNet: "",
           },
         },
+        widgets: getWidgets(),
       };
 
       //add budget to app context
