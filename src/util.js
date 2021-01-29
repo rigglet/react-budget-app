@@ -17,9 +17,8 @@ export const updateBudgetLocally = (budgets, updateBudget) => {
     JSON.stringify([...subSet, updateBudget])
   );
 };
-export const updateWidgetsLocally = (widgets) => {
-  window.localStorage.setItem(
-    "EXPENSE-APP-SETTINGS",
-    JSON.stringify([...widgets])
-  );
+
+export const deleteBudgetLocally = (budgets, id) => {
+  const newBudgets = budgets.filter((b) => b.id !== id);
+  window.localStorage.setItem("EXPENSE-APP", JSON.stringify([...newBudgets]));
 };

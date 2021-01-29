@@ -3,17 +3,32 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { BsFileText } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
+import { FaTrashAlt } from "react-icons/fa";
+import { deleteBudgetLocally } from "../../util";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 
 const Budget = ({ budget }) => {
+  const { budgets } = useContext(GlobalContext);
   let history = useHistory();
 
-  const { updateCurrentBudgetId, updateBudgetLoaded } = useContext(
-    GlobalContext
-  );
+  const {
+    updateCurrentBudgetId,
+    updateBudgetLoaded,
+    deleteBudget,
+    currentBudgetId,
+  } = useContext(GlobalContext);
 
-  const handleBudgetOpen = (budget) => {
+  const handleBudgetDelete = () => {
+    if (budget.id === currentBudgetId) {
+      updateCurrentBudgetId("");
+      updateBudgetLoaded(false);
+    }
+    deleteBudgetLocally(budgets, budget.id);
+    deleteBudget(budget.id);
+  };
+
+  const handleBudgetOpen = () => {
     updateCurrentBudgetId(budget.id);
     updateBudgetLoaded(true);
     history.push(`/settings/${budget.id}/income`);
@@ -26,7 +41,10 @@ const Budget = ({ budget }) => {
         <p>{budget.saveName}</p>
         <p>[ {budget.description} ]</p>
       </div>
-      <button onClick={() => handleBudgetOpen(budget)}>OPEN</button>
+      <div className="actions">
+        <FaTrashAlt onClick={() => handleBudgetDelete()} className="delIcon" />
+        <button onClick={() => handleBudgetOpen()}>OPEN</button>
+      </div>
     </StyledBudget>
   );
 };
@@ -50,18 +68,26 @@ const StyledBudget = styled(motion.div)`
     //background-color: rgba(57, 57, 60, 0.6);
   }
 
-  .info {
+  .info,
+  .actions {
     display: flex;
     align-items: center;
+    gap: 0.75rem;
   }
   .navIcon {
     color: #00b4ee;
     height: 30px;
     width: 30px;
   }
+  .delIcon {
+    color: #b87272;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+  }
   p {
     color: white;
-    padding-left: 1rem;
+    /* padding-left: 1rem; */
     font-size: 10pt;
   }
 `;
