@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import Allocated from "../dashboard/Allocated";
 import BudgetList from "./BudgetList";
 import AddBudgetItemForm from "./AddBudgetItemForm";
-import BudgetBreakdown from "../dashboard/BudgetBreakdown";
+//import BudgetBreakdown from "../dashboard/BudgetBreakdown";
 import Salary from "../dashboard/Salary";
 
 const Budget = ({ currentBudget }) => {

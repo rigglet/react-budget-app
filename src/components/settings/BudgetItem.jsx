@@ -26,7 +26,10 @@ const BudgetItem = ({
         <p>{frequency}</p>
       </td>
       <td>
-        <p>{amount}</p>
+        <p>
+          <span className="symbol">{currencySymbol}</span>
+          {amount}
+        </p>
       </td>
       <td>
         <p>
@@ -42,24 +45,6 @@ const BudgetItem = ({
           <button onClick={() => deleteBudgetItem(id)}>Delete</button>
         </p>
       </td>
-
-      {/* <p>{category}</p>
-      <p>{item}</p>
-      <p>{frequency}</p>
-      <p>
-      <span>{currencySymbol}</span>
-        {amount}
-        </p>
-        <p>
-        {paid ? (
-          <FaCheckSquare className="check" />
-          ) : (
-            <FaTimesCircle className="cross" />
-            )}
-            </p>
-      <p>
-        <button onClick={() => deleteBudgetItem(id)}>Delete</button>
-      </p> */}
     </StyledItem>
   );
 };
@@ -68,6 +53,10 @@ const StyledItem = styled(motion.tr)`
   width: 100%;
   p {
     text-align: center;
+    text-transform: capitalize;
+    .symbol {
+      margin-right: 0.25rem;
+    }
   }
   .check,
   .cross {

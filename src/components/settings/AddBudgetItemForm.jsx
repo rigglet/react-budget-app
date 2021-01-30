@@ -76,7 +76,7 @@ const AddBudgetItemForm = () => {
     //console.log(handleValidation(formData));
 
     if (handleValidation(formData)) {
-      const date = new Date(Date.now());
+      //const date = new Date(Date.now());
       //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
       const newBudgetItem = {
         id: uuidv4(),

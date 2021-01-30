@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
 import { useLocation } from "react-router-dom";
-import Allocated from "../components/dashboard/Allocated";
-import BudgetBreakdown from "../components/dashboard/BudgetBreakdown";
+import { getWidget } from "../util";
 import ConfigureDash from "../components/dashboard/ConfigureDash";
-import Salary from "../components/dashboard/Salary";
 import DashSidebar from "../components/DashSidebar";
+//import { getWidgets } from "../data";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -17,7 +16,7 @@ const Dashboard = () => {
 
   const widgets = budgets.filter((budget) => budget.id === currentBudgetId)[0]
     .widgets;
-  //console.log(widgets);
+
   return (
     <StyledDashboard>
       <div className="left">
@@ -30,10 +29,11 @@ const Dashboard = () => {
             <div className="widgets">
               {widgets
                 .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .map((item) => (item.selected ? item.widget : ""))}
-              {/* <Salary />
-              <Allocated />
-              <BudgetBreakdown /> */}
+                .map((item) => {
+                  if (item.selected) {
+                    return getWidget(item.name);
+                  }
+                })}
             </div>
           </>
         )}
