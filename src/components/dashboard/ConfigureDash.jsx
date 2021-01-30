@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
+//styling
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//icons
 import { RiEyeCloseLine, RiEye2Line } from "react-icons/ri";
 
 //context
@@ -13,41 +15,43 @@ const ConfigureDash = () => {
     (budget) => budget.id === currentBudgetId
   )[0];
 
-  //const widgets = budgets.filter((budget) => budget.id === currentBudgetId)[0].widgets;
-  const [widgets, setWidgets] = useState(
-    budgets.filter((budget) => budget.id === currentBudgetId)[0].widgets
-  );
-
-  //update global context with local data
+  const [widgets, setWidgets] = useState(currentBudget.widgets);
 
   const handleSaveConfig = () => {
-    //updateWidgets(widgets);
-    //updateBudget(newBudget);
     updateBudgetLocally(budgets, currentBudget);
   };
 
-  const handleChangeSetting = (name, index) => {
-    setWidgets([
-      ...widgets.filter((item) => item.name !== name),
-      { name, selected: !widgets[index].selected },
-    ]);
-
-    updateBudget({
+  const handleChangeSetting = (name, index, arr, arrayName) => {
+    //console.log(currentBudget);
+    console.log({
       ...currentBudget,
-      widgets: [
-        ...widgets.filter((item) => item.name !== name),
-        { name, selected: !widgets[index].selected },
+      widgets: {
+        ...widgets,
+        [arrayName]: [
+          ...arr.filter((item) => item.name !== name),
+          { name, selected: !arr[index].selected },
+        ],
+      },
+    });
+    //console.log(index);
+
+    setWidgets({
+      ...widgets,
+      [arrayName]: [
+        ...arr.filter((item) => item.name !== name),
+        { name, selected: !arr[index].selected },
       ],
     });
-
-    //updateBudget(newBudget);
-    // console.log({
-    //   ...currentBudget,
-    //   widgets: [
-    //     ...widgets.filter((item) => item.name !== name),
-    //     { name, selected: !widgets[index].selected },
-    //   ],
-    // });
+    updateBudget({
+      ...currentBudget,
+      widgets: {
+        ...widgets,
+        [arrayName]: [
+          ...arr.filter((item) => item.name !== name),
+          { name, selected: !arr[index].selected },
+        ],
+      },
+    });
   };
 
   return (
@@ -55,29 +59,80 @@ const ConfigureDash = () => {
       <h4>Configure Dashboard</h4>
       <div className="container">
         <h5>Income widgets</h5>
+        <div className="incomeWidgets">
+          {widgets.incomeWidgets
+            .sort((a, b) => (a.name > b.name ? 1 : -1))
+            .map((item, index) => (
+              <div className="selection" key={item.name}>
+                <p>{item.name} </p>
+                <div className="iconSelect">
+                  {item.selected ? (
+                    <RiEye2Line
+                      className="icon open"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.incomeWidgets,
+                          "incomeWidgets"
+                        )
+                      }
+                    />
+                  ) : (
+                    <RiEyeCloseLine
+                      className="icon"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.incomeWidgets,
+                          "incomeWidgets"
+                        )
+                      }
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
         <div className="line"></div>
         <h5>Budget widgets</h5>
-
-        {widgets
-          .sort((a, b) => (a.name > b.name ? 1 : -1))
-          .map((item, index) => (
-            <div className="selection" key={item.name}>
-              <p>{item.name} </p>
-              <div className="iconSelect">
-                {item.selected ? (
-                  <RiEye2Line
-                    className="icon open"
-                    onClick={() => handleChangeSetting(item.name, index)}
-                  />
-                ) : (
-                  <RiEyeCloseLine
-                    className="icon"
-                    onClick={() => handleChangeSetting(item.name, index)}
-                  />
-                )}
+        <div className="budgetWidgets">
+          {widgets.budgetWidgets
+            .sort((a, b) => (a.name > b.name ? 1 : -1))
+            .map((item, index) => (
+              <div className="selection" key={item.name}>
+                <p>{item.name} </p>
+                <div className="iconSelect">
+                  {item.selected ? (
+                    <RiEye2Line
+                      className="icon open"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.budgetWidgets,
+                          "budgetWidgets"
+                        )
+                      }
+                    />
+                  ) : (
+                    <RiEyeCloseLine
+                      className="icon"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.budgetWidgets,
+                          "budgetWidgets"
+                        )
+                      }
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
 
         <div className="line"></div>
         <button onClick={() => handleSaveConfig()}>SAVE</button>
@@ -91,9 +146,6 @@ const StyledIncome = styled(motion.div)`
   border-radius: 4px;
   background-color: #39393c;
   //color: #848586;
-  input[type="checkbox"] {
-    opacity: 0;
-  }
   h4 {
     color: white;
     font-weight: 500;
@@ -105,15 +157,9 @@ const StyledIncome = styled(motion.div)`
     justify-content: space-between;
     padding: 0 5rem;
   }
-  .iconSelect {
-    /* display: flex;
-    align-items: center;
-    justify-content: space-between; */
-  }
   .line {
     width: 100%;
     margin: 1rem 0;
-    //margin: 0.5rem;
     background-color: #848586;
     height: 1px;
   }
@@ -128,21 +174,7 @@ const StyledIncome = styled(motion.div)`
   h5 {
     margin-bottom: 0.5rem;
   }
-  .container {
-    //width: 100%;
-    //margin-bottom: 1rem;
-    //padding: 3rem;
-    //border-radius: 4px;
-    //background-color: #39393c;
-    //color: #848586;
-  }
-  button {
-    //margin-top: 1rem;
-  }
-
   p {
-    //color: #848586;
-    //color: white;
     padding-bottom: 0.25rem;
     font-size: 12pt;
   }

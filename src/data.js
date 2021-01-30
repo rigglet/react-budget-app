@@ -1,27 +1,39 @@
 export const getWidgets = () => {
-  return [
-    {
-      name: "Budget breakdown by category in currency",
-      selected: false,
-    },
-    {
-      name: "Budget breakdown by item in currency",
-      selected: false,
-    },
-    {
-      name: "Budget breakdown by category in %",
-      selected: false,
-    },
-    {
-      name: "Budget breakdown by item in %",
-      selected: false,
-    },
+  return {
+    incomeWidgets: [
+      {
+        name: "Budget allocated / remaining",
+        selected: false,
+      },
+      {
+        name: "Salary gross and net breakdown",
+        selected: false,
+      },
+    ],
+    budgetWidgets: [
+      {
+        name: "Budget breakdown by category in currency",
+        selected: false,
+      },
+      {
+        name: "Budget breakdown by item in currency",
+        selected: false,
+      },
+      {
+        name: "Budget breakdown by category in %",
+        selected: false,
+      },
+      {
+        name: "Budget breakdown by item in %",
+        selected: false,
+      },
 
-    {
-      name: "Budget items extrapolated over d/w/m/y",
-      selected: false,
-    },
-  ];
+      {
+        name: "Budget items extrapolated over d/w/m/y",
+        selected: false,
+      },
+    ],
+  };
 };
 
 export const getData = () => {

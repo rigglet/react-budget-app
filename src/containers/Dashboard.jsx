@@ -11,11 +11,11 @@ import DashSidebar from "../components/DashSidebar";
 const Dashboard = () => {
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
-
   const { budgets, currentBudgetId } = useContext(GlobalContext);
 
   const widgets = budgets.filter((budget) => budget.id === currentBudgetId)[0]
     .widgets;
+  //console.log(widgets);
 
   return (
     <StyledDashboard>
@@ -27,13 +27,32 @@ const Dashboard = () => {
           <>
             <h3>Dashboard</h3>
             <div className="widgets">
-              {widgets
-                .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .map((item) => {
-                  if (item.selected) {
-                    return getWidget(item.name);
-                  }
-                })}
+              <div className="income">
+                {
+                  //INCOME WIDGETS
+                  widgets.incomeWidgets
+                    .sort((a, b) => (a.name > b.name ? 1 : -1))
+                    .map((item) => {
+                      if (item.selected) {
+                        return getWidget(item.name);
+                      }
+                      return undefined;
+                    })
+                }
+              </div>
+              <div className="budgets">
+                {
+                  //BUDGET WIDGETS
+                  widgets.budgetWidgets
+                    .sort((a, b) => (a.name > b.name ? 1 : -1))
+                    .map((item) => {
+                      if (item.selected) {
+                        return getWidget(item.name);
+                      }
+                      return undefined;
+                    })
+                }
+              </div>
             </div>
           </>
         )}
@@ -76,6 +95,13 @@ const StyledDashboard = styled(motion.div)`
       gap: 1rem;
       flex-wrap: wrap;
       flex-direction: column;
+      .income,
+      .budgets {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
     }
   }
   .right {

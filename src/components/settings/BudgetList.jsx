@@ -32,26 +32,28 @@ const BudgetList = () => {
     <StyledBudgetList>
       <h4>Budget items</h4>
       <table>
-        <tr>
-          <th>
-            <h5>Category</h5>
-          </th>
-          <th>
-            <h5>Item</h5>
-          </th>
-          <th>
-            <h5>Frequency</h5>
-          </th>
-          <th>
-            <h5>Amount</h5>
-          </th>
-          <th>
-            <h5>Paid?</h5>
-          </th>
-          <th>
-            <h5>Actions</h5>
-          </th>
-        </tr>
+        <tbody>
+          <tr>
+            <th>
+              <h5>Category</h5>
+            </th>
+            <th>
+              <h5>Item</h5>
+            </th>
+            <th>
+              <h5>Frequency</h5>
+            </th>
+            <th>
+              <h5>Amount</h5>
+            </th>
+            <th>
+              <h5>Paid?</h5>
+            </th>
+            <th>
+              <h5>Actions</h5>
+            </th>
+          </tr>
+        </tbody>
 
         {budgetItems
           .sort((a, b) => (a.category > b.category ? 1 : -1))

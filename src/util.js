@@ -23,6 +23,7 @@ export const deleteBudgetLocally = (budgets, id) => {
 };
 
 export const getWidget = (name) => {
+  console.log(name);
   switch (name) {
     //INCOME
     case "Budget allocated / remaining":
