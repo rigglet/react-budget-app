@@ -7,7 +7,9 @@ import { Bar } from "react-chartjs-2";
 
 const BudgetBreakdown = () => {
   const [period, setPeriod] = useState("weekly");
-  const { budgets, currentBudgetId } = useContext(GlobalContext);
+  const { budgets, currentBudgetId, currencySymbol } = useContext(
+    GlobalContext
+  );
   const currentBudget = budgets.filter(
     (budget) => budget.id === currentBudgetId
   )[0];
@@ -15,10 +17,13 @@ const BudgetBreakdown = () => {
   const income = currentBudget.data.income;
   let yearlyAllocated = "";
 
-  //allocated total as a yearly figure
+  //allocated total as a yearly figure - could get this from adding totals of category subtotals
   if (budgetItems.length > 0) {
     yearlyAllocated = budgetItems
       .map((item) => {
+        if (item.frequency === "daily") {
+          return item.amount * 365;
+        }
         if (item.frequency === "weekly") {
           return item.amount * 52;
         }
@@ -38,17 +43,21 @@ const BudgetBreakdown = () => {
   //weekly / monthly /yearly total
   let selectedPeriod = 0;
   switch (period) {
+    case "daily":
+      selectedPeriod = income.dailyNet;
+      subTotal = Number(yearlyAllocated / 365).toFixed(2);
+      break;
     case "weekly":
       selectedPeriod = income.weeklyNet;
-      subTotal = (yearlyAllocated / 52).toFixed(2);
+      subTotal = Number(yearlyAllocated / 52).toFixed(2);
       break;
     case "monthly":
       selectedPeriod = income.monthlyNet;
-      subTotal = (yearlyAllocated / 12).toFixed(2);
+      subTotal = Number(yearlyAllocated / 12).toFixed(2);
       break;
     case "annually":
       selectedPeriod = income.yearlyNet;
-      subTotal = yearlyAllocated.toFixed(2);
+      subTotal = Number(yearlyAllocated).toFixed(2);
       break;
     default:
       selectedPeriod = income.weeklyNet;
@@ -61,9 +70,76 @@ const BudgetBreakdown = () => {
   };
 
   //Chart data
-  //const categories = budgetItems.map((b) => b.category);
-  const filteredCategories = [...new Set(budgetItems.map((b) => b.category))];
-  const catFigures = budgetItems.map((b) => b.amount);
+  const filteredCategories = [
+    ...new Set(budgetItems.map((b) => b.category.toLowerCase())),
+  ];
+
+  const accumulatedSubTotals = budgetItems.reduce(
+    (acc, obj, currentIndex, array) => {
+      let found = false;
+      let pointer = 0;
+
+      for (let i = 0; i < acc.length; i++) {
+        if (acc[i].category === array[currentIndex].category) {
+          pointer = i;
+          found = true;
+        }
+      }
+      if (!found) {
+        let yearlyAmount = 0;
+        switch (array[currentIndex].frequency) {
+          case "daily":
+            yearlyAmount = Number(array[currentIndex].amount * 365);
+            break;
+          case "weekly":
+            yearlyAmount = Number(array[currentIndex].amount * 52);
+            break;
+          case "monthly":
+            yearlyAmount = Number(array[currentIndex].amount * 12);
+            break;
+          case "annually":
+            yearlyAmount = Number(array[currentIndex].amount);
+            break;
+          default:
+            selectedPeriod = income.weeklyNet;
+        }
+        acc.push({
+          category: array[currentIndex].category,
+          amount: yearlyAmount,
+        });
+      } else {
+        acc[pointer] = {
+          ...acc[pointer],
+          amount: acc[pointer].amount + array[currentIndex].amount,
+        };
+        //console.log(array[currentIndex].amount);
+      }
+      return acc;
+    },
+    []
+  );
+  console.log(accumulatedSubTotals);
+
+  //CREATE ARRAY DATA FROM YEARLY ACCUMULATED TOTALS
+  // depending on selected period
+  let dataArray = [];
+  switch (period) {
+    case "daily":
+      dataArray = accumulatedSubTotals.map((category) => category.amount / 365);
+      break;
+    case "weekly":
+      dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
+      break;
+    case "monthly":
+      dataArray = accumulatedSubTotals.map((category) => category.amount / 12);
+      break;
+    case "annually":
+      dataArray = accumulatedSubTotals.map((category) => category.amount);
+      break;
+    default:
+      dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
+  }
+  console.log(dataArray);
   const data = {
     labels: filteredCategories,
     datasets: [
@@ -80,7 +156,11 @@ const BudgetBreakdown = () => {
         borderWidth: 2,
         hoverBackgroundColor: "#e69a07",
         hoverBorderColor: "#00b4ee",
-        data: catFigures,
+        barPercentage: 5,
+        barThickness: 50,
+        maxBarThickness: 50,
+        minBarLength: 0,
+        data: dataArray,
       },
     ],
   };
@@ -93,9 +173,15 @@ const BudgetBreakdown = () => {
           <div className="drop">
             <label htmlFor="period">Period:</label>
             <select name="period" onChange={handlePeriodChange}>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="annually">Annually</option>
+              <option value="weekly" key="weekly">
+                Weekly
+              </option>
+              <option value="monthly" key="monthly">
+                Monthly
+              </option>
+              <option value="annually" key="annually">
+                Annually
+              </option>
             </select>
           </div>
           <div className="figures">
@@ -125,10 +211,44 @@ const BudgetBreakdown = () => {
         <div className="chart">
           <Bar
             data={data}
-            width={100}
-            height={25}
+            width={200}
+            //redraw={true}
+            //height={200}
             options={{
-              maintainAspectRatio: true,
+              maintainAspectRatio: false,
+
+              scales: {
+                yAxes: [
+                  {
+                    display: true,
+                    drawTicks: false,
+                    ticks: {
+                      drawTicks: false,
+                      beginAtZero: true,
+                      max: 4000,
+                    },
+                  },
+                ],
+              },
+
+              title: {
+                display: true,
+                text: `Budget breakdown by category (${currencySymbol})`,
+                position: "bottom",
+                fontSize: 16,
+                fontStyle: "bold",
+              },
+              layout: {
+                padding: {
+                  left: 50,
+                  right: 50,
+                  top: 0,
+                  bottom: 0,
+                },
+              },
+              responsive: true,
+              responsiveAnimationDuration: 300,
+              aspectRatio: 1,
             }}
           />
         </div>
@@ -155,6 +275,7 @@ const StyledBreakdown = styled(motion.div)`
   }
   .data {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     .info {
       display: flex;
