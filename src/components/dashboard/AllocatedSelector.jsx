@@ -22,6 +22,9 @@ const AllocatedSelector = ({ period, handlePeriodChange }) => {
           name="period"
           onChange={(e) => handlePeriodChange(e.target.value)}
         >
+          <option value="daily" key="daily">
+            Daily
+          </option>
           <option value="weekly" key="weekly">
             Weekly
           </option>

@@ -20,6 +20,10 @@ const AllocatedWidget = () => {
   // weekly / monthly /yearly total
   let selectedPeriod = 0;
   switch (period) {
+    case "daily":
+      selectedPeriod = income.weeklyNet / 7;
+      subTotal = Number(yearlyAllocated / 365).toFixed(2);
+      break;
     case "weekly":
       selectedPeriod = income.weeklyNet;
       subTotal = Number(yearlyAllocated / 52).toFixed(2);

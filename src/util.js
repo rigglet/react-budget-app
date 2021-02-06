@@ -53,7 +53,7 @@ export const getAccumulatedSubTotals = (currentBudget) => {
 export const getNetIncomeForPeriod = (currentBudget, period) => {
   switch (period) {
     case "daily":
-      return currentBudget.data.income.dailyNet;
+      return currentBudget.data.income.weeklyNet / 7;
     case "weekly":
       return currentBudget.data.income.weeklyNet;
     case "monthly":
