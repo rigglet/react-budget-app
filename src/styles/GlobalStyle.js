@@ -68,6 +68,10 @@ button {
 .positive{
   color:  #00b4ee;
 }
+.whole {}
+  .decimal {
+    font-size: 0.7rem;
+  }
 
 //React-toastify - Toast close button
 .toastClose{

@@ -1,9 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+//styling
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//context
 import { GlobalContext } from "../../context/GlobalContext";
+//icons
 import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
 //FaGrin, FaFrown,
+//format numbers
+import { formatNumber } from "../../util";
+
 const BudgetItem = ({
   id,
   category,
@@ -13,7 +19,13 @@ const BudgetItem = ({
   paid,
   deleteBudgetItem,
 }) => {
+  const [paidStatus, setPaidStatus] = useState(paid);
+
+  const handleChangePaid = () => {
+    setPaidStatus(!paidStatus);
+  };
   const { currencySymbol } = useContext(GlobalContext);
+
   return (
     <StyledItem>
       <td>
@@ -28,15 +40,21 @@ const BudgetItem = ({
       <td>
         <p>
           <span className="symbol">{currencySymbol}</span>
-          {amount}
+          {formatNumber(amount)}
         </p>
       </td>
       <td>
-        <p>
-          {paid ? (
-            <FaCheckSquare className="check" />
+        <p className="paid">
+          {paidStatus ? (
+            <FaCheckSquare
+              className="check"
+              onClick={() => handleChangePaid()}
+            />
           ) : (
-            <FaTimesCircle className="cross" />
+            <FaTimesCircle
+              className="cross"
+              onClick={() => handleChangePaid()}
+            />
           )}
         </p>
       </td>
@@ -57,6 +75,9 @@ const StyledItem = styled(motion.tr)`
     .symbol {
       margin-right: 0.25rem;
     }
+  }
+  .paid {
+    cursor: pointer;
   }
   .check,
   .cross {

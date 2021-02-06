@@ -10,17 +10,16 @@ import { MdDashboard } from "react-icons/md";
 //import { VscSettings } from "react-icons/vsc";
 
 const DashSidebar = () => {
-  const { currentBudgetId } = useContext(GlobalContext);
+  const { currentBudget } = useContext(GlobalContext);
   const location = useLocation();
   const path = location.pathname.split("/")[3];
-  //console.log({ path });
   return (
     <StyledSide>
       <ul>
         <li>
           <Link
             to={{
-              pathname: `/dashboard/${currentBudgetId}/view`,
+              pathname: `/dashboard/${currentBudget.id}/view`,
             }}
           >
             <MdDashboard
@@ -37,7 +36,7 @@ const DashSidebar = () => {
         <li>
           <Link
             to={{
-              pathname: `/dashboard/${currentBudgetId}/settings`,
+              pathname: `/dashboard/${currentBudget.id}/settings`,
             }}
           >
             <IoMdSettings

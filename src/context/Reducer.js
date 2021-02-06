@@ -7,6 +7,7 @@ export const reducer = (state, action) => {
     addBudgetItem: "ADD_BUDGET_ITEM",
     deleteBudgetItem: "DELETE_BUDGET_ITEM",
     updateCurrentBudgetId: "UPDATE_CURRENT_BUDGET_ID",
+    updateCurrentBudget: "UPDATE_CURRENT_BUDGET",
     updateBudgetLoaded: "UPDATE_ISLOADED",
     //updateWidgets: "UPDATE_WIDGETS",
   };
@@ -37,23 +38,17 @@ export const reducer = (state, action) => {
           action.payload,
         ],
       };
-    //BUDGET ITEM
-    // case ACTIONS.addBudgetItem:
-    //   return {
-    //     ...state,
-    //     data: { income: { ...formIncome } },
-    //     budgetItems: {state.budgets.filter((item) => item.id === state.currentBudgetId)},
-    //   };
-    // case ACTIONS.deleteBudgetItem:
-    //   return {
-    //     ...state,
-    //     budgetId: action.payload,
-    //   };
+
     //OTHER
     case ACTIONS.updateCurrentBudgetId:
       return {
         ...state,
         currentBudgetId: action.payload,
+      };
+    case ACTIONS.updateCurrentBudget:
+      return {
+        ...state,
+        currentBudget: action.payload,
       };
     case ACTIONS.updateBudgetLoaded:
       return {

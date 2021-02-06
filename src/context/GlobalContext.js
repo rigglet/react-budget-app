@@ -5,6 +5,7 @@ import { reducer } from "./Reducer";
 const initialState = {
   budgets: [],
   currentBudgetId: "",
+  currentBudget: {},
   isBudgetLoaded: false,
   currencySymbol: "£",
 };
@@ -61,6 +62,12 @@ export const GlobalProvider = ({ children }) => {
       payload: id,
     });
   };
+  const updateCurrentBudget = (budget) => {
+    dispatch({
+      type: "UPDATE_CURRENT_BUDGET",
+      payload: budget,
+    });
+  };
 
   const updateBudgetLoaded = (loaded) => {
     dispatch({
@@ -80,6 +87,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         budgets: state.budgets,
         currentBudgetId: state.currentBudgetId,
+        currentBudget: state.currentBudget,
         isBudgetLoaded: state.isBudgetLoaded,
         currencySymbol: state.currencySymbol,
         //widgets: state.widgets,
@@ -90,6 +98,7 @@ export const GlobalProvider = ({ children }) => {
         deleteBudgetItem,
         addBudgetItem,
         updateCurrentBudgetId,
+        updateCurrentBudget,
         updateBudgetLoaded,
         //updateWidgets,
       }}

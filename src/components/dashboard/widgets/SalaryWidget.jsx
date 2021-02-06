@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//format numbers
+import { formatNumber } from "../../../util";
 
-const Salary = () => {
+const SalaryWidget = () => {
   const { budgets, currentBudgetId, currencySymbol } = useContext(
     GlobalContext
   );
@@ -18,7 +20,6 @@ const Salary = () => {
     yearlyNet,
   } = currentBudget.data.income;
 
-  console.log({ currentBudget });
   return (
     <StyledSalary>
       <h4>Salary gross and net breakdown</h4>
@@ -29,7 +30,7 @@ const Salary = () => {
             <p>
               <span className="symbol">{currencySymbol}</span>
               <span className={annual < 0 ? "negative" : "positive"}>
-                {Number(annual).toFixed(2) || 0}
+                {formatNumber(annual)}
               </span>
             </p>
           </div>
@@ -38,7 +39,7 @@ const Salary = () => {
             <p>
               <span className="symbol">{currencySymbol}</span>
               <span className={annual / 12 < 0 ? "negative" : "positive"}>
-                {Number(annual / 12).toFixed(2)}
+                {formatNumber(annual / 12)}
               </span>
             </p>
           </div>
@@ -47,7 +48,7 @@ const Salary = () => {
             <p>
               <span className="symbol">{currencySymbol}</span>
               <span className={annual / 52 < 0 ? "negative" : "positive"}>
-                {Number(annual / 52).toFixed(2)}
+                {formatNumber(annual / 52)}
               </span>
             </p>
           </div>
@@ -59,7 +60,7 @@ const Salary = () => {
             <p>
               <span className="symbol">{currencySymbol}</span>
               <span className={yearlyNet < 0 ? "negative" : "positive"}>
-                {Number(yearlyNet).toFixed(2)}
+                {formatNumber(yearlyNet)}
               </span>
             </p>
           </div>
@@ -68,7 +69,7 @@ const Salary = () => {
             <p>
               <span className="symbol">{currencySymbol}</span>
               <span className={monthlyNet < 0 ? "negative" : "positive"}>
-                {Number(monthlyNet).toFixed(2)}
+                {formatNumber(monthlyNet)}
               </span>
             </p>
           </div>
@@ -77,7 +78,7 @@ const Salary = () => {
             <p>
               <span className="symbol">{currencySymbol}</span>
               <span className={weeklyNet < 0 ? "negative" : "positive"}>
-                {Number(weeklyNet).toFixed(2)}
+                {formatNumber(weeklyNet)}
               </span>
             </p>
           </div>
@@ -113,10 +114,6 @@ const StyledSalary = styled(motion.div)`
     display: flex;
     justify-content: space-around;
   }
-  /* .currencySign {
-    //font-weight: bolder;
-    margin-right: 0.25rem;
-  } */
 
   @media screen and (max-width: 1100px) {
     .gross,
@@ -135,4 +132,4 @@ const StyledSalary = styled(motion.div)`
   }
 `;
 
-export default Salary;
+export default SalaryWidget;

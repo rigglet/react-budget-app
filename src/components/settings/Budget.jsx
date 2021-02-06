@@ -7,11 +7,11 @@ import { motion } from "framer-motion";
 //import { useHistory } from "react-router-dom";
 //context
 //import { GlobalContext } from "../../context/GlobalContext";
-import Allocated from "../dashboard/Allocated";
+import Allocated from "../dashboard/widgets/AllocatedWidget";
 import BudgetList from "./BudgetList";
 import AddBudgetItemForm from "./AddBudgetItemForm";
 //import BudgetBreakdown from "../dashboard/BudgetBreakdown";
-import Salary from "../dashboard/Salary";
+import Salary from "../dashboard/widgets/SalaryWidget";
 
 const Budget = ({ currentBudget }) => {
   return (

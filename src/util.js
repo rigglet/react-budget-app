@@ -1,6 +1,108 @@
-import Allocated from "./components/dashboard/Allocated";
-import BudgetBreakdown from "./components/dashboard/BudgetBreakdown";
-import Salary from "./components/dashboard/Salary";
+import Allocated from "./components/dashboard/widgets/AllocatedWidget";
+import BudgetByCategoryWidget from "./components/dashboard/widgets/BudgetByCategoryWidget";
+import BudgetByItemWidget from "./components/dashboard/widgets/BudgetByItemWidget";
+import Salary from "./components/dashboard/widgets/SalaryWidget";
+import { v4 as uuidv4 } from "uuid";
+
+export const getAccumulatedSubTotals = (currentBudget) => {
+  return currentBudget.data.budgetItems.reduce(
+    (acc, obj, currentIndex, array) => {
+      let found = false;
+      let pointer = 0;
+
+      for (let i = 0; i < acc.length; i++) {
+        if (acc[i].category === array[currentIndex].category) {
+          pointer = i;
+          found = true;
+        }
+      }
+      if (!found) {
+        let yearlyAmount = 0;
+        switch (array[currentIndex].frequency) {
+          case "daily":
+            yearlyAmount = Number(array[currentIndex].amount * 365);
+            break;
+          case "weekly":
+            yearlyAmount = Number(array[currentIndex].amount * 52);
+            break;
+          case "monthly":
+            yearlyAmount = Number(array[currentIndex].amount * 12);
+            break;
+          case "annually":
+            yearlyAmount = Number(array[currentIndex].amount);
+            break;
+          default:
+            yearlyAmount = Number(array[currentIndex].amount * 12);
+        }
+        acc.push({
+          category: array[currentIndex].category,
+          amount: yearlyAmount,
+        });
+      } else {
+        acc[pointer] = {
+          ...acc[pointer],
+          amount: acc[pointer].amount + array[currentIndex].amount,
+        };
+      }
+      return acc;
+    },
+    []
+  );
+};
+
+export const getNetIncomeForPeriod = (currentBudget, period) => {
+  switch (period) {
+    case "daily":
+      return currentBudget.data.income.dailyNet;
+    case "weekly":
+      return currentBudget.data.income.weeklyNet;
+    case "monthly":
+      return currentBudget.data.income.monthlyNet;
+    case "annually":
+      return currentBudget.data.income.yearlyNet;
+    default:
+      return currentBudget.data.income.weeklyNet;
+  }
+};
+
+export const getAllocatedPerPeriod = (currentBudget, period) => {
+  switch (period) {
+    case "daily":
+      return Number(
+        getYearlyAllocated(currentBudget.data.budgetItems) / 365
+      ).toFixed(2);
+    case "weekly":
+      return Number(
+        getYearlyAllocated(currentBudget.data.budgetItems) / 52
+      ).toFixed(2);
+
+    case "monthly":
+      return Number(
+        getYearlyAllocated(currentBudget.data.budgetItems) / 12
+      ).toFixed(2);
+
+    case "annually":
+      return Number(getYearlyAllocated(currentBudget.data.budgetItems)).toFixed(
+        2
+      );
+
+    default:
+      return Number(
+        getYearlyAllocated(currentBudget.data.budgetItems) / 52
+      ).toFixed(2);
+  }
+};
+
+export const formatNumber = (number) => {
+  return (
+    <>
+      <span className="whole">{Math.floor(Number(number).toFixed(2))}</span>
+      <span className="decimal">
+        {(Number(number) % 1).toFixed(2).substring(1)}
+      </span>
+    </>
+  );
+};
 
 export const saveBudgetLocally = (budgets, newBudget) => {
   window.localStorage.setItem(
@@ -23,29 +125,49 @@ export const deleteBudgetLocally = (budgets, id) => {
 };
 
 export const getWidget = (name) => {
-  //console.log(name);
   switch (name) {
     //INCOME
     case "Budget allocated / remaining":
-      return <Allocated />;
+      return <Allocated key="allocated" />;
     case "Salary gross and net breakdown":
-      return <Salary />;
+      return <Salary key={uuidv4()} />;
     //BUDGET
-    case "Budget breakdown by category in currency":
-      return <BudgetBreakdown />;
-    case "Budget breakdown by item in currency":
-      return <BudgetBreakdown />;
+    case "Budget breakdown by category":
+      return <BudgetByCategoryWidget key={uuidv4()} />;
+    case "Budget breakdown by item":
+      return <BudgetByItemWidget key={uuidv4()} />;
 
     case "Budget breakdown by category in %":
-      return <BudgetBreakdown />;
+      return <BudgetByItemWidget key={uuidv4()} />;
 
     case "Budget breakdown by item in %":
-      return <BudgetBreakdown />;
+      return <BudgetByItemWidget key={uuidv4()} />;
 
     case "Budget items extrapolated over d/w/m/y":
-      return <BudgetBreakdown />;
+      return <BudgetByItemWidget key={uuidv4()} />;
 
     default:
-      return <Salary />;
+      return <Salary key={uuidv4()} />;
+  }
+};
+
+export const getYearlyAllocated = (budgetItems) => {
+  if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
+    return budgetItems
+      .map((item) => {
+        if (item.frequency === "weekly") {
+          return item.amount * 52;
+        }
+        if (item.frequency === "monthly") {
+          return item.amount * 12;
+        }
+        if (item.frequency === "annually") {
+          return item.amount;
+        }
+        return item.amount;
+      })
+      .reduce((acc, current) => acc + current);
+  } else {
+    return [];
   }
 };

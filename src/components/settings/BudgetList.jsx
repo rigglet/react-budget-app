@@ -32,7 +32,7 @@ const BudgetList = () => {
     <StyledBudgetList>
       <h4>Budget items</h4>
       <table>
-        <tbody>
+        <thead>
           <tr>
             <th>
               <h5>Category</h5>
@@ -53,23 +53,24 @@ const BudgetList = () => {
               <h5>Actions</h5>
             </th>
           </tr>
+        </thead>
+        <tbody>
+          {budgetItems
+            .sort((a, b) => (a.category > b.category ? 1 : -1))
+            //.sort((a, b) => (a.item > b.item ? 1 : -1))
+            .map((item) => (
+              <BudgetItem
+                key={item.id}
+                id={item.id}
+                category={item.category}
+                item={item.item}
+                frequency={item.frequency}
+                amount={item.amount}
+                paid={item.paid}
+                deleteBudgetItem={deleteBudgetItem}
+              />
+            ))}
         </tbody>
-
-        {budgetItems
-          .sort((a, b) => (a.category > b.category ? 1 : -1))
-          //.sort((a, b) => (a.item > b.item ? 1 : -1))
-          .map((item) => (
-            <BudgetItem
-              key={item.id}
-              id={item.id}
-              category={item.category}
-              item={item.item}
-              frequency={item.frequency}
-              amount={item.amount}
-              paid={item.paid}
-              deleteBudgetItem={deleteBudgetItem}
-            />
-          ))}
       </table>
     </StyledBudgetList>
   );

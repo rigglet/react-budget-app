@@ -6,16 +6,12 @@ import { useLocation } from "react-router-dom";
 import { getWidget } from "../util";
 import ConfigureDash from "../components/dashboard/ConfigureDash";
 import DashSidebar from "../components/DashSidebar";
-//import { getWidgets } from "../data";
 
 const Dashboard = () => {
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
-  const { budgets, currentBudgetId } = useContext(GlobalContext);
-
-  const widgets = budgets.filter((budget) => budget.id === currentBudgetId)[0]
-    .widgets;
-  //console.log(widgets);
+  const { currentBudget } = useContext(GlobalContext);
+  const widgets = currentBudget.widgets;
 
   return (
     <StyledDashboard>
@@ -95,12 +91,14 @@ const StyledDashboard = styled(motion.div)`
       gap: 1rem;
       flex-wrap: wrap;
       flex-direction: column;
+      margin-bottom: 1rem;
       .income,
       .budgets {
+        width: 100%;
         display: flex;
         gap: 1rem;
         flex-wrap: wrap;
-        flex-direction: column;
+        //flex-direction: column;
       }
     }
   }

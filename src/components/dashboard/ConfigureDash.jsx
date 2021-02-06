@@ -22,19 +22,6 @@ const ConfigureDash = () => {
   };
 
   const handleChangeSetting = (name, index, arr, arrayName) => {
-    //console.log(currentBudget);
-    console.log({
-      ...currentBudget,
-      widgets: {
-        ...widgets,
-        [arrayName]: [
-          ...arr.filter((item) => item.name !== name),
-          { name, selected: !arr[index].selected },
-        ],
-      },
-    });
-    //console.log(index);
-
     setWidgets({
       ...widgets,
       [arrayName]: [
@@ -42,6 +29,7 @@ const ConfigureDash = () => {
         { name, selected: !arr[index].selected },
       ],
     });
+
     updateBudget({
       ...currentBudget,
       widgets: {

@@ -9,19 +9,21 @@ import { deleteBudgetLocally } from "../../util";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const Budget = ({ budget }) => {
-  const { budgets } = useContext(GlobalContext);
   let history = useHistory();
 
   const {
     updateCurrentBudgetId,
+    updateCurrentBudget,
     updateBudgetLoaded,
     deleteBudget,
     currentBudgetId,
+    budgets,
   } = useContext(GlobalContext);
 
   const handleBudgetDelete = () => {
     if (budget.id === currentBudgetId) {
       updateCurrentBudgetId("");
+      updateCurrentBudget({});
       updateBudgetLoaded(false);
     }
     deleteBudgetLocally(budgets, budget.id);
@@ -30,6 +32,7 @@ const Budget = ({ budget }) => {
 
   const handleBudgetOpen = () => {
     updateCurrentBudgetId(budget.id);
+    updateCurrentBudget(budget);
     updateBudgetLoaded(true);
     history.push(`/settings/${budget.id}/income`);
   };

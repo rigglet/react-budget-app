@@ -7,22 +7,17 @@ import { motion } from "framer-motion";
 import { FcCalculator } from "react-icons/fc";
 import { BsFileSpreadsheet } from "react-icons/bs";
 import { IoFileTrayStackedSharp } from "react-icons/io5";
-//import { IoMdSettings } from "react-icons/io";
 import { VscSettings } from "react-icons/vsc";
 import { RiDashboard3Fill } from "react-icons/ri";
 //react router
 import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
-  const { currentBudgetId, budgets, isBudgetLoaded } = useContext(
-    GlobalContext
-  );
-  //console.log({ currentBudgetId });
-  const currentBudget = budgets.filter((b) => b.id === currentBudgetId);
-  //console.log({ currentBudget });
+  const { isBudgetLoaded, currentBudget } = useContext(GlobalContext);
+
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  //console.log({ path });
+
   return (
     <StyledNav>
       <div className="brand">
@@ -57,7 +52,7 @@ const Nav = () => {
               <li>
                 <Link
                   to={{
-                    pathname: `/settings/${currentBudgetId}/income`,
+                    pathname: `/settings/${currentBudget.id}/income`,
                   }}
                 >
                   <VscSettings
@@ -78,7 +73,7 @@ const Nav = () => {
               <li>
                 <Link
                   to={{
-                    pathname: `/dashboard/${currentBudgetId}/view`,
+                    pathname: `/dashboard/${currentBudget.id}/view`,
                   }}
                 >
                   <RiDashboard3Fill
@@ -103,7 +98,7 @@ const Nav = () => {
         <div className="info">
           {isBudgetLoaded && (
             <>
-              <p>{currentBudget[0].saveName}</p>
+              <p>{currentBudget.saveName}</p>
               <BsFileSpreadsheet className="navIcon" />
             </>
           )}

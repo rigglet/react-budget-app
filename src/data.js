@@ -12,6 +12,10 @@ export const getWidgets = () => {
     ],
     budgetWidgets: [
       {
+        name: "Budget table of items extrapolated over d/w/m/y",
+        selected: false,
+      },
+      {
         name: "Budget breakdown by category in currency",
         selected: false,
       },
@@ -25,11 +29,6 @@ export const getWidgets = () => {
       },
       {
         name: "Budget breakdown by item in %",
-        selected: false,
-      },
-
-      {
-        name: "Budget items extrapolated over d/w/m/y",
         selected: false,
       },
     ],
