@@ -6,10 +6,13 @@ import BudgetItem from "./BudgetItem";
 import { updateBudgetLocally } from "../../util";
 
 const BudgetList = () => {
-  const { budgets, currentBudgetId, updateBudget } = useContext(GlobalContext);
-  const currentBudget = budgets.filter(
-    (budget) => budget.id === currentBudgetId
-  )[0];
+  const {
+    budgets,
+    currentBudget,
+    updateBudget,
+    updateCurrentBudget,
+  } = useContext(GlobalContext);
+
   const budgetItems = currentBudget.data.budgetItems;
 
   const deleteBudgetItem = (id) => {
@@ -26,6 +29,9 @@ const BudgetList = () => {
 
     //update local storage
     updateBudgetLocally(budgets, newBudget);
+
+    //updatecurrentBudget
+    updateCurrentBudget(newBudget);
   };
 
   return (
@@ -77,17 +83,11 @@ const BudgetList = () => {
 };
 
 const StyledBudgetList = styled(motion.div)`
-  //display: flex;
-  //flex-direction: column;
-  //align-items: flex-start;
-  //justify-content: space-evenly;
-  //width: 100%;
-  //margin-top: 1.5rem;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
-  //row-gap: 0.5rem;
+
   table {
     width: 100%;
   }

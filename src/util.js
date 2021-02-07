@@ -61,7 +61,7 @@ export const getNetIncomeForPeriod = (currentBudget, period) => {
     case "annually":
       return currentBudget.data.income.yearlyNet;
     default:
-      return currentBudget.data.income.weeklyNet;
+      return 0;
   }
 };
 
@@ -75,31 +75,35 @@ export const getAllocatedPerPeriod = (currentBudget, period) => {
       return Number(
         getYearlyAllocated(currentBudget.data.budgetItems) / 52
       ).toFixed(2);
-
     case "monthly":
       return Number(
         getYearlyAllocated(currentBudget.data.budgetItems) / 12
       ).toFixed(2);
-
     case "annually":
       return Number(getYearlyAllocated(currentBudget.data.budgetItems)).toFixed(
         2
       );
 
     default:
-      return Number(
-        getYearlyAllocated(currentBudget.data.budgetItems) / 52
-      ).toFixed(2);
+      return Number(0).toFixed(2);
   }
 };
 
 export const formatNumber = (number) => {
+  let formattedWholeNumber = null;
+  let formattedDecimalNumber = null;
+  if (number > 0) {
+    formattedWholeNumber = Math.floor(Number(number).toFixed(2));
+    formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
+  } else {
+    formattedWholeNumber = Number(number).toFixed(2);
+    formattedDecimalNumber = "";
+  }
+
   return (
     <>
-      <span className="whole">{Math.floor(Number(number).toFixed(2))}</span>
-      <span className="decimal">
-        {(Number(number) % 1).toFixed(2).substring(1)}
-      </span>
+      <span className="whole">{formattedWholeNumber}</span>
+      <span className="decimal">{formattedDecimalNumber}</span>
     </>
   );
 };
@@ -155,6 +159,9 @@ export const getYearlyAllocated = (budgetItems) => {
   if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
     return budgetItems
       .map((item) => {
+        if (item.frequency === "daily") {
+          return item.amount * 365;
+        }
         if (item.frequency === "weekly") {
           return item.amount * 52;
         }

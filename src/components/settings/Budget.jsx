@@ -18,7 +18,6 @@ const Budget = ({ currentBudget }) => {
     <StyledBudget>
       <h3>Budget</h3>
       <div className="charts">
-        {/* <BudgetBreakdown /> */}
         <Salary />
         <Allocated />
       </div>

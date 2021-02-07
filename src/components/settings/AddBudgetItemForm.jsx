@@ -16,12 +16,15 @@ const AddBudgetItemForm = () => {
     category: "",
     item: "",
     frequency: "weekly",
-    amount: "0.00",
+    amount: 0.0,
   });
-  const { updateBudget, budgets, currentBudgetId } = useContext(GlobalContext);
+  const {
+    updateBudget,
+    budgets,
+    currentBudget,
+    updateCurrentBudget,
+  } = useContext(GlobalContext);
 
-  const currentBudget = budgets.filter((b) => b.id === currentBudgetId)[0];
-  console.log({ currentBudget });
   const freqOptions = [
     { name: "Daily", value: "daily" },
     { name: "Weekly", value: "weekly" },
@@ -80,8 +83,8 @@ const AddBudgetItemForm = () => {
       //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
       const newBudgetItem = {
         id: uuidv4(),
-        category: formData.category.toLowerCase(),
-        item: formData.item.toLowerCase(),
+        category: formData.category,
+        item: formData.item,
         frequency: formData.frequency,
         amount: Number(formData.amount),
       };
@@ -105,8 +108,22 @@ const AddBudgetItemForm = () => {
         },
       });
 
+      //update current budget
+      updateCurrentBudget({
+        ...currentBudget,
+        data: {
+          ...currentBudget.data,
+          budgetItems: [...budgetItems, newBudgetItem],
+        },
+      });
+
       //reset form
-      setFormData({ category: "", item: "", frequency: "weekly", amount: "" });
+      setFormData({
+        category: "",
+        item: "",
+        frequency: "weekly",
+        amount: "0.00",
+      });
       notify("ADDED");
     } else {
       notify("INVALID");

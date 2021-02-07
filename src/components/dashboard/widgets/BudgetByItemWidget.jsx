@@ -14,7 +14,7 @@ import { Pie } from "react-chartjs-2";
 
 const BudgetByItemWidget = () => {
   const [toggleTable, setToggleTable] = useState(false);
-  const [period, setPeriod] = useState("weekly");
+  const [period, setPeriod] = useState("daily");
   const { currencySymbol, currentBudget } = useContext(GlobalContext);
   const budgetItems = currentBudget.data.budgetItems;
   let netIncomeForPeriod = getNetIncomeForPeriod(currentBudget, period);
@@ -98,7 +98,6 @@ const BudgetByItemWidget = () => {
     labels: l,
     datasets: [
       {
-        backgroundColor: ["#e69a07", "#656b74"],
         borderColor: ["#00b4ee", "#00b4ee"],
         label: "Allocated / Remaining",
         fill: true,

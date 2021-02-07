@@ -17,7 +17,7 @@ import {
 
 const BudgetByCategoryWidget = () => {
   const [toggleTable, setToggleTable] = useState(false);
-  const [period, setPeriod] = useState("weekly");
+  const [period, setPeriod] = useState("daily");
   const { currencySymbol, currentBudget } = useContext(GlobalContext);
 
   const budgetItems = currentBudget.data.budgetItems;

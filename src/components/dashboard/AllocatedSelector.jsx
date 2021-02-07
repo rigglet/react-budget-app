@@ -2,17 +2,17 @@ import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import {
-  formatNumber,
-  getNetIncomeForPeriod,
-  getAllocatedPerPeriod,
-} from "../../util";
+import { formatNumber } from "../../util";
 
-const AllocatedSelector = ({ period, handlePeriodChange }) => {
-  const { currencySymbol, currentBudget } = useContext(GlobalContext);
-  let subTotal = getAllocatedPerPeriod(currentBudget, period);
-  let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
-  const remaining = (selectedPeriod - subTotal).toFixed(2);
+const AllocatedSelector = ({
+  period,
+  handlePeriodChange,
+  selectedPeriod,
+  subTotal,
+  remaining,
+}) => {
+  const { currencySymbol } = useContext(GlobalContext);
+  //const remaining = (selectedPeriod - subTotal).toFixed(2);
 
   return (
     <StyledAllocatedSelector>

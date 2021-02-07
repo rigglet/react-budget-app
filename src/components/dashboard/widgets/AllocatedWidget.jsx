@@ -3,44 +3,23 @@ import { GlobalContext } from "../../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import { getYearlyAllocated } from "../../../util";
+import {
+  //getYearlyAllocated,
+  getAllocatedPerPeriod,
+  getNetIncomeForPeriod,
+} from "../../../util";
 import AllocatedSelector from "../AllocatedSelector";
 import AllocatedChart from "../AllocatedChart";
 
 const AllocatedWidget = () => {
-  const [period, setPeriod] = useState("weekly");
+  const [period, setPeriod] = useState("daily");
   const { currentBudget } = useContext(GlobalContext);
 
-  const budgetItems = currentBudget.data.budgetItems;
-  const income = currentBudget.data.income;
-
-  let yearlyAllocated = getYearlyAllocated(budgetItems);
-  let subTotal = 0;
-
-  // weekly / monthly /yearly total
-  let selectedPeriod = 0;
-  switch (period) {
-    case "daily":
-      selectedPeriod = income.weeklyNet / 7;
-      subTotal = Number(yearlyAllocated / 365).toFixed(2);
-      break;
-    case "weekly":
-      selectedPeriod = income.weeklyNet;
-      subTotal = Number(yearlyAllocated / 52).toFixed(2);
-      break;
-    case "monthly":
-      selectedPeriod = income.monthlyNet;
-      subTotal = Number(yearlyAllocated / 12).toFixed(2);
-      break;
-    case "annually":
-      selectedPeriod = income.yearlyNet;
-      subTotal = Number(yearlyAllocated).toFixed(2);
-      break;
-    default:
-      selectedPeriod = income.weeklyNet;
-  }
-
+  let subTotal = getAllocatedPerPeriod(currentBudget, period);
+  let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
   const remaining = (selectedPeriod - subTotal).toFixed(2);
+
+  console.log(subTotal);
 
   const handlePeriodChange = (e) => {
     //setPeriod(e.target.value);
@@ -53,6 +32,9 @@ const AllocatedWidget = () => {
       <AllocatedSelector
         period={period}
         handlePeriodChange={handlePeriodChange}
+        selectedPeriod={selectedPeriod}
+        subTotal={subTotal}
+        remaining={remaining}
       />
       <div className="data">
         <div className="chart">
