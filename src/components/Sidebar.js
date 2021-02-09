@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //import { GlobalContext } from "../context/GlobalContext";
 import { Link, useLocation } from "react-router-dom";
-//import { RiFundsBoxLine } from "react-icons/ri";
-import { FaWallet, FaChartBar, FaRegMoneyBillAlt } from "react-icons/fa";
+import { GiPayMoney } from "react-icons/gi";
+import { FaWallet, FaRegMoneyBillAlt } from "react-icons/fa";
 import { BiAbacus } from "react-icons/bi";
+//FaChartBar
 
 const Sidebar = ({ id }) => {
   //const { currentBudgetId } = useContext(GlobalContext);
@@ -52,6 +53,25 @@ const Sidebar = ({ id }) => {
         <li>
           <Link
             to={{
+              pathname: `/settings/${id}/expenditure`,
+            }}
+          >
+            <GiPayMoney
+              className={path === "expenditure" ? "navIconSelected" : "navIcon"}
+            />
+            <p className={path === "expenditure" ? "selected" : ""}>
+              Expenditure
+            </p>
+          </Link>
+          <Line
+            transition={{ duration: 0.75 }}
+            initial={{ width: "0%" }}
+            animate={{ width: path === "expenditure" ? "70%" : "0%" }}
+          />
+        </li>
+        <li>
+          <Link
+            to={{
               pathname: `/settings/${id}/tracker`,
             }}
           >
@@ -64,23 +84,6 @@ const Sidebar = ({ id }) => {
             transition={{ duration: 0.75 }}
             initial={{ width: "0%" }}
             animate={{ width: path === "tracker" ? "70%" : "0%" }}
-          />
-        </li>
-        <li>
-          <Link
-            to={{
-              pathname: `/settings/${id}/overview`,
-            }}
-          >
-            <FaChartBar
-              className={path === "overview" ? "navIconSelected" : "navIcon"}
-            />
-            <p className={path === "overview" ? "selected" : ""}>Overview</p>
-          </Link>
-          <Line
-            transition={{ duration: 0.75 }}
-            initial={{ width: "0%" }}
-            animate={{ width: path === "overview" ? "70%" : "0%" }}
           />
         </li>
       </ul>

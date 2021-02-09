@@ -2,6 +2,7 @@ import Allocated from "./components/dashboard/widgets/AllocatedWidget";
 import BudgetByCategoryWidget from "./components/dashboard/widgets/BudgetByCategoryWidget";
 import BudgetByItemWidget from "./components/dashboard/widgets/BudgetByItemWidget";
 import Salary from "./components/dashboard/widgets/SalaryWidget";
+import ExpenditureWidget from "./components/dashboard/widgets/ExpenditureWidget";
 import { v4 as uuidv4 } from "uuid";
 
 export const getAccumulatedSubTotals = (currentBudget) => {
@@ -140,15 +141,10 @@ export const getWidget = (name) => {
       return <BudgetByCategoryWidget key={uuidv4()} />;
     case "Budget breakdown by item":
       return <BudgetByItemWidget key={uuidv4()} />;
-
-    case "Budget breakdown by category in %":
-      return <BudgetByItemWidget key={uuidv4()} />;
-
-    case "Budget breakdown by item in %":
-      return <BudgetByItemWidget key={uuidv4()} />;
-
-    case "Budget items extrapolated over d/w/m/y":
-      return <BudgetByItemWidget key={uuidv4()} />;
+    case "Expenditure":
+      return <ExpenditureWidget key={uuidv4()} />;
+    // case "Tracker":
+    //   return <TrackerWidget key={uuidv4()} />;
 
     default:
       return <Salary key={uuidv4()} />;
@@ -173,7 +169,7 @@ export const getYearlyAllocated = (budgetItems) => {
         }
         return item.amount;
       })
-      .reduce((acc, current) => acc + current);
+      .reduce((acc, current) => acc + current, []);
   } else {
     return [];
   }

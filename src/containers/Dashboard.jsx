@@ -49,6 +49,32 @@ const Dashboard = () => {
                     })
                 }
               </div>
+              <div className="expenditure">
+                {
+                  //EXPENDITURE WIDGETS
+                  widgets.expenditureWidgets
+                    .sort((a, b) => (a.name > b.name ? 1 : -1))
+                    .map((item) => {
+                      if (item.selected) {
+                        return getWidget(item.name);
+                      }
+                      return undefined;
+                    })
+                }
+              </div>
+              <div className="tracker">
+                {
+                  //TRACKER WIDGETS
+                  widgets.trackerWidgets
+                    .sort((a, b) => (a.name > b.name ? 1 : -1))
+                    .map((item) => {
+                      if (item.selected) {
+                        return getWidget(item.name);
+                      }
+                      return undefined;
+                    })
+                }
+              </div>
             </div>
           </>
         )}
@@ -93,7 +119,9 @@ const StyledDashboard = styled(motion.div)`
       flex-direction: column;
       margin-bottom: 1rem;
       .income,
-      .budgets {
+      .budgets,
+      .expenditure,
+      .tracker {
         width: 100%;
         display: flex;
         gap: 1rem;

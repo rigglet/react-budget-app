@@ -7,27 +7,24 @@ import { useLocation } from "react-router-dom";
 import Income from "../components/settings/Income";
 import Budget from "../components/settings/Budget";
 import Tracker from "../components/settings/Tracker";
-import Overview from "../components/settings/Overview";
+import Expenditure from "../components/settings/Expenditure";
 
 const Dashboard = () => {
-  const { currentBudgetId, budgets } = useContext(GlobalContext);
-  const currentBudget = budgets.filter(
-    (budget) => budget.id === currentBudgetId
-  )[0];
-
+  const { currentBudget } = useContext(GlobalContext);
+  //const budgets = currentBudget.data.budgets;
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
-  //console.log(subMenu);
+
   return (
     <StyledDash>
       <div className="left">
         <Sidebar id={currentBudget.id} />
       </div>
       <div className="main">
-        {subMenu === "income" && <Income currentBudget={currentBudget} />}
-        {subMenu === "budget" && <Budget currentBudget={currentBudget} />}
-        {subMenu === "tracker" && <Tracker currentBudget={currentBudget} />}
-        {subMenu === "overview" && <Overview currentBudget={currentBudget} />}
+        {subMenu === "income" && <Income />}
+        {subMenu === "budget" && <Budget />}
+        {subMenu === "expenditure" && <Expenditure />}
+        {subMenu === "tracker" && <Tracker />}
       </div>
       <div className="right"></div>
     </StyledDash>

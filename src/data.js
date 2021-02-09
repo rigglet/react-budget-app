@@ -12,23 +12,23 @@ export const getWidgets = () => {
     ],
     budgetWidgets: [
       {
-        name: "Budget table of items extrapolated over d/w/m/y",
+        name: "Budget breakdown by category",
         selected: false,
       },
       {
-        name: "Budget breakdown by category in currency",
+        name: "Budget breakdown by item",
         selected: false,
       },
+    ],
+    expenditureWidgets: [
       {
-        name: "Budget breakdown by item in currency",
+        name: "Expenditure",
         selected: false,
       },
+    ],
+    trackerWidgets: [
       {
-        name: "Budget breakdown by category in %",
-        selected: false,
-      },
-      {
-        name: "Budget breakdown by item in %",
+        name: "Tracker",
         selected: false,
       },
     ],
@@ -44,6 +44,15 @@ export const getData = () => {
   //     description: "Julie salary budget",
   //     widgets: getWidgets(),
   //     data: {
+  //       transactions: [
+  //         {
+  //           id: 1,
+  //           category: "accommodation",
+  //           item: "rent",
+  //           date: "07 - 02 - 2021",
+  //           amount: 1.0,
+  //         },
+  //       ],
   //       budgetItems: [
   //         {
   //           id: 1,
@@ -85,6 +94,69 @@ export const getData = () => {
   //           amount: 353.17,
   //           paid: false,
   //         },
+  //         {
+  //           amount: 28,
+  //           category: "bills",
+  //           frequency: "monthly",
+  //           id: "fdf487aa-040a-4c91-9d34-e221e0ae5ffc",
+  //           item: "school union naht",
+  //         },
+  //         {
+  //           amount: 22.67,
+  //           category: "car",
+  //           frequency: "monthly",
+  //           id: "921c8c21-515c-4cb3-bf7c-c740df5d02d8",
+  //           item: "servicing",
+  //         },
+  //         {
+  //           amount: 100,
+  //           category: "car",
+  //           frequency: "monthly",
+  //           id: "df78edab-e316-49ea-ae8c-9f20aca86132",
+  //           item: "petrol",
+  //         },
+  //         {
+  //           amount: 60,
+  //           category: "clothing",
+  //           frequency: "monthly",
+  //           id: "d88713f0-5f12-4381-bae4-e1c235b8af68",
+  //           item: "clothes shoes",
+  //         },
+  //         {
+  //           amount: 150,
+  //           category: "entertainment",
+  //           frequency: "weekly",
+  //           id: "49b5acbe-1921-4219-8ee6-8c153ed08472",
+  //           item: "eating out",
+  //         },
+  //         {
+  //           amount: 57,
+  //           category: "excercise",
+  //           frequency: "monthly",
+  //           id: "ad402800-0ca9-417d-9b24-9fd6e645a3fb",
+  //           item: "gym",
+  //         },
+  //         {
+  //           amount: 235.06,
+  //           category: "financial",
+  //           frequency: "monthly",
+  //           id: "1c39a1e6-eb1d-4722-a6e8-1936e279e45d",
+  //           item: "car loan",
+  //         },
+  //         {
+  //           amount: 400,
+  //           category: "financial",
+  //           frequency: "monthly",
+  //           id: "13a75aed-5b72-47ff-86b4-637d6a51257b",
+  //           item: "savings",
+  //         },
+  //         {
+  //           amount: 80,
+  //           category: "health",
+  //           frequency: "annually",
+  //           id: "f6491402-4ccd-4af0-a572-50f469cfea5d",
+  //           item: "prescriptions",
+  //         },
   //       ],
   //       income: {
   //         annual: 63000.0,
@@ -106,6 +178,15 @@ export const getData = () => {
   //     description: "Neil salary budget",
   //     widgets: getWidgets(),
   //     data: {
+  //       transactions: [
+  //         {
+  //           id: 1,
+  //           category: "accommodation",
+  //           item: "rent",
+  //           date: "07 - 02 - 2021",
+  //           amount: 1.0,
+  //         },
+  //       ],
   //       budgetItems: [
   //         {
   //           id: 1,
@@ -168,6 +249,31 @@ export const getData = () => {
   //     description: "Basic test figures",
   //     widgets: getWidgets(),
   //     data: {
+  //       transactions: [
+  //         {
+  //           id: 1,
+  //           category: "accommodation",
+  //           item: "rent",
+  //           date: "07 - 02 - 2021",
+  //           amount: 1.0,
+  //         },
+  //         {
+  //           id: 2,
+  //           category: "bills",
+  //           item: "phone",
+  //           date: "07 - 02 - 2021",
+  //           amount: 2.0,
+  //           paid: false,
+  //         },
+  //         {
+  //           id: 3,
+  //           category: "bills",
+  //           item: "council tax",
+  //           date: "07 - 02 - 2021",
+  //           amount: 3.0,
+  //           paid: false,
+  //         },
+  //       ],
   //       budgetItems: [
   //         {
   //           id: 1,

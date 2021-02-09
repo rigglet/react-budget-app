@@ -121,7 +121,82 @@ const ConfigureDash = () => {
               </div>
             ))}
         </div>
-
+        <div className="line"></div>
+        <h5>Expenditure widgets</h5>
+        <div className="expenditureWidgets">
+          {widgets.expenditureWidgets
+            .sort((a, b) => (a.name > b.name ? 1 : -1))
+            .map((item, index) => (
+              <div className="selection" key={item.name}>
+                <p>{item.name} </p>
+                <div className="iconSelect">
+                  {item.selected ? (
+                    <RiEye2Line
+                      className="icon open"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.expenditureWidgets,
+                          "expenditureWidgets"
+                        )
+                      }
+                    />
+                  ) : (
+                    <RiEyeCloseLine
+                      className="icon"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.expenditureWidgets,
+                          "expenditureWidgets"
+                        )
+                      }
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
+        <div className="line"></div>
+        <h5>Tracker widgets</h5>
+        <div className="trackerWidgets">
+          {widgets.trackerWidgets
+            .sort((a, b) => (a.name > b.name ? 1 : -1))
+            .map((item, index) => (
+              <div className="selection" key={item.name}>
+                <p>{item.name} </p>
+                <div className="iconSelect">
+                  {item.selected ? (
+                    <RiEye2Line
+                      className="icon open"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.trackerWidgets,
+                          "trackerWidgets"
+                        )
+                      }
+                    />
+                  ) : (
+                    <RiEyeCloseLine
+                      className="icon"
+                      onClick={() =>
+                        handleChangeSetting(
+                          item.name,
+                          index,
+                          widgets.trackerWidgets,
+                          "trackerWidgets"
+                        )
+                      }
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
         <div className="line"></div>
         <button onClick={() => handleSaveConfig()}>SAVE</button>
       </div>

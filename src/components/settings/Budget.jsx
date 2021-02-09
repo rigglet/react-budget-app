@@ -1,19 +1,11 @@
-//import { useState, useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//number input
-//import NumericInput from "react-numeric-input";
-//import { BsFileText } from "react-icons/bs";
-//import { useHistory } from "react-router-dom";
-//context
-//import { GlobalContext } from "../../context/GlobalContext";
 import Allocated from "../dashboard/widgets/AllocatedWidget";
 import BudgetList from "./BudgetList";
 import AddBudgetItemForm from "./AddBudgetItemForm";
-//import BudgetBreakdown from "../dashboard/BudgetBreakdown";
 import Salary from "../dashboard/widgets/SalaryWidget";
 
-const Budget = ({ currentBudget }) => {
+const Budget = () => {
   return (
     <StyledBudget>
       <h3>Budget</h3>
