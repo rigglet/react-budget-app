@@ -23,67 +23,71 @@ const SalaryWidget = () => {
   return (
     <StyledSalary>
       <h4>Salary gross and net breakdown</h4>
-      <div className="data">
-        <div className="gross">
-          <div className="item">
-            <h5>Annual (Gross)</h5>
-            <p>
-              <span className="symbol">{currencySymbol}</span>
-              <span className={annual < 0 ? "negative" : "positive"}>
-                {formatNumber(annual)}
-              </span>
-            </p>
+      {yearlyNet > 0 ? (
+        <div className="data">
+          <div className="gross">
+            <div className="item">
+              <h5>Annual (Gross)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={annual < 0 ? "negative" : "positive"}>
+                  {formatNumber(annual)}
+                </span>
+              </p>
+            </div>
+            <div className="item">
+              <h5>Monthly (Gross)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={annual / 12 < 0 ? "negative" : "positive"}>
+                  {formatNumber(annual / 12)}
+                </span>
+              </p>
+            </div>
+            <div className="item">
+              <h5>Weekly (Gross)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={annual / 52 < 0 ? "negative" : "positive"}>
+                  {formatNumber(annual / 52)}
+                </span>
+              </p>
+            </div>
           </div>
-          <div className="item">
-            <h5>Monthly (Gross)</h5>
-            <p>
-              <span className="symbol">{currencySymbol}</span>
-              <span className={annual / 12 < 0 ? "negative" : "positive"}>
-                {formatNumber(annual / 12)}
-              </span>
-            </p>
-          </div>
-          <div className="item">
-            <h5>Weekly (Gross)</h5>
-            <p>
-              <span className="symbol">{currencySymbol}</span>
-              <span className={annual / 52 < 0 ? "negative" : "positive"}>
-                {formatNumber(annual / 52)}
-              </span>
-            </p>
-          </div>
-        </div>
 
-        <div className="net">
-          <div className="item">
-            <h5>Annual (Net)</h5>
-            <p>
-              <span className="symbol">{currencySymbol}</span>
-              <span className={yearlyNet < 0 ? "negative" : "positive"}>
-                {formatNumber(yearlyNet)}
-              </span>
-            </p>
-          </div>
-          <div className="item">
-            <h5>Monthly (Net)</h5>
-            <p>
-              <span className="symbol">{currencySymbol}</span>
-              <span className={monthlyNet < 0 ? "negative" : "positive"}>
-                {formatNumber(monthlyNet)}
-              </span>
-            </p>
-          </div>
-          <div className="item">
-            <h5>Weekly (Net)</h5>
-            <p>
-              <span className="symbol">{currencySymbol}</span>
-              <span className={weeklyNet < 0 ? "negative" : "positive"}>
-                {formatNumber(weeklyNet)}
-              </span>
-            </p>
+          <div className="net">
+            <div className="item">
+              <h5>Annual (Net)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={yearlyNet < 0 ? "negative" : "positive"}>
+                  {formatNumber(yearlyNet)}
+                </span>
+              </p>
+            </div>
+            <div className="item">
+              <h5>Monthly (Net)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={monthlyNet < 0 ? "negative" : "positive"}>
+                  {formatNumber(monthlyNet)}
+                </span>
+              </p>
+            </div>
+            <div className="item">
+              <h5>Weekly (Net)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={weeklyNet < 0 ? "negative" : "positive"}>
+                  {formatNumber(weeklyNet)}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <p>No data to display.</p>
+      )}
     </StyledSalary>
   );
 };
