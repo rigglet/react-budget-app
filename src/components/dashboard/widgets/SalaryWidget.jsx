@@ -86,7 +86,10 @@ const SalaryWidget = () => {
           </div>
         </div>
       ) : (
-        <p>No data to display.</p>
+        <>
+          <p>No data to display.</p>
+          <p>Please enter income figures.</p>
+        </>
       )}
     </StyledSalary>
   );

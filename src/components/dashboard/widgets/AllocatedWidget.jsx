@@ -19,33 +19,39 @@ const AllocatedWidget = () => {
   let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
   const remaining = (selectedPeriod - subTotal).toFixed(2);
 
-  console.log(subTotal);
-
-  const handlePeriodChange = (e) => {
-    //setPeriod(e.target.value);
-    setPeriod(e);
+  const handlePeriodChange = (value) => {
+    setPeriod(value);
   };
 
   return (
     <StyledAllocated>
       <h4>Budget allocated / remaining</h4>
-      <AllocatedSelector
-        period={period}
-        handlePeriodChange={handlePeriodChange}
-        selectedPeriod={selectedPeriod}
-        subTotal={subTotal}
-        remaining={remaining}
-      />
-      <div className="data">
-        <div className="chart">
-          {remaining > 0 && (
-            <AllocatedChart
-              selectedPeriod={selectedPeriod}
-              subTotal={subTotal}
-            />
-          )}
-        </div>
-      </div>
+      {currentBudget.data.income.yearlyNet > 0 ? (
+        <>
+          <AllocatedSelector
+            period={period}
+            handlePeriodChange={handlePeriodChange}
+            selectedPeriod={selectedPeriod}
+            subTotal={subTotal}
+            remaining={remaining}
+          />
+          <div className="data">
+            <div className="chart">
+              {remaining > 0 && (
+                <AllocatedChart
+                  selectedPeriod={selectedPeriod}
+                  subTotal={subTotal}
+                />
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <p>No data to display.</p>
+          <p>Please enter income figures and budget.</p>
+        </>
+      )}
     </StyledAllocated>
   );
 };
