@@ -144,85 +144,96 @@ const BudgetByItemWidget = () => {
     <StyledBreakdown>
       <div className="heading">
         <h4>Budget breakdown by item</h4>
-        <div className="iconSelect">
-          {toggleTable ? (
-            <AiOutlineTable
-              className="icon"
-              onClick={() => handleChangeView()}
-            />
-          ) : (
-            <GoGraph className="icon" onClick={() => handleChangeView()} />
+        {currentBudget.data.income.yearlyNet > 0 &&
+          currentBudget.data.budgetItems.length > 0 && (
+            <div className="iconSelect">
+              {toggleTable ? (
+                <AiOutlineTable
+                  className="icon"
+                  onClick={() => handleChangeView()}
+                />
+              ) : (
+                <GoGraph className="icon" onClick={() => handleChangeView()} />
+              )}
+            </div>
           )}
-        </div>
       </div>
 
-      <div className="data">
-        {toggleTable ? (
-          <div className="chart">
-            <Pie data={data} options={options} />
-          </div>
-        ) : (
-          <div className="info">
-            <AllocatedSelector
-              period={period}
-              handlePeriodChange={handlePeriodChange}
-            />
-            <div className="table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      <h5>Category</h5>
-                    </th>
-                    <th>
-                      <h5>Item</h5>
-                    </th>
-                    <th>
-                      <h5>Item sub-total</h5>
-                    </th>
-                    <th>
-                      <h5>% of allocated</h5>
-                    </th>
-                    <th>
-                      <h5>% of total</h5>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows
-                    .sort((a, b) => (a[2] < b[2] ? 1 : -1))
-                    .map((budgetItem, i) => (
-                      <tr key={uuidv4()}>
-                        <td>
-                          <p className="tableItem">{budgetItem[0]}</p>
-                        </td>
-                        <td>
-                          <p className="tableItem">{budgetItem[1]}</p>
-                        </td>
-                        <td>
-                          <p className="tableItem">
-                            <span className="symbol">{currencySymbol} </span>
-                            {formatNumber(budgetItem[2])}
-                          </p>
-                        </td>
-                        <td>
-                          <p className="tableItem">
-                            {formatNumber(budgetItem[3])} %
-                          </p>
-                        </td>
-                        <td>
-                          <p className="tableItem">
-                            {formatNumber(budgetItem[4])} %
-                          </p>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+      {currentBudget.data.income.yearlyNet > 0 &&
+      currentBudget.data.budgetItems.length > 0 ? (
+        <div className="data">
+          {toggleTable ? (
+            <div className="chart">
+              <Pie data={data} options={options} />
             </div>
-          </div>
-        )}
-      </div>
+          ) : (
+            <div className="info">
+              <AllocatedSelector
+                period={period}
+                handlePeriodChange={handlePeriodChange}
+              />
+              <div className="table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>
+                        <h5>Category</h5>
+                      </th>
+                      <th>
+                        <h5>Item</h5>
+                      </th>
+                      <th>
+                        <h5>Item sub-total</h5>
+                      </th>
+                      <th>
+                        <h5>% of allocated</h5>
+                      </th>
+                      <th>
+                        <h5>% of total</h5>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows
+                      .sort((a, b) => (a[2] < b[2] ? 1 : -1))
+                      .map((budgetItem, i) => (
+                        <tr key={uuidv4()}>
+                          <td>
+                            <p className="tableItem">{budgetItem[0]}</p>
+                          </td>
+                          <td>
+                            <p className="tableItem">{budgetItem[1]}</p>
+                          </td>
+                          <td>
+                            <p className="tableItem">
+                              <span className="symbol">{currencySymbol} </span>
+                              {formatNumber(budgetItem[2])}
+                            </p>
+                          </td>
+                          <td>
+                            <p className="tableItem">
+                              {formatNumber(budgetItem[3])} %
+                            </p>
+                          </td>
+                          <td>
+                            <p className="tableItem">
+                              {formatNumber(budgetItem[4])} %
+                            </p>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <>
+          <p>No data to display.</p>
+          <p>Please enter income figures and budget.</p>
+        </>
+      )}
     </StyledBreakdown>
   );
 };
