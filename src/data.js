@@ -2,15 +2,15 @@ export const getWidgets = () => {
   return {
     incomeWidgets: [
       {
-        name: "Budget allocated / remaining",
-        selected: false,
-      },
-      {
         name: "Salary gross and net breakdown",
         selected: false,
       },
     ],
     budgetWidgets: [
+      {
+        name: "Budget allocated / remaining",
+        selected: false,
+      },
       {
         name: "Budget breakdown by category",
         selected: false,

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
@@ -13,6 +13,27 @@ const Dashboard = () => {
   const { currentBudget } = useContext(GlobalContext);
   const widgets = currentBudget.widgets;
 
+  const checkForSelectedWidgets = (widgetSet) => {
+    let bln = false;
+    widgetSet.forEach((item) => (item.selected ? (bln = true) : (bln = false)));
+    return bln;
+  };
+
+  let [blnDisplayingWidgets, setDisplayingWidgets] = useState(false);
+
+  useEffect(() => {
+    if (
+      checkForSelectedWidgets(widgets.incomeWidgets) ||
+      checkForSelectedWidgets(widgets.budgetWidgets) ||
+      checkForSelectedWidgets(widgets.expenditureWidgets) ||
+      checkForSelectedWidgets(widgets.trackerWidgets)
+    ) {
+      setDisplayingWidgets(true);
+    } else {
+      setDisplayingWidgets(false);
+    }
+  }, [widgets]);
+
   return (
     <StyledDashboard>
       <div className="left">
@@ -23,58 +44,67 @@ const Dashboard = () => {
           <>
             <h3>Dashboard</h3>
             <div className="widgets">
-              <div className="income">
-                {
-                  //INCOME WIDGETS
-                  widgets.incomeWidgets
-                    .sort((a, b) => (a.name > b.name ? 1 : -1))
-                    .map((item) => {
-                      if (item.selected) {
-                        return getWidget(item.name);
-                      }
-                      return undefined;
-                    })
-                }
-              </div>
-              <div className="budgets">
-                {
-                  //BUDGET WIDGETS
-                  widgets.budgetWidgets
-                    .sort((a, b) => (a.name > b.name ? 1 : -1))
-                    .map((item) => {
-                      if (item.selected) {
-                        return getWidget(item.name);
-                      }
-                      return undefined;
-                    })
-                }
-              </div>
-              <div className="expenditure">
-                {
-                  //EXPENDITURE WIDGETS
-                  widgets.expenditureWidgets
-                    .sort((a, b) => (a.name > b.name ? 1 : -1))
-                    .map((item) => {
-                      if (item.selected) {
-                        return getWidget(item.name);
-                      }
-                      return undefined;
-                    })
-                }
-              </div>
-              <div className="tracker">
-                {
-                  //TRACKER WIDGETS
-                  widgets.trackerWidgets
-                    .sort((a, b) => (a.name > b.name ? 1 : -1))
-                    .map((item) => {
-                      if (item.selected) {
-                        return getWidget(item.name);
-                      }
-                      return undefined;
-                    })
-                }
-              </div>
+              {blnDisplayingWidgets ? (
+                <>
+                  <div className="income">
+                    {
+                      //INCOME WIDGETS
+                      widgets.incomeWidgets
+                        .sort((a, b) => (a.name > b.name ? 1 : -1))
+                        .map((item) => {
+                          if (item.selected) {
+                            return getWidget(item.name);
+                          }
+                          return undefined;
+                        })
+                    }
+                  </div>
+                  <div className="budgets">
+                    {
+                      //BUDGET WIDGETS
+                      widgets.budgetWidgets
+                        .sort((a, b) => (a.name > b.name ? 1 : -1))
+                        .map((item) => {
+                          if (item.selected) {
+                            return getWidget(item.name);
+                          }
+                          return undefined;
+                        })
+                    }
+                  </div>
+                  <div className="expenditure">
+                    {
+                      //EXPENDITURE WIDGETS
+                      widgets.expenditureWidgets
+                        .sort((a, b) => (a.name > b.name ? 1 : -1))
+                        .map((item) => {
+                          if (item.selected) {
+                            return getWidget(item.name);
+                          }
+                          return undefined;
+                        })
+                    }
+                  </div>
+                  <div className="tracker">
+                    {
+                      //TRACKER WIDGETS
+                      widgets.trackerWidgets
+                        .sort((a, b) => (a.name > b.name ? 1 : -1))
+                        .map((item) => {
+                          if (item.selected) {
+                            return getWidget(item.name);
+                          }
+                          return undefined;
+                        })
+                    }
+                  </div>
+                </>
+              ) : (
+                <div className="noDataMsg">
+                  <h1>No widgets selected</h1>
+                  <p>Please click settings to select widgets</p>
+                </div>
+              )}
             </div>
           </>
         )}
