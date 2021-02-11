@@ -20,6 +20,10 @@ const BudgetByItemWidget = () => {
   let netIncomeForPeriod = getNetIncomeForPeriod(currentBudget, period);
   let totalAllocatedForPeriod = getAllocatedPerPeriod(currentBudget, period);
 
+  //let subTotal = getAllocatedPerPeriod(currentBudget, period);
+  //let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
+  const remaining = (netIncomeForPeriod - totalAllocatedForPeriod).toFixed(2);
+
   const handlePeriodChange = (v) => {
     setPeriod(v);
   };
@@ -158,7 +162,7 @@ const BudgetByItemWidget = () => {
             </div>
           )}
       </div>
-
+      //TODO: Chart not displaying data correctly
       {currentBudget.data.income.yearlyNet > 0 &&
       currentBudget.data.budgetItems.length > 0 ? (
         <div className="data">
@@ -171,6 +175,9 @@ const BudgetByItemWidget = () => {
               <AllocatedSelector
                 period={period}
                 handlePeriodChange={handlePeriodChange}
+                subTotal={totalAllocatedForPeriod}
+                remaining={remaining}
+                selectedPeriod={netIncomeForPeriod}
               />
               <div className="table">
                 <table>

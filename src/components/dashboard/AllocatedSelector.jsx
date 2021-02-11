@@ -5,14 +5,12 @@ import { motion } from "framer-motion";
 import { formatNumber } from "../../util";
 
 const AllocatedSelector = ({
-  period,
   handlePeriodChange,
   selectedPeriod,
   subTotal,
   remaining,
 }) => {
   const { currencySymbol } = useContext(GlobalContext);
-  //const remaining = (selectedPeriod - subTotal).toFixed(2);
 
   return (
     <StyledAllocatedSelector>

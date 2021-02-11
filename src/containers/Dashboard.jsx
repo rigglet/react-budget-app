@@ -28,6 +28,7 @@ const Dashboard = () => {
       checkForSelectedWidgets(widgets.expenditureWidgets) ||
       checkForSelectedWidgets(widgets.trackerWidgets)
     ) {
+      //console.log("UE");
       setDisplayingWidgets(true);
     } else {
       setDisplayingWidgets(false);

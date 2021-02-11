@@ -23,6 +23,7 @@ const BudgetByCategoryWidget = () => {
   const budgetItems = currentBudget.data.budgetItems;
   let subTotal = getAllocatedPerPeriod(currentBudget, period);
   let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
+  const remaining = (selectedPeriod - subTotal).toFixed(2);
   let maxYRange = 0;
 
   let accumulatedSubTotals = getAccumulatedSubTotals(currentBudget);
@@ -31,7 +32,7 @@ const BudgetByCategoryWidget = () => {
     setPeriod(v);
   };
 
-  //toggle beteen chart and table
+  //toggle between chart and table
   const handleChangeView = () => {
     setToggleTable(!toggleTable);
   };
@@ -171,6 +172,9 @@ const BudgetByCategoryWidget = () => {
           <AllocatedSelector
             period={period}
             handlePeriodChange={handlePeriodChange}
+            subTotal={subTotal}
+            remaining={remaining}
+            selectedPeriod={selectedPeriod}
           />
           <div className="data">
             {toggleTable ? (
