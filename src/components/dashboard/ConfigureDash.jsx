@@ -10,11 +10,12 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { updateBudgetLocally } from "../../util";
 
 const ConfigureDash = () => {
-  const { budgets, currentBudgetId, updateBudget } = useContext(GlobalContext);
-  const currentBudget = budgets.filter(
-    (budget) => budget.id === currentBudgetId
-  )[0];
-
+  const {
+    budgets,
+    currentBudget,
+    updateBudget,
+    updateCurrentBudget,
+  } = useContext(GlobalContext);
   const [widgets, setWidgets] = useState(currentBudget.widgets);
 
   const handleSaveConfig = () => {
@@ -30,6 +31,19 @@ const ConfigureDash = () => {
       ],
     });
 
+    //update current budget
+    updateCurrentBudget({
+      ...currentBudget,
+      widgets: {
+        ...widgets,
+        [arrayName]: [
+          ...arr.filter((item) => item.name !== name),
+          { name, selected: !arr[index].selected },
+        ],
+      },
+    });
+
+    //update global context
     updateBudget({
       ...currentBudget,
       widgets: {

@@ -381,3 +381,31 @@ export const getData = () => {
 //     console.log(Error);
 //   }
 // );
+
+// function towerBuilder(nFloors) {
+//   let tower = [];
+//   let row = [];
+//   let star = "*";
+//   let space = " ";
+//   for (let i = 1; i === nFloors; i++) {
+//     for (let j = 0; j < nFloors - 1; j++) {
+//       row.push(space);
+//     }
+//     for (let k = 0; k < i + 1; k++) {
+//       row.push(star);
+//     }
+//     for (let j = 0; j < nFloors - 1; j++) {
+//       row.push(space);
+//     }
+
+//     tower.push(String(row));
+//   }
+//   return tower;
+// }
+
+//#############################################################
+// TODO:
+// THINGS LEARNED:
+// complex: destructuring of arrays, objects and objects arrays
+//
+//#############################################################
