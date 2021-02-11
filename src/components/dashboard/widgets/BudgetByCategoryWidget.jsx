@@ -150,41 +150,55 @@ const BudgetByCategoryWidget = () => {
     <StyledBreakdown>
       <div className="heading">
         <h4>Budget breakdown by category</h4>
-        <div className="iconSelect">
-          {toggleTable ? (
-            <AiOutlineTable
-              className="icon"
-              onClick={() => handleChangeView()}
-            />
-          ) : (
-            <GoGraph className="icon" onClick={() => handleChangeView()} />
+        {currentBudget.data.income.yearlyNet > 0 &&
+          currentBudget.data.budgetItems.length > 0 && (
+            <div className="iconSelect">
+              {toggleTable ? (
+                <AiOutlineTable
+                  className="icon"
+                  onClick={() => handleChangeView()}
+                />
+              ) : (
+                <GoGraph className="icon" onClick={() => handleChangeView()} />
+              )}
+            </div>
           )}
-        </div>
       </div>
-      <AllocatedSelector
-        period={period}
-        handlePeriodChange={handlePeriodChange}
-      />
-      <div className="data">
-        {toggleTable ? (
-          <div className="chart">
-            <Bar
-              data={data}
-              //width={100}
-              //height={200}
-              options={options}
-            />
-          </div>
-        ) : (
-          <Table
-            arrData={arrData}
-            accumulatedSubTotals={accumulatedSubTotals}
-            data={dataArray}
-            allocated={subTotal}
-            total={selectedPeriod}
+
+      {currentBudget.data.income.yearlyNet > 0 &&
+      currentBudget.data.budgetItems.length > 0 ? (
+        <>
+          <AllocatedSelector
+            period={period}
+            handlePeriodChange={handlePeriodChange}
           />
-        )}
-      </div>
+          <div className="data">
+            {toggleTable ? (
+              <div className="chart">
+                <Bar
+                  data={data}
+                  //width={100}
+                  //height={200}
+                  options={options}
+                />
+              </div>
+            ) : (
+              <Table
+                arrData={arrData}
+                accumulatedSubTotals={accumulatedSubTotals}
+                data={dataArray}
+                allocated={subTotal}
+                total={selectedPeriod}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          <p>No data to display.</p>
+          <p>Please enter income figures and budget.</p>
+        </>
+      )}
     </StyledBreakdown>
   );
 };
