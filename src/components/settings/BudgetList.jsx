@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 import BudgetItem from "./BudgetItem";
-import { updateBudgetLocally } from "../../util";
+import { updateBudgetLocally, sortByCategoryThenByItem } from "../../util";
 
 const BudgetList = () => {
   const {
@@ -14,7 +14,6 @@ const BudgetList = () => {
   } = useContext(GlobalContext);
 
   const budgetItems = currentBudget.data.budgetItems;
-
   const togglePaidStatus = (budgetItem) => {
     const newBudget = {
       ...currentBudget,
@@ -83,23 +82,14 @@ const BudgetList = () => {
           </tr>
         </thead>
         <tbody>
-          {budgetItems
-            .sort((a, b) => (a.category > b.category ? 1 : -1))
-            //.sort((a, b) => (a.item > b.item ? 1 : -1))
-            .map((item) => (
-              <BudgetItem
-                key={item.id}
-                budgetItem={item}
-                // id={item.id}
-                // category={item.category}
-                // item={item.item}
-                // frequency={item.frequency}
-                // amount={item.amount}
-                // paid={item.paid}
-                togglePaidStatus={togglePaidStatus}
-                deleteBudgetItem={deleteBudgetItem}
-              />
-            ))}
+          {sortByCategoryThenByItem(budgetItems).map((item) => (
+            <BudgetItem
+              key={item.id}
+              budgetItem={item}
+              togglePaidStatus={togglePaidStatus}
+              deleteBudgetItem={deleteBudgetItem}
+            />
+          ))}
         </tbody>
       </table>
     </StyledBudgetList>

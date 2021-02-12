@@ -12,12 +12,6 @@ import { formatNumber } from "../../util";
 
 const BudgetItem = ({ budgetItem, deleteBudgetItem, togglePaidStatus }) => {
   const { id, category, item, frequency, amount, paid } = budgetItem;
-  // const [paidStatus, setPaidStatus] = useState(paid);
-
-  // const handleChangePaid = (id) => {
-  //   setPaidStatus(!paidStatus);
-  // };
-
   const { currencySymbol } = useContext(GlobalContext);
 
   return (

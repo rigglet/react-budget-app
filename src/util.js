@@ -143,8 +143,11 @@ export const getWidget = (name) => {
   }
 };
 
+//returns an total figure of all budgets items for the year
+//eg:  $1 per week = $52
+//    $1 per month = $12
+//    yearly total = $64
 export const getYearlyAllocated = (budgetItems) => {
-  //if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
   return budgetItems
     .map((item) => {
       if (!item.paid) {
@@ -164,30 +167,20 @@ export const getYearlyAllocated = (budgetItems) => {
       return 0;
     })
     .reduce((acc, current) => Number(acc) + Number(current), []);
-  // } else {
-  //   return [];
-  // }
 };
-// export const getYearlyAllocated = (budgetItems) => {
-//   //if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
-//   return budgetItems
-//     .map((item) => {
-//       if (item.frequency === "daily") {
-//         return item.amount * 365;
-//       }
-//       if (item.frequency === "weekly") {
-//         return item.amount * 52;
-//       }
-//       if (item.frequency === "monthly") {
-//         return item.amount * 12;
-//       }
-//       if (item.frequency === "annually") {
-//         return item.amount;
-//       }
-//       return item.amount;
-//     })
-//     .reduce((acc, current) => Number(acc) + Number(current), []);
-//   // } else {
-//   //   return [];
-//   // }
-// };
+
+export const sortByCategoryThenByItem = (arr) => {
+  let uniqueSet = new Set();
+  let sortedByCat = [];
+  let sortedByItem = [];
+  sortedByCat = arr.sort((a, b) => (a.category > b.category ? 1 : -1));
+  arr.map((item) => uniqueSet.add(item.category));
+  uniqueSet.forEach((category) => {
+    sortedByItem.push(
+      ...sortedByCat
+        .filter((item) => item.category === category)
+        .sort((a, b) => (a.item > b.item ? 1 : -1))
+    );
+  });
+  return sortedByItem;
+};
