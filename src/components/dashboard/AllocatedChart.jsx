@@ -6,7 +6,7 @@ const AllocatedChart = ({ selectedPeriod, subTotal }) => {
   const remaining = (selectedPeriod - subTotal).toFixed(2);
 
   //Chart data
-  const d = [subTotal, remaining];
+  const d = [Number(subTotal).toFixed(2), Number(remaining).toFixed(2)];
   const data = {
     labels: ["Allocated", "Remaining"],
     datasets: [
