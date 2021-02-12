@@ -15,6 +15,28 @@ const BudgetList = () => {
 
   const budgetItems = currentBudget.data.budgetItems;
 
+  const togglePaidStatus = (budgetItem) => {
+    const newBudget = {
+      ...currentBudget,
+      data: {
+        ...currentBudget.data,
+        budgetItems: [
+          ...budgetItems.filter((item) => item.id !== budgetItem.id),
+          { ...budgetItem, paid: !budgetItem.paid },
+        ],
+      },
+    };
+
+    //update global context
+    updateBudget(newBudget);
+
+    //update local storage
+    updateBudgetLocally(budgets, newBudget);
+
+    //updatecurrentBudget
+    updateCurrentBudget(newBudget);
+  };
+
   const deleteBudgetItem = (id) => {
     const newBudget = {
       ...currentBudget,
@@ -67,12 +89,14 @@ const BudgetList = () => {
             .map((item) => (
               <BudgetItem
                 key={item.id}
-                id={item.id}
-                category={item.category}
-                item={item.item}
-                frequency={item.frequency}
-                amount={item.amount}
-                paid={item.paid}
+                budgetItem={item}
+                // id={item.id}
+                // category={item.category}
+                // item={item.item}
+                // frequency={item.frequency}
+                // amount={item.amount}
+                // paid={item.paid}
+                togglePaidStatus={togglePaidStatus}
                 deleteBudgetItem={deleteBudgetItem}
               />
             ))}

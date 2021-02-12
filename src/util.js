@@ -69,24 +69,16 @@ export const getNetIncomeForPeriod = (currentBudget, period) => {
 export const getAllocatedPerPeriod = (currentBudget, period) => {
   switch (period) {
     case "daily":
-      return Number(
-        getYearlyAllocated(currentBudget.data.budgetItems) / 365
-      ).toFixed(2);
+      return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 365);
     case "weekly":
-      return Number(
-        getYearlyAllocated(currentBudget.data.budgetItems) / 52
-      ).toFixed(2);
+      return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 52);
     case "monthly":
-      return Number(
-        getYearlyAllocated(currentBudget.data.budgetItems) / 12
-      ).toFixed(2);
+      return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 12);
     case "annually":
-      return Number(getYearlyAllocated(currentBudget.data.budgetItems)).toFixed(
-        2
-      );
+      return Number(getYearlyAllocated(currentBudget.data.budgetItems));
 
     default:
-      return Number(0).toFixed(2);
+      return Number(0);
   }
 };
 
@@ -152,9 +144,10 @@ export const getWidget = (name) => {
 };
 
 export const getYearlyAllocated = (budgetItems) => {
-  if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
-    return budgetItems
-      .map((item) => {
+  //if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
+  return budgetItems
+    .map((item) => {
+      if (!item.paid) {
         if (item.frequency === "daily") {
           return item.amount * 365;
         }
@@ -167,10 +160,34 @@ export const getYearlyAllocated = (budgetItems) => {
         if (item.frequency === "annually") {
           return item.amount;
         }
-        return item.amount;
-      })
-      .reduce((acc, current) => acc + current, []);
-  } else {
-    return [];
-  }
+      }
+      return 0;
+    })
+    .reduce((acc, current) => Number(acc) + Number(current), []);
+  // } else {
+  //   return [];
+  // }
 };
+// export const getYearlyAllocated = (budgetItems) => {
+//   //if (typeof budgetItems !== undefined || !budgetItems.length === 0) {
+//   return budgetItems
+//     .map((item) => {
+//       if (item.frequency === "daily") {
+//         return item.amount * 365;
+//       }
+//       if (item.frequency === "weekly") {
+//         return item.amount * 52;
+//       }
+//       if (item.frequency === "monthly") {
+//         return item.amount * 12;
+//       }
+//       if (item.frequency === "annually") {
+//         return item.amount;
+//       }
+//       return item.amount;
+//     })
+//     .reduce((acc, current) => Number(acc) + Number(current), []);
+//   // } else {
+//   //   return [];
+//   // }
+// };

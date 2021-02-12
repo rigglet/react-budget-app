@@ -33,27 +33,18 @@ const AddBudgetItemForm = () => {
   ];
 
   const notify = (type) => {
-    const toastStyle = {
-      position: "bottom-center",
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: "0.. 1",
-    };
     switch (type) {
       case "ADDED":
-        toast.dark("Budget Item Added", toastStyle);
+        toast.dark("Budget Item Added");
         break;
       case "INVALID":
         toast.warn(
           "Please enter a name and description longer than 5 characters",
-          { color: "black", ...toastStyle }
+          { color: "black" }
         );
         break;
       default:
-        toast.dark("Nothing to report", toastStyle);
+        toast.dark("Nothing to report");
     }
   };
 
@@ -76,7 +67,6 @@ const AddBudgetItemForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //console.log(handleValidation(formData));
 
     if (handleValidation(formData)) {
       //const date = new Date(Date.now());
@@ -133,18 +123,17 @@ const AddBudgetItemForm = () => {
   return (
     <StyledAddbudgetItemForm>
       <ToastContainer
-        //closeButton={CloseButton}
         closeButton={false}
         transition={Zoom}
         position="bottom-center"
-        //autoClose={2000}
-        hideProgressBar
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        //pauseOnFocusLoss
         draggable={false}
         pauseOnHover
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
       />
 
       <h4>New Budget Item</h4>

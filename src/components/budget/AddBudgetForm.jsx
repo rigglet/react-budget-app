@@ -32,10 +32,6 @@ const AddBudgetForm = () => {
     }
   };
 
-  //   const CloseButton = ({ closeToast }) => (
-  //     <FaWindowClose className="toastClose" onClick={closeToast} />
-  //   );
-
   const handleValidation = (formData) => {
     let valid = true;
     //console.log(formData.name.length);

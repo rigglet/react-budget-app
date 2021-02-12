@@ -10,20 +10,14 @@ import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
 //format numbers
 import { formatNumber } from "../../util";
 
-const BudgetItem = ({
-  id,
-  category,
-  item,
-  frequency,
-  amount,
-  paid,
-  deleteBudgetItem,
-}) => {
-  const [paidStatus, setPaidStatus] = useState(paid);
+const BudgetItem = ({ budgetItem, deleteBudgetItem, togglePaidStatus }) => {
+  const { id, category, item, frequency, amount, paid } = budgetItem;
+  // const [paidStatus, setPaidStatus] = useState(paid);
 
-  const handleChangePaid = () => {
-    setPaidStatus(!paidStatus);
-  };
+  // const handleChangePaid = (id) => {
+  //   setPaidStatus(!paidStatus);
+  // };
+
   const { currencySymbol } = useContext(GlobalContext);
 
   return (
@@ -45,15 +39,15 @@ const BudgetItem = ({
       </td>
       <td>
         <p className="paid">
-          {paidStatus ? (
+          {paid ? (
             <FaCheckSquare
               className="check"
-              onClick={() => handleChangePaid()}
+              onClick={() => togglePaidStatus(budgetItem)}
             />
           ) : (
             <FaTimesCircle
               className="cross"
-              onClick={() => handleChangePaid()}
+              onClick={() => togglePaidStatus(budgetItem)}
             />
           )}
         </p>
