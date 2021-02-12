@@ -12,12 +12,18 @@ import AllocatedSelector from "../AllocatedSelector";
 import AllocatedChart from "../AllocatedChart";
 
 const AllocatedWidget = () => {
+  //const [period, setPeriod] = useState("daily");
   const [period, setPeriod] = useState("daily");
   const { currentBudget } = useContext(GlobalContext);
 
   let subTotal = getAllocatedPerPeriod(currentBudget, period);
   let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
-  const remaining = (selectedPeriod - subTotal).toFixed(2);
+  //const remaining = parseInt(selectedPeriod) - parseInt(subTotal);
+  const remaining = Number(selectedPeriod) - Number(subTotal);
+
+  console.log(subTotal);
+  console.log(selectedPeriod);
+  console.log(remaining);
 
   const handlePeriodChange = (value) => {
     setPeriod(value);
