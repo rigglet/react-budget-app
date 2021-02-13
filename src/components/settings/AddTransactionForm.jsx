@@ -10,41 +10,43 @@ import { updateBudgetLocally } from "../../util";
 import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 const AddTransactionForm = () => {
+  const {
+    updateBudget,
+    currentBudget,
+    updateCurrentBudget,
+    budgets,
+  } = useContext(GlobalContext);
+
+  const date = new Date(Date.now());
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  if (month < 10) month = `0${month}`;
+  const sd = year + "-" + month + "-" + day;
+
   const [formData, setFormData] = useState({
     category: "",
     item: "",
-    date: "",
+    date: sd,
     amount: 0.0,
   });
 
-  const { updateBudget, currentBudget, updateCurrentBudget } = useContext(
-    GlobalContext
-  );
-
   const notify = (type) => {
-    const toastStyle = {
-      position: "bottom-center",
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: "0.. 1",
-    };
     switch (type) {
       case "ADDED":
-        toast.dark("Transaction Added", toastStyle);
+        toast.dark("Transaction Added");
         break;
       case "INVALID":
         toast.warn(
           "Please enter a name and description longer than 5 characters",
-          { color: "black", ...toastStyle }
+          { color: "black" }
         );
         break;
       default:
-        toast.dark("Nothing to report", toastStyle);
+        toast.dark("Nothing to report");
     }
   };
 
@@ -58,7 +60,6 @@ const AddTransactionForm = () => {
   };
 
   const handleChange = (e) => {
-    //console.log(`${e.target.name}: ${e.target.value}`);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -67,11 +68,8 @@ const AddTransactionForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //console.log(handleValidation(formData));
 
     if (handleValidation(formData)) {
-      //const date = new Date(Date.now());
-      //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
       const newTransaction = {
         id: uuidv4(),
         category: formData.category,
@@ -80,41 +78,48 @@ const AddTransactionForm = () => {
         amount: Number(formData.amount),
       };
 
-      console.log(newTransaction);
+      const transactions = currentBudget.data.transactions;
 
-      // //add budget to app context
-      // const transactions = currentBudget.data.transactions;
-      // updateBudget({
-      //   ...currentBudget,
-      //   data: {
-      //     ...currentBudget.data,
-      //     transactions: [...transactions, newTransaction],
-      //   },
-      // });
+      //add budget to app context
+      updateBudget({
+        ...currentBudget,
+        data: {
+          ...currentBudget.data,
+          transactions: [...transactions, newTransaction],
+        },
+      });
 
-      // //save budget to local storage
-      // updateBudgetLocally(transactions, {
-      //   ...currentBudget,
-      //   data: {
-      //     ...currentBudget.data,
-      //     transactions: [...transactions, newTransaction],
-      //   },
-      // });
+      //update current budget
+      updateCurrentBudget({
+        ...currentBudget,
+        data: {
+          ...currentBudget.data,
+          transactions: [...transactions, newTransaction],
+        },
+      });
 
-      // //update current budget
-      // updateCurrentBudget({
-      //   ...currentBudget,
-      //   data: {
-      //     ...currentBudget.data,
-      //     transactions: [...transactions, newTransaction],
-      //   },
-      // });
+      //save budget to local storage
+      updateBudgetLocally(budgets, {
+        ...currentBudget,
+        data: {
+          ...currentBudget.data,
+          transactions: [...transactions, newTransaction],
+        },
+      });
+
+      console.log({
+        ...currentBudget,
+        data: {
+          ...currentBudget.data,
+          transactions: [...transactions, newTransaction],
+        },
+      });
 
       //reset form
       setFormData({
         category: "",
         item: "",
-        date: "",
+        date: sd,
         amount: "0.00",
       });
       notify("ADDED");
@@ -126,18 +131,17 @@ const AddTransactionForm = () => {
   return (
     <StyledAddTransactionForm>
       <ToastContainer
-        //closeButton={CloseButton}
         closeButton={false}
         transition={Zoom}
         position="bottom-center"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        //pauseOnFocusLoss
         draggable={false}
         pauseOnHover
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
       />
 
       <h4>New Transaction</h4>
@@ -159,7 +163,12 @@ const AddTransactionForm = () => {
           placeholder="item..."
         />
         <label>Date:</label>
-        <input type="date" />
+        <input
+          name="date"
+          type="date"
+          value={formData.date}
+          onChange={handleChange}
+        />
         <label>Amount:</label>
         <input
           name="amount"

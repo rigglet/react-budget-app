@@ -15,6 +15,8 @@ const Tracker = ({ currentBudget }) => {
   return (
     <StyledTracker>
       <h3>Tracker</h3>
+      <p>Budget breakdown for the week etc</p>
+      <p>hide / show things that don't change</p>
     </StyledTracker>
   );
 };

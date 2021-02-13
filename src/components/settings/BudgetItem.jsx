@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 //styling
 import styled from "styled-components";
 import { motion } from "framer-motion";

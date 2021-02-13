@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import DateFilter from "./settings/DateFilter";
 
 const SubNav = () => {
-  return <StyledNav></StyledNav>;
+  const location = useLocation();
+  const subMenu = location.pathname.split("/")[3];
+
+  return (
+    <StyledNav>
+      {(subMenu === "expenditure" || subMenu === "tracker") && <DateFilter />}
+    </StyledNav>
+  );
 };
 
 const StyledNav = styled(motion.div)`

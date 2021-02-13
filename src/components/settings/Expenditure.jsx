@@ -8,9 +8,7 @@ const Expenditure = ({ currentBudget }) => {
   return (
     <StyledExpenditure>
       <h3>Expenditure</h3>
-      <div className="charts">
-        <ExpenditureWidget />
-      </div>
+      <div className="charts">{/* <ExpenditureWidget /> */}</div>
       <AddTransactionForm />
       <TransactionList />
     </StyledExpenditure>

@@ -169,18 +169,41 @@ export const getYearlyAllocated = (budgetItems) => {
     .reduce((acc, current) => Number(acc) + Number(current), []);
 };
 
+// custom sort function to sort by category
+// then by item inside that category
+// builds new array with sorted results
+// Quite proud of this!
 export const sortByCategoryThenByItem = (arr) => {
+  let arrSortedByItem = [];
+
+  //ceate set of unique category names
   let uniqueSet = new Set();
-  let sortedByCat = [];
-  let sortedByItem = [];
-  sortedByCat = arr.sort((a, b) => (a.category > b.category ? 1 : -1));
   arr.map((item) => uniqueSet.add(item.category));
+
   uniqueSet.forEach((category) => {
-    sortedByItem.push(
-      ...sortedByCat
+    arrSortedByItem.push(
+      ...arr
+        .sort((a, b) => (a.category > b.category ? 1 : -1))
         .filter((item) => item.category === category)
         .sort((a, b) => (a.item > b.item ? 1 : -1))
     );
   });
-  return sortedByItem;
+
+  return arrSortedByItem;
 };
+
+// export const sortByCategoryThenByItem = (arr) => {
+//   let uniqueSet = new Set();
+//   let sortedByCat = [];
+//   let sortedByItem = [];
+//   sortedByCat = arr.sort((a, b) => (a.category > b.category ? 1 : -1));
+//   arr.map((item) => uniqueSet.add(item.category));
+//   uniqueSet.forEach((category) => {
+//     sortedByItem.push(
+//       ...sortedByCat
+//         .filter((item) => item.category === category)
+//         .sort((a, b) => (a.item > b.item ? 1 : -1))
+//     );
+//   });
+//   return sortedByItem;
+// };

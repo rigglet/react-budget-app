@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 //format numbers
 import { formatNumber } from "../../util";
+import moment from "moment";
 
 const Transaction = ({
   id,
@@ -16,6 +17,7 @@ const Transaction = ({
   deleteTransaction,
 }) => {
   const { currencySymbol } = useContext(GlobalContext);
+  //console.log(moment(date, "YYYY-MM-DD").format("DD-MM-YYYY"));
 
   return (
     <StyledTransaction>
@@ -26,7 +28,7 @@ const Transaction = ({
         <p>{item}</p>
       </td>
       <td>
-        <p>{date}</p>
+        <p>{moment(date).format("DD-MM-YYYY")}</p>
       </td>
       <td>
         <p>
