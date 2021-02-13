@@ -207,3 +207,21 @@ export const sortByCategoryThenByItem = (arr) => {
 //   });
 //   return sortedByItem;
 // };
+
+export const getToday = () => {
+  const date = new Date(Date.now());
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  if (month < 10) month = `0${month}`;
+  return year + "-" + month + "-" + day;
+};
+
+export const getTodayDDMMYYY = () => {
+  const date = new Date(Date.now());
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  if (month < 10) month = `0${month}`;
+  return day + "-" + month + "-" + year;
+};

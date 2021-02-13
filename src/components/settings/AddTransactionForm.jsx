@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { updateBudgetLocally } from "../../util";
+import { updateBudgetLocally, getToday } from "../../util";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
@@ -20,17 +20,12 @@ const AddTransactionForm = () => {
     budgets,
   } = useContext(GlobalContext);
 
-  const date = new Date(Date.now());
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  if (month < 10) month = `0${month}`;
-  const sd = year + "-" + month + "-" + day;
+  const date = getToday();
 
   const [formData, setFormData] = useState({
     category: "",
     item: "",
-    date: sd,
+    date: date,
     amount: 0.0,
   });
 
@@ -119,7 +114,7 @@ const AddTransactionForm = () => {
       setFormData({
         category: "",
         item: "",
-        date: sd,
+        date: date,
         amount: "0.00",
       });
       notify("ADDED");

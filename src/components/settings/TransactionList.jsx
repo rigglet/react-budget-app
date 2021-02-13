@@ -96,6 +96,7 @@ const StyledTransactionList = styled(motion.div)`
   }
   h5 {
     color: #848586;
+    font-variant-caps: small-caps;
   }
 `;
 
