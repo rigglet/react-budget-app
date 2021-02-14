@@ -9,6 +9,8 @@ export const reducer = (state, action) => {
     updateCurrentBudgetId: "UPDATE_CURRENT_BUDGET_ID",
     updateCurrentBudget: "UPDATE_CURRENT_BUDGET",
     updateBudgetLoaded: "UPDATE_ISLOADED",
+    updateDateRange: "UPDATE_RANGE",
+
     //updateWidgets: "UPDATE_WIDGETS",
   };
 
@@ -55,11 +57,12 @@ export const reducer = (state, action) => {
         ...state,
         isBudgetLoaded: action.payload,
       };
-    // case ACTIONS.updateWidgets:
-    //   return {
-    //     ...state,
-    //     widgets: action.payload,
-    //   };
+    case ACTIONS.updateDateRange:
+      return {
+        ...state,
+        range: action.payload,
+      };
+
     default:
       return state;
   }

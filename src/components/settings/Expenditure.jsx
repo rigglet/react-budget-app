@@ -4,7 +4,7 @@ import AddTransactionForm from "./AddTransactionForm";
 import TransactionList from "./TransactionList";
 import ExpenditureWidget from "../dashboard/widgets/ExpenditureWidget";
 
-const Expenditure = ({ currentBudget }) => {
+const Expenditure = () => {
   return (
     <StyledExpenditure>
       <h3>Expenditure</h3>

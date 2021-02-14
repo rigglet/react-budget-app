@@ -1,6 +1,8 @@
 import { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
 //import { getWidgets } from "../data";
+import moment from "moment";
+
 //intialState
 const initialState = {
   budgets: [],
@@ -8,6 +10,10 @@ const initialState = {
   currentBudget: {},
   isBudgetLoaded: false,
   currencySymbol: "£",
+  dateRange: {
+    from: moment(new Date(Date.now())),
+    to: moment(new Date(Date.now())),
+  },
 };
 
 //create context
@@ -75,12 +81,13 @@ export const GlobalProvider = ({ children }) => {
       payload: loaded,
     });
   };
-  // const updateWidgets = (widgets) => {
-  //   dispatch({
-  //     type: "UPDATE_WIDGETS",
-  //     payload: widgets,
-  //   });
-  // };
+
+  const updateDateRange = (range) => {
+    dispatch({
+      type: "UPDATE_RANGE",
+      payload: range,
+    });
+  };
 
   return (
     <GlobalContext.Provider
@@ -90,7 +97,7 @@ export const GlobalProvider = ({ children }) => {
         currentBudget: state.currentBudget,
         isBudgetLoaded: state.isBudgetLoaded,
         currencySymbol: state.currencySymbol,
-        //widgets: state.widgets,
+        dateRange: state.dateRange,
         loadBudgets,
         addBudget,
         deleteBudget,
@@ -100,7 +107,7 @@ export const GlobalProvider = ({ children }) => {
         updateCurrentBudgetId,
         updateCurrentBudget,
         updateBudgetLoaded,
-        //updateWidgets,
+        updateDateRange,
       }}
     >
       {children}

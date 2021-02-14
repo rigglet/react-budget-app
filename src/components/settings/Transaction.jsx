@@ -13,11 +13,11 @@ const Transaction = ({
   category,
   item,
   date,
+  type,
   amount,
   deleteTransaction,
 }) => {
   const { currencySymbol } = useContext(GlobalContext);
-  //console.log(moment(date, "YYYY-MM-DD").format("DD-MM-YYYY"));
 
   return (
     <StyledTransaction>
@@ -32,8 +32,11 @@ const Transaction = ({
       </td>
       <td>
         <p>
-          <span className="symbol">{currencySymbol}</span>
-          {formatNumber(amount)}
+          <span className={type === "deposit" ? "deposit" : "withdrawal"}>
+            <span className="sign">{type === "deposit" ? "+" : "-"}</span>
+            <span className="symbol">{currencySymbol}</span>
+            {formatNumber(amount)}
+          </span>
         </p>
       </td>
       <td>
@@ -47,6 +50,15 @@ const Transaction = ({
 
 const StyledTransaction = styled(motion.tr)`
   width: 100%;
+  .sign {
+    margin-right: 0.5rem;
+  }
+  .deposit {
+    color: #17cf98;
+  }
+  .withdrawal {
+    color: #f58e8e;
+  }
   p {
     text-align: center;
     text-transform: capitalize;

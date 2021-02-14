@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 import Transaction from "./Transaction";
-import { updateBudgetLocally } from "../../util";
+import { filterBydateRange, updateBudgetLocally } from "../../util";
 
 const TransactionList = () => {
   const {
@@ -14,6 +14,7 @@ const TransactionList = () => {
   } = useContext(GlobalContext);
 
   const transactions = currentBudget.data.transactions;
+  const filteredTransactions = filterBydateRange(transactions);
 
   const deleteTransaction = (id) => {
     const newBudget = {
@@ -60,7 +61,7 @@ const TransactionList = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions
+          {filteredTransactions
             .sort((a, b) => (a.category > b.category ? 1 : -1))
             //.sort((a, b) => (a.item > b.item ? 1 : -1))
             .map((item) => (
@@ -70,6 +71,7 @@ const TransactionList = () => {
                 category={item.category}
                 item={item.item}
                 date={item.date}
+                type={item.type}
                 amount={item.amount}
                 deleteTransaction={deleteTransaction}
               />
@@ -96,7 +98,7 @@ const StyledTransactionList = styled(motion.div)`
   }
   h5 {
     color: #848586;
-    font-variant-caps: small-caps;
+    font-variant-caps: all-small-caps;
   }
 `;
 
