@@ -225,3 +225,49 @@ export const getTodayDDMMYYY = () => {
   if (month < 10) month = `0${month}`;
   return day + "-" + month + "-" + year;
 };
+
+export const filterBydateRange = (currentBudget) => {
+  return currentBudget.data.budgetItems.reduce(
+    (acc, obj, currentIndex, array) => {
+      let found = false;
+      let pointer = 0;
+
+      for (let i = 0; i < acc.length; i++) {
+        if (acc[i].category === array[currentIndex].category) {
+          pointer = i;
+          found = true;
+        }
+      }
+      if (!found) {
+        let yearlyAmount = 0;
+        switch (array[currentIndex].frequency) {
+          case "daily":
+            yearlyAmount = Number(array[currentIndex].amount * 365);
+            break;
+          case "weekly":
+            yearlyAmount = Number(array[currentIndex].amount * 52);
+            break;
+          case "monthly":
+            yearlyAmount = Number(array[currentIndex].amount * 12);
+            break;
+          case "annually":
+            yearlyAmount = Number(array[currentIndex].amount);
+            break;
+          default:
+            yearlyAmount = Number(array[currentIndex].amount * 12);
+        }
+        acc.push({
+          category: array[currentIndex].category,
+          amount: yearlyAmount,
+        });
+      } else {
+        acc[pointer] = {
+          ...acc[pointer],
+          amount: acc[pointer].amount + array[currentIndex].amount,
+        };
+      }
+      return acc;
+    },
+    []
+  );
+};

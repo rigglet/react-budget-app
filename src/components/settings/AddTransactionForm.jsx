@@ -27,6 +27,7 @@ const AddTransactionForm = () => {
     item: "",
     date: date,
     amount: 0.0,
+    type: "withdrawal",
   });
 
   const notify = (type) => {
@@ -64,13 +65,19 @@ const AddTransactionForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    // const signedAmount = 0;
+    // signedAmount =
+    //   formData.amount > 0
+    //     ? (signedAmount = Number(formData.amount))
+    //     : (signedAmount = Number(-Math.abs(formData.amount)));
     if (handleValidation(formData)) {
       const newTransaction = {
         id: uuidv4(),
         category: formData.category,
         item: formData.item,
         date: formData.date,
-        amount: Number(formData.amount),
+        type: formData.type,
+        amount: formData.amount,
       };
 
       const transactions = currentBudget.data.transactions;
@@ -116,12 +123,18 @@ const AddTransactionForm = () => {
         item: "",
         date: date,
         amount: "0.00",
+        type: "withdrawal",
       });
       notify("ADDED");
     } else {
       notify("INVALID");
     }
   };
+
+  const typeOptions = [
+    { name: "Deposit", value: "deposit" },
+    { name: "Withdrawal", value: "withdrawal" },
+  ];
 
   return (
     <StyledAddTransactionForm>
@@ -141,38 +154,52 @@ const AddTransactionForm = () => {
 
       <h4>New Transaction</h4>
       <form>
-        <label>Category:</label>
-        <input
-          name="category"
-          type="text"
-          value={formData.category}
-          onChange={handleChange}
-          placeholder="Category..."
-        />
-        <label>Item:</label>
-        <input
-          name="item"
-          type="text"
-          value={formData.item}
-          onChange={handleChange}
-          placeholder="item..."
-        />
-        <label>Date:</label>
-        <input
-          name="date"
-          type="date"
-          value={formData.date}
-          onChange={handleChange}
-        />
-        <label>Amount:</label>
-        <input
-          name="amount"
-          type="number"
-          value={formData.amount}
-          onChange={handleChange}
-          placeholder="Enter amount..."
-        />
-        <button onClick={onSubmit}>Add</button>
+        <fieldset>
+          <label>Date:</label>
+          <input
+            name="date"
+            type="date"
+            value={formData.date}
+            onChange={handleChange}
+          />
+          <label>Type:</label>
+          <select onChange={handleChange} value={formData.type} name="type">
+            {typeOptions.map((opt) => (
+              <option value={opt.value} key={opt.name}>
+                {opt.name}
+              </option>
+            ))}
+          </select>
+        </fieldset>
+        <fieldset>
+          <label>Category:</label>
+          <input
+            name="category"
+            type="text"
+            value={formData.category}
+            onChange={handleChange}
+            placeholder="Category..."
+          />
+          <label>Item:</label>
+          <input
+            name="item"
+            type="text"
+            value={formData.item}
+            onChange={handleChange}
+            placeholder="item..."
+          />
+          <label>Amount:</label>
+
+          <input
+            name="amount"
+            type="number"
+            min="0"
+            value={formData.amount}
+            onChange={handleChange}
+            placeholder="Enter amount..."
+          />
+          <button onClick={onSubmit}>Add</button>
+        </fieldset>
       </form>
     </StyledAddTransactionForm>
   );
@@ -188,6 +215,21 @@ const StyledAddTransactionForm = styled(motion.div)`
   flex-direction: column;
   align-items: flex-start;
   //margin-top: 1rem;
+  fieldset {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    //justify-content: space-between;
+  }
+  fieldset:nth-of-type(2) {
+    width: 100%;
+    border: 0;
+    margin-top: 0.5rem;
+    justify-content: space-between;
+  }
+  fieldset:nth-of-type(1) {
+    align-self: flex-end;
+  }
   h4 {
     color: white;
     font-weight: 500;
@@ -195,8 +237,8 @@ const StyledAddTransactionForm = styled(motion.div)`
   }
   form {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
     font-size: 10pt;
     width: 100%;
