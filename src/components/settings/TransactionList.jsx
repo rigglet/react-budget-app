@@ -14,8 +14,12 @@ const TransactionList = () => {
   } = useContext(GlobalContext);
 
   const transactions = currentBudget.data.transactions;
+<<<<<<< HEAD
   //const filteredTransactions = filterBydateRange(transactions);
-  const filteredTransactions = transactions;
+  //const filteredTransactions = transactions;
+=======
+  const filteredTransactions = filterBydateRange(transactions);
+>>>>>>> 526d483f2e834efafb6a41d627386fa825ea3777
 
   const deleteTransaction = (id) => {
     const newBudget = {
