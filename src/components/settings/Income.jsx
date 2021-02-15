@@ -340,7 +340,9 @@ const Income = () => {
           </div>
         </form>
 
-        <button onClick={() => handleSaveBudget()}>SAVE</button>
+        <button className="button" onClick={() => handleSaveBudget()}>
+          SAVE
+        </button>
       </div>
     </StyledIncome>
   );

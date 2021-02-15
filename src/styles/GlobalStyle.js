@@ -28,7 +28,7 @@ body{
     overflow-x: hidden;
 }
 
-button {
+.button {
   font-weight: lighter;
   font-size: 10pt;
   min-width: 100px;
@@ -50,6 +50,7 @@ button {
       background: rgb(0, 180, 238, 0.5);
     }
   }
+
   select{
     outline-style: none;
     outline: none;
@@ -90,6 +91,7 @@ button {
       transform: translateY(1px);
     }
 }
+
 `;
 
 export default GlobalStyle;

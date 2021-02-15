@@ -48,7 +48,9 @@ const BudgetItem = ({ budgetItem, deleteBudgetItem, togglePaidStatus }) => {
       </td>
       <td>
         <p>
-          <button onClick={() => deleteBudgetItem(id)}>Delete</button>
+          <button className="button" onClick={() => deleteBudgetItem(id)}>
+            Delete
+          </button>
         </p>
       </td>
     </StyledItem>

@@ -212,7 +212,9 @@ const ConfigureDash = () => {
             ))}
         </div>
         <div className="line"></div>
-        <button onClick={() => handleSaveConfig()}>SAVE</button>
+        <button className="button" onClick={() => handleSaveConfig()}>
+          SAVE
+        </button>
       </div>
     </StyledIncome>
   );

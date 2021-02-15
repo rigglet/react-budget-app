@@ -33,7 +33,9 @@ const Transaction = ({ transaction, deleteTransaction }) => {
       </td>
       <td>
         <p>
-          <button onClick={() => deleteTransaction(id)}>Delete</button>
+          <button className="button" onClick={() => deleteTransaction(id)}>
+            Delete
+          </button>
         </p>
       </td>
     </StyledTransaction>

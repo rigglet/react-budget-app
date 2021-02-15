@@ -46,7 +46,9 @@ const Budget = ({ budget }) => {
       </div>
       <div className="actions">
         <FaTrashAlt onClick={() => handleBudgetDelete()} className="delIcon" />
-        <button onClick={() => handleBudgetOpen()}>OPEN</button>
+        <button className="button" onClick={() => handleBudgetOpen()}>
+          OPEN
+        </button>
       </div>
     </StyledBudget>
   );

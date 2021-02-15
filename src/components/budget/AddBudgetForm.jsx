@@ -129,7 +129,7 @@ const AddBudgetForm = () => {
             onChange={handleChange}
             placeholder="Description..."
           />
-          <button onClick={onSubmit} id="addBudgetButton">
+          <button className="button" onClick={onSubmit} id="addBudgetButton">
             Add Budget
           </button>
         </form>

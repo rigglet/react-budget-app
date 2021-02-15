@@ -198,7 +198,9 @@ const AddTransactionForm = () => {
             onChange={handleChange}
             placeholder="Enter amount..."
           />
-          <button onClick={onSubmit}>Add</button>
+          <button className="button" onClick={onSubmit}>
+            Add
+          </button>
         </fieldset>
       </form>
     </StyledAddTransactionForm>
