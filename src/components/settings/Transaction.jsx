@@ -14,13 +14,13 @@ const Transaction = ({ transaction, deleteTransaction }) => {
   return (
     <StyledTransaction>
       <td>
+        <p>{moment(date).format("DD-MM-YYYY")}</p>
+      </td>
+      <td>
         <p>{category}</p>
       </td>
       <td>
         <p>{item}</p>
-      </td>
-      <td>
-        <p>{moment(date).format("DD-MM-YYYY")}</p>
       </td>
       <td>
         <p>

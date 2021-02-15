@@ -46,13 +46,13 @@ const TransactionList = () => {
         <thead>
           <tr>
             <th>
+              <h5>Date</h5>
+            </th>
+            <th>
               <h5>Category</h5>
             </th>
             <th>
               <h5>Item</h5>
-            </th>
-            <th>
-              <h5>Date</h5>
             </th>
             <th>
               <h5>Amount</h5>
@@ -64,7 +64,7 @@ const TransactionList = () => {
         </thead>
         <tbody>
           {filteredTransactions
-            .sort((a, b) => (a.category > b.category ? 1 : -1))
+            .sort((a, b) => (a.date > b.date ? 1 : -1))
             .map((item) => (
               <Transaction
                 key={item.id}
