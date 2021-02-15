@@ -60,7 +60,7 @@ export const reducer = (state, action) => {
     case ACTIONS.updateDateRange:
       return {
         ...state,
-        range: action.payload,
+        dateRange: action.payload,
       };
 
     default:

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import moment from "moment";
@@ -10,14 +10,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 const DateFilter = () => {
   const { updateDateRange, dateRange } = useContext(GlobalContext);
   const date = moment(new Date(Date.now()));
-
-  //console.log(date);
-  // const [formData, setFormData] = useState({
-  //   from: date,
-  //   to: date,
-  // });
-
-  //console.log(formData);
 
   const handleChange = (value) => {
     switch (value) {

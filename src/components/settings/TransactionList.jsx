@@ -11,15 +11,13 @@ const TransactionList = () => {
     currentBudget,
     updateBudget,
     updateCurrentBudget,
+    dateRange,
+    updateDateRange,
   } = useContext(GlobalContext);
 
   const transactions = currentBudget.data.transactions;
-<<<<<<< HEAD
-  //const filteredTransactions = filterBydateRange(transactions);
-  //const filteredTransactions = transactions;
-=======
-  const filteredTransactions = filterBydateRange(transactions);
->>>>>>> 526d483f2e834efafb6a41d627386fa825ea3777
+
+  const filteredTransactions = filterBydateRange(transactions, dateRange);
 
   const deleteTransaction = (id) => {
     const newBudget = {
@@ -68,16 +66,10 @@ const TransactionList = () => {
         <tbody>
           {filteredTransactions
             .sort((a, b) => (a.category > b.category ? 1 : -1))
-            //.sort((a, b) => (a.item > b.item ? 1 : -1))
             .map((item) => (
               <Transaction
                 key={item.id}
-                id={item.id}
-                category={item.category}
-                item={item.item}
-                date={item.date}
-                type={item.type}
-                amount={item.amount}
+                transaction={item}
                 deleteTransaction={deleteTransaction}
               />
             ))}

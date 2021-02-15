@@ -125,8 +125,8 @@ const StyledSide = styled(motion.div)`
       .navIcon {
         margin-right: 0.5rem;
         color: #848586;
-        height: 25px;
-        width: 25px;
+        min-height: 25px;
+        min-width: 25px;
       }
       .navIconSelected {
         margin-right: 0.5rem;

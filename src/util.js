@@ -4,6 +4,7 @@ import BudgetByItemWidget from "./components/dashboard/widgets/BudgetByItemWidge
 import Salary from "./components/dashboard/widgets/SalaryWidget";
 import ExpenditureWidget from "./components/dashboard/widgets/ExpenditureWidget";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 export const getAccumulatedSubTotals = (currentBudget) => {
   return currentBudget.data.budgetItems.reduce(
@@ -226,48 +227,14 @@ export const getTodayDDMMYYY = () => {
   return day + "-" + month + "-" + year;
 };
 
-export const filterBydateRange = (currentBudget) => {
-  return currentBudget.data.budgetItems.reduce(
-    (acc, obj, currentIndex, array) => {
-      let found = false;
-      let pointer = 0;
-
-      for (let i = 0; i < acc.length; i++) {
-        if (acc[i].category === array[currentIndex].category) {
-          pointer = i;
-          found = true;
-        }
-      }
-      if (!found) {
-        let yearlyAmount = 0;
-        switch (array[currentIndex].frequency) {
-          case "daily":
-            yearlyAmount = Number(array[currentIndex].amount * 365);
-            break;
-          case "weekly":
-            yearlyAmount = Number(array[currentIndex].amount * 52);
-            break;
-          case "monthly":
-            yearlyAmount = Number(array[currentIndex].amount * 12);
-            break;
-          case "annually":
-            yearlyAmount = Number(array[currentIndex].amount);
-            break;
-          default:
-            yearlyAmount = Number(array[currentIndex].amount * 12);
-        }
-        acc.push({
-          category: array[currentIndex].category,
-          amount: yearlyAmount,
-        });
-      } else {
-        acc[pointer] = {
-          ...acc[pointer],
-          amount: acc[pointer].amount + array[currentIndex].amount,
-        };
-      }
-      return acc;
-    },
-    []
-  );
+export const filterBydateRange = (transactions, range) => {
+  return transactions.filter((transaction) => {
+    return moment(transaction.date).isBetween(
+      moment(range.from).subtract(1, "d"),
+      moment(range.to).add(1, "d"),
+      "day"
+    );
+  }, []);
 };
+//moment('2010-10-20').isBetween('2009-12-31', '2012-01-01', 'year');
+// /moment(dateRange.from).subtract(1, "d")

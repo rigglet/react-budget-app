@@ -8,17 +8,9 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { formatNumber } from "../../util";
 import moment from "moment";
 
-const Transaction = ({
-  id,
-  category,
-  item,
-  date,
-  type,
-  amount,
-  deleteTransaction,
-}) => {
+const Transaction = ({ transaction, deleteTransaction }) => {
   const { currencySymbol } = useContext(GlobalContext);
-
+  const { id, category, item, date, type, amount } = transaction;
   return (
     <StyledTransaction>
       <td>
