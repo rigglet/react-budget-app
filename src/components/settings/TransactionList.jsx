@@ -12,7 +12,6 @@ const TransactionList = () => {
     updateBudget,
     updateCurrentBudget,
     dateRange,
-    updateDateRange,
   } = useContext(GlobalContext);
 
   const transactions = currentBudget.data.transactions;

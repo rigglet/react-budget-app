@@ -227,6 +227,9 @@ export const getTodayDDMMYYY = () => {
   return day + "-" + month + "-" + year;
 };
 
+//isBetween is exclusive by default, so to make inclusive of shown date
+//so subtract  by 1 day from 'from'
+//add 1 day to 'to'
 export const filterBydateRange = (transactions, range) => {
   return transactions.filter((transaction) => {
     return moment(transaction.date).isBetween(
@@ -236,5 +239,3 @@ export const filterBydateRange = (transactions, range) => {
     );
   }, []);
 };
-//moment('2010-10-20').isBetween('2009-12-31', '2012-01-01', 'year');
-// /moment(dateRange.from).subtract(1, "d")

@@ -3,6 +3,14 @@ import { reducer } from "./Reducer";
 //import { getWidgets } from "../data";
 import moment from "moment";
 
+//TODO: this could be an application setting
+// Set Monday as first day of the week.
+moment.updateLocale("en", {
+  week: {
+    dow: 1,
+  },
+});
+
 //intialState
 const initialState = {
   budgets: [],
@@ -11,8 +19,8 @@ const initialState = {
   isBudgetLoaded: false,
   currencySymbol: "£",
   dateRange: {
-    from: moment(new Date(Date.now())),
-    to: moment(new Date(Date.now())),
+    from: moment().startOf("week"),
+    to: moment().endOf("week"),
   },
 };
 
