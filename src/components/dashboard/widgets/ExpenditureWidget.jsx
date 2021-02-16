@@ -3,23 +3,16 @@ import { GlobalContext } from "../../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import {
-  //getYearlyAllocated,
-  getAllocatedPerPeriod,
-  getNetIncomeForPeriod,
-} from "../../../util";
-import AllocatedSelector from "../AllocatedSelector";
+import { getAllocatedPerPeriod, getNetIncomeForPeriod } from "../../../util";
 import AllocatedChart from "../AllocatedChart";
 
 const ExpenditureWidget = () => {
   const [period, setPeriod] = useState("daily");
-  const { currentBudget } = useContext(GlobalContext);
+  const { currentBudget, dateRange } = useContext(GlobalContext);
 
   let subTotal = getAllocatedPerPeriod(currentBudget, period);
   let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
   const remaining = (selectedPeriod - subTotal).toFixed(2);
-
-  console.log(subTotal);
 
   const handlePeriodChange = (e) => {
     //setPeriod(e.target.value);
@@ -29,13 +22,7 @@ const ExpenditureWidget = () => {
   return (
     <StyledExpenditure>
       <h4>Expenditure vs budget</h4>
-      <AllocatedSelector
-        period={period}
-        handlePeriodChange={handlePeriodChange}
-        selectedPeriod={selectedPeriod}
-        subTotal={subTotal}
-        remaining={remaining}
-      />
+
       <div className="data">
         <div className="chart">
           {remaining > 0 && (

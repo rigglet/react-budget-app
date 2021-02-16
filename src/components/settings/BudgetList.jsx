@@ -14,6 +14,29 @@ const BudgetList = () => {
   } = useContext(GlobalContext);
 
   const budgetItems = currentBudget.data.budgetItems;
+
+  const toggleMandatoryStatus = (budgetItem) => {
+    const newBudget = {
+      ...currentBudget,
+      data: {
+        ...currentBudget.data,
+        budgetItems: [
+          ...budgetItems.filter((item) => item.id !== budgetItem.id),
+          { ...budgetItem, mandatory: !budgetItem.mandatory },
+        ],
+      },
+    };
+
+    //update global context
+    updateBudget(newBudget);
+
+    //update local storage
+    updateBudgetLocally(budgets, newBudget);
+
+    //updatecurrentBudget
+    updateCurrentBudget(newBudget);
+  };
+
   const togglePaidStatus = (budgetItem) => {
     const newBudget = {
       ...currentBudget,
@@ -77,6 +100,9 @@ const BudgetList = () => {
               <h5>Paid?</h5>
             </th>
             <th>
+              <h5>Mandatory?</h5>
+            </th>
+            <th>
               <h5>Actions</h5>
             </th>
           </tr>
@@ -87,6 +113,7 @@ const BudgetList = () => {
               key={item.id}
               budgetItem={item}
               togglePaidStatus={togglePaidStatus}
+              toggleMandatoryStatus={toggleMandatoryStatus}
               deleteBudgetItem={deleteBudgetItem}
             />
           ))}
@@ -101,7 +128,6 @@ const StyledBudgetList = styled(motion.div)`
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
-
   table {
     width: 100%;
   }

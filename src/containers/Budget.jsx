@@ -8,7 +8,6 @@ const Budget = () => {
     <StyledBudgetContainer>
       <div className="left"></div>
       <div className="main">
-        {/* <h3>Budgets</h3> */}
         <AddBudgetForm />
         <BudgetList />
       </div>

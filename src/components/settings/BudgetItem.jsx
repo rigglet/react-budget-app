@@ -10,8 +10,13 @@ import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
 //format numbers
 import { formatNumber } from "../../util";
 
-const BudgetItem = ({ budgetItem, deleteBudgetItem, togglePaidStatus }) => {
-  const { id, category, item, frequency, amount, paid } = budgetItem;
+const BudgetItem = ({
+  budgetItem,
+  deleteBudgetItem,
+  togglePaidStatus,
+  toggleMandatoryStatus,
+}) => {
+  const { id, category, item, frequency, amount, paid, mandatory } = budgetItem;
   const { currencySymbol } = useContext(GlobalContext);
 
   return (
@@ -47,6 +52,21 @@ const BudgetItem = ({ budgetItem, deleteBudgetItem, togglePaidStatus }) => {
         </p>
       </td>
       <td>
+        <p className="mandatory">
+          {mandatory ? (
+            <FaCheckSquare
+              className="check"
+              onClick={() => toggleMandatoryStatus(budgetItem)}
+            />
+          ) : (
+            <FaTimesCircle
+              className="cross"
+              onClick={() => toggleMandatoryStatus(budgetItem)}
+            />
+          )}
+        </p>
+      </td>
+      <td>
         <p>
           <button className="button" onClick={() => deleteBudgetItem(id)}>
             Delete
@@ -66,7 +86,8 @@ const StyledItem = styled(motion.tr)`
       margin-right: 0.25rem;
     }
   }
-  .paid {
+  .paid,
+  .mandatory {
     cursor: pointer;
   }
   .check,
