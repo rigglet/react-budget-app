@@ -19,7 +19,7 @@ const SalaryWidget = () => {
     monthlyNet,
     yearlyNet,
   } = currentBudget.data.income;
-  //TODO: Add daily salary breakdown
+
   return (
     <StyledSalary>
       <h4>Salary gross and net breakdown</h4>
@@ -53,6 +53,15 @@ const SalaryWidget = () => {
                 </span>
               </p>
             </div>
+            <div className="item">
+              <h5>Daily (Gross)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={annual / 365 < 0 ? "negative" : "positive"}>
+                  {formatNumber(annual / 365)}
+                </span>
+              </p>
+            </div>
           </div>
 
           <div className="net">
@@ -80,6 +89,15 @@ const SalaryWidget = () => {
                 <span className="symbol">{currencySymbol}</span>
                 <span className={weeklyNet < 0 ? "negative" : "positive"}>
                   {formatNumber(weeklyNet)}
+                </span>
+              </p>
+            </div>
+            <div className="item">
+              <h5>Daily (Net)</h5>
+              <p>
+                <span className="symbol">{currencySymbol}</span>
+                <span className={annual / 365 < 0 ? "negative" : "positive"}>
+                  {formatNumber(annual / 365)}
                 </span>
               </p>
             </div>
