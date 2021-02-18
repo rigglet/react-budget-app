@@ -6,6 +6,7 @@ import ExpenditureWidget from "./components/dashboard/widgets/ExpenditureWidget"
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 
+//returns an array of budget subtotals per category
 export const getAccumulatedSubTotals = (currentBudget) => {
   return currentBudget.data.budgetItems.reduce(
     (acc, obj, currentIndex, array) => {
@@ -218,19 +219,19 @@ export const getToday = () => {
   return year + "-" + month + "-" + day;
 };
 
-export const getTodayDDMMYYY = () => {
-  const date = new Date(Date.now());
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  if (month < 10) month = `0${month}`;
-  return day + "-" + month + "-" + year;
-};
+// export const getTodayDDMMYYY = () => {
+//   const date = new Date(Date.now());
+//   let day = date.getDate();
+//   let month = date.getMonth() + 1;
+//   let year = date.getFullYear();
+//   if (month < 10) month = `0${month}`;
+//   return day + "-" + month + "-" + year;
+// };
 
 //isBetween is exclusive by default, so to make inclusive of shown date
 //so subtract  by 1 day from 'from'
 //add 1 day to 'to'
-export const filterBydateRange = (transactions, range) => {
+export const filterByDateRange = (transactions, range) => {
   return transactions.filter((transaction) => {
     return moment(transaction.date).isBetween(
       moment(range.from).subtract(1, "d"),

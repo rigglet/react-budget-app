@@ -19,7 +19,7 @@ const SalaryWidget = () => {
     monthlyNet,
     yearlyNet,
   } = currentBudget.data.income;
-
+  //TODO: Add daily salary breakdown
   return (
     <StyledSalary>
       <h4>Salary gross and net breakdown</h4>

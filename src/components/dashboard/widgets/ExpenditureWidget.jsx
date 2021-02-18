@@ -1,36 +1,23 @@
-import { useContext, useState } from "react";
-import { GlobalContext } from "../../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import { getAllocatedPerPeriod, getNetIncomeForPeriod } from "../../../util";
-import AllocatedChart from "../AllocatedChart";
+import ExpenditureChart from "../ExpenditureChart";
+import ExpenditureFigures from "../ExpenditureFigures";
 
-const ExpenditureWidget = () => {
-  const [period, setPeriod] = useState("daily");
-  const { currentBudget, dateRange } = useContext(GlobalContext);
-
-  let subTotal = getAllocatedPerPeriod(currentBudget, period);
-  let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
-  const remaining = (selectedPeriod - subTotal).toFixed(2);
-
-  const handlePeriodChange = (e) => {
-    //setPeriod(e.target.value);
-    setPeriod(e);
-  };
-
+const ExpenditureWidget = ({ includeMandatory, setIncludeMandatory }) => {
   return (
     <StyledExpenditure>
-      <h4>Expenditure vs budget</h4>
-
+      <h4>Net salary vs Budget vs Expediture</h4>
       <div className="data">
+        <div className="info">
+          <ExpenditureFigures
+            includeMandatory={includeMandatory}
+            setIncludeMandatory={setIncludeMandatory}
+          />
+        </div>
+
         <div className="chart">
-          {remaining > 0 && (
-            <AllocatedChart
-              selectedPeriod={selectedPeriod}
-              subTotal={subTotal}
-            />
-          )}
+          <ExpenditureChart includeMandatory={includeMandatory} />
         </div>
       </div>
     </StyledExpenditure>
@@ -39,11 +26,24 @@ const ExpenditureWidget = () => {
 
 const StyledExpenditure = styled(motion.div)`
   padding: 1rem;
-  width: 50%;
+  width: 100%;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
-
+  .mandatory {
+    cursor: pointer;
+  }
+  .check,
+  .cross {
+    width: 20px;
+    height: 20px;
+  }
+  .check {
+    color: #00b4ee;
+  }
+  .cross {
+    //color: red;
+  }
   #total {
     font-weight: bolder;
   }
@@ -54,16 +54,14 @@ const StyledExpenditure = styled(motion.div)`
   }
   .data {
     display: flex;
+    align-items: center;
+
     justify-content: space-around;
     .info {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      .drop {
-        label {
-          margin-right: 0.25rem;
-        }
-      }
+
       .figures {
         display: flex;
         gap: 1rem;

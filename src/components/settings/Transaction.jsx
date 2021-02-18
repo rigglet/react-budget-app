@@ -11,6 +11,7 @@ import moment from "moment";
 const Transaction = ({ transaction, deleteTransaction }) => {
   const { currencySymbol } = useContext(GlobalContext);
   const { id, category, item, date, type, amount } = transaction;
+
   return (
     <StyledTransaction>
       <td>

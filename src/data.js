@@ -22,7 +22,7 @@ export const getWidgets = () => {
     ],
     expenditureWidgets: [
       {
-        name: "Expenditure",
+        name: "Salary v Budget v Expenditure",
         selected: false,
       },
     ],
@@ -407,5 +407,7 @@ export const getData = () => {
 // TODO:
 // THINGS LEARNED:
 // complex: destructuring of arrays, objects and objects arrays
+// react-calendar
+// moment.js
 //
 //#############################################################

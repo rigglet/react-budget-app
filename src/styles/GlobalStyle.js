@@ -51,6 +51,13 @@ body{
     }
   }
 
+input {
+    padding: 0.25rem;
+    outline: none;
+    border-radius: 4px;
+    border: 0;
+  }
+  
   select{
     outline-style: none;
     outline: none;
@@ -60,9 +67,11 @@ body{
     font-weight: 700;
     font-size: 10pt;
   }
-    option{
-      padding:0.25rem;
-    }
+    
+  option{
+    padding:0.25rem;
+  }
+
 .negative{
   color: red;
 }

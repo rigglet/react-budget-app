@@ -1,14 +1,21 @@
+//import { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import AddTransactionForm from "./AddTransactionForm";
 import TransactionList from "./TransactionList";
+import MandatoryTransactionList from "./MandatoryTransactionList";
 import ExpenditureWidget from "../dashboard/widgets/ExpenditureWidget";
 
 const Expenditure = () => {
+  //const [includeMandatory, setIncludeMandatory] = useState(true);
+
   return (
     <StyledExpenditure>
       <h3>Expenditure</h3>
-      <div className="charts">{/* <ExpenditureWidget /> */}</div>
+      <div className="charts">
+        <ExpenditureWidget />
+      </div>
+      <MandatoryTransactionList />
       <AddTransactionForm />
       <TransactionList />
     </StyledExpenditure>

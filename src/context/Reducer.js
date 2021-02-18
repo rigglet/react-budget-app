@@ -9,6 +9,7 @@ export const reducer = (state, action) => {
     updateCurrentBudgetId: "UPDATE_CURRENT_BUDGET_ID",
     updateCurrentBudget: "UPDATE_CURRENT_BUDGET",
     updateBudgetLoaded: "UPDATE_ISLOADED",
+    updateIncludeMandatory: "UPDATE_INCLUDE_MANDATORY",
     updateDateRange: "UPDATE_RANGE",
 
     //updateWidgets: "UPDATE_WIDGETS",
@@ -56,6 +57,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         isBudgetLoaded: action.payload,
+      };
+    case ACTIONS.updateIncludeMandatory:
+      return {
+        ...state,
+        includeMandatory: action.payload,
       };
     case ACTIONS.updateDateRange:
       return {

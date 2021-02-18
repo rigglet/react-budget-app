@@ -9,6 +9,7 @@ import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Income = () => {
+  //TODO: pay period weekly/monthly + payday
   //global context
   const {
     updateBudget,

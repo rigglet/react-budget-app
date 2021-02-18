@@ -8,6 +8,7 @@ import ConfigureDash from "../components/dashboard/ConfigureDash";
 import DashSidebar from "../components/DashSidebar";
 
 const Dashboard = () => {
+  //TODO: drag and drop widgets
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
   const { currentBudget } = useContext(GlobalContext);

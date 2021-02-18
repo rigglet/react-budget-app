@@ -61,6 +61,20 @@ const DateFilter = () => {
           to: moment(dateRange.to).add(1, "d"),
         });
         break;
+      //TODO: Add week number
+      //TODO: Add filter by week / month etc
+      // case "WEEK-LEFT":
+      //   updateDateRange({
+      //     ...dateRange,
+      //     to: moment(dateRange.to).subtract(1, "d"),
+      //   });
+      //   break;
+      // case "WEEK-RIGHT":
+      //   updateDateRange({
+      //     ...dateRange,
+      //     to: moment(dateRange.to).add(1, "d"),
+      //   });
+      //   break;
       default:
         updateDateRange({ from: date, to: date });
     }
@@ -111,6 +125,23 @@ const DateFilter = () => {
           />
         </div>
       </div>
+      {/* <div className="week">
+        <h5>Week No:</h5>
+        <div className="dateBlock">
+          <FaChevronLeft
+            className="icon"
+            onClick={() => handleChange("WEEK-LEFT")}
+          />
+          <p id="week" onClick={() => toggleDatePick("week")}>
+            {moment(dateRange.to).format("DD-MM-YYYY")}
+          </p>
+
+          <FaChevronRight
+            className="icon"
+            onClick={() => handleChange("WEEK-RIGHT")}
+          />
+        </div>
+      </div> */}
     </StyledDateFilter>
   );
 };
@@ -149,6 +180,7 @@ const StyledDateFilter = styled(motion.div)`
     display: flex;
     align-items: center;
   }
+  #week,
   #from,
   #to {
     &:hover {
@@ -156,6 +188,7 @@ const StyledDateFilter = styled(motion.div)`
       cursor: pointer;
     }
   }
+  .week,
   .from,
   .to {
     display: flex;

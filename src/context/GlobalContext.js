@@ -17,6 +17,7 @@ const initialState = {
   currentBudgetId: "",
   currentBudget: {},
   isBudgetLoaded: false,
+  includeMandatory: true,
   currencySymbol: "£",
   dateRange: {
     from: moment().startOf("week"),
@@ -89,6 +90,12 @@ export const GlobalProvider = ({ children }) => {
       payload: loaded,
     });
   };
+  const updateIncludeMandatory = (include) => {
+    dispatch({
+      type: "UPDATE_INCLUDE_MANDATORY",
+      payload: include,
+    });
+  };
 
   const updateDateRange = (range) => {
     dispatch({
@@ -104,6 +111,7 @@ export const GlobalProvider = ({ children }) => {
         currentBudgetId: state.currentBudgetId,
         currentBudget: state.currentBudget,
         isBudgetLoaded: state.isBudgetLoaded,
+        includeMandatory: state.includeMandatory,
         currencySymbol: state.currencySymbol,
         dateRange: state.dateRange,
         loadBudgets,
@@ -116,6 +124,7 @@ export const GlobalProvider = ({ children }) => {
         updateCurrentBudget,
         updateBudgetLoaded,
         updateDateRange,
+        updateIncludeMandatory,
       }}
     >
       {children}

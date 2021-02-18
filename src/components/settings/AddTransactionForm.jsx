@@ -12,6 +12,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 
+//TODO: Add dropdown to select whether transaction comes from d/w/m/y budget
 const AddTransactionForm = () => {
   const {
     updateBudget,
@@ -70,6 +71,7 @@ const AddTransactionForm = () => {
     //   formData.amount > 0
     //     ? (signedAmount = Number(formData.amount))
     //     : (signedAmount = Number(-Math.abs(formData.amount)));
+
     if (handleValidation(formData)) {
       const newTransaction = {
         id: uuidv4(),
@@ -102,14 +104,6 @@ const AddTransactionForm = () => {
 
       //save budget to local storage
       updateBudgetLocally(budgets, {
-        ...currentBudget,
-        data: {
-          ...currentBudget.data,
-          transactions: [...transactions, newTransaction],
-        },
-      });
-
-      console.log({
         ...currentBudget,
         data: {
           ...currentBudget.data,
@@ -221,6 +215,7 @@ const StyledAddTransactionForm = styled(motion.div)`
     padding: 0.5rem;
     display: flex;
     align-items: center;
+    border-radius: 4px;
     //justify-content: space-between;
   }
   fieldset:nth-of-type(2) {
@@ -250,8 +245,6 @@ const StyledAddTransactionForm = styled(motion.div)`
   }
   input,
   select {
-    padding: 0.25rem;
-    outline: none;
     margin-right: 1rem;
   }
 `;
