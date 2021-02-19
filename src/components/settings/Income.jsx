@@ -7,6 +7,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import IncomeWidget from "../dashboard/widgets/IncomeWidget";
 
 const Income = () => {
   //TODO: pay period weekly/monthly + payday
@@ -202,158 +203,169 @@ const Income = () => {
         pauseOnFocusLoss
       />
       <h3>Income</h3>
-      <div className="container">
-        <form>
-          <div className="row">
-            <label htmlFor="annual">Annual Salary (Gross)</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                className="activeInput"
-                type="text"
-                name="annual"
-                id="annual"
-                value={formIncome.annual || ""}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <label htmlFor="allowance">Tax Free Allowance</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                className="activeInput"
-                type="text"
-                name="allowance"
-                id="allowance"
-                value={formIncome.allowance || ""}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <label htmlFor="taxable">Taxable Income</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                type="text"
-                name="taxable"
-                id="taxable"
-                value={taxable}
-                onChange={handleChange}
-                readOnly
-              />
-            </div>
-          </div>
-          <div className="line"></div>
-          <div className="row">
-            <label htmlFor="tax">Income Tax</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                className="activeInput"
-                type="text"
-                name="tax"
-                id="tax"
-                value={formIncome.tax || ""}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <label htmlFor="ni">National Insurance</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                className="activeInput"
-                type="text"
-                name="ni"
-                id="ni"
-                value={formIncome.ni || ""}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <label htmlFor="contributions">Total deductions</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                type="text"
-                name="contributions"
-                id="contributions"
-                value={totalDeductions}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                readOnly
-              />
-            </div>
-          </div>
-          <div className="line"></div>
-          <div className="row">
-            <label htmlFor="weeklyNet">Weekly Salary (Net)</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                type="text"
-                name="weeklyNet"
-                id="weeklyNet"
-                value={weeklyNet || ""}
-                onChange={handleChange}
-                readOnly
-              />
-            </div>
-          </div>
-          <div className="row">
-            <label htmlFor="monthlyNet">Monthly Salary (Net)</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                type="text"
-                name="monthlyNet"
-                id="monthlyNet"
-                value={monthlyNet || ""}
-                onChange={handleChange}
-                readOnly
-              />
-            </div>
-          </div>
-          <div className="row">
-            <label htmlFor="yearlyNet">Annual Salary (Net)</label>
-            <div className="currencyInput">
-              {currencySymbol}
-              <input
-                className="activeInput"
-                type="text"
-                name="yearlyNet"
-                id="yearlyNet"
-                value={formIncome.yearlyNet || ""}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                //readOnly
-              />
-            </div>
-          </div>
-        </form>
+      <div className="charts">
+        <IncomeWidget />
 
-        <button className="button" onClick={() => handleSaveBudget()}>
-          SAVE
-        </button>
+        <div className="container">
+          <form>
+            <div className="row">
+              <label htmlFor="annual">Annual Salary (Gross)</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  className="activeInput"
+                  type="text"
+                  name="annual"
+                  id="annual"
+                  value={formIncome.annual || ""}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="allowance">Tax Free Allowance</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  className="activeInput"
+                  type="text"
+                  name="allowance"
+                  id="allowance"
+                  value={formIncome.allowance || ""}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="taxable">Taxable Income</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  type="text"
+                  name="taxable"
+                  id="taxable"
+                  value={taxable}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className="line"></div>
+            <div className="row">
+              <label htmlFor="tax">Income Tax</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  className="activeInput"
+                  type="text"
+                  name="tax"
+                  id="tax"
+                  value={formIncome.tax || ""}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="ni">National Insurance</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  className="activeInput"
+                  type="text"
+                  name="ni"
+                  id="ni"
+                  value={formIncome.ni || ""}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="contributions">Total deductions</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  type="text"
+                  name="contributions"
+                  id="contributions"
+                  value={totalDeductions}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className="line"></div>
+            <div className="row">
+              <label htmlFor="weeklyNet">Weekly Salary (Net)</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  type="text"
+                  name="weeklyNet"
+                  id="weeklyNet"
+                  value={weeklyNet || ""}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="monthlyNet">Monthly Salary (Net)</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  type="text"
+                  name="monthlyNet"
+                  id="monthlyNet"
+                  value={monthlyNet || ""}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className="row">
+              <label htmlFor="yearlyNet">Annual Salary (Net)</label>
+              <div className="currencyInput">
+                {currencySymbol}
+                <input
+                  className="activeInput"
+                  type="text"
+                  name="yearlyNet"
+                  id="yearlyNet"
+                  value={formIncome.yearlyNet || ""}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  //readOnly
+                />
+              </div>
+            </div>
+          </form>
+
+          <button className="button" onClick={() => handleSaveBudget()}>
+            SAVE
+          </button>
+        </div>
       </div>
     </StyledIncome>
   );
 };
 
 const StyledIncome = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  //row-gap: 1rem;
+  .charts {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    column-gap: 1rem;
+  }
   h3 {
     color: white;
-    //font-weight: 500;
-    margin-bottom: 1rem;
   }
   .container {
     width: 100%;

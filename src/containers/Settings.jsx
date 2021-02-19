@@ -34,7 +34,7 @@ const Dashboard = () => {
 const StyledDash = styled(motion.div)`
   padding: 1.5rem;
   display: grid;
-  grid-template-columns: 15vw auto 15vw;
+  grid-template-columns: 15vw auto 10vw;
   grid-template-rows: auto;
   grid-template-areas: "left main right";
   grid-column-gap: 2rem;
