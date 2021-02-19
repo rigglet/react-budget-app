@@ -159,20 +159,24 @@ const StyledExpeditureFigures = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1rem;
     .icon {
       display: flex;
       align-items: center;
       justify-content: center;
     }
   }
+  .remainingFigures {
+    margin-top: 1rem;
+  }
   .salaryFigures,
   .budgetFigures,
-  .remainingFigures,
-  .spent {
+  .remainingFigures {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
+    border-radius: 4px;
+
     .tableItem {
       display: flex;
       flex-direction: column;
@@ -180,11 +184,16 @@ const StyledExpeditureFigures = styled(motion.div)`
       align-items: center;
     }
   }
+
   .spent {
     background-color: #303030;
     padding: 1rem;
     border-radius: 4px;
-    //color: #e69a07;
+    font-size: 14pt;
+    font-weight: 700;
+    h5 {
+      margin-bottom: 0.5rem;
+    }
     #spent {
       color: #e69a07;
     }

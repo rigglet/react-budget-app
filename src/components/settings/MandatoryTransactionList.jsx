@@ -37,12 +37,12 @@ const MandatoryTransactionList = () => {
       <div className="heading">
         <h4>Transactions (Mandatory)</h4>
         {toggleMandatory ? (
-          <FaChevronDown
+          <FaChevronUp
             className="icon"
             onClick={() => setToggleMandatory(!toggleMandatory)}
           />
         ) : (
-          <FaChevronUp
+          <FaChevronDown
             className="icon"
             onClick={() => setToggleMandatory(!toggleMandatory)}
           />

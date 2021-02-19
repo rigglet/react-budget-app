@@ -7,8 +7,6 @@ import MandatoryTransactionList from "./MandatoryTransactionList";
 import ExpenditureWidget from "../dashboard/widgets/ExpenditureWidget";
 
 const Expenditure = () => {
-  //const [includeMandatory, setIncludeMandatory] = useState(true);
-
   return (
     <StyledExpenditure>
       <h3>Expenditure</h3>

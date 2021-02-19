@@ -1,23 +1,19 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-
 import ExpenditureChart from "../ExpenditureChart";
 import ExpenditureFigures from "../ExpenditureFigures";
 
-const ExpenditureWidget = ({ includeMandatory, setIncludeMandatory }) => {
+const ExpenditureWidget = () => {
   return (
     <StyledExpenditure>
       <h4>Net salary vs Budget vs Expediture</h4>
       <div className="data">
         <div className="info">
-          <ExpenditureFigures
-            includeMandatory={includeMandatory}
-            setIncludeMandatory={setIncludeMandatory}
-          />
+          <ExpenditureFigures />
         </div>
 
         <div className="chart">
-          <ExpenditureChart includeMandatory={includeMandatory} />
+          <ExpenditureChart />
         </div>
       </div>
     </StyledExpenditure>
