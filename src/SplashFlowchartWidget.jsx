@@ -30,21 +30,37 @@ const SplashFlowchartWidget = () => {
     color: "#e69a07",
   };
 
+  const noAccessStyle = {
+    ...arrowStyle,
+    startAnchor: "auto",
+    color: "red",
+    endAnchor: { position: "auto", offset: { bottomness: 0 } },
+  };
   const taxToDeductStyle = {
     ...arrowStyle,
     startAnchor: "auto",
+    color: "#e69a07",
+    endAnchor: { position: "auto", offset: { bottomness: 0 } },
+  };
+  const configAccessStyle = {
+    ...arrowStyle,
+    startAnchor: "auto",
+    color: isBudgetLoaded ? "#e69a07" : "red",
     endAnchor: { position: "auto", offset: { bottomness: 0 } },
   };
 
   return (
     <StyledIncomeWidget>
+      <Xarrow start="open" end="config" {...configAccessStyle} />
       <Xarrow start="budgets" end="open" {...taxToDeductStyle} />
-      <Xarrow start="open" end="config" {...taxToDeductStyle} />
-      <Xarrow start="config" end="income" {...taxToDeductStyle} />
-      <Xarrow start="income" end="budget" {...taxToDeductStyle} />
-      <Xarrow start="budget" end="expenses" {...taxToDeductStyle} />
-      <Xarrow start="expenses" end="tracker" {...taxToDeductStyle} />
-      <Xarrow start="open" end="dashboard" {...taxToDeductStyle} />
+      <Xarrow start="config" end="income" {...configAccessStyle} />
+      <Xarrow start="income" end="budget" {...configAccessStyle} />
+      <Xarrow start="budget" end="expenses" {...configAccessStyle} />
+      <Xarrow start="expenses" end="tracker" {...configAccessStyle} />
+      <Xarrow start="open" end="dashboard" {...configAccessStyle} />
+      <Xarrow start="tracker" end="dashboard" {...configAccessStyle} />
+      <Xarrow start="from" end="to" {...taxToDeductStyle} />
+      <Xarrow start="no" end="access" {...noAccessStyle} />
 
       <h4>Budget status flowchart</h4>
       <p className="instruction">
@@ -54,9 +70,11 @@ const SplashFlowchartWidget = () => {
       <div className="data">
         <div className="featureNumber" id="budgets">
           <div className="location">
-            <IoFileTrayStackedSharp className="icon" />
+            <IoFileTrayStackedSharp
+              className={budgets.length > 0 ? "activeIcon" : "inactiveIcon"}
+            />
             <Link to={{ pathname: `/budgets` }}>
-              <h5>Budgets</h5>
+              <h5 className="active">Budgets</h5>
             </Link>
           </div>
           <p>
@@ -70,10 +88,16 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="open">
           <div className="location">
-            <BsFileSpreadsheet className="icon" />
-            <Link to={{ pathname: `/budgets` }}>
-              <h5>Open budget...</h5>
-            </Link>
+            <BsFileSpreadsheet
+              className={budgets.length > 0 ? "activeIcon" : "inactiveIcon"}
+            />
+            {budgets.length > 0 ? (
+              <Link to={{ pathname: `/budgets` }}>
+                <h5 className="active">Open budget...</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Open budget...</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -86,10 +110,16 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="config">
           <div className="location">
-            <VscSettings className="icon" />
-            <Link to={{ pathname: `/settings/${currentBudget.id}/income` }}>
-              <h5>Configuration</h5>
-            </Link>
+            <VscSettings
+              className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
+            />
+            {isBudgetLoaded ? (
+              <Link to={{ pathname: `/settings/${currentBudget.id}/income` }}>
+                <h5 className="active">Configuration</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Configuration</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -102,10 +132,16 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="income">
           <div className="location">
-            <FaRegMoneyBillAlt className="icon" />
-            <Link to={{ pathname: `/settings/${currentBudget.id}/income` }}>
-              <h5>Income</h5>
-            </Link>
+            <FaRegMoneyBillAlt
+              className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
+            />
+            {isBudgetLoaded ? (
+              <Link to={{ pathname: `/settings/${currentBudget.id}/income` }}>
+                <h5 className="active">Income</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Income</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -118,10 +154,16 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="budget">
           <div className="location">
-            <FaWallet className="icon" />
-            <Link to={{ pathname: `/settings/${currentBudget.id}/budget` }}>
-              <h5>Budget</h5>
-            </Link>
+            <FaWallet
+              className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
+            />
+            {isBudgetLoaded ? (
+              <Link to={{ pathname: `/settings/${currentBudget.id}/budget` }}>
+                <h5 className="active">Budget</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Budget</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -134,12 +176,18 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="expenses">
           <div className="location">
-            <GiPayMoney className="icon" />
-            <Link
-              to={{ pathname: `/settings/${currentBudget.id}/expenditure` }}
-            >
-              <h5>Expenses</h5>
-            </Link>
+            <GiPayMoney
+              className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
+            />
+            {isBudgetLoaded ? (
+              <Link
+                to={{ pathname: `/settings/${currentBudget.id}/expenditure` }}
+              >
+                <h5 className="active">Expenses</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Expenses</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -152,10 +200,16 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="tracker">
           <div className="location">
-            <BiAbacus className="icon" />
-            <Link to={{ pathname: `/settings/${currentBudget.id}/tracker` }}>
-              <h5>Tracker</h5>
-            </Link>
+            <BiAbacus
+              className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
+            />
+            {isBudgetLoaded ? (
+              <Link to={{ pathname: `/settings/${currentBudget.id}/tracker` }}>
+                <h5 className="active">Tracker</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Tracker</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -168,10 +222,18 @@ const SplashFlowchartWidget = () => {
 
         <div className="featureNumber" id="dashboard">
           <div className="location">
-            <RiDashboard3Fill className="icon" />
-            <Link to={{ pathname: `/dashboard/${currentBudget.id}/settings` }}>
-              <h5>Dashboard s / v </h5>
-            </Link>
+            <RiDashboard3Fill
+              className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
+            />
+            {isBudgetLoaded ? (
+              <Link
+                to={{ pathname: `/dashboard/${currentBudget.id}/settings` }}
+              >
+                <h5 className="active">Dashboard s/v</h5>
+              </Link>
+            ) : (
+              <h5 className="inactive">Dashboard s/v</h5>
+            )}
           </div>
           <p>
             {isBudgetLoaded ? (
@@ -191,6 +253,16 @@ const SplashFlowchartWidget = () => {
           <FaTimesCircle className="cross" />
 
           <h5>Needs data / configuration</h5>
+        </div>
+        <div className="item">
+          <div id="from"></div>
+          <div id="to"></div>
+          <h5>Suggested route</h5>
+        </div>
+        <div className="item">
+          <div id="no"></div>
+          <div id="access"></div>
+          <h5>Not accessible</h5>
         </div>
       </div>
     </StyledIncomeWidget>
@@ -220,9 +292,15 @@ const StyledIncomeWidget = styled(motion.div)`
     width: 20px;
     height: 20px;
   }
-  .icon {
+  .activeIcon {
     width: 30px;
     height: 30px;
+    color: white;
+  }
+  .inactiveIcon {
+    width: 30px;
+    height: 30px;
+    color: #848586;
   }
   .check {
     color: #00b4ee;
@@ -289,6 +367,10 @@ const StyledIncomeWidget = styled(motion.div)`
       align-items: center;
       justify-content: space-between;
     }
+    #from,
+    #no {
+      margin-right: 2rem;
+    }
   }
   .featureNumber {
     display: flex;
@@ -304,18 +386,23 @@ const StyledIncomeWidget = styled(motion.div)`
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      .icon {
-      }
+      //color: #848586;
+
       a {
         color: #848586;
         text-decoration: none;
         font-weight: bolder;
         margin-right: 1rem;
       }
-      h5 {
-        margin-bottom: 0.25rem;
+      .active {
+        color: white;
         &:hover {
-          color: white;
+          color: #e69a07;
+        }
+      }
+      .inactive {
+        &:hover {
+          cursor: default;
         }
       }
     }

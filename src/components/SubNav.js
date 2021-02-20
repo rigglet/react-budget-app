@@ -1,15 +1,22 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import DateFilter from "./settings/DateFilter";
+import Logout from "./Logout";
+import { GlobalContext } from "../context/GlobalContext";
 
 const SubNav = () => {
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
+  const { isBudgetLoaded, updateBudgetLoaded } = useContext(GlobalContext);
 
   return (
     <StyledNav>
-      {(subMenu === "expenditure" || subMenu === "tracker") && <DateFilter />}
+      <div className="date">
+        {(subMenu === "expenditure" || subMenu === "tracker") && <DateFilter />}
+      </div>
+      <div className="logout">{isBudgetLoaded && <Logout />}</div>
     </StyledNav>
   );
 };
@@ -21,6 +28,7 @@ const StyledNav = styled(motion.div)`
   color: #848586;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 17vw;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
