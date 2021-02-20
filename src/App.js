@@ -5,6 +5,7 @@ import { GlobalProvider } from "./context/GlobalContext";
 import Budget from "./containers/Budget";
 import Dashboard from "./containers/Dashboard";
 import Settings from "./containers/Settings";
+import Splash from "./containers/Splash";
 
 //components
 import Nav from "./components/Nav";
@@ -20,7 +21,7 @@ function App() {
           <Nav />
           <SubNav />
           <Route exact path="/">
-            <Budget />
+            <Splash />
           </Route>
           <Route path="/settings">
             <Settings />

@@ -1,16 +1,13 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import AddBudgetForm from "../components/budget/AddBudgetForm";
-import BudgetList from "../components/budget/BudgetList";
+import SplashFlowchartWidget from "../SplashFlowchartWidget";
 
 const Budget = () => {
   return (
     <StyledBudgetContainer>
       <div className="left"></div>
       <div className="main">
-        <h3>Budgets</h3>
-        <AddBudgetForm />
-        <BudgetList />
+        <SplashFlowchartWidget />
       </div>
       <div className="right"></div>
     </StyledBudgetContainer>
@@ -35,13 +32,12 @@ const StyledBudgetContainer = styled(motion.div)`
     grid-area: main;
     display: flex;
     flex-direction: column;
-
     //align-items: center;
 
-    h3 {
+    /* h3 {
       margin-bottom: 1rem;
       color: white;
-    }
+    } */
   }
   .right {
     grid-area: right;
