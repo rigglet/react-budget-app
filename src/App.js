@@ -23,6 +23,9 @@ function App() {
           <Route exact path="/">
             <Splash />
           </Route>
+          <Route exact path="/home">
+            <Splash />
+          </Route>
           <Route path="/settings">
             <Settings />
           </Route>

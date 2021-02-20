@@ -34,7 +34,7 @@ const Budget = ({ budget }) => {
     updateCurrentBudgetId(budget.id);
     updateCurrentBudget(budget);
     updateBudgetLoaded(true);
-    history.push(`/settings/${budget.id}/income`);
+    history.push(`/home`);
   };
 
   return (

@@ -8,7 +8,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 
 const BudgetList = () => {
   const [isLoading, setLoading] = useState(true);
-  //const [showBudgets, setShowBudgets] = useState(false);
   const { budgets, loadBudgets } = useContext(GlobalContext);
   //console.log(currentBudgetId);
 
@@ -17,12 +16,10 @@ const BudgetList = () => {
       (response) => {
         loadBudgets(response);
         setLoading(false);
-        //setShowBudgets(true);
       },
       (reject) => {
         console.log(reject);
         setLoading(false);
-        //setShowBudgets(false);
       }
     );
   }, []);

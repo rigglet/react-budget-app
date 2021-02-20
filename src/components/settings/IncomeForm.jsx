@@ -291,16 +291,18 @@ const IncomeForm = () => {
           </div>
           <div className="line"></div>
           <div className="row">
-            <label htmlFor="weeklyNet">Weekly Salary (Net)</label>
+            <label htmlFor="yearlyNet">Annual Salary (Net)</label>
             <div className="currencyInput">
               {currencySymbol}
               <input
+                className="activeInput"
                 type="text"
-                name="weeklyNet"
-                id="weeklyNet"
-                value={weeklyNet || ""}
+                name="yearlyNet"
+                id="yearlyNet"
+                value={formIncome.yearlyNet || ""}
                 onChange={handleChange}
-                readOnly
+                onBlur={handleBlur}
+                //readOnly
               />
             </div>
           </div>
@@ -319,18 +321,16 @@ const IncomeForm = () => {
             </div>
           </div>
           <div className="row">
-            <label htmlFor="yearlyNet">Annual Salary (Net)</label>
+            <label htmlFor="weeklyNet">Weekly Salary (Net)</label>
             <div className="currencyInput">
               {currencySymbol}
               <input
-                className="activeInput"
                 type="text"
-                name="yearlyNet"
-                id="yearlyNet"
-                value={formIncome.yearlyNet || ""}
+                name="weeklyNet"
+                id="weeklyNet"
+                value={weeklyNet || ""}
                 onChange={handleChange}
-                onBlur={handleBlur}
-                //readOnly
+                readOnly
               />
             </div>
           </div>
