@@ -4,50 +4,22 @@ import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
 import Xarrow from "react-xarrows";
 
-import {
-  formatNumber,
-  getYearlyAllocated,
-  filterByDateRange,
-} from "../../../util";
-
 const IncomeWidget = () => {
-  const { currencySymbol, currentBudget, dateRange } = useContext(
-    GlobalContext
-  );
-
-  const budgetItems = currentBudget.data.budgetItems;
-  const transactions = currentBudget.data.transactions;
-
-  const { yearlyNet } = currentBudget.data.income;
-  const budgetAmount = getYearlyAllocated(budgetItems);
-  const spentAmount = filterByDateRange(transactions, dateRange).reduce(
-    (acc, current) => {
-      return (
-        Number(acc) +
-        (current.type === "deposit"
-          ? -Math.abs(Number(current.amount))
-          : Number(current.amount))
-      );
-    },
-    []
-  );
-  const salaryDifference = yearlyNet - spentAmount;
-  const budgetDifference = budgetAmount - spentAmount;
+  const { currencySymbol } = useContext(GlobalContext);
 
   const incomingStyle = {
     curveness: Number(0.6),
     strokeWidth: Number(2),
-    dashness: false,
     path: "smooth",
     dashness: { animation: 2 },
     startAnchor: "auto",
     endAnchor: "auto",
     color: "#2ba874",
   };
+
   const outgoingStyle = {
     curveness: Number(0.6),
     strokeWidth: Number(2),
-    dashness: false,
     path: "smooth",
     dashness: { animation: 2 },
     startAnchor: "auto",
@@ -60,26 +32,31 @@ const IncomeWidget = () => {
     startAnchor: "auto",
     endAnchor: { position: "auto", offset: { bottomness: 5 } },
   };
+
   const niInStyle = {
     ...outgoingStyle,
     startAnchor: { position: "auto", offset: { bottomness: -5 } },
     endAnchor: "auto",
   };
+
   const incomeTaxInStyle = {
     ...outgoingStyle,
     startAnchor: "auto",
     endAnchor: "auto",
   };
+
   const taxableInStyle = {
     ...incomingStyle,
     startAnchor: "auto",
     endAnchor: { position: "auto", offset: { bottomness: -5 } },
   };
+
   const taxableOutStyle = {
     ...incomingStyle,
     startAnchor: { position: "auto", offset: { bottomness: 5 } },
     endAnchor: { position: "auto", offset: { bottomness: -5 } },
   };
+
   const yearlyNetOutStyle = {
     ...incomingStyle,
     startAnchor: { position: "auto", offset: { bottomness: 5 } },

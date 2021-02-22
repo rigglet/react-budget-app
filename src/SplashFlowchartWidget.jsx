@@ -2,8 +2,9 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "./context/GlobalContext";
+import { getYearlyAllocated } from "./util";
 //react router
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 //arrows
 import Xarrow from "react-xarrows";
 //icons
@@ -121,13 +122,13 @@ const SplashFlowchartWidget = () => {
               <h5 className="inactive">Configuration</h5>
             )}
           </div>
-          <p>
+          {/* <p>
             {isBudgetLoaded ? (
               <FaCheckSquare className="check" />
             ) : (
               <FaTimesCircle className="cross" />
             )}
-          </p>
+          </p> */}
         </div>
 
         <div className="featureNumber" id="income">
@@ -145,7 +146,11 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
-              <FaCheckSquare className="check" />
+              currentBudget.data.income.yearlyNet > 0 ? (
+                <FaCheckSquare className="check" />
+              ) : (
+                <FaTimesCircle className="cross" />
+              )
             ) : (
               <FaTimesCircle className="cross" />
             )}
@@ -167,7 +172,11 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
-              <FaCheckSquare className="check" />
+              getYearlyAllocated(currentBudget.data.budgetItems) > 0 ? (
+                <FaCheckSquare className="check" />
+              ) : (
+                <FaTimesCircle className="cross" />
+              )
             ) : (
               <FaTimesCircle className="cross" />
             )}
@@ -190,14 +199,17 @@ const SplashFlowchartWidget = () => {
             )}
           </div>
           <p>
-            {isBudgetLoaded ? (
-              <FaCheckSquare className="check" />
+            {isBudgetLoaded > 0 ? (
+              currentBudget.data.transactions.length > 0 ? (
+                <FaCheckSquare className="check" />
+              ) : (
+                <FaTimesCircle className="cross" />
+              )
             ) : (
               <FaTimesCircle className="cross" />
             )}
           </p>
         </div>
-
         <div className="featureNumber" id="tracker">
           <div className="location">
             <BiAbacus
@@ -213,7 +225,11 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
-              <FaCheckSquare className="check" />
+              false ? (
+                <FaCheckSquare className="check" />
+              ) : (
+                <FaTimesCircle className="cross" />
+              )
             ) : (
               <FaTimesCircle className="cross" />
             )}
@@ -226,18 +242,32 @@ const SplashFlowchartWidget = () => {
               className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
             />
             {isBudgetLoaded ? (
-              <Link
-                to={{ pathname: `/dashboard/${currentBudget.id}/settings` }}
-              >
-                <h5 className="active">Dashboard s/v</h5>
-              </Link>
+              currentBudget.data.income.yearlyNet > 0 ||
+              getYearlyAllocated(currentBudget.data.budgetItems) > 0 ||
+              currentBudget.data.transactions.length > 0 ? (
+                <Link to={{ pathname: `/dashboard/${currentBudget.id}/view` }}>
+                  <h5 className="active">Dashboard s/v</h5>
+                </Link>
+              ) : (
+                <Link
+                  to={{ pathname: `/dashboard/${currentBudget.id}/settings` }}
+                >
+                  <h5 className="active">Dashboard s/v</h5>
+                </Link>
+              )
             ) : (
               <h5 className="inactive">Dashboard s/v</h5>
             )}
           </div>
           <p>
             {isBudgetLoaded ? (
-              <FaCheckSquare className="check" />
+              currentBudget.data.income.yearlyNet > 0 ||
+              getYearlyAllocated(currentBudget.data.budgetItems) > 0 ||
+              currentBudget.data.transactions.length > 0 ? (
+                <FaCheckSquare className="check" />
+              ) : (
+                <FaTimesCircle className="cross" />
+              )
             ) : (
               <FaTimesCircle className="cross" />
             )}

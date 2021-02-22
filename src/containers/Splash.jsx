@@ -1,18 +1,51 @@
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import SplashFlowchartWidget from "../SplashFlowchartWidget";
+//context
+import { GlobalContext } from "../context/GlobalContext";
+//getData
+import { getData } from "../data";
+//spinner
+import Spinner from "../components/Spinner";
 
 const Budget = () => {
+  const { loadBudgets } = useContext(GlobalContext);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getData().then(
+      (response) => {
+        loadBudgets(response);
+        setLoading(false);
+      },
+      (reject) => {
+        console.log(reject);
+        setLoading(false);
+      }
+    );
+  }, []);
+
   return (
     <StyledBudgetContainer>
       <div className="left"></div>
       <div className="main">
-        <SplashFlowchartWidget />
+        {!isLoading ? (
+          <SplashFlowchartWidget />
+        ) : (
+          <StyledSpin>
+            <Spinner />
+          </StyledSpin>
+        )}
       </div>
       <div className="right"></div>
     </StyledBudgetContainer>
   );
 };
+
+const StyledSpin = styled(motion.div)`
+  align-self: center;
+`;
 
 const StyledBudgetContainer = styled(motion.div)`
   padding: 1.5rem;

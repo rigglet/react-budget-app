@@ -10,7 +10,6 @@ import { updateBudgetLocally, getToday } from "../../util";
 import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
 
 //TODO: Add dropdown to select whether transaction comes from d/w/m/y budget
 const AddTransactionForm = () => {

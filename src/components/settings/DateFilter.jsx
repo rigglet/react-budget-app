@@ -23,6 +23,8 @@ const DateFilter = () => {
       case "from":
         setSelectedDate("from");
         break;
+      default:
+        break;
     }
     setDatePick(!datePick);
   };

@@ -9,7 +9,7 @@ import { GlobalContext } from "../context/GlobalContext";
 const SubNav = () => {
   const location = useLocation();
   const subMenu = location.pathname.split("/")[3];
-  const { isBudgetLoaded, updateBudgetLoaded } = useContext(GlobalContext);
+  const { isBudgetLoaded } = useContext(GlobalContext);
 
   return (
     <StyledNav>

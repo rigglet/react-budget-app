@@ -3,12 +3,19 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
 import { ImExit } from "react-icons/im";
-const Logout = () => {
-  const { updateBudgetLoaded } = useContext(GlobalContext);
+import { useHistory } from "react-router-dom";
 
+const Logout = () => {
+  const { updateBudgetLoaded, updateCurrentBudget } = useContext(GlobalContext);
+  const history = useHistory();
+  const handleLogout = () => {
+    updateBudgetLoaded(false);
+    updateCurrentBudget({});
+    history.push("/home");
+  };
   return (
     <StyledLogout>
-      <div className="close" onClick={() => updateBudgetLoaded(false)}>
+      <div className="close" onClick={() => handleLogout()}>
         <ImExit className="icon" />
         <p>CLOSE</p>
       </div>
