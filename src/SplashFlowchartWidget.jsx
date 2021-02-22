@@ -49,6 +49,18 @@ const SplashFlowchartWidget = () => {
     color: isBudgetLoaded ? "#e69a07" : "red",
     endAnchor: { position: "auto", offset: { bottomness: 0 } },
   };
+  if (isBudgetLoaded === true) {
+    if (
+      [
+        ...currentBudget.widgets.incomeWidgets,
+        ...currentBudget.widgets.budgetWidgets,
+        ...currentBudget.widgets.expenditureWidgets,
+        ...currentBudget.widgets.trackerWidgets,
+      ].filter((b) => b.selected === true).length > 0
+    ) {
+      console.log("yep");
+    }
+  }
 
   return (
     <StyledIncomeWidget>
@@ -242,17 +254,20 @@ const SplashFlowchartWidget = () => {
               className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
             />
             {isBudgetLoaded ? (
-              currentBudget.data.income.yearlyNet > 0 ||
-              getYearlyAllocated(currentBudget.data.budgetItems) > 0 ||
-              currentBudget.data.transactions.length > 0 ? (
+              [
+                ...currentBudget.widgets.incomeWidgets,
+                ...currentBudget.widgets.budgetWidgets,
+                ...currentBudget.widgets.expenditureWidgets,
+                ...currentBudget.widgets.trackerWidgets,
+              ].filter((w) => w.selected === true).length > 0 ? (
                 <Link to={{ pathname: `/dashboard/${currentBudget.id}/view` }}>
-                  <h5 className="active">Dashboard s/v</h5>
+                  <h5 className="active">View Dashboard</h5>
                 </Link>
               ) : (
                 <Link
                   to={{ pathname: `/dashboard/${currentBudget.id}/settings` }}
                 >
-                  <h5 className="active">Dashboard s/v</h5>
+                  <h5 className="active">Dashboard Settings</h5>
                 </Link>
               )
             ) : (
@@ -261,9 +276,12 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
-              currentBudget.data.income.yearlyNet > 0 ||
-              getYearlyAllocated(currentBudget.data.budgetItems) > 0 ||
-              currentBudget.data.transactions.length > 0 ? (
+              [
+                ...currentBudget.widgets.incomeWidgets,
+                ...currentBudget.widgets.budgetWidgets,
+                ...currentBudget.widgets.expenditureWidgets,
+                ...currentBudget.widgets.trackerWidgets,
+              ].filter((w) => w.selected === true).length > 0 ? (
                 <FaCheckSquare className="check" />
               ) : (
                 <FaTimesCircle className="cross" />
