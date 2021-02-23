@@ -6,7 +6,7 @@ import Budget from "./containers/Budget";
 import Dashboard from "./containers/Dashboard";
 import Settings from "./containers/Settings";
 import Splash from "./containers/Splash";
-
+import AppSettings from "./containers/AppSettings";
 //components
 import Nav from "./components/Nav";
 import SubNav from "./components/SubNav";
@@ -34,6 +34,9 @@ function App() {
           </Route>
           <Route exact path="/budgets">
             <Budget />
+          </Route>
+          <Route exact path="/appSettings">
+            <AppSettings />
           </Route>
         </BrowserRouter>
       </GlobalProvider>

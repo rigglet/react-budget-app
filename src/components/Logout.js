@@ -17,7 +17,7 @@ const Logout = () => {
     <StyledLogout>
       <div className="close" onClick={() => handleLogout()}>
         <ImExit className="icon" />
-        <p>CLOSE</p>
+        <p>Close</p>
       </div>
     </StyledLogout>
   );
@@ -34,7 +34,7 @@ const StyledLogout = styled(motion.div)`
     align-items: center;
     justify-content: flex-end;
     gap: 0.5rem;
-    color: orange;
+    color: white;
     cursor: pointer;
     font-size: 11pt;
     .icon {

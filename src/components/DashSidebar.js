@@ -77,12 +77,12 @@ const StyledSide = styled(motion.div)`
       a {
         display: flex;
         align-items: center;
-        //justify-content: center;
         color: #848586;
         text-decoration: none;
         font-weight: bolder;
-        //margin-bottom: 1rem;
         padding: 0.5rem 0;
+        font-size: 12pt;
+        font-variant-caps: all-small-caps;
       }
 
       .selected {

@@ -117,6 +117,8 @@ const StyledSide = styled(motion.div)`
         text-decoration: none;
         font-weight: bolder;
         padding: 0.5rem 0;
+        font-size: 12pt;
+        font-variant-caps: all-small-caps;
       }
 
       .selected {

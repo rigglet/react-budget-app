@@ -1,25 +1,24 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import AddBudgetForm from "../components/budget/AddBudgetForm";
-import BudgetList from "../components/budget/BudgetList";
+import ApplicationSettings from "../components/appSettings/ApplicationSettings";
 
-const Budget = () => {
+const AppSettings = () => {
   return (
-    <StyledBudgetContainer>
+    <StyledAppSettings>
       <div className="left"></div>
       <div className="main">
-        <h3>Budgets</h3>
-        <AddBudgetForm />
-        <BudgetList />
+        <h3>Application Settings</h3>
+        <ApplicationSettings />
       </div>
       <div className="right"></div>
-    </StyledBudgetContainer>
+    </StyledAppSettings>
   );
 };
 
-const StyledBudgetContainer = styled(motion.div)`
+const StyledAppSettings = styled(motion.div)`
   margin: 1rem;
   width: 100vw;
+  //height: 80vh;
   background-color: #1f2023;
   color: #848586;
   display: grid;
@@ -34,7 +33,6 @@ const StyledBudgetContainer = styled(motion.div)`
     grid-area: main;
     display: flex;
     flex-direction: column;
-
     //align-items: center;
 
     h3 {
@@ -47,4 +45,4 @@ const StyledBudgetContainer = styled(motion.div)`
   }
 `;
 
-export default Budget;
+export default AppSettings;

@@ -48,13 +48,13 @@ const StyledSpin = styled(motion.div)`
 `;
 
 const StyledBudgetContainer = styled(motion.div)`
-  padding: 1.5rem;
+  margin: 1rem;
   width: 100vw;
   //height: 80vh;
   background-color: #1f2023;
   color: #848586;
   display: grid;
-  grid-template-columns: 15vw auto 15vw;
+  grid-template-columns: 15vw auto 10vw;
   grid-template-rows: auto;
   grid-template-areas: "left main right";
   grid-column-gap: 2rem;

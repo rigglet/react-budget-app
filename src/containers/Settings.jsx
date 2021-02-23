@@ -32,7 +32,7 @@ const Dashboard = () => {
 };
 
 const StyledDash = styled(motion.div)`
-  padding: 1.5rem;
+  margin: 1rem;
   display: grid;
   grid-template-columns: 15vw auto 10vw;
   grid-template-rows: auto;
