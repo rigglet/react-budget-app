@@ -138,6 +138,7 @@ const StyledBudgetList = styled(motion.div)`
   }
   h5 {
     color: #848586;
+    font-variant-caps: all-small-caps;
   }
 `;
 

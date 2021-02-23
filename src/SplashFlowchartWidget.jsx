@@ -49,18 +49,6 @@ const SplashFlowchartWidget = () => {
     color: isBudgetLoaded ? "#e69a07" : "red",
     endAnchor: { position: "auto", offset: { bottomness: 0 } },
   };
-  if (isBudgetLoaded === true) {
-    if (
-      [
-        ...currentBudget.widgets.incomeWidgets,
-        ...currentBudget.widgets.budgetWidgets,
-        ...currentBudget.widgets.expenditureWidgets,
-        ...currentBudget.widgets.trackerWidgets,
-      ].filter((b) => b.selected === true).length > 0
-    ) {
-      console.log("yep");
-    }
-  }
 
   return (
     <StyledIncomeWidget>
@@ -134,13 +122,6 @@ const SplashFlowchartWidget = () => {
               <h5 className="inactive">Configuration</h5>
             )}
           </div>
-          {/* <p>
-            {isBudgetLoaded ? (
-              <FaCheckSquare className="check" />
-            ) : (
-              <FaTimesCircle className="cross" />
-            )}
-          </p> */}
         </div>
 
         <div className="featureNumber" id="income">

@@ -77,6 +77,8 @@ const AddBudgetItemForm = () => {
         item: formData.item,
         frequency: formData.frequency,
         amount: Number(formData.amount),
+        mandatory: false,
+        paid: false,
       };
 
       //add budget to app context
