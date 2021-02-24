@@ -5,7 +5,8 @@ import SplashFlowchartWidget from "../SplashFlowchartWidget";
 //context
 import { GlobalContext } from "../context/GlobalContext";
 //getData
-import { getData } from "../data";
+//import { getData } from "../data";
+import { seedData } from "../seedData";
 //spinner
 import Spinner from "../components/Spinner";
 
@@ -13,14 +14,21 @@ const Budget = () => {
   const { loadBudgets } = useContext(GlobalContext);
   const [isLoading, setLoading] = useState(true);
 
+  const data = seedData();
+  console.log(data.showBudgets());
+
   useEffect(() => {
-    getData().then(
+    data.getLocalData().then(
       (response) => {
+        //save returned data to global context
         loadBudgets(response);
+        //set loading flag to false
         setLoading(false);
       },
       (reject) => {
+        //on reject log error
         console.log(reject);
+        //set loading flag to false
         setLoading(false);
       }
     );

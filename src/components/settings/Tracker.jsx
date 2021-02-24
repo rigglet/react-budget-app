@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import AnnualOverviewWidget from "../dashboard/widgets/AnnualOverviewWidget";
+import TrackerBudgetList from "./TrackerBudgetList";
 
 const Tracker = () => {
   return (
     <StyledTracker>
       <h3>Tracker</h3>
-      <div className="charts">
-        <AnnualOverviewWidget />
-      </div>
+      <AnnualOverviewWidget />
+      <TrackerBudgetList />
     </StyledTracker>
   );
 };
