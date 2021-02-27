@@ -7,7 +7,7 @@ import Xarrow from "react-xarrows";
 import {
   formatNumber,
   getYearlyAllocated,
-  filterByDateRange,
+  filterTransactionsByDateRange,
 } from "../../../util";
 
 const AnnualOverviewWidget = () => {
@@ -20,17 +20,17 @@ const AnnualOverviewWidget = () => {
 
   const { yearlyNet } = currentBudget.data.income;
   const budgetAmount = getYearlyAllocated(budgetItems);
-  const spentAmount = filterByDateRange(transactions, dateRange).reduce(
-    (acc, current) => {
-      return (
-        Number(acc) +
-        (current.type === "deposit"
-          ? -Math.abs(Number(current.amount))
-          : Number(current.amount))
-      );
-    },
-    []
-  );
+  const spentAmount = filterTransactionsByDateRange(
+    transactions,
+    dateRange
+  ).reduce((acc, current) => {
+    return (
+      Number(acc) +
+      (current.type === "deposit"
+        ? -Math.abs(Number(current.amount))
+        : Number(current.amount))
+    );
+  }, []);
   const salaryDifference = yearlyNet - spentAmount;
   const budgetDifference = budgetAmount - spentAmount;
 
@@ -67,10 +67,10 @@ const AnnualOverviewWidget = () => {
 
   return (
     <StyledAnnualOverviewWidget>
-      <Xarrow start="salary" end="spent" {...salArrowStyle} />
-      <Xarrow start="budget" end="spent" {...budgetArrowStyle} />
-      <Xarrow start="spent" end="salDiff" {...salDiffArrowStyle} />
-      <Xarrow start="spent" end="budDiff" {...budgetDiffArrowStyle} />
+      <Xarrow start="salary" end="annualSpent" {...salArrowStyle} />
+      <Xarrow start="budget" end="annualSpent" {...budgetArrowStyle} />
+      <Xarrow start="annualSpent" end="salDiff" {...salDiffArrowStyle} />
+      <Xarrow start="annualSpent" end="budDiff" {...budgetDiffArrowStyle} />
 
       <h4>Annual Overview</h4>
       <div className="data">
@@ -95,7 +95,7 @@ const AnnualOverviewWidget = () => {
           </div>
         </div>
         <div className="middle">
-          <div className="featureNumber" id="spent">
+          <div className="featureNumber" id="annualSpent">
             <h5>Spent</h5>
             <div className="item">
               <span className="symbol">{currencySymbol} </span>

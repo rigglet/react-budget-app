@@ -27,7 +27,12 @@ body{
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
 }
-
+.line {
+    width: 100%;
+    margin: 1rem 0;
+    background-color: #848586;
+    height: 1px;
+  }
 .button {
   font-weight: lighter;
   font-size: 10pt;

@@ -78,6 +78,8 @@ const BudgetList = () => {
     updateCurrentBudget(newBudget);
   };
 
+  console.log(sortByCategoryThenByItem(budgetItems));
+
   return (
     <StyledBudgetList>
       <h4>Budget items</h4>

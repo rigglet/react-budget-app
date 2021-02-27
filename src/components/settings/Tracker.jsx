@@ -8,7 +8,9 @@ const Tracker = () => {
     <StyledTracker>
       <h3>Tracker</h3>
       <AnnualOverviewWidget />
-      <TrackerBudgetList />
+      <div className="lists">
+        <TrackerBudgetList />
+      </div>
     </StyledTracker>
   );
 };
@@ -20,7 +22,7 @@ const StyledTracker = styled(motion.div)`
   h3 {
     color: white;
   }
-  .charts {
+  .lists {
     display: flex;
     row-gap: 1rem;
     column-gap: 1rem;

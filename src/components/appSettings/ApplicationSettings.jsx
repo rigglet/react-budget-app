@@ -61,8 +61,24 @@ const ApplicationSettings = () => {
         <h5>Displayed Currency</h5>
         <div className="currency">
           <div className="selection">
+            <p>Currency name</p>
+            <p>GBP</p>
+          </div>
+          <div className="selection">
             <p>Currency Symbol</p>
             <p>{currencySymbol}</p>
+          </div>
+        </div>
+        <div className="line"></div>
+        <h5>Start of year</h5>
+        <div className="SOY">
+          <div className="selection">
+            <p>Calendar</p>
+            <p>01/01</p>
+          </div>
+          <div className="selection">
+            <p>Financial</p>
+            <p>01/04</p>
           </div>
         </div>
         <div className="line"></div>

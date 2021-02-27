@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import {
   formatNumber,
   getYearlyAllocated,
-  filterByDateRange,
+  filterTransactionsByDateRange,
 } from "../../util";
 //icons
 import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
@@ -24,22 +24,22 @@ const ExpeditureFigures = () => {
     ? budgetItems
     : budgetItems.filter((item) => item.mandatory === false);
 
-  console.log(filteredBudgetItems);
+  //console.log(filteredBudgetItems);
   const transactions = currentBudget.data.transactions;
   const { yearlyNet } = currentBudget.data.income;
   const dailyNet = yearlyNet / 365;
 
-  const spentAmount = filterByDateRange(transactions, dateRange).reduce(
-    (acc, current) => {
-      return (
-        Number(acc) +
-        (current.type === "deposit"
-          ? -Math.abs(Number(current.amount))
-          : Number(current.amount))
-      );
-    },
-    []
-  );
+  const spentAmount = filterTransactionsByDateRange(
+    transactions,
+    dateRange
+  ).reduce((acc, current) => {
+    return (
+      Number(acc) +
+      (current.type === "deposit"
+        ? -Math.abs(Number(current.amount))
+        : Number(current.amount))
+    );
+  }, []);
 
   //add one day to difference to figure is inclusive of the day (otherwise 1 day = 0)
   const numOfDays = dateRange.to.diff(dateRange.from, "days") + 1;

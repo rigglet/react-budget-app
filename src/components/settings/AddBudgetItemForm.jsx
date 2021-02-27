@@ -73,8 +73,8 @@ const AddBudgetItemForm = () => {
       //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
       const newBudgetItem = {
         id: uuidv4(),
-        category: formData.category,
-        item: formData.item,
+        category: formData.category.toLowerCase(),
+        item: formData.item.toLowerCase(),
         frequency: formData.frequency,
         amount: Number(formData.amount),
         mandatory: false,

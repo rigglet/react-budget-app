@@ -5,6 +5,7 @@ import Salary from "./components/dashboard/widgets/SalaryWidget";
 import ExpenditureWidget from "./components/dashboard/widgets/ExpenditureWidget";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
+import AnnualOverviewWidget from "./components/dashboard/widgets/AnnualOverviewWidget";
 
 //returns an array of budget subtotals per category
 export const getAccumulatedSubTotals = (currentBudget) => {
@@ -137,8 +138,8 @@ export const getWidget = (name) => {
       return <BudgetByItemWidget key={uuidv4()} />;
     case "Expenditure":
       return <ExpenditureWidget key={uuidv4()} />;
-    // case "Tracker":
-    //   return <TrackerWidget key={uuidv4()} />;
+    case "Tracker":
+      return <AnnualOverviewWidget key={uuidv4()} />;
 
     default:
       return <Salary key={uuidv4()} />;
@@ -169,6 +170,31 @@ export const getYearlyAllocated = (budgetItems) => {
       return 0;
     })
     .reduce((acc, current) => Number(acc) + Number(current), []);
+};
+
+//returns an total figure of all budgets items for the year averaged to a daily figure
+export const getYearlyAllocatedPerDay = (budgetItems) => {
+  return (
+    budgetItems
+      .map((item) => {
+        if (!item.paid) {
+          if (item.frequency === "daily") {
+            return item.amount * 365;
+          }
+          if (item.frequency === "weekly") {
+            return item.amount * 52;
+          }
+          if (item.frequency === "monthly") {
+            return item.amount * 12;
+          }
+          if (item.frequency === "annually") {
+            return item.amount;
+          }
+        }
+        return 0;
+      })
+      .reduce((acc, current) => Number(acc) + Number(current), []) / 365
+  );
 };
 
 // custom sort function to sort by category
@@ -231,12 +257,55 @@ export const getToday = () => {
 //isBetween is exclusive by default, so to make inclusive of shown date
 //so subtract  by 1 day from 'from'
 //add 1 day to 'to'
-export const filterByDateRange = (transactions, range) => {
+export const filterTransactionsByDateRange = (transactions, range) => {
   return transactions.filter((transaction) => {
     return moment(transaction.date).isBetween(
-      moment(range.from).subtract(1, "d"),
-      moment(range.to).add(1, "d"),
-      "day"
+      moment(range.from).subtract(1, "M"),
+      moment(range.to).add(1, "M"),
+      "month"
     );
   }, []);
 };
+
+export const filterTransactionsByDateRangeAndReturnTotal = (
+  transactions,
+  range
+) => {
+  return transactions
+    .filter((transaction) => {
+      if (
+        moment(transaction.date).isBetween(
+          moment(range.from).subtract(1, "M"),
+          moment(range.to).add(1, "M"),
+          "month"
+        )
+      ) {
+        return transaction;
+      }
+    }, [])
+    .map((transaction) => transaction.amount)
+    .reduce((acc, current) => Number(acc) + Number(current), []);
+};
+
+// //getAllocatedFilteredByMonth
+// export const getAllocatedFilteredByMonth = (transactions, month) => {
+//   return transactions.filter((transaction) => {
+//     return moment(transaction.date).isBetween(
+//       moment(range.from).subtract(1, "d"),
+//       moment(range.to).add(1, "d"),
+//       "day"
+//     );
+//   }, []);
+// };
+
+// const spentAmount = filterByDateRange(transactions, dateRange).reduce(
+//   (acc, current) => {
+//     return (
+//       Number(acc) +
+//       (current.type === "deposit"
+//         ? -Math.abs(Number(current.amount))
+//         : Number(current.amount))
+//     );
+//   },
+//   []
+// );

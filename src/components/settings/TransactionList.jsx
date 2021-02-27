@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 import Transaction from "./Transaction";
-import { filterByDateRange, updateBudgetLocally } from "../../util";
+import { filterTransactionsByDateRange, updateBudgetLocally } from "../../util";
 
 const TransactionList = () => {
   const {
@@ -15,7 +15,10 @@ const TransactionList = () => {
   } = useContext(GlobalContext);
 
   const transactions = currentBudget.data.transactions;
-  const filteredTransactions = filterByDateRange(transactions, dateRange);
+  const filteredTransactions = filterTransactionsByDateRange(
+    transactions,
+    dateRange
+  );
 
   const deleteTransaction = (id) => {
     const newBudget = {

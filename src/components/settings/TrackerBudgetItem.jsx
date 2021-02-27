@@ -5,18 +5,12 @@ import { motion } from "framer-motion";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 //icons
-import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
 //FaGrin, FaFrown,
 //format numbers
 import { formatNumber } from "../../util";
 
-const TrackerBudgetItem = ({
-  budgetItem,
-  deleteBudgetItem,
-  togglePaidStatus,
-  toggleMandatoryStatus,
-}) => {
-  const { id, category, item, frequency, amount, paid, mandatory } = budgetItem;
+const TrackerBudgetItem = ({ budgetItem }) => {
+  const { category, item, frequency, amount } = budgetItem;
   const { currencySymbol } = useContext(GlobalContext);
 
   return (

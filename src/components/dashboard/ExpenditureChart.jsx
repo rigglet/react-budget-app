@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Doughnut } from "react-chartjs-2";
 import { GlobalContext } from "../../context/GlobalContext";
-import { getYearlyAllocated, filterByDateRange } from "../../util";
+import { getYearlyAllocated, filterTransactionsByDateRange } from "../../util";
 
 const ExpenditureChart = () => {
   const { dateRange, currentBudget, includeMandatory } = useContext(
@@ -21,17 +21,17 @@ const ExpenditureChart = () => {
   const salaryForRange = numOfDays * dailyNet;
   const budgetForRange =
     (numOfDays * getYearlyAllocated(filteredBudgetItems)) / 365;
-  const spentAmount = filterByDateRange(transactions, dateRange).reduce(
-    (acc, current) => {
-      return (
-        Number(acc) +
-        (current.type === "deposit"
-          ? -Math.abs(Number(current.amount))
-          : Number(current.amount))
-      );
-    },
-    []
-  );
+  const spentAmount = filterTransactionsByDateRange(
+    transactions,
+    dateRange
+  ).reduce((acc, current) => {
+    return (
+      Number(acc) +
+      (current.type === "deposit"
+        ? -Math.abs(Number(current.amount))
+        : Number(current.amount))
+    );
+  }, []);
 
   let remainingBudget = 0;
   budgetForRange - spentAmount < 0

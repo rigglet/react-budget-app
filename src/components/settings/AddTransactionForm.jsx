@@ -74,8 +74,8 @@ const AddTransactionForm = () => {
     if (handleValidation(formData)) {
       const newTransaction = {
         id: uuidv4(),
-        category: formData.category,
-        item: formData.item,
+        category: formData.category.toLowerCase(),
+        item: formData.item.toLowerCase(),
         date: formData.date,
         type: formData.type,
         amount: formData.amount,

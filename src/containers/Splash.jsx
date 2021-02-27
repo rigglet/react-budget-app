@@ -14,8 +14,8 @@ const Budget = () => {
   const { loadBudgets } = useContext(GlobalContext);
   const [isLoading, setLoading] = useState(true);
 
+  //get seed data
   const data = seedData();
-  console.log(data.showBudgets());
 
   useEffect(() => {
     data.getLocalData().then(

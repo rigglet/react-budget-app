@@ -236,12 +236,6 @@ const StyledIncome = styled(motion.div)`
     justify-content: space-between;
     padding: 0 5rem;
   }
-  .line {
-    width: 100%;
-    margin: 1rem 0;
-    background-color: #848586;
-    height: 1px;
-  }
   .icon {
     width: 25px;
     height: 25px;
