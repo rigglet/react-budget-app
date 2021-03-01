@@ -8,43 +8,67 @@ import { GlobalContext } from "../../context/GlobalContext";
 //FaGrin, FaFrown,
 //format numbers
 import { formatNumber } from "../../util";
+import { FaGrin, FaFrown } from "react-icons/fa";
 
 const TrackerBudgetItem = ({ budgetItem }) => {
-  const { category, item, frequency, amount } = budgetItem;
+  const {
+    category,
+    budgetCategory,
+    budgetAmount,
+    transCategory,
+    transAmount,
+  } = budgetItem;
+
+  console.log(budgetItem);
   const { currencySymbol } = useContext(GlobalContext);
 
   return (
     <StyledItem>
       <td>
+        <p>
+          {Number(budgetAmount) >= Number(transAmount) ? (
+            <FaGrin className="icon happy" />
+          ) : (
+            <FaFrown className="icon sad" />
+          )}
+        </p>
+      </td>
+      <td>
         <p>{category}</p>
       </td>
       <td>
-        <p>{item}</p>
-      </td>
-      <td>
-        <p>{frequency}</p>
-      </td>
-      <td>
         <p>
-          <span className="symbol">{currencySymbol}</span>
-          {formatNumber(amount)}
-        </p>
-      </td>
-      {/* <td>
-        <p className="paid">
-          {paid ? (
-            <FaCheckSquare
-              className="check"
-              onClick={() => togglePaidStatus(budgetItem)}
-            />
+          {budgetAmount > 0 ? (
+            <>
+              <span className="symbol">{currencySymbol}</span>
+              {formatNumber(budgetAmount)}
+            </>
           ) : (
-            <FaTimesCircle
-              className="cross"
-              onClick={() => togglePaidStatus(budgetItem)}
-            />
+            ""
           )}
         </p>
-      </td> */}
+        {/* <p>
+          <span className="symbol">{currencySymbol}</span>
+          {formatNumber(budgetAmount)}
+        </p> */}
+      </td>
+
+      <td>
+        <p>
+          {transAmount > 0 ? (
+            <>
+              <span className="symbol">{currencySymbol}</span>
+              {formatNumber(transAmount)}
+            </>
+          ) : (
+            ""
+          )}
+        </p>
+        {/* <p>
+          <span className="symbol">{currencySymbol}</span>
+          {formatNumber(transAmount)}
+        </p> */}
+      </td>
     </StyledItem>
   );
 };
@@ -57,6 +81,16 @@ const StyledItem = styled(motion.tr)`
     .symbol {
       margin-right: 0.25rem;
     }
+  }
+  .icon {
+    height: 20px;
+    width: 20px;
+  }
+  .happy {
+    color: #2ba874;
+  }
+  .sad {
+    color: #e2725d;
   }
   .paid,
   .mandatory {

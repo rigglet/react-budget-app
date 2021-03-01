@@ -21,9 +21,7 @@ const SubNav = () => {
       <div className="left"></div>
       <div className="main">
         <div className="date">
-          {(subMenu === "expenditure" || subMenu === "tracker") && (
-            <DateFilter />
-          )}
+          {subMenu === "expenditure" && <DateFilter />}
         </div>
         <div className="budgetInfo">
           {isBudgetLoaded && (

@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { getWidget } from "../util";
 import ConfigureDash from "../components/dashboard/ConfigureDash";
 import DashSidebar from "../components/DashSidebar";
+import Tracker from "../components/settings/Tracker";
 
 const Dashboard = () => {
   //TODO: drag and drop widgets
@@ -118,6 +119,7 @@ const Dashboard = () => {
             </div>
           </>
         )}
+        {subMenu === "tracker" && <Tracker />}
       </div>
       <div className="right"></div>
     </StyledDashboard>

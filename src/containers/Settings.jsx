@@ -6,7 +6,6 @@ import { GlobalContext } from "../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import Income from "../components/settings/Income";
 import Budget from "../components/settings/Budget";
-import Tracker from "../components/settings/Tracker";
 import Expenditure from "../components/settings/Expenditure";
 
 const Dashboard = () => {
@@ -24,7 +23,6 @@ const Dashboard = () => {
         {subMenu === "income" && <Income />}
         {subMenu === "budget" && <Budget />}
         {subMenu === "expenditure" && <Expenditure />}
-        {subMenu === "tracker" && <Tracker />}
       </div>
       <div className="right"></div>
     </StyledDash>

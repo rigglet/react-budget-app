@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 const TrackerBudgetList = () => {
   const { currentBudget } = useContext(GlobalContext);
 
-  const budgetItems = currentBudget.data.budgetItems;
+  //const budgetItems = currentBudget.data.budgetItems;
 
   //get set containing month names between a certain date range
   const allMonths = [

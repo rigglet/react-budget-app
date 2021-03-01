@@ -7,24 +7,20 @@ import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 //util
 import {
-  sortByCategoryThenByItem,
   getYearlyAllocatedPerDay,
   filterTransactionsByDateRange,
   filterTransactionsByDateRangeAndReturnTotal,
   formatNumber,
+  getAccumulatedSubTotals,
 } from "../../util";
 //arrows
 import Xarrow from "react-xarrows";
 //icons
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-import { HiOutlineEmojiHappy, HiOutlineEmojiSad } from "react-icons/hi";
 import { FaGrin, FaFrown } from "react-icons/fa";
-
-//FaGrin, FaFrown,
+import { v4 as uuidv4 } from "uuid";
 //components
 import TrackerBudgetItem from "./TrackerBudgetItem";
-//unique id
-//import { v4 as uuidv4 } from "uuid";
 
 const TableExpandingHeader = ({ title, uniqueid }) => {
   const { currentBudget, currencySymbol } = useContext(GlobalContext);
@@ -46,11 +42,72 @@ const TableExpandingHeader = ({ title, uniqueid }) => {
   };
 
   //
+  // const monthlyTransactions = filterTransactionsByDateRange(
+  //   transactions,
+  //   range
+  // );
+
   const monthlyTransactions = filterTransactionsByDateRange(
     transactions,
     range
   );
-  console.log(monthlyTransactions);
+
+  //budget
+  const filteredBCategories = getAccumulatedSubTotals(currentBudget).map(
+    (item) => {
+      return { ...item, amount: Number(item.amount / 12) };
+    }
+  );
+
+  //transaction
+  const filteredCategories = [
+    ...new Set(monthlyTransactions.map((t) => t.category.toLowerCase())),
+  ];
+
+  const monthlyTransactionsbyCategory = filteredCategories.map((c) => {
+    const trans = monthlyTransactions.filter(
+      (t) => t.category.toLowerCase() === c
+    );
+    const amount = trans.reduce((acc, cur) => {
+      return Number(acc) + Number(cur.amount);
+    }, []);
+    return { category: c, amount: amount };
+  });
+
+  //joined data
+  const joinedCategories = [
+    ...new Set([
+      ...monthlyTransactions.map((t) => t.category.toLowerCase()),
+      ...filteredBCategories.map((t) => t.category.toLowerCase()),
+    ]),
+  ];
+
+  //console.log(filteredBCategories);
+  //console.log(joinedCategories);
+
+  let tableObj = {};
+  const joinedTables = joinedCategories.map((c) => {
+    tableObj = { category: c, budgetAmount: 0, transAmount: 0 };
+    filteredBCategories.map((b) => {
+      if (c === b.category) {
+        tableObj = { ...tableObj, budgetAmount: b.amount };
+      }
+    });
+
+    monthlyTransactionsbyCategory.map((t) => {
+      if (c === t.category) {
+        tableObj = {
+          ...tableObj,
+          transAmount: t.amount,
+        };
+      }
+    });
+
+    return tableObj;
+  });
+
+  //console.log(joinedTables);
+
   //calculate amount spent for supplied mmonth
   const spentAmount = filterTransactionsByDateRangeAndReturnTotal(
     transactions,
@@ -200,31 +257,39 @@ const TableExpandingHeader = ({ title, uniqueid }) => {
 
       <div className="table">
         {toggleMandatory ? (
-          <>
+          <div className="joined-table">
+            <h4>Budget vs Transactions by category</h4>
             <table>
               <thead>
                 <tr>
                   <th>
-                    <h5>Category</h5>
+                    <h5>In budget?</h5>
                   </th>
                   <th>
-                    <h5>% of allocated</h5>
+                    <h5>Budget Category</h5>
                   </th>
                   <th>
-                    <h5>% of total</h5>
+                    <h5>Budget Amount</h5>
                   </th>
+                  {/* <th>
+                    <h5>Transaction Category</h5>
+                  </th> */}
                   <th>
-                    <h5>Category sub-total</h5>
+                    <h5>Transaction Amount</h5>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {sortByCategoryThenByItem(monthlyTransactions).map((item) => (
-                  <TrackerBudgetItem key={item.id} budgetItem={item} />
-                ))}
+                {joinedTables
+                  .sort((a, b) =>
+                    a.budgetCategory > b.budgetCategory ? 1 : -1
+                  )
+                  .map((item) => (
+                    <TrackerBudgetItem key={uuidv4()} budgetItem={item} />
+                  ))}
               </tbody>
             </table>
-          </>
+          </div>
         ) : (
           ""
         )}
@@ -241,6 +306,7 @@ const StyledItem = styled(motion.div)`
   justify-content: center;
   align-items: space-between;
   margin-bottom: 0.25rem;
+
   .header,
   .monthlyAllocated {
     margin: 0.25rem;

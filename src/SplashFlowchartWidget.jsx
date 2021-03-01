@@ -209,7 +209,7 @@ const SplashFlowchartWidget = () => {
               className={isBudgetLoaded ? "activeIcon" : "inactiveIcon"}
             />
             {isBudgetLoaded ? (
-              <Link to={{ pathname: `/settings/${currentBudget.id}/tracker` }}>
+              <Link to={{ pathname: `/dashboard/${currentBudget.id}/tracker` }}>
                 <h5 className="active">Tracker</h5>
               </Link>
             ) : (

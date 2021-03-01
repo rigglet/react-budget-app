@@ -7,10 +7,12 @@ import { Link, useLocation } from "react-router-dom";
 //icons
 import { IoMdSettings } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
+import { BiAbacus } from "react-icons/bi";
 //import { VscSettings } from "react-icons/vsc";
 
 const DashSidebar = () => {
   const { currentBudget } = useContext(GlobalContext);
+  const id = currentBudget.id;
   const location = useLocation();
   const path = location.pathname.split("/")[3];
   return (
@@ -31,6 +33,23 @@ const DashSidebar = () => {
             transition={{ duration: 0.75 }}
             initial={{ width: "0%" }}
             animate={{ width: path === "view" ? "70%" : "0%" }}
+          />
+        </li>
+        <li>
+          <Link
+            to={{
+              pathname: `/dashboard/${id}/tracker`,
+            }}
+          >
+            <BiAbacus
+              className={path === "tracker" ? "navIconSelected" : "navIcon"}
+            />
+            <p className={path === "tracker" ? "selected" : ""}>Tracker</p>
+          </Link>
+          <Line
+            transition={{ duration: 0.75 }}
+            initial={{ width: "0%" }}
+            animate={{ width: path === "tracker" ? "70%" : "0%" }}
           />
         </li>
         <li>

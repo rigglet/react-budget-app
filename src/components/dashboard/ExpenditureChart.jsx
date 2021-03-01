@@ -38,7 +38,11 @@ const ExpenditureChart = () => {
     ? (remainingBudget = 0)
     : (remainingBudget = budgetForRange - spentAmount);
 
-  const remainingSalary = salaryForRange - remainingBudget - spentAmount;
+  //const remainingSalary = salaryForRange - remainingBudget - spentAmount;
+  let remainingSalary = 0;
+  salaryForRange - remainingBudget - spentAmount < 0
+    ? (remainingSalary = 0)
+    : (remainingSalary = salaryForRange - remainingBudget - spentAmount);
 
   //Chart data
   const d = [

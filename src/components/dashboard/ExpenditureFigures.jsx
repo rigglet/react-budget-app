@@ -50,11 +50,12 @@ const ExpeditureFigures = () => {
 
   const remainingSalary = salaryForRange - spentAmount;
 
-  let remainingBudget = 0;
-  budgetForRange - spentAmount < 0
-    ? (remainingBudget = 0)
-    : (remainingBudget = budgetForRange - spentAmount);
-
+  //TODO: should remaining budget be zero or a negative figure?
+  // let remainingBudget = 0;
+  // budgetForRange - spentAmount < 0
+  //   ? (remainingBudget = 0)
+  //   : (remainingBudget = budgetForRange - spentAmount);
+  const remainingBudget = budgetForRange - spentAmount;
   return (
     <StyledExpeditureFigures>
       <div className="box">

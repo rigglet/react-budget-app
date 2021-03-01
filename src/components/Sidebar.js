@@ -9,7 +9,8 @@ import { BiAbacus } from "react-icons/bi";
 //FaChartBar
 
 const Sidebar = ({ id }) => {
-  //const { currentBudgetId } = useContext(GlobalContext);
+  //const { currentBudget } = useContext(GlobalContext);
+  //const id = currentBudget.id;
   const location = useLocation();
   const path = location.pathname.split("/")[3];
   //console.log({ path });
@@ -69,7 +70,7 @@ const Sidebar = ({ id }) => {
             animate={{ width: path === "expenditure" ? "70%" : "0%" }}
           />
         </li>
-        <li>
+        {/* <li>
           <Link
             to={{
               pathname: `/settings/${id}/tracker`,
@@ -85,7 +86,7 @@ const Sidebar = ({ id }) => {
             initial={{ width: "0%" }}
             animate={{ width: path === "tracker" ? "70%" : "0%" }}
           />
-        </li>
+        </li> */}
       </ul>
     </StyledSide>
   );

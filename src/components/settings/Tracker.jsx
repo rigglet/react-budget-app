@@ -7,9 +7,11 @@ const Tracker = () => {
   return (
     <StyledTracker>
       <h3>Tracker</h3>
-      <AnnualOverviewWidget />
-      <div className="lists">
-        <TrackerBudgetList />
+      <div className="info">
+        <AnnualOverviewWidget />
+        <div className="lists">
+          <TrackerBudgetList />
+        </div>
       </div>
     </StyledTracker>
   );
@@ -18,14 +20,18 @@ const Tracker = () => {
 const StyledTracker = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
   h3 {
     color: white;
   }
-  .lists {
+  .info {
     display: flex;
+    flex-direction: column;
     row-gap: 1rem;
-    column-gap: 1rem;
+    .lists {
+      display: flex;
+      row-gap: 1rem;
+      column-gap: 1rem;
+    }
   }
 `;
 
