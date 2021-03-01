@@ -41,12 +41,6 @@ const TableExpandingHeader = ({ title, uniqueid }) => {
     to: moment(title, "MMMM").endOf("month"),
   };
 
-  //
-  // const monthlyTransactions = filterTransactionsByDateRange(
-  //   transactions,
-  //   range
-  // );
-
   const monthlyTransactions = filterTransactionsByDateRange(
     transactions,
     range
@@ -82,24 +76,25 @@ const TableExpandingHeader = ({ title, uniqueid }) => {
     ]),
   ];
 
-  //console.log(filteredBCategories);
-  //console.log(joinedCategories);
-
   let tableObj = {};
   const joinedTables = joinedCategories.map((c) => {
-    tableObj = { category: c, budgetAmount: 0, transAmount: 0 };
+    tableObj = { category: c };
     filteredBCategories.map((b) => {
-      if (c === b.category) {
-        tableObj = { ...tableObj, budgetAmount: b.amount };
+      if (c.toLowerCase() === b.category.toLowerCase()) {
+        return (tableObj = {
+          ...tableObj,
+          budgetAmount: b.amount,
+          transAmount: 0,
+        });
       }
     });
 
     monthlyTransactionsbyCategory.map((t) => {
       if (c === t.category) {
-        tableObj = {
+        return (tableObj = {
           ...tableObj,
           transAmount: t.amount,
-        };
+        });
       }
     });
 
@@ -281,9 +276,7 @@ const TableExpandingHeader = ({ title, uniqueid }) => {
               </thead>
               <tbody>
                 {joinedTables
-                  .sort((a, b) =>
-                    a.budgetCategory > b.budgetCategory ? 1 : -1
-                  )
+                  .sort((a, b) => (a.category > b.category ? 1 : -1))
                   .map((item) => (
                     <TrackerBudgetItem key={uuidv4()} budgetItem={item} />
                   ))}

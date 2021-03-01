@@ -4,22 +4,21 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
-//icons
-//FaGrin, FaFrown,
 //format numbers
 import { formatNumber } from "../../util";
+//icons
 import { FaGrin, FaFrown } from "react-icons/fa";
 
 const TrackerBudgetItem = ({ budgetItem }) => {
   const {
     category,
-    budgetCategory,
+
     budgetAmount,
-    transCategory,
+
     transAmount,
   } = budgetItem;
 
-  console.log(budgetItem);
+  //console.log(budgetItem);
   const { currencySymbol } = useContext(GlobalContext);
 
   return (
@@ -47,10 +46,6 @@ const TrackerBudgetItem = ({ budgetItem }) => {
             ""
           )}
         </p>
-        {/* <p>
-          <span className="symbol">{currencySymbol}</span>
-          {formatNumber(budgetAmount)}
-        </p> */}
       </td>
 
       <td>
@@ -64,10 +59,6 @@ const TrackerBudgetItem = ({ budgetItem }) => {
             ""
           )}
         </p>
-        {/* <p>
-          <span className="symbol">{currencySymbol}</span>
-          {formatNumber(transAmount)}
-        </p> */}
       </td>
     </StyledItem>
   );

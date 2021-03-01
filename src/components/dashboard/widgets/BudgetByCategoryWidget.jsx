@@ -146,6 +146,7 @@ const BudgetByCategoryWidget = () => {
   };
 
   const arrData = getTableData(headerRow, rows);
+  console.log(arrData);
 
   return (
     <StyledBreakdown>

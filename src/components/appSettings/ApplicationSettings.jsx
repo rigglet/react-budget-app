@@ -82,6 +82,18 @@ const ApplicationSettings = () => {
           </div>
         </div>
         <div className="line"></div>
+        <h5>Pay day</h5>
+        <div className="payday">
+          <div className="selection">
+            <p>Frequency</p>
+            <p>Monthly</p>
+          </div>
+          <div className="selection">
+            <p>Date</p>
+            <p>01/04</p>
+          </div>
+        </div>
+        <div className="line"></div>
 
         <button className="button" onClick={() => handleSaveConfig()}>
           SAVE

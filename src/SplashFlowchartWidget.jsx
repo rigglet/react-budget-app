@@ -102,6 +102,7 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
+              //budget selected?
               <FaCheckSquare className="check" />
             ) : (
               <FaTimesCircle className="cross" />
@@ -139,6 +140,7 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
+              // have net yearly income? show income as ok
               currentBudget.data.income.yearlyNet > 0 ? (
                 <FaCheckSquare className="check" />
               ) : (
@@ -165,6 +167,7 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
+              // have budget items? show budget as ok
               getYearlyAllocated(currentBudget.data.budgetItems) > 0 ? (
                 <FaCheckSquare className="check" />
               ) : (
@@ -193,6 +196,7 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded > 0 ? (
+              // have transactions? show expenses as ok
               currentBudget.data.transactions.length > 0 ? (
                 <FaCheckSquare className="check" />
               ) : (
@@ -218,7 +222,10 @@ const SplashFlowchartWidget = () => {
           </div>
           <p>
             {isBudgetLoaded ? (
-              false ? (
+              //income, budget and expenses ok? show tracker as ok
+              currentBudget.data.income.yearlyNet > 0 &&
+              getYearlyAllocated(currentBudget.data.budgetItems) > 0 &&
+              currentBudget.data.transactions.length > 0 ? (
                 <FaCheckSquare className="check" />
               ) : (
                 <FaTimesCircle className="cross" />
