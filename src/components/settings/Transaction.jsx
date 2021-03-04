@@ -45,21 +45,10 @@ const Transaction = ({ transaction, deleteTransaction }) => {
 
 const StyledTransaction = styled(motion.tr)`
   width: 100%;
-  .sign {
-    margin-right: 0.5rem;
-  }
-  .deposit {
-    color: #17cf98;
-  }
-  .withdrawal {
-    color: #f58e8e;
-  }
+
   p {
     text-align: center;
     text-transform: capitalize;
-    .symbol {
-      margin-right: 0.25rem;
-    }
   }
 
   form {

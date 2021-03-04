@@ -3,55 +3,30 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Doughnut } from "react-chartjs-2";
 import { GlobalContext } from "../../context/GlobalContext";
-import { getYearlyAllocated, filterTransactionsByDateRange } from "../../util";
+// import { getYearlyAllocated, filterTransactionsByDateRange } from "../../util";
 
-const ExpenditureChart = () => {
-  const { dateRange, currentBudget, includeMandatory } = useContext(
-    GlobalContext
-  );
-  const { yearlyNet } = currentBudget.data.income;
-  const transactions = currentBudget.data.transactions;
-  const dailyNet = yearlyNet / 365;
-  const budgetItems = currentBudget.data.budgetItems;
-  const filteredBudgetItems = includeMandatory
-    ? budgetItems
-    : budgetItems.filter((item) => item.mandatory === false);
-
-  const numOfDays = dateRange.to.diff(dateRange.from, "days") + 1;
-  const salaryForRange = numOfDays * dailyNet;
-  const budgetForRange =
-    (numOfDays * getYearlyAllocated(filteredBudgetItems)) / 365;
-  const spentAmount = filterTransactionsByDateRange(
-    transactions,
-    dateRange
-  ).reduce((acc, current) => {
-    return (
-      Number(acc) +
-      (current.type === "deposit"
-        ? -Math.abs(Number(current.amount))
-        : Number(current.amount))
-    );
-  }, []);
-
-  let remainingBudget = 0;
-  budgetForRange - spentAmount < 0
-    ? (remainingBudget = 0)
-    : (remainingBudget = budgetForRange - spentAmount);
-
-  //const remainingSalary = salaryForRange - remainingBudget - spentAmount;
-  let remainingSalary = 0;
-  salaryForRange - remainingBudget - spentAmount < 0
-    ? (remainingSalary = 0)
-    : (remainingSalary = salaryForRange - remainingBudget - spentAmount);
+const ExpenditureChart = ({
+  spentAmountGraph,
+  remainingSalaryGraph,
+  remainingBudgetGraph,
+}) => {
+  const { currencySymbol } = useContext(GlobalContext);
+  // console.log(spentAmountGraph);
+  // console.log(remainingBudgetGraph);
+  // console.log(remainingSalaryGraph);
 
   //Chart data
   const d = [
-    Number(spentAmount).toFixed(2),
-    Number(remainingBudget).toFixed(2),
-    Number(remainingSalary).toFixed(2),
+    Number(spentAmountGraph).toFixed(2),
+    Number(remainingBudgetGraph).toFixed(2),
+    Number(remainingSalaryGraph).toFixed(2),
   ];
   const data = {
-    labels: ["Spent", "Budget Remaining", "Salary Remaining"],
+    labels: [
+      `Spent ${currencySymbol}`,
+      `Budget Remaining ${currencySymbol}`,
+      `Salary Excess ${currencySymbol}`,
+    ],
     datasets: [
       {
         backgroundColor: ["#e69a07", "#193e4c", "#656b74"],

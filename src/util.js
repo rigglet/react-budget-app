@@ -309,3 +309,21 @@ export const filterTransactionsByDateRangeAndReturnTotal = (
 //   },
 //   []
 // );
+
+export const getItemAmountForRange = (frequency, amount, dateRange) => {
+  //add one day to difference to figure is inclusive of the day (otherwise 1 day = 0)
+  const numOfDays = dateRange.to.diff(dateRange.from, "days") + 1;
+
+  if (frequency === "daily") {
+    return amount * numOfDays;
+  }
+  if (frequency === "weekly") {
+    return ((amount * 52) / 365) * numOfDays;
+  }
+  if (frequency === "monthly") {
+    return ((amount * 12) / 365) * numOfDays;
+  }
+  if (frequency === "annually") {
+    return (amount / 365) * numOfDays;
+  }
+};

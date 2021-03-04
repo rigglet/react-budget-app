@@ -29,6 +29,7 @@ const IncomeForm = () => {
   //let yearlyNet = (formIncome.annual - totalDeductions).toFixed(2);
   let monthlyNet = (formIncome.yearlyNet / 12).toFixed(2);
   let weeklyNet = (formIncome.yearlyNet / 52).toFixed(2);
+  let dailyNet = (formIncome.yearlyNet / 365).toFixed(2);
   let taxable = (formIncome.annual - formIncome.allowance).toFixed(2);
 
   //TOAST MESSAGE
@@ -146,6 +147,7 @@ const IncomeForm = () => {
             monthlyNet: monthlyNet,
             weeklyNet: weeklyNet,
             taxable: taxable,
+            dailyNet,
           },
         },
       });
@@ -158,6 +160,7 @@ const IncomeForm = () => {
             ...formIncome,
             monthlyNet: monthlyNet,
             weeklyNet: weeklyNet,
+            dailyNet: dailyNet,
             taxable: taxable,
           },
         },

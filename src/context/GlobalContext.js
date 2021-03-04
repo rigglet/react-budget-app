@@ -17,11 +17,12 @@ const initialState = {
   currentBudgetId: "",
   currentBudget: {},
   isBudgetLoaded: false,
-  includeMandatory: true,
+  includeMandatory: false,
+  includeDisposableOnly: false,
   currencySymbol: "£",
   dateRange: {
-    from: moment().startOf("week"),
-    to: moment().endOf("week"),
+    from: moment().startOf("month"),
+    to: moment().endOf("month"),
   },
 };
 
@@ -96,6 +97,12 @@ export const GlobalProvider = ({ children }) => {
       payload: include,
     });
   };
+  const updateIncludeDisposableOnly = (include) => {
+    dispatch({
+      type: "UPDATE_DISPOSABLE",
+      payload: include,
+    });
+  };
 
   const updateDateRange = (range) => {
     dispatch({
@@ -112,6 +119,7 @@ export const GlobalProvider = ({ children }) => {
         currentBudget: state.currentBudget,
         isBudgetLoaded: state.isBudgetLoaded,
         includeMandatory: state.includeMandatory,
+        includeDisposableOnly: state.includeDisposableOnly,
         currencySymbol: state.currencySymbol,
         dateRange: state.dateRange,
         loadBudgets,
@@ -125,6 +133,7 @@ export const GlobalProvider = ({ children }) => {
         updateBudgetLoaded,
         updateDateRange,
         updateIncludeMandatory,
+        updateIncludeDisposableOnly,
       }}
     >
       {children}

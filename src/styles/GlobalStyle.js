@@ -76,14 +76,25 @@ input {
   option{
     padding:0.25rem;
   }
-
+.sign {
+    margin-right: 0.5rem;
+  }
+  .symbol {
+    margin-right: 0.25rem;
+  }
 .negative{
   color: red;
 }
 .positive{
   color:  #00b4ee;
 }
-.whole {}
+.deposit {
+    color: #17cf98;
+  }
+  .withdrawal {
+    color: #f58e8e;
+  }
+
   .decimal {
     font-size: 0.7rem;
   }
