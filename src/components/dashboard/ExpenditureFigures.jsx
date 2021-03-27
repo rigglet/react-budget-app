@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { formatNumber } from "../../util";
 //icons
 import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
-import { BsArrowRight } from "react-icons/bs";
+//import { BsArrowRight } from "react-icons/bs";
 
 const ExpeditureFigures = ({
   spentAmount,
@@ -29,22 +29,26 @@ const ExpeditureFigures = ({
     <StyledExpeditureFigures>
       <div className="top">
         <div className="options">
-          <div className="mandatory">
-            <h5>Include mandatory budget items as transactions?</h5>
-            <div className="icon">
-              {includeMandatory ? (
-                <FaCheckSquare
-                  className="check"
-                  onClick={() => updateIncludeMandatory(!includeMandatory)}
-                />
-              ) : (
-                <FaTimesCircle
-                  className="cross"
-                  onClick={() => updateIncludeMandatory(!includeMandatory)}
-                />
-              )}
+          {!includeDisposableOnly ? (
+            <div className="mandatory">
+              <h5>Include mandatory budget items as transactions?</h5>
+              <div className="icon">
+                {includeMandatory ? (
+                  <FaCheckSquare
+                    className="check"
+                    onClick={() => updateIncludeMandatory(!includeMandatory)}
+                  />
+                ) : (
+                  <FaTimesCircle
+                    className="cross"
+                    onClick={() => updateIncludeMandatory(!includeMandatory)}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            ""
+          )}
           <div className="disposable">
             <h5>View disposable income only?</h5>
             <div className="icon">
@@ -58,10 +62,9 @@ const ExpeditureFigures = ({
               ) : (
                 <FaTimesCircle
                   className="cross"
-                  onClick={() => {
-                    updateIncludeDisposableOnly(!includeDisposableOnly);
-                    updateIncludeMandatory(false);
-                  }}
+                  onClick={() =>
+                    updateIncludeDisposableOnly(!includeDisposableOnly)
+                  }
                 />
               )}
             </div>
@@ -83,7 +86,7 @@ const ExpeditureFigures = ({
               </div>
             </div>
           </div>
-          {includeMandatory ? (
+          {includeMandatory && !includeDisposableOnly ? (
             <>
               <div id="plus">+</div>
               <div className="spent">

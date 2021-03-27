@@ -37,7 +37,6 @@ const ExpenditureWidget = () => {
   //Displayed figures
   let salaryForRange = 0;
   let budgetForRange = 0;
-  let remainingSalary = 0;
   let excessSalary = 0;
   let remainingBudget = 0;
   let spentAmount = 0;
@@ -82,56 +81,41 @@ const ExpenditureWidget = () => {
   //INCLUDE EXCLUDE DATA ACCORDING TO SELECTED OPTIONS
   //DEFAULT: NOTHING SELECTED: not including mandatory transactions
   if (!includeMandatory) {
-    //figures
+    //figures and graph
     spentAmount = spentAmountGraph = transactionsSpentAmount; //ok
-    remainingBudget = budgetForRange - spentAmount; //ok
-    if (remainingBudget > 0) {
-      excessSalary = salaryForRange - spentAmount - remainingBudget; //ok
-    } else {
-      excessSalary = salaryForRange - spentAmount; //ok
-    }
-    //graph
-    remainingBudgetGraph = remainingBudget; //ok
-    if (remainingBudget > 0) {
-      remainingSalaryGraph = salaryForRange - spentAmount - remainingBudget; //ok
-    } else {
-      remainingSalaryGraph = salaryForRange - spentAmount; //ok
-    }
+    remainingBudget = remainingBudgetGraph = budgetForRange - spentAmount; //ok
+    remainingBudget > 0
+      ? (excessSalary = remainingSalaryGraph =
+          salaryForRange - spentAmount - remainingBudget)
+      : (excessSalary = remainingSalaryGraph = salaryForRange - spentAmount); //ok
   } else {
     //MANDATORY SELECTED: including mandatory transactions
-    //figures
-    spentAmount = transactionsSpentAmount; //ok
-    //graph
-    spentAmountGraph =
-      Number(transactionsSpentAmount) + Number(mandatoryBudgetAmount); //ok
     //figures and graph
-    remainingBudget = remainingBudgetGraph =
-      budgetForRange - spentAmount - Number(mandatoryBudgetAmount); //ok
-    excessSalary = remainingSalaryGraph =
-      salaryForRange - spentAmount - Number(mandatoryBudgetAmount);
+    spentAmount = transactionsSpentAmount; //ok
+    spentAmountGraph = transactionsSpentAmount + Number(mandatoryBudgetAmount); //ok
+
+    remainingBudget = remainingBudgetGraph = budgetForRange - spentAmountGraph; //ok
+    remainingBudget > 0
+      ? (excessSalary = remainingSalaryGraph =
+          salaryForRange - spentAmountGraph - remainingBudget)
+      : (excessSalary = remainingSalaryGraph =
+          salaryForRange - spentAmountGraph);
   }
 
   //view disposable income only
   if (includeDisposableOnly) {
-    //show salary, budget, transactions excluding mandatory budget amount
-    //figures
+    salaryForRange = salaryForRange - Number(mandatoryBudgetAmount);
+    budgetForRange = budgetForRange - Number(mandatoryBudgetAmount);
+
     spentAmount = spentAmountGraph = transactionsSpentAmount; //ok
-    remainingBudget = budgetForRange - spentAmount; //ok
-    if (remainingBudget > 0) {
-      excessSalary = salaryForRange - spentAmount - remainingBudget; //ok
-    } else {
-      excessSalary = salaryForRange - spentAmount; //ok
-    }
-    //graph
-    remainingBudgetGraph = remainingBudget; //ok
-    if (remainingBudget > 0) {
-      remainingSalaryGraph = salaryForRange - spentAmount - remainingBudget; //ok
-    } else {
-      remainingSalaryGraph = salaryForRange - spentAmount; //ok
-    }
-  } else {
-    //show salary, budget, includung mandatory budget amounts
+
+    remainingBudget = remainingBudgetGraph = budgetForRange - spentAmount; //ok
+    remainingBudget > 0
+      ? (excessSalary = remainingSalaryGraph =
+          salaryForRange - spentAmount - remainingBudget)
+      : (excessSalary = remainingSalaryGraph = salaryForRange - spentAmount); //ok
   }
+  // else { //nothing for now -  whatever includeMandatory dictates}
 
   //negative numbers are shown on graph as positive numbers
   // set to 0 if negative

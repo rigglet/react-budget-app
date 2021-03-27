@@ -23,10 +23,17 @@ import { v4 as uuidv4 } from "uuid";
 import TrackerBudgetItem from "./TrackerBudgetItem";
 
 const TableExpandingHeader = ({ title, uniqueid }) => {
-  const { currentBudget, currencySymbol } = useContext(GlobalContext);
+  const { currentBudget, currencySymbol, includeMandatory } = useContext(
+    GlobalContext
+  );
   const budgetItems = currentBudget.data.budgetItems;
   const [toggleMandatory, setToggleMandatory] = useState(false);
   const daysInMonth = moment(title, "MMMM").daysInMonth();
+
+  //mandatory budget items
+  // const mandatoryBudgetItems = budgetItems.filter(
+  //   (item) => item.mandatory === true && !item.paid
+  // );
 
   const actualBudgetForMonth =
     getYearlyAllocatedPerDay(budgetItems) * daysInMonth;
