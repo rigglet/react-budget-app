@@ -115,6 +115,8 @@ const AddBudgetForm = () => {
         <form>
           <label>Name:</label>
           <input
+            className="activeInput"
+            size="30"
             name="name"
             type="text"
             value={formData.name}
@@ -123,6 +125,8 @@ const AddBudgetForm = () => {
           />
           <label>Description:</label>
           <input
+            className="activeInput"
+            size="40"
             name="description"
             type="text"
             value={formData.description}

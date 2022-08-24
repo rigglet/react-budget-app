@@ -57,12 +57,26 @@ body{
   }
 
 input {
-    padding: 0.25rem;
     outline: none;
+    padding: 0.25rem;
+    font-size: 1rem;
+    background-color: #39393c;
     border-radius: 4px;
-    border: 0;
+    border: #848586 solid 2px;
+    color: #848586;
   }
-  
+
+  .activeInput {
+      &:hover,
+      &:active,
+      &:focus {
+        //box shadow used to get rounded "outline" instead of outline: solid 2px #00b4ee
+        box-shadow: 0 0 0 2px #00b4ee;
+        border-color: #39393c;
+        color: white;
+      }
+    }
+
   select{
     outline-style: none;
     outline: none;
@@ -97,6 +111,19 @@ input {
 
   .decimal {
     font-size: 0.7rem;
+  }
+
+  //ICONS
+  .icon {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+  }
+  .del {
+    color: #b87272;
+    &:hover {
+      color: rgba(184, 114, 114, 75%);
+    }
   }
 
 //React-toastify - Toast close button

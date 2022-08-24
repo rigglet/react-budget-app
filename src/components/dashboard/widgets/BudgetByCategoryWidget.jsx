@@ -61,6 +61,7 @@ const BudgetByCategoryWidget = () => {
       dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
   }
 
+  //set upper ranage of y axis to highest number plus 10%
   maxYRange = Math.max(...dataArray) * 1.1;
 
   const options = {
@@ -209,6 +210,13 @@ const BudgetByCategoryWidget = () => {
 };
 
 const StyledBreakdown = styled(motion.div)`
+  &:hover {
+    //transform: scaleX(0.6) rotate(10deg);
+    /* -webkit-perspective: 1000px;
+    transform-style: preserve-3d;
+    transform: rotateX(45deg); */
+    transition: transform 1s ease;
+  }
   padding: 1rem;
   min-width: 50%;
   flex-grow: stretch;
@@ -228,9 +236,18 @@ const StyledBreakdown = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .iconSelect {
+      padding: 0.7rem 0.7rem 0.5rem 0.7rem;
+      background-color: #848586;
+      border-radius: 50%;
+    }
+    .iconSelect:hover {
+      transition: transform 1s ease;
+    }
     .icon {
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       color: white;
       cursor: pointer;
     }
@@ -244,6 +261,7 @@ const StyledBreakdown = styled(motion.div)`
     margin-bottom: 1rem;
   }
   .data {
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

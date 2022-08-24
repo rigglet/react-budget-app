@@ -142,6 +142,7 @@ const AddBudgetItemForm = () => {
       <form>
         <label>Category:</label>
         <input
+          className="activeInput"
           name="category"
           type="text"
           value={formData.category}
@@ -150,6 +151,7 @@ const AddBudgetItemForm = () => {
         />
         <label>Item:</label>
         <input
+          className="activeInput"
           name="item"
           type="text"
           value={formData.item}
@@ -170,6 +172,7 @@ const AddBudgetItemForm = () => {
         </select>
         <label>Amount:</label>
         <input
+          className="activeInput"
           name="amount"
           type="number"
           value={formData.amount}
@@ -213,7 +216,7 @@ const StyledAddbudgetItemForm = styled(motion.div)`
   input,
   select {
     padding: 0.25rem;
-    outline: none;
+    //outline: none;
     margin-right: 1rem;
   }
 `;

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 //icons
-import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
+import { FaCheckSquare, FaTimesCircle, FaTrashAlt } from "react-icons/fa";
 //FaGrin, FaFrown,
 //format numbers
 import { formatNumber } from "../../util";
@@ -68,9 +68,10 @@ const BudgetItem = ({
       </td>
       <td>
         <p>
-          <button className="button" onClick={() => deleteBudgetItem(id)}>
-            Delete
-          </button>
+          <FaTrashAlt
+            onClick={() => deleteBudgetItem(id)}
+            className="del icon"
+          />
         </p>
       </td>
     </StyledItem>

@@ -199,7 +199,7 @@ const IncomeForm = () => {
         rtl={false}
         pauseOnFocusLoss
       />
-      <h4>Income Flowchart</h4>
+      <h4>Income Information</h4>
       <div className="container">
         <form>
           <div className="row">
@@ -305,7 +305,6 @@ const IncomeForm = () => {
                 value={formIncome.yearlyNet || ""}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //readOnly
               />
             </div>
           </div>
@@ -355,7 +354,7 @@ const StyledIncomeForm = styled(motion.div)`
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
-  //row-gap: 1rem;
+
   h4 {
     color: white;
     font-weight: 500;
@@ -368,14 +367,6 @@ const StyledIncomeForm = styled(motion.div)`
     column-gap: 1rem;
   }
 
-  .container {
-    /* width: 100%;
-    margin-bottom: 1rem;
-    padding: 3rem;
-    border-radius: 4px;
-    background-color: #39393c;
-    color: #848586; */
-  }
   .line {
     width: 100%;
     margin: 0.5rem;
@@ -402,23 +393,9 @@ const StyledIncomeForm = styled(motion.div)`
       display: flex;
       align-items: center;
     }
-    .activeInput {
-      &:hover,
-      &:active,
-      &:focus {
-        outline: #00b4ee solid 2px;
-        color: white;
-      }
-    }
+
     input {
       margin-left: 0.5rem;
-      padding: 0.25rem;
-      font-size: 1rem;
-      outline: solid #848586 2px;
-      background-color: #39393c;
-      border-radius: 4px;
-      border: transparent solid 2px;
-      color: #848586;
     }
   }
   button {
