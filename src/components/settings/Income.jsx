@@ -10,8 +10,8 @@ const Income = () => {
     <StyledIncome>
       <h3>Income</h3>
       <div className="widgets">
-        <IncomeWidget />
-        <IncomeForm />
+        {/* <IncomeWidget /> */}
+        {/* <IncomeForm /> */}
       </div>
     </StyledIncome>
   );

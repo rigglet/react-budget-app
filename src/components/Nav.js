@@ -1,22 +1,17 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context/GlobalContext";
 //styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
+
 //icons
 import { FcCalculator } from "react-icons/fc";
-import { AiFillHome } from "react-icons/ai";
-import { IoFileTrayStackedSharp } from "react-icons/io5";
-import { IoMdSettings } from "react-icons/io";
-import { VscSettings } from "react-icons/vsc";
-import { RiDashboard3Fill } from "react-icons/ri";
-//import { BsFileSpreadsheet } from "react-icons/bs";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { BsFileSpreadsheet } from "react-icons/bs";
+import { BiAbacus } from "react-icons/bi";
 
 //react router
 import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
-  const { isBudgetLoaded, currentBudget } = useContext(GlobalContext);
 
   const location = useLocation();
   const path = location.pathname.split("/")[1];
@@ -25,7 +20,7 @@ const Nav = () => {
     <StyledNav>
       <div className="brand">
         <FcCalculator className="logo" />
-        <Link to="/home">
+        <Link to="/">
           <h4>BudgetApp</h4>
         </Link>
       </div>
@@ -34,110 +29,55 @@ const Nav = () => {
           <li>
             <Link
               to={{
-                pathname: `/home`,
+                pathname: `/income`,
               }}
             >
-              <AiFillHome
-                className={path === "home" ? "navIconSelected" : "navIcon"}
+              <FaRegMoneyBillAlt
+                className={path === "income" || path === "" ? "navIconSelected" : "navIcon"}
               />
-              <p className={path === "home" ? "selected" : ""}>Home</p>
+              <p className={path === "income" || path === "" ? "selected" : ""}>Income</p>
             </Link>
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "home" ? "90%" : "0%" }}
+              animate={{ width: path === "income" || path === "" ? "90%" : "0%" }}
             />
           </li>
           <li>
             <Link
               to={{
-                pathname: `/budgets`,
+                pathname: `/budget`,
               }}
             >
-              <IoFileTrayStackedSharp
-                className={path === "budgets" ? "navIconSelected" : "navIcon"}
+              <BsFileSpreadsheet
+                className={path === "budget" ? "navIconSelected" : "navIcon"}
               />
-              <p className={path === "budgets" ? "selected" : ""}>Budgets</p>
+              <p className={path === "budget" ? "selected" : ""}>Budget</p>
             </Link>
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "budgets" ? "90%" : "0%" }}
+              animate={{ width: path === "budget" ? "90%" : "0%" }}
             />
           </li>
-
-          {isBudgetLoaded && (
-            <>
-              <li>
-                <Link
-                  to={{
-                    pathname: `/settings/${currentBudget.id}/income`,
-                  }}
-                >
-                  <VscSettings
-                    className={
-                      path === "settings" ? "navIconSelected" : "navIcon"
-                    }
-                  />
-                  <p className={path === "settings" ? "selected" : ""}>
-                    Configuration
-                  </p>
-                </Link>
-                <Line
-                  transition={{ duration: 0.75 }}
-                  initial={{ width: "0%" }}
-                  animate={{ width: path === "settings" ? "90%" : "0%" }}
-                />
-              </li>
-              <li>
-                <Link
-                  to={{
-                    pathname: `/dashboard/${currentBudget.id}/view`,
-                  }}
-                >
-                  <RiDashboard3Fill
-                    className={
-                      path === "dashboard" ? "navIconSelected" : "navIcon"
-                    }
-                  />
-                  <p className={path === "dashboard" ? "selected" : ""}>
-                    Dashboard
-                  </p>
-                </Link>
-                <Line
-                  transition={{ duration: 0.75 }}
-                  initial={{ width: "0%" }}
-                  animate={{ width: path === "dashboard" ? "90%" : "0%" }}
-                />
-              </li>
-            </>
-          )}
-        </ul>
-        <div className="settings">
-          <ul>
-            <li>
-              <Link
-                to={{
-                  pathname: `/appSettings`,
-                }}
-              >
-                <IoMdSettings
-                  className={
-                    path === "appSettings" ? "navIconSelected" : "navIcon"
-                  }
-                />
-                <p className={path === "appSettings" ? "selected" : ""}>
-                  Settings
-                </p>
-              </Link>
-              <Line
-                transition={{ duration: 0.75 }}
-                initial={{ width: "0%" }}
-                animate={{ width: path === "appSettings" ? "90%" : "0%" }}
+          <li>
+            <Link
+              to={{
+                pathname: `/summary`,
+              }}
+            >
+              <BiAbacus
+                className={path === "summary" ? "navIconSelected" : "navIcon"}
               />
-            </li>
-          </ul>
-        </div>
+              <p className={path === "summary" ? "selected" : ""}>Summary</p>
+            </Link>
+            <Line
+              transition={{ duration: 0.75 }}
+              initial={{ width: "0%" }}
+              animate={{ width: path === "summary" ? "90%" : "0%" }}
+            />
+          </li>
+        </ul>
       </div>
     </StyledNav>
   );
@@ -149,13 +89,13 @@ const StyledNav = styled(motion.div)`
   background-color: #1f2023;
   display: flex;
   align-items: center;
-  padding: 0 15.5vw;
-  //app name (far left)
+  justify-content: space-between;
+  padding: 0 12vw;
+  //app name and icon (far left)
   .brand {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 2rem;
     .logo {
       width: 5vw;
       height: 5vh;
@@ -173,8 +113,8 @@ const StyledNav = styled(motion.div)`
   //needed to separate links from budget name
   .header-info {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: space-evenly;
+    align-items: flex-end;
   }
   //links (middle)
   ul {
@@ -182,7 +122,7 @@ const StyledNav = styled(motion.div)`
     list-style: none;
     text-decoration: none;
     li {
-      margin-right: 1rem;
+      margin-left: 2rem;
       text-decoration: none;
       position: relative;
       a {
@@ -194,7 +134,7 @@ const StyledNav = styled(motion.div)`
         font-weight: bolder;
         margin-right: 1rem;
         font-variant-caps: all-small-caps;
-        font-size: 14pt;
+        font-size: 15pt;
       }
 
       .selected {
@@ -215,26 +155,11 @@ const StyledNav = styled(motion.div)`
       }
     }
   }
-  .settings {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    color: white;
-    ul {
-      display: flex;
-      align-items: center;
-      li {
-        padding: 0;
-        margin: 0;
-      }
-    }
-  }
 `;
 
 const Line = styled(motion.div)`
   height: 0.15rem;
   background: #00b4ee;
-  //width: 0%;
   position: absolute;
   bottom: -25%;
   @media (max-width: 1300px) {
