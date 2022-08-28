@@ -7,8 +7,12 @@ import { GlobalContext } from "../../context/GlobalContext";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Big from "big.js";
 
 const IncomeForm = () => {
+  
+  //let x = new Big(123.4567)
+  
   //global context
   const {
     updateBudget,
@@ -19,18 +23,19 @@ const IncomeForm = () => {
   } = useContext(GlobalContext);
 
   //form data hook
-  const [formIncome, setFormIncome] = useState({
-    ...currentBudget.data.income,
+  const [incomeData, setIncomeData] = useState({
+    ...currentBudget?.data?.income,
   });
 
-  let totalDeductions = (
-    Number(formIncome.ni) + Number(formIncome.tax)
-  ).toFixed(2);
-  //let yearlyNet = (formIncome.annual - totalDeductions).toFixed(2);
-  let monthlyNet = (formIncome.yearlyNet / 12).toFixed(2);
-  let weeklyNet = (formIncome.yearlyNet / 52).toFixed(2);
-  let dailyNet = (formIncome.yearlyNet / 365).toFixed(2);
-  let taxable = (formIncome.annual - formIncome.allowance).toFixed(2);
+  let incomeTax = Number(incomeData.incomeTax).toFixed(2);
+  let nationalInsurance = Number(incomeData.nationalInsurance).toFixed(2);
+  
+  let taxable = Number(incomeData.annualGross - incomeData.taxFreeAllowance).toFixed(2);
+  let totalDeductions = (Number(nationalInsurance) + Number(incomeTax)).toFixed(2);
+  let annualNet = Number(incomeData.annualGross - totalDeductions).toFixed(2);
+  let monthlyNet = Number(annualNet / 12).toFixed(2);
+  let weeklyNet = Number(annualNet / 52).toFixed(2);
+  //let dailyNet = Number(annualNet / 365).toFixed(2);
 
   //TOAST MESSAGE
   const notify = (type) => {
@@ -71,64 +76,83 @@ const IncomeForm = () => {
   //NET less than gross annual income
   const validateAnnual = () => {
     let isValid = false;
-    if (Number(formIncome.annual) > Number(formIncome.yearlyNet)) {
+    if (incomeData.annual > incomeData.annualNet) {
       isValid = true;
     } else {
-      notify("INVALID ANNUAL");
-      document.getElementById("yearlyNet").focus();
+      notify("INVALID annualGross");
+      document.getElementById("annualNet").focus();
     }
     return isValid;
   };
 
   const validateAllowance = () => {
     let isValid = false;
-    if (Number(formIncome.allowance) < Number(formIncome.annual)) {
+    if (incomeData.taxFreeAllowance < incomeData.annualGross) {
       isValid = true;
     } else {
       notify("INVALID ALLOWANCE");
-      document.getElementById("allowance").focus();
+      document.getElementById("taxFreeAllowance").focus();
     }
     return isValid;
   };
 
   const validateDeductions = () => {
     let isValid = false;
-    if (Number(formIncome.contributions) < Number(formIncome.annual)) {
+    if (incomeData.totalDeductions < incomeData.annualGross) {
       isValid = true;
     } else {
       notify("INVALID DEDUCTIONS");
-      document.getElementById("contributions").focus();
+      document.getElementById("totalDeductions").focus();
     }
     return isValid;
   };
 
   // useEffect(() => {
-  //   setFormIncome(() => ({
-  //     ...formIncome,
-  //     contributions: Number(formIncome.ni) + Number(formIncome.tax),
+  //   setIncomeData(() => ({
+  //     ...incomeData,
+  //     totalDeductions: Number(incomeData.nationalInsurance) + Number(incomeData.incomeTax),
   //   }));
-  // }, [formIncome]);
+  // }, [incomeData]);
 
   //handle form data change
   const handleChange = (e) => {
     if (handleFormatValidation(e.target.value)) {
-      setFormIncome(() => ({
-        ...formIncome,
+      setIncomeData(() => ({
+        ...incomeData,
         [e.target.name]: e.target.value,
       }));
     } else {
       notify("INVALID");
     }
   };
+
   const handleBlur = (e) => {
-    //console.log(e);
     //check if component mounted
-    setFormIncome(() => ({
-      ...formIncome,
+    setIncomeData(() => ({
+      ...incomeData,
       [e.target.name]: Number(e.target.value).toFixed(2),
     }));
   };
 
+  let updatedBudget = {
+    ...currentBudget,
+    data: {
+      ...currentBudget.data,
+      income: {
+        ...incomeData,
+        annualGross: Number(incomeData.annualGross)  * 100,
+        taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
+        taxable: Number(taxable) * 100,
+        incomeTax: Number(incomeTax) * 100,
+        nationalInsurance: Number(nationalInsurance) * 100,
+        totalDeductions: Number(totalDeductions) * 100,
+        annualNet: Number(annualNet) * 100,
+        monthlyNet: Number(monthlyNet) * 100,
+        weeklyNet: Number(weeklyNet) * 100,
+      },
+    },
+  }
+  
   //handle form submit
   const handleSaveBudget = () => {
     if (
@@ -143,11 +167,16 @@ const IncomeForm = () => {
         data: {
           ...currentBudget.data,
           income: {
-            ...formIncome,
-            monthlyNet: monthlyNet,
-            weeklyNet: weeklyNet,
-            taxable: taxable,
-            dailyNet,
+            ...incomeData,
+            annualGross: Number(incomeData.annualGross)  * 100,
+            taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
+            taxable: Number(taxable) * 100,
+            incomeTax: Number(incomeTax) * 100,
+            nationalInsurance: Number(nationalInsurance) * 100,
+            totalDeductions: Number(totalDeductions) * 100,
+            annualNet: Number(annualNet) * 100,
+            monthlyNet: Number(monthlyNet) * 100,
+            weeklyNet: Number(weeklyNet) * 100,
           },
         },
       });
@@ -157,11 +186,16 @@ const IncomeForm = () => {
         data: {
           ...currentBudget.data,
           income: {
-            ...formIncome,
-            monthlyNet: monthlyNet,
-            weeklyNet: weeklyNet,
-            dailyNet: dailyNet,
-            taxable: taxable,
+            ...incomeData,
+            annualGross: Number(incomeData.annualGross)  * 100,
+            taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
+            taxable: Number(taxable) * 100,
+            incomeTax: Number(incomeTax) * 100,
+            nationalInsurance: Number(nationalInsurance) * 100,
+            totalDeductions: Number(totalDeductions) * 100,
+            annualNet: Number(annualNet) * 100,
+            monthlyNet: Number(monthlyNet) * 100,
+            weeklyNet: Number(weeklyNet) * 100,
           },
         },
       });
@@ -171,18 +205,26 @@ const IncomeForm = () => {
         data: {
           ...currentBudget.data,
           income: {
-            ...formIncome,
-            monthlyNet: monthlyNet,
-            weeklyNet: weeklyNet,
-            taxable: taxable,
-            contributions: totalDeductions,
+            ...incomeData,
+            annualGross: Number(incomeData.annualGross)  * 100,
+            taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
+            taxable: Number(taxable) * 100,
+            incomeTax: Number(incomeTax) * 100,
+            nationalInsurance: Number(nationalInsurance) * 100,
+            totalDeductions: Number(totalDeductions) * 100,
+            annualNet: Number(annualNet) * 100,
+            monthlyNet: Number(monthlyNet) * 100,
+            weeklyNet: Number(weeklyNet) * 100,
           },
         },
       });
+      
       //toast message
       notify("UPDATED");
     }
   };
+
+  console.log(updatedBudget);
 
   return (
     <StyledIncomeForm>
@@ -196,37 +238,37 @@ const IncomeForm = () => {
         hideProgressBar
         newestOnTop={false}
         closeOnClick
-        rtl={false}
+        rtl={false} 
         pauseOnFocusLoss
       />
       <h4>Income Information</h4>
       <div className="container">
         <form>
           <div className="row">
-            <label htmlFor="annual">Annual Salary (Gross)</label>
-            <div className="currencyInput">
+            <label htmlFor="annualGross">Annual Salary (Gross)</label>
+            <div className="currency-input">
               {currencySymbol}
               <input
-                className="activeInput"
+                className="active-input"
                 type="text"
-                name="annual"
-                id="annual"
-                value={formIncome.annual || ""}
+                name="annualGross"
+                id="annualGross"
+                value={incomeData.annualGross}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
             </div>
           </div>
           <div className="row">
-            <label htmlFor="allowance">Tax Free Allowance</label>
-            <div className="currencyInput">
+            <label htmlFor="taxFreeAllowance">Tax Free Allowance</label>
+            <div className="currency-input">
               {currencySymbol}
               <input
-                className="activeInput"
+                className="active-input"
                 type="text"
-                name="allowance"
-                id="allowance"
-                value={formIncome.allowance || ""}
+                name="taxFreeAllowance"
+                id="taxFreeAllowance"
+                value={incomeData.taxFreeAllowance}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -234,9 +276,10 @@ const IncomeForm = () => {
           </div>
           <div className="row">
             <label htmlFor="taxable">Taxable Income</label>
-            <div className="currencyInput">
+            <div className="currency-input">
               {currencySymbol}
               <input
+                className="inactive-input"
                 type="text"
                 name="taxable"
                 id="taxable"
@@ -248,43 +291,44 @@ const IncomeForm = () => {
           </div>
           <div className="line"></div>
           <div className="row">
-            <label htmlFor="tax">Income Tax</label>
-            <div className="currencyInput">
+            <label htmlFor="incomeTax">Income Tax</label>
+            <div className="currency-input">
               {currencySymbol}
               <input
-                className="activeInput"
+                className="active-input"
                 type="text"
-                name="tax"
-                id="tax"
-                value={formIncome.tax || ""}
+                name="incomeTax"
+                id="incomeTax"
+                value={incomeData.incomeTax}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
             </div>
           </div>
           <div className="row">
-            <label htmlFor="ni">National Insurance</label>
-            <div className="currencyInput">
+            <label htmlFor="nationalInsurance">National Insurance</label>
+            <div className="currency-iput">
               {currencySymbol}
               <input
-                className="activeInput"
+                className="active-input"
                 type="text"
-                name="ni"
-                id="ni"
-                value={formIncome.ni || ""}
+                name="nationalInsurance"
+                id="nationalInsurance"
+                value={incomeData.nationalInsurance}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
             </div>
           </div>
           <div className="row">
-            <label htmlFor="contributions">Total deductions</label>
-            <div className="currencyInput">
+            <label htmlFor="totalDeductions">Total deductions</label>
+            <div className="currency-input">
               {currencySymbol}
               <input
+                className="inactive-input"
                 type="text"
-                name="contributions"
-                id="contributions"
+                name="totalDeductions"
+                id="totalDeductions"
                 value={totalDeductions}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -294,29 +338,31 @@ const IncomeForm = () => {
           </div>
           <div className="line"></div>
           <div className="row">
-            <label htmlFor="yearlyNet">Annual Salary (Net)</label>
-            <div className="currencyInput">
+            <label htmlFor="annualNet">Annual Salary (Net)</label>
+            <div className="currency-input">
               {currencySymbol}
               <input
-                className="activeInput"
+                className="inactive-input"
                 type="text"
-                name="yearlyNet"
-                id="yearlyNet"
-                value={formIncome.yearlyNet || ""}
+                name="annualNet"
+                id="annualNet"
+                value={annualNet}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                readOnly
               />
             </div>
           </div>
           <div className="row">
             <label htmlFor="monthlyNet">Monthly Salary (Net)</label>
-            <div className="currencyInput">
+            <div className="currency-input">
               {currencySymbol}
               <input
+                className="inactive-input"
                 type="text"
                 name="monthlyNet"
                 id="monthlyNet"
-                value={monthlyNet || ""}
+                value={monthlyNet}
                 onChange={handleChange}
                 readOnly
               />
@@ -324,18 +370,33 @@ const IncomeForm = () => {
           </div>
           <div className="row">
             <label htmlFor="weeklyNet">Weekly Salary (Net)</label>
-            <div className="currencyInput">
+            <div className="currency-input">
               {currencySymbol}
               <input
+                className="inactive-input"
                 type="text"
                 name="weeklyNet"
                 id="weeklyNet"
-                value={weeklyNet || ""}
+                value={weeklyNet}
                 onChange={handleChange}
                 readOnly
               />
             </div>
           </div>
+          {/* <div className="row">
+            <label htmlFor="dailyNet">Daily Salary (Net)</label>
+            <div className="currency-input">
+              {currencySymbol}
+              <input
+                type="text"
+                name="dailyNet"
+                id="dailyNet"
+                value={dailyNet}
+                onChange={handleChange}
+                readOnly
+              />
+            </div>
+          </div> */}
         </form>
 
         <button className="button" onClick={() => handleSaveBudget()}>
@@ -387,9 +448,9 @@ const StyledIncomeForm = styled(motion.div)`
       padding: 0.5rem 0rem;
     }
     label {
-      margin-right: 1rem;
+      //margin-right: 1rem;
     }
-    .currencyInput {
+    .currency-input {
       display: flex;
       align-items: center;
     }

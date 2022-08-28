@@ -1,10 +1,16 @@
+//react
+import { useContext } from "react";
+
+//global context
+import { GlobalContext } from "../context/GlobalContext";
+
 //styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
 //icons
 import { FcCalculator } from "react-icons/fc";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { FaRegMoneyBillAlt, FaHome } from "react-icons/fa";
 import { BsFileSpreadsheet } from "react-icons/bs";
 import { BiAbacus } from "react-icons/bi";
 
@@ -13,6 +19,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
 
+  const {isBudgetLoaded} = useContext(GlobalContext);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
@@ -29,18 +36,39 @@ const Nav = () => {
           <li>
             <Link
               to={{
-                pathname: `/income`,
+                pathname: `/home`,
               }}
             >
-              <FaRegMoneyBillAlt
-                className={path === "income" || path === "" ? "navIconSelected" : "navIcon"}
+              <FaHome
+                className={path === "home" || path === "" ? "navIconSelected" : "navIcon"}
               />
-              <p className={path === "income" || path === "" ? "selected" : ""}>Income</p>
+              <p className={path === "home" || path === "" ? "selected" : ""}>Home</p>
             </Link>
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "income" || path === "" ? "90%" : "0%" }}
+              animate={{ width: path === "home" || path === "" ? "90%" : "0%" }}
+            />
+          </li>
+        </ul>
+        <ul>
+          {isBudgetLoaded && (
+            <>
+            <li>
+            <Link
+              to={{
+                pathname: `/income`,
+              }}
+            >
+              <FaRegMoneyBillAlt
+                className={path === "income" ? "navIconSelected" : "navIcon"}
+              />
+              <p className={path === "income" ? "selected" : ""}>Income</p>
+            </Link>
+            <Line
+              transition={{ duration: 0.75 }}
+              initial={{ width: "0%" }}
+              animate={{ width: path === "income" ? "90%" : "0%" }}
             />
           </li>
           <li>
@@ -77,6 +105,8 @@ const Nav = () => {
               animate={{ width: path === "summary" ? "90%" : "0%" }}
             />
           </li>
+        </>
+          )}
         </ul>
       </div>
     </StyledNav>
@@ -113,8 +143,9 @@ const StyledNav = styled(motion.div)`
   //needed to separate links from budget name
   .header-info {
     display: flex;
-    justify-content: space-evenly;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
   //links (middle)
   ul {

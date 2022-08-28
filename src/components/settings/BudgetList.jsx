@@ -78,7 +78,7 @@ const BudgetList = () => {
     updateCurrentBudget(newBudget);
   };
 
-  console.log(sortByCategoryThenByItem(budgetItems));
+  //console.log(sortByCategoryThenByItem(budgetItems));
 
   return (
     <StyledBudgetList>

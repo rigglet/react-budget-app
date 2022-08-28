@@ -34,7 +34,7 @@ const Budget = ({ budget }) => {
     updateCurrentBudgetId(budget.id);
     updateCurrentBudget(budget);
     updateBudgetLoaded(true);
-    history.push(`/home`);
+    history.push(`/income`);
   };
 
   // whileHover={{ scale: 1.01 }}

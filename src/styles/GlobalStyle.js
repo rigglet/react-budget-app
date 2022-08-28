@@ -66,7 +66,11 @@ input {
     color: #848586;
   }
 
-  .activeInput {
+  .inactive-input{
+    cursor: default;
+  }
+
+  .active-input {
       &:hover,
       &:active,
       &:focus {

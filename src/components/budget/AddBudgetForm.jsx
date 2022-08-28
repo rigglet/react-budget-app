@@ -68,13 +68,13 @@ const AddBudgetForm = () => {
           budgetItems: new Array(),
           transactions: new Array(),
           income: {
-            annual: 0,
-            allowance: 0,
+            annualGross: 0,
+            taxFreeAllowance: 0,
             taxable: 0,
-            tax: 0,
-            ni: 0,
-            contributions: 0,
-            yearlyNet: 0,
+            incomeTax: 0,
+            nationalInsurance: 0,
+            totalDeductions: 0,
+            annualNet: 0,
             monthlyNet: 0,
             weeklyNet: 0,
           },
@@ -115,7 +115,7 @@ const AddBudgetForm = () => {
         <form>
           <label>Name:</label>
           <input
-            className="activeInput"
+            className="active-input"
             size="30"
             name="name"
             type="text"
@@ -125,7 +125,7 @@ const AddBudgetForm = () => {
           />
           <label>Description:</label>
           <input
-            className="activeInput"
+            className="active-input"
             size="40"
             name="description"
             type="text"
@@ -145,16 +145,18 @@ const AddBudgetForm = () => {
 const StyledAddbudgetForm = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  //align-items: flex-start;
   //justify-content: space-between;
-  margin-bottom: 2rem;
+  //margin-bottom: 1rem;
   padding: 1rem 1.5rem;
-  min-width: 100%;
-  min-height: 8vh;
+  //min-width: 100%;
+  //min-height: 8vh;
   border-radius: 4px;
   background-color: #39393c;
-  border-left: transparent 0.25rem solid;
+  //border-left: transparent 0.25rem solid;
   color: #848586;
+  width: 70vw;
+
   h4 {
     color: white;
     font-weight: 500;

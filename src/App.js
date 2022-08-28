@@ -2,9 +2,10 @@
 import { GlobalProvider } from "./context/GlobalContext";
 
 //containers
-import Budget from "./containers/Budget";
-import Summary from "./containers/Settings";
 import Income from "./components/settings/Income";
+import Budget from "./components/settings/Budget";
+import Summary from "./containers/Settings";
+import Budgets from "./containers/Budget";
 
 //components
 import Nav from "./components/Nav";
@@ -12,15 +13,28 @@ import Nav from "./components/Nav";
 //navigation
 import { BrowserRouter, Route } from "react-router-dom";
 
+//styling 
+import styled from "styled-components";
+import { motion } from "framer-motion";
+
+
 function App() {
   return (
-    <div className="App">
+    <StyledApp>
       <GlobalProvider>
         <BrowserRouter>
           <Nav />
           <Route exact path="/">
-            <Income />
+            <Budgets />
           </Route>
+          
+          <Route exact path="/home">
+            <Budgets />
+          </Route>
+          
+          {/* <Route exact path="/">
+            <Income />
+          </Route> */}
           <Route exact path="/income">
             <Income />
           </Route>
@@ -32,8 +46,14 @@ function App() {
           </Route>
         </BrowserRouter>
       </GlobalProvider>
-    </div>
+    </StyledApp>
   );
 }
+
+const StyledApp = styled(motion.div)`
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  `;
 
 export default App;

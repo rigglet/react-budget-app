@@ -14,8 +14,34 @@ moment.updateLocale("en", {
 //intialState
 const initialState = {
   budgets: [],
+  currentBudget: {
+    data: {
+      income: {
+        // annualGross: 0,
+        // taxFreeAllowance: 0,
+        // taxable: 0,
+        // incomeTax: 0,
+        // nationalInsurance: 0,
+        // totalDeductions: 0,
+        // annualNet: 0,
+        // monthlyNet: 0,
+        // weeklyNet: 0,
+        
+        annualGross: Number(0).toFixed(2),
+        taxFreeAllowance: Number(0).toFixed(2),
+        taxable: Number(0).toFixed(2),
+        incomeTax: Number(0).toFixed(2),
+        nationalInsurance: Number(0).toFixed(2),
+        totalDeductions: Number(0).toFixed(2),
+        annualNet: Number(0).toFixed(2),
+        monthlyNet: Number(0).toFixed(2),
+        weeklyNet: Number(0).toFixed(2),
+      },
+    },
+  },
+  
   currentBudgetId: "",
-  currentBudget: {},
+  //currentBudget: {},
   isBudgetLoaded: false,
   includeMandatory: false,
   includeDisposableOnly: false,
@@ -114,6 +140,7 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        income: state.income,
         budgets: state.budgets,
         currentBudgetId: state.currentBudgetId,
         currentBudget: state.currentBudget,

@@ -10,11 +10,11 @@ const Budget = () => {
     <StyledBudget>
       <h3>Budget</h3>
       <div className="charts">
-        <Salary />
-        <Allocated />
+        {/* <Salary /> */}
+        {/* <Allocated /> */}
       </div>
       <AddBudgetItemForm />
-      <BudgetList />
+      {/* <BudgetList /> */}
     </StyledBudget>
   );
 };

@@ -104,6 +104,13 @@ export const formatNumber = (number) => {
   );
 };
 
+// export const saveBudgetLocally = (newBudget) => {
+//   window.localStorage.setItem(
+//     "EXPENSE-APP",
+//     JSON.stringify(newBudget)
+//   );
+// };
+
 export const saveBudgetLocally = (budgets, newBudget) => {
   window.localStorage.setItem(
     "EXPENSE-APP",
@@ -118,6 +125,14 @@ export const updateBudgetLocally = (budgets, updateBudget) => {
     JSON.stringify([...subSet, updateBudget])
   );
 };
+
+// export const updateBudgetLocally = (updateBudget) => {
+//   //const subSet = budgets.filter((b) => b.id !== updateBudget.id);
+//   window.localStorage.setItem(
+//     "EXPENSE-APP",
+//     JSON.stringify(updateBudget)
+//   );
+// };
 
 export const deleteBudgetLocally = (budgets, id) => {
   const newBudgets = budgets.filter((b) => b.id !== id);
