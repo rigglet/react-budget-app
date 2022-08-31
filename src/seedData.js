@@ -14,7 +14,7 @@ export function seedData() {
       if (localData !== undefined && localData !== null) {
         setTimeout(() => {
           resolve(localData);
-        }, 3000);
+        }, 500);
       } else {
         reject("Nope");
       }

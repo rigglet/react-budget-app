@@ -13,15 +13,24 @@ import { FcCalculator } from "react-icons/fc";
 import { FaRegMoneyBillAlt, FaHome } from "react-icons/fa";
 import { BsFileSpreadsheet } from "react-icons/bs";
 import { BiAbacus } from "react-icons/bi";
+import { ImExit } from "react-icons/im";
 
 //react router
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 
 const Nav = () => {
 
-  const {isBudgetLoaded} = useContext(GlobalContext);
+  const {isBudgetLoaded, currentBudget, updateBudgetLoaded, updateCurrentBudget, updateCurrentBudgetId} = useContext(GlobalContext);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
+  const history = useHistory();
+
+  const handleBudgetClose = () => {
+    updateCurrentBudgetId(null);
+    updateCurrentBudget({});
+    updateBudgetLoaded(false);
+    history.push(`/home`);
+  }
 
   return (
     <StyledNav>
@@ -50,6 +59,13 @@ const Nav = () => {
               animate={{ width: path === "home" || path === "" ? "90%" : "0%" }}
             />
           </li>
+          {isBudgetLoaded && (
+            <li className="exit" onClick={() => handleBudgetClose()}>
+              <ImExit className="icon"/>
+              <p>{currentBudget.saveName}</p>
+            </li>
+            
+          )}
         </ul>
         <ul>
           {isBudgetLoaded && (
@@ -150,8 +166,21 @@ const StyledNav = styled(motion.div)`
   //links (middle)
   ul {
     display: flex;
+    align-items: center;
     list-style: none;
     text-decoration: none;
+    .exit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p{
+        color: #00b4ee;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        font-weight: normal;
+        font-size: 12pt;
+      }
+    }
     li {
       margin-left: 2rem;
       text-decoration: none;

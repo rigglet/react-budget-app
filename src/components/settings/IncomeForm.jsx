@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { updateBudgetLocally } from "../../util";
@@ -8,6 +8,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Big from "big.js";
+import IncomeWidget from "../dashboard/widgets/IncomeWidget";
 
 const IncomeForm = () => {
   
@@ -22,21 +23,71 @@ const IncomeForm = () => {
     currencySymbol,
   } = useContext(GlobalContext);
 
-  //form data hook
-  const [incomeData, setIncomeData] = useState({
-    ...currentBudget?.data?.income,
-  });
-
-  let incomeTax = Number(incomeData.incomeTax).toFixed(2);
-  let nationalInsurance = Number(incomeData.nationalInsurance).toFixed(2);
+  const divideValues = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: o[key] / 100 }
+    }
+    return newobj
+  }
   
-  let taxable = Number(incomeData.annualGross - incomeData.taxFreeAllowance).toFixed(2);
-  let totalDeductions = (Number(nationalInsurance) + Number(incomeTax)).toFixed(2);
-  let annualNet = Number(incomeData.annualGross - totalDeductions).toFixed(2);
-  let monthlyNet = Number(annualNet / 12).toFixed(2);
-  let weeklyNet = Number(annualNet / 52).toFixed(2);
-  //let dailyNet = Number(annualNet / 365).toFixed(2);
+  const multiplyValues = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: o[key] * 100 }
+    }
+    return newobj
+  }
 
+  const convertToNumbers = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: Number(o[key]) }
+    }
+    return newobj
+  }
+  
+  const formatStrings = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) }
+    }
+    return newobj
+  }
+  
+
+//Intl.NumberFormat
+//console.log(Intl.NumberFormat('en-GB', {style: 'decimal', maximumFractionDigits: 2}).format(100.126123));
+  
+  //form data hook
+  const [incomeData, setIncomeData] = useState(
+    //divide values by 100
+    divideValues(currentBudget?.data?.income)
+    // {...currentBudget?.data?.income}
+  );
+
+    //let annualGross = currentBudget?.data?.income.annualGross;
+    //taxFreeAllowance
+    let taxable = Number(incomeData.annualGross - incomeData.taxFreeAllowance).toFixed(2);
+    
+    //incomeTax
+    //nationalInsurance
+    let totalDeductions = Number(incomeData.nationalInsurance) + Number(incomeData.incomeTax);
+    
+    let annualNet = incomeData.annualGross - totalDeductions;
+    let monthlyNet = Number(annualNet / 12).toFixed(2);
+    let weeklyNet = Number(annualNet / 52).toFixed(2);
+    //let dailyNet = Number(annualNet / 365).toFixed(2);
+    
+  annualNet = Number(annualNet).toFixed(2);
+  totalDeductions = Number(totalDeductions).toFixed(2);
+
+  
+  useEffect(() => {
+    //after calcs format to string
+    setIncomeData(()=>(formatStrings(incomeData)))
+  },[])
+    
   //TOAST MESSAGE
   const notify = (type) => {
     switch (type) {
@@ -46,15 +97,15 @@ const IncomeForm = () => {
       case "INVALID":
         toast.dark("Please enter numbers only");
         break;
-      case "INVALID ANNUAL":
-        toast.dark(
-          "Please ensure Annual (Net) figure is lower than Annual (gross)"
+        case "INVALID ANNUAL":
+          toast.dark(
+            "Please ensure Annual (Net) figure is lower than Annual (gross)"
         );
         break;
       case "INVALID ALLOWANCE":
         toast.dark(
           "Please ensure Allowance is less than Annual (gross) figure"
-        );
+          );
         break;
       case "INVALID DEDUCTIONS":
         toast.dark(
@@ -107,13 +158,6 @@ const IncomeForm = () => {
     return isValid;
   };
 
-  // useEffect(() => {
-  //   setIncomeData(() => ({
-  //     ...incomeData,
-  //     totalDeductions: Number(incomeData.nationalInsurance) + Number(incomeData.incomeTax),
-  //   }));
-  // }, [incomeData]);
-
   //handle form data change
   const handleChange = (e) => {
     if (handleFormatValidation(e.target.value)) {
@@ -128,28 +172,44 @@ const IncomeForm = () => {
 
   const handleBlur = (e) => {
     //check if component mounted
-    setIncomeData(() => ({
+    setIncomeData({
       ...incomeData,
-      [e.target.name]: Number(e.target.value).toFixed(2),
-    }));
+      [e.target.name]: Number(e.target.value).toFixed(2)
+      //[e.target.name]: Number(e.target.value).toFixed(2),
+    });
   };
+
+  const handleFocus = (e) => {
+    //check if component mounted
+    setIncomeData({
+      ...incomeData,
+      [e.target.name]: Number(e.target.valueAsNumber)
+      //[e.target.name]: Number(e.target.value).toFixed(2),
+    });
+  };
+
+
+
 
   let updatedBudget = {
     ...currentBudget,
     data: {
       ...currentBudget.data,
-      income: {
+      // implicit type conversion to number
+      // (by multiplying by 100)
+      // and stores number without decimal for increased accuracy later
+      income: multiplyValues({
         ...incomeData,
-        annualGross: Number(incomeData.annualGross)  * 100,
-        taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
-        taxable: Number(taxable) * 100,
-        incomeTax: Number(incomeTax) * 100,
-        nationalInsurance: Number(nationalInsurance) * 100,
-        totalDeductions: Number(totalDeductions) * 100,
-        annualNet: Number(annualNet) * 100,
-        monthlyNet: Number(monthlyNet) * 100,
-        weeklyNet: Number(weeklyNet) * 100,
-      },
+        annualGross: incomeData.annualGross,
+        taxFreeAllowance: incomeData.taxFreeAllowance,
+        taxable: taxable,
+        incomeTax: incomeData.incomeTax,
+        nationalInsurance: incomeData.nationalInsurance,
+        totalDeductions: incomeData.totalDeductions,
+        annualNet: annualNet,
+        monthlyNet: monthlyNet,
+        weeklyNet: weeklyNet,
+      }),
     },
   }
   
@@ -162,69 +222,16 @@ const IncomeForm = () => {
       true
     ) {
       //update global provider
-      updateBudget({
-        ...currentBudget,
-        data: {
-          ...currentBudget.data,
-          income: {
-            ...incomeData,
-            annualGross: Number(incomeData.annualGross)  * 100,
-            taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
-            taxable: Number(taxable) * 100,
-            incomeTax: Number(incomeTax) * 100,
-            nationalInsurance: Number(nationalInsurance) * 100,
-            totalDeductions: Number(totalDeductions) * 100,
-            annualNet: Number(annualNet) * 100,
-            monthlyNet: Number(monthlyNet) * 100,
-            weeklyNet: Number(weeklyNet) * 100,
-          },
-        },
-      });
+      updateBudget(updatedBudget);
       // update local storage
-      updateBudgetLocally(budgets, {
-        ...currentBudget,
-        data: {
-          ...currentBudget.data,
-          income: {
-            ...incomeData,
-            annualGross: Number(incomeData.annualGross)  * 100,
-            taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
-            taxable: Number(taxable) * 100,
-            incomeTax: Number(incomeTax) * 100,
-            nationalInsurance: Number(nationalInsurance) * 100,
-            totalDeductions: Number(totalDeductions) * 100,
-            annualNet: Number(annualNet) * 100,
-            monthlyNet: Number(monthlyNet) * 100,
-            weeklyNet: Number(weeklyNet) * 100,
-          },
-        },
-      });
+      updateBudgetLocally(budgets, updatedBudget);
       // update current budget
-      updateCurrentBudget({
-        ...currentBudget,
-        data: {
-          ...currentBudget.data,
-          income: {
-            ...incomeData,
-            annualGross: Number(incomeData.annualGross)  * 100,
-            taxFreeAllowance: Number(incomeData.taxFreeAllowance) * 100,
-            taxable: Number(taxable) * 100,
-            incomeTax: Number(incomeTax) * 100,
-            nationalInsurance: Number(nationalInsurance) * 100,
-            totalDeductions: Number(totalDeductions) * 100,
-            annualNet: Number(annualNet) * 100,
-            monthlyNet: Number(monthlyNet) * 100,
-            weeklyNet: Number(weeklyNet) * 100,
-          },
-        },
-      });
+      updateCurrentBudget(updatedBudget);
       
       //toast message
       notify("UPDATED");
     }
   };
-
-  console.log(updatedBudget);
 
   return (
     <StyledIncomeForm>
@@ -250,7 +257,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="text"
+                type="input"
                 name="annualGross"
                 id="annualGross"
                 value={incomeData.annualGross}
@@ -265,7 +272,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="text"
+                type="input"
                 name="taxFreeAllowance"
                 id="taxFreeAllowance"
                 value={incomeData.taxFreeAllowance}
@@ -280,7 +287,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="text"
+                type="input"
                 name="taxable"
                 id="taxable"
                 value={taxable}
@@ -296,7 +303,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="text"
+                type="input"
                 name="incomeTax"
                 id="incomeTax"
                 value={incomeData.incomeTax}
@@ -311,7 +318,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="text"
+                type="input"
                 name="nationalInsurance"
                 id="nationalInsurance"
                 value={incomeData.nationalInsurance}
@@ -326,7 +333,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="text"
+                type="input"
                 name="totalDeductions"
                 id="totalDeductions"
                 value={totalDeductions}
@@ -343,7 +350,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="text"
+                type="input"
                 name="annualNet"
                 id="annualNet"
                 value={annualNet}
@@ -359,7 +366,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="text"
+                type="input"
                 name="monthlyNet"
                 id="monthlyNet"
                 value={monthlyNet}
@@ -374,7 +381,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="text"
+                type="input"
                 name="weeklyNet"
                 id="weeklyNet"
                 value={weeklyNet}
@@ -388,7 +395,7 @@ const IncomeForm = () => {
             <div className="currency-input">
               {currencySymbol}
               <input
-                type="text"
+                type="input"
                 name="dailyNet"
                 id="dailyNet"
                 value={dailyNet}

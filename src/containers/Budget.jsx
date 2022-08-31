@@ -13,8 +13,6 @@ const Budget = () => {
   const { loadBudgets } = useContext(GlobalContext);
   const [isLoading, setLoading] = useState(true);
 
-
-  
   const data = seedData();
   //setData
   //data.setData()
@@ -25,7 +23,6 @@ const Budget = () => {
     data.getLocalData().then(
       (response) => {
         //save returned data to global context
-        console.log(response)
         loadBudgets(response);
         //set loading flag to false
         setLoading(false);
