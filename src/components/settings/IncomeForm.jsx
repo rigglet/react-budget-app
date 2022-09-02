@@ -7,8 +7,6 @@ import { GlobalContext } from "../../context/GlobalContext";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Big from "big.js";
-import IncomeWidget from "../dashboard/widgets/IncomeWidget";
 
 const IncomeForm = () => {
   

@@ -221,7 +221,7 @@ export const sortByCategoryThenByItem = (arr) => {
 
   //ceate set of unique category names
   let uniqueSet = new Set();
-  arr.map((item) => uniqueSet.add(item.category));
+  arr?.map((item) => uniqueSet.add(item.category));
 
   uniqueSet.forEach((category) => {
     arrSortedByItem.push(

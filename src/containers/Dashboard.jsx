@@ -5,7 +5,6 @@ import { GlobalContext } from "../context/GlobalContext";
 import { useLocation } from "react-router-dom";
 import { getWidget } from "../util";
 import ConfigureDash from "../components/dashboard/ConfigureDash";
-import DashSidebar from "../components/DashSidebar";
 import Tracker from "../components/settings/Tracker";
 
 const Dashboard = () => {
@@ -29,50 +28,50 @@ const Dashboard = () => {
       checkForSelectedWidgets(widgets.budgetWidgets) ||
       checkForSelectedWidgets(widgets.expenditureWidgets) ||
       checkForSelectedWidgets(widgets.trackerWidgets)
-    ) {
-      //console.log("UE");
-      setDisplayingWidgets(true);
-    } else {
-      setDisplayingWidgets(false);
-    }
-  }, [widgets]);
-
-  return (
-    <StyledDashboard>
+      ) {
+        //console.log("UE");
+        setDisplayingWidgets(true);
+      } else {
+        setDisplayingWidgets(false);
+      }
+    }, [widgets]);
+    
+    return (
+      <StyledDashboard>
       <div className="left">
-        <DashSidebar />
+        {/* <DashSidebar /> */}
       </div>
       <div className="main">
         {subMenu === "view" && (
           <>
             <h3>Dashboard</h3>
             <div className="widgets">
+              <div className="income">
+                {
+                  //INCOME WIDGETS
+                  widgets.incomeWidgets
+                    .sort((a, b) => (a.name > b.name ? 1 : -1))
+                    .map((item) => {
+                      //if (item.selected) {
+                        return getWidget(item.name);
+                      // }
+                      // return undefined;
+                    })
+                  }
+                  </div>
               {blnDisplayingWidgets ? (
                 <>
-                  <div className="income">
-                    {
-                      //INCOME WIDGETS
-                      widgets.incomeWidgets
-                        .sort((a, b) => (a.name > b.name ? 1 : -1))
-                        .map((item) => {
-                          if (item.selected) {
-                            return getWidget(item.name);
-                          }
-                          return undefined;
-                        })
-                    }
-                  </div>
                   <div className="budgets">
                     {
                       //BUDGET WIDGETS
-                      widgets.budgetWidgets
-                        .sort((a, b) => (a.name > b.name ? 1 : -1))
-                        .map((item) => {
-                          if (item.selected) {
-                            return getWidget(item.name);
-                          }
-                          return undefined;
-                        })
+                    widgets.budgetWidgets
+                      .sort((a, b) => (a.name > b.name ? 1 : -1))
+                      .map((item) => {
+                        if (item.selected) {
+                          return getWidget(item.name);
+                        }
+                        return undefined;
+                      })
                     }
                   </div>
                   <div className="expenditure">

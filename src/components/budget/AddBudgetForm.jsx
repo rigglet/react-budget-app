@@ -11,6 +11,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 import { getWidgets } from "../../data";
+import UncategorizedBudget from "../UncategorizedBudget";
 
 const AddBudgetForm = () => {
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -65,7 +66,7 @@ const AddBudgetForm = () => {
           "/" +
           date.getFullYear(),
         data: {
-          budgetItems: new Array(),
+          budgetCategories: [{name: "UncategorizedBudget", total: 0}],
           transactions: new Array(),
           income: {
             annualGross: 0,
@@ -110,7 +111,7 @@ const AddBudgetForm = () => {
           rtl={false}
           pauseOnFocusLoss
         />
-
+        
         <h4>New Budget</h4>
         <form>
           <label>Name:</label>

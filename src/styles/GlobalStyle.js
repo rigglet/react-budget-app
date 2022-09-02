@@ -94,7 +94,7 @@ input {
   option{
     padding:0.25rem;
   }
-.sign {
+  .sign {
     margin-right: 0.5rem;
   }
   .symbol {
@@ -147,7 +147,6 @@ input {
       transform: translateY(1px);
     }
 }
-
 `;
 
 export default GlobalStyle;
