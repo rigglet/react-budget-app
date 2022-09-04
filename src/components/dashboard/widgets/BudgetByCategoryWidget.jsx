@@ -13,7 +13,7 @@ import {
   getAllocatedPerPeriod,
   getNetIncomeForPeriod,
   getAccumulatedSubTotals,
-} from "../../../util";
+} from "../../../utilities";
 
 const BudgetByCategoryWidget = () => {
   const [toggleTable, setToggleTable] = useState(false);

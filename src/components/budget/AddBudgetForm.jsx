@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { saveBudgetLocally } from "../../util";
+import { saveBudgetLocally } from "../../utilities";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator

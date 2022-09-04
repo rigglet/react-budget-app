@@ -9,7 +9,7 @@ import {
   getYearlyAllocated,
   filterTransactionsByDateRange,
   getItemAmountForRange,
-} from "../../../util";
+} from "../../../utilities";
 
 const ExpenditureWidget = () => {
   const {

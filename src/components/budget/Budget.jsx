@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { BsFileText } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import { FaTrashAlt, FaFolderOpen } from "react-icons/fa";
-import { deleteBudgetLocally } from "../../util";
+import { deleteBudgetLocally } from "../../utilities";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 

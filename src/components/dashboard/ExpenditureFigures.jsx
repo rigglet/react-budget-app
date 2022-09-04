@@ -4,7 +4,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 //util functions
-import { formatNumber } from "../../util";
+import { formatNumber } from "../../utilities";
 //icons
 import { FaCheckSquare, FaTimesCircle } from "react-icons/fa";
 //import { BsArrowRight } from "react-icons/bs";

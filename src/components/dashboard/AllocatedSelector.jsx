@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { formatNumber } from "../../util";
+import { formatNumber } from "../../utilities";
 
 const AllocatedSelector = ({
   handlePeriodChange,

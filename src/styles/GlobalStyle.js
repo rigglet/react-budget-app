@@ -14,10 +14,27 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 
+:root {
+  --income-color: #1effa5;
+  --allocated-color: #9f5f90;
+  --balance-color: #b27525;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+//colors
+.income-color{
+  color: var(--income-color);
+}
+.allocated-color{
+  color: var(--allocated-color);
+}
+.balance-color{
+  color: var(--balance-color);
 }
 
 body{

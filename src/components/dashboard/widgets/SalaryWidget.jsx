@@ -3,7 +3,7 @@ import { GlobalContext } from "../../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 //format numbers
-import { formatNumber } from "../../../util";
+import { formatNumber } from "../../../utilities";
 
 const SalaryWidget = () => {
   const { budgets, currentBudgetId, currencySymbol } = useContext(

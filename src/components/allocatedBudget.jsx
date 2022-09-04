@@ -10,7 +10,7 @@ const UncategorizedBudget = ({uncategorisedPercentage, uncategorisedTotal, uncat
       <div className="titlebar">
         <h4>Unallocated funds</h4>
         <div className="percentage">{Number(uncategorisedPercentage).toFixed()} %</div>  
-        <div className="total">${Number(uncategorisedTotal).toFixed(2)} / ${Number(uncategorisedBudgetTotal).toFixed(2)}</div>  
+        <div className="total">${Number(uncategorisedTotal).toFixed(2)} / <span className="allocated-color">${Number(uncategorisedBudgetTotal).toFixed(2)}</span></div>  
       </div>
       <Progressbar percentage={uncategorisedPercentage}/>
       
@@ -45,7 +45,7 @@ const StyledUncategorizedBudget = styled(motion.div)`
     margin-bottom: 1rem;
     }
     .total, .percentage {
-      color: whitesmoke;
+      //color: whitesmoke;
     }
   }
   

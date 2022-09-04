@@ -7,7 +7,7 @@ import {
   //getYearlyAllocated,
   getAllocatedPerPeriod,
   getNetIncomeForPeriod,
-} from "../../../util";
+} from "../../../utilities";
 import AllocatedSelector from "../AllocatedSelector";
 import AllocatedChart from "../AllocatedChart";
 

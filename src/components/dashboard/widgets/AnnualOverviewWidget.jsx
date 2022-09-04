@@ -8,7 +8,7 @@ import {
   formatNumber,
   getYearlyAllocated,
   filterTransactionsByDateRange,
-} from "../../../util";
+} from "../../../utilities";
 
 const AnnualOverviewWidget = () => {
   const { currencySymbol, currentBudget, dateRange } = useContext(

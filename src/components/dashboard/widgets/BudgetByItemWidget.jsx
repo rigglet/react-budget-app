@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { formatNumber } from "../../../util";
+import { formatNumber } from "../../../utilities";
 import AllocatedSelector from "../AllocatedSelector";
-import { getNetIncomeForPeriod, getAllocatedPerPeriod } from "../../../util";
+import { getNetIncomeForPeriod, getAllocatedPerPeriod } from "../../../utilities";
 import { v4 as uuidv4 } from "uuid";
 //icons
 import { AiOutlineTable } from "react-icons/ai";

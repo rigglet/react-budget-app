@@ -2,8 +2,8 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
-import { updateBudgetLocally, sortByCategoryThenByItem } from "../../util";
-import UncategorizedBudget from "../../components/UncategorizedBudget"
+import { updateBudgetLocally, sortByCategoryThenByItem } from "../../utilities";
+//import UncategorizedBudget from "../../components/UncategorizedBudget"
 import CategorizedBudget from "../../components/CategorizedBudget"
 
 const BudgetList = () => {
@@ -16,11 +16,6 @@ const BudgetList = () => {
   } = useContext(GlobalContext);
 
   const budgetCategories = currentBudget.data.budgetCategories;
-  
-  const itemTotal = currentBudget.data.budgetCategories.map((category)=>{console.log(category);});
-  const uncategorisedItemTotal = 25;
-  const uncategorisedBudgetTotal = 100;
-  console.log(currentBudget);
   
   const deleteBudgetCategory = (id) => {
     const newBudget = {
@@ -46,7 +41,12 @@ const BudgetList = () => {
   return (
     <StyledBudgetList>
         
-      <UncategorizedBudget uncategorisedItemTotal={uncategorisedItemTotal} uncategorisedBudgetTotal={uncategorisedBudgetTotal}/>
+      {/* <UncategorizedBudget
+        uncategorisedTotal={uncategorisedTotal}
+        uncategorisedBudgetTotal={uncategorisedBudgetTotal}
+        uncategorisedPercentage={uncategorisedPercentage}
+      /> */}
+      
       {
         budgetCategories.map((category) => (
           <CategorizedBudget
@@ -56,13 +56,6 @@ const BudgetList = () => {
           />
         ))
         }
-          {/* {sortByCategoryThenByItem(budgetCategories).map((item) => (
-            <BudgetCategory />
-            <BudgetItem
-              togglePaidStatus={togglePaidStatus}
-              toggleMandatoryStatus={toggleMandatoryStatus}
-            />
-          ))} */}
       
     </StyledBudgetList>
   );
@@ -72,9 +65,6 @@ const StyledBudgetList = styled(motion.div)`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-  //padding: 1rem;
-  //border-radius: 4px;
-  //background-color: #39393c;
   color: #848586;
 `;
 

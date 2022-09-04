@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { updateBudgetLocally } from "../../util";
+import { formatStrings, divideValues, multiplyValues, updateBudgetLocally } from "../../utilities";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 //message components
@@ -20,39 +20,6 @@ const IncomeForm = () => {
     currentBudget,
     currencySymbol,
   } = useContext(GlobalContext);
-
-  const divideValues = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: o[key] / 100 }
-    }
-    return newobj
-  }
-  
-  const multiplyValues = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: o[key] * 100 }
-    }
-    return newobj
-  }
-
-  const convertToNumbers = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: Number(o[key]) }
-    }
-    return newobj
-  }
-  
-  const formatStrings = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) }
-    }
-    return newobj
-  }
-  
 
 //Intl.NumberFormat
 //console.log(Intl.NumberFormat('en-GB', {style: 'decimal', maximumFractionDigits: 2}).format(100.126123));

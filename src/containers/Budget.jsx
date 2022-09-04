@@ -1,78 +1,91 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//context
+import BudgetList from "../components/settings/BudgetList";
+import AddBudgetCategoryForm from "../components/settings/AddBudgetCategoryForm";
 import { GlobalContext } from "../context/GlobalContext";
-import AddBudgetForm from "../components/budget/AddBudgetForm";
-import BudgetList from "../components/budget/BudgetList";
-import Spinner from "../components/Spinner";
-import { seedData } from "../seedData";
 
 const Budget = () => {
-
-  const { loadBudgets } = useContext(GlobalContext);
-  const [isLoading, setLoading] = useState(true);
-
-  const data = seedData();
-  //setData
-  //data.setData()
-  //console.log(data)
   
-  //get seed data
-  useEffect(() => {
-    data.getLocalData().then(
-      (response) => {
-        //save returned data to global context
-        loadBudgets(response);
-        //set loading flag to false
-        setLoading(false);
-      },
-      (reject) => {
-        //on reject log error
-        console.log(reject);
-        //set loading flag to false
-        setLoading(false);
-      }
-    );
-  }, []);
+  const {currentBudget} = useContext(GlobalContext);
+  
+  const expenditureTotal = currentBudget.data.budgetCategories.map((category) => {
+    return category.items.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+  }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  
+  const allocatedFundsTotal = currentBudget.data.budgetCategories
+    .map(category => category.amount)
+    .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
   return (
-    <StyledBudgetContainer>
-        <h3>Budgets</h3>
-      <div className="main">
-        {!isLoading ? (
-          <>
-            <AddBudgetForm />
-            <BudgetList />
-          </>
-        ) : (
-            <Spinner />
-        )}
+    <StyledBudget>
+      <div className="heading">
+        <div className="item">
+          <h3>Income:</h3>
+          <p className="income-color">${Number(currentBudget.data.income.annualNet/100).toFixed(2)}</p>
+        </div>
+        <div className="item">
+          <h3>Allocated:</h3>
+          <p className="allocated-color">${Number(allocatedFundsTotal).toFixed(2)}</p>
+        </div>
+        <div className="item">
+          <h3>Balance:</h3>
+          <p className="balance-color">${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal).toFixed(2)}</p>
+        </div>
       </div>
-    </StyledBudgetContainer>
+
+      <div className="charts">
+        <AddBudgetCategoryForm />
+        <h3 className="">Budgets by category</h3>
+        <BudgetList />
+      </div>
+    </StyledBudget>
   );
 };
 
-const StyledBudgetContainer = styled(motion.div)`
+const StyledBudget = styled(motion.div)`
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  row-gap: 1rem;
   
-  h3{
+  .heading {
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 1rem;
+      
+      h3 {
+        font-size: 1.5rem; 
+      }
+
+      p {
+        //color: #00b4ee;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  .title {
     align-self: flex-start;
     padding-left: 15vw;
   }
-  
-  .main {
-    width: 70vw;
+
+  .charts {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    row-gap: 1rem;
-    margin-top: 1rem;
+    width: 70vw;
+    gap: 2rem;
   }
 `;
 

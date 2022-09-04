@@ -7,6 +7,38 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import AnnualOverviewWidget from "./components/dashboard/widgets/AnnualOverviewWidget";
 
+export const divideValues = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: o[key] / 100 }
+    }
+    return newobj
+  }
+  
+  export const multiplyValues = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: o[key] * 100 }
+    }
+    return newobj
+  }
+
+  export const convertToNumbers = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: Number(o[key]) }
+    }
+    return newobj
+  }
+  
+  export const formatStrings = (o) => {  
+    let newobj = {}
+    for (const key in o) {
+      newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) }
+    }
+    return newobj
+  }
+
 //returns an array of budget subtotals per category
 export const getAccumulatedSubTotals = (currentBudget) => {
   return currentBudget.data.budgetItems.reduce(

@@ -2,10 +2,10 @@
 import { GlobalProvider } from "./context/GlobalContext";
 
 //containers
-import Income from "./components/settings/Income";
-import Budget from "./components/settings/Budget";
-import Summary from "./containers/Settings";
-import Budgets from "./containers/Budget";
+import Budgets from "./containers/Budgets";
+import Income from "./containers/Income";
+import Budget from "./containers/Budget";
+import Summary from "./containers/Summary";
 
 //components
 import Nav from "./components/Nav";

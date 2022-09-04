@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-const Progressbar = ({percentage}) => {
-    console.log(percentage);
+const Progressbar = ({ percentage }) => {
+    if (percentage > 100) percentage = 100;
     const progressColor = percentage < 33 ? "#5ab55b" : percentage < 66 ? "#bd8154" : "#c75454";
     
     return (
