@@ -26,11 +26,11 @@ const Budget = () => {
         </div>
         <div className="item">
           <h3>Allocated:</h3>
-          <p className="allocated-color">${Number(allocatedFundsTotal).toFixed(2)}</p>
+          <p className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</p>
         </div>
         <div className="item">
           <h3>Balance:</h3>
-          <p className="balance-color">${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal).toFixed(2)}</p>
+          <p className="balance-color">${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100).toFixed(2)}</p>
         </div>
       </div>
 

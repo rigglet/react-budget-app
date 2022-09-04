@@ -16,6 +16,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
     updateCurrentBudget,
   } = useContext(GlobalContext);
 
+  const [showForm, toggleShowForm] = useState(false);
   const [viewItems, toggleViewItems] = useState(false);
 
   const deleteCategoryItem = (id) => {
@@ -38,7 +39,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
   };
 
   const itemTotal = budgetCategory?.items?.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-  const budgetTotal = budgetCategory?.amount;
+  const budgetTotal = budgetCategory?.amount / 100;
   
   let categorisedPercentage = 0;
   if (itemTotal > 0 && budgetTotal > 0) {
@@ -61,22 +62,24 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
             </div>
           ))}
           </div>
-          <div className="buttons">
+          <div className="item-buttons">
               <button className="button" onClick={() => toggleViewItems(!viewItems)}>Exit</button>
           </div>
-      </div>) : (<>
-          <div className="buttons">
-            <AddBudgetCategoryItemForm budgetCategory={budgetCategory} />
-            <button className="button" onClick={() => toggleViewItems(!viewItems)}>View items</button>
-          </div>
+        </div>) : (<>
+          {!showForm && (
+            <div className="add-buttons">
+              <button className="button" onClick={() => toggleViewItems(!viewItems)}>View items</button>
+            </div>
+            )}
+          <AddBudgetCategoryItemForm budgetCategory={budgetCategory} showForm={showForm} toggleShowForm={toggleShowForm} />
+
           <div className="titlebar">
             <h4>{budgetCategory?.category}</h4>
-            <div className="percentage">{Number(categorisedPercentage)} %</div>
+            <div className="percentage">{Number(categorisedPercentage).toFixed()} %</div>
             <div className="total">${itemTotal} / ${budgetTotal}</div>  
           </div>
           
           <Progressbar percentage={categorisedPercentage}/>
-          
           
           <div className="actions" onClick={() => deleteBudgetCategory(budgetCategory.id)}>
           <FaTrashAlt className="delete-icon" />
@@ -84,7 +87,6 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
         </>)}
         </StyledUncategorizedBudget>
         )}
-        //del icon
         
 const StyledUncategorizedBudget = styled(motion.div)`
   position: relative;
@@ -111,9 +113,7 @@ const StyledUncategorizedBudget = styled(motion.div)`
     height: 100%;
     width: 0px;
     background-color: #b87272;
-    //border-radius: 4px;
     transition: 0.3s ease all;
-    //pointer-events: none;
     cursor: pointer;
     
     .item-delete-icon{
@@ -156,61 +156,67 @@ const StyledUncategorizedBudget = styled(motion.div)`
     //align-items: center;
     justify-content: center;
     width: 100%;
+    row-gap: 0.5rem;
   }
   
   .expense-list {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    row-gap: 0.25rem;
     width: 70%;
     align-self: center;
-    //padding: 0.25rem;
     
     .expense{
       &:hover .item-actions {
         width: 100px;
         //color: rgba(184, 114, 114, 75%);
-      .item-actions{
-        width: 3rem;
-      }
-    }
-      border: 1px solid #00b4ee;
-      display:flex;
-        align-items: center;
-        justify-content: space-between;
-        //border-radius: 4px;
-        padding: 0.25rem;
-        position: relative;
-        p{
-          color: whitesmoke;
-          background-color: #39393c;
+        .item-actions{
+          width: 3rem;
         }
       }
+
+      border: 1px solid #00b4ee;
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.25rem;
+      position: relative;
+      p{
+        color: whitesmoke;
+        background-color: #39393c;
+      }
     }
+  }
    
-  
   h4 {
     color: white;
     font-weight: 500;
-    margin-bottom: 1rem;
+    //margin-bottom: 1rem;
   }
   .titlebar{
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .total {
-      color: whitesmoke;
-    }
+    color: whitesmoke;
   }
-  .buttons{
-    border: 1px solid red;
-    width: 100%;
-    padding: 0rem;
+  .item-buttons{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    //column-gap: 1rem;
+    justify-content: flex-end;
+    //width: 100%;
+    //padding: 0rem;
+    //column-gap: 2rem;
+  }
+  .add-buttons{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0rem;
+    column-gap: 2rem;
   }
   `;
 

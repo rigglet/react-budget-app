@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import UncategorizedBudget from "../components/UncategorizedBudget";
+import AllocatedBudget from "../components/AllocatedBudget";
 import { GlobalContext } from "../context/GlobalContext";
 
 const Summary = () => {
@@ -28,15 +29,15 @@ const Summary = () => {
       <div className="heading">
         <div className="item">
           <h3>Income:</h3>
-          <p>${Number(currentBudget.data.income.annualNet/100).toFixed(2)}</p>
+          <p className="income-color">${Number(currentBudget.data.income.annualNet/100).toFixed(2)}</p>
         </div>
         <div className="item">
-          <h3>Expenditure:</h3>
-          <p>${Number(allocatedFundsTotal).toFixed(2)}</p>
+          <h3>Allocated:</h3>
+          <p className="allocated-color">${Number(allocatedFundsTotal).toFixed(2)}</p>
         </div>
         <div className="item">
           <h3>Balance:</h3>
-          <p>${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal).toFixed(2)}</p>
+          <p className="balance-color">${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal).toFixed(2)}</p>
         </div>
       </div>
 
@@ -45,6 +46,11 @@ const Summary = () => {
         <h3 className="">Summary</h3>
 
         <UncategorizedBudget
+            uncategorisedTotal={uncategorisedTotal}
+            uncategorisedBudgetTotal={uncategorisedBudgetTotal}
+            uncategorisedPercentage={uncategorisedPercentage}
+        />
+        <AllocatedBudget
             uncategorisedTotal={uncategorisedTotal}
             uncategorisedBudgetTotal={uncategorisedBudgetTotal}
             uncategorisedPercentage={uncategorisedPercentage}
@@ -80,7 +86,6 @@ const StyledSummary = styled(motion.div)`
       }
 
       p {
-        color: #00b4ee;
         font-size: 1.5rem;
         font-weight: bold;
       }

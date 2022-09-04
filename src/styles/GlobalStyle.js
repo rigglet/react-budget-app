@@ -52,26 +52,26 @@ body{
   }
 .button {
   font-weight: lighter;
-  font-size: 10pt;
+  //font-size: 10pt;
   min-width: 100px;
-    cursor: pointer;
-    color: white;
-    padding: 0.5rem 0.75rem;
-    border-radius: 4px;
-    border: none;
-    background-color: #00b4ee;
-    transition: all 0.3s ease;
-    outline-style: none;
-    &:active {
-      transform: translateY(1px);
-      transition: none;
-    }
-    &:hover,
-    &:active {
-      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
-      background: rgb(0, 180, 238, 0.5);
-    }
+  cursor: pointer;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #00b4ee;
+  transition: all 0.3s ease;
+  outline-style: none;
+  &:active {
+    transform: translateY(1px);
+    transition: none;
   }
+  &:hover,
+  &:active {
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    background: rgb(0, 180, 238, 0.5);
+  }
+}
 
 input {
     outline: none;

@@ -9,9 +9,6 @@ import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const IncomeForm = () => {
-  
-  //let x = new Big(123.4567)
-  
   //global context
   const {
     updateBudget,
@@ -21,9 +18,6 @@ const IncomeForm = () => {
     currencySymbol,
   } = useContext(GlobalContext);
 
-//Intl.NumberFormat
-//console.log(Intl.NumberFormat('en-GB', {style: 'decimal', maximumFractionDigits: 2}).format(100.126123));
-  
   //form data hook
   const [incomeData, setIncomeData] = useState(
     //divide values by 100
@@ -49,7 +43,7 @@ const IncomeForm = () => {
 
   
   useEffect(() => {
-    //after calcs format to string
+    //Format to string to Numbers
     setIncomeData(()=>(formatStrings(incomeData)))
   },[])
     
@@ -140,21 +134,8 @@ const IncomeForm = () => {
     setIncomeData({
       ...incomeData,
       [e.target.name]: Number(e.target.value).toFixed(2)
-      //[e.target.name]: Number(e.target.value).toFixed(2),
     });
   };
-
-  const handleFocus = (e) => {
-    //check if component mounted
-    setIncomeData({
-      ...incomeData,
-      [e.target.name]: Number(e.target.valueAsNumber)
-      //[e.target.name]: Number(e.target.value).toFixed(2),
-    });
-  };
-
-
-
 
   let updatedBudget = {
     ...currentBudget,
@@ -222,7 +203,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="input"
+                type="text"
                 name="annualGross"
                 id="annualGross"
                 value={incomeData.annualGross}
@@ -237,7 +218,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="input"
+                type="text"
                 name="taxFreeAllowance"
                 id="taxFreeAllowance"
                 value={incomeData.taxFreeAllowance}
@@ -252,7 +233,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="input"
+                type="text"
                 name="taxable"
                 id="taxable"
                 value={taxable}
@@ -268,7 +249,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="input"
+                type="text"
                 name="incomeTax"
                 id="incomeTax"
                 value={incomeData.incomeTax}
@@ -283,7 +264,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="active-input"
-                type="input"
+                type="text"
                 name="nationalInsurance"
                 id="nationalInsurance"
                 value={incomeData.nationalInsurance}
@@ -298,7 +279,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="input"
+                type="text"
                 name="totalDeductions"
                 id="totalDeductions"
                 value={totalDeductions}
@@ -315,7 +296,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="input"
+                type="text"
                 name="annualNet"
                 id="annualNet"
                 value={annualNet}
@@ -331,7 +312,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="input"
+                type="text"
                 name="monthlyNet"
                 id="monthlyNet"
                 value={monthlyNet}
@@ -346,7 +327,7 @@ const IncomeForm = () => {
               {currencySymbol}
               <input
                 className="inactive-input"
-                type="input"
+                type="text"
                 name="weeklyNet"
                 id="weeklyNet"
                 value={weeklyNet}
@@ -360,7 +341,7 @@ const IncomeForm = () => {
             <div className="currency-input">
               {currencySymbol}
               <input
-                type="input"
+                type="text"
                 name="dailyNet"
                 id="dailyNet"
                 value={dailyNet}

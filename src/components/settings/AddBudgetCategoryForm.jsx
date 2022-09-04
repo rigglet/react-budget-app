@@ -16,7 +16,7 @@ import { formatStrings, divideValues, multiplyValues } from "../../utilities";
 const AddBudgetCategoryForm = () => {
   const [formData, setFormData] = useState({
     category: "",
-    amount: 0.0,
+    amount: "",
   });
 
   const [showForm, toggleShowForm] = useState(false);
@@ -26,6 +26,7 @@ const AddBudgetCategoryForm = () => {
     budgets,
     currentBudget,
     updateCurrentBudget,
+    currencySymbol,
   } = useContext(GlobalContext);
 
   const notify = (type) => {
@@ -61,47 +62,43 @@ const AddBudgetCategoryForm = () => {
     });
   };
 
+  const handleBlur = (e) => {
+    //check if component mounted
+    setFormData({
+      ...formData,
+      [e.target.name]: Number(e.target.value).toFixed(2)
+      //[e.target.name]: Number(e.target.value).toFixed(2),
+    });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
     if (handleValidation(formData)) {
-      //const date = new Date(Date.now());
-      //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
       
       const newBudgetCategory = {
         id: uuidv4(),
         category: formData.category.toLowerCase() || "Category",
-        amount: Number(formData.amount),
+        amount: Number(formData.amount) * 100,
         items: []
       };
 
-      //add budget to app context
-      const budgetCategories = currentBudget.data.budgetCategories;
-      updateBudget({
+      const updatedBudget = {
         ...currentBudget,
         data: {
           ...currentBudget.data,
-          budgetCategories: [...budgetCategories, newBudgetCategory],
+          budgetCategories: [...currentBudget.data.budgetCategories, newBudgetCategory],
         },
-      });
+      }
+
+      //add budget to app context
+      updateBudget(updatedBudget);
 
       //save budget to local storage
-      updateBudgetLocally(budgets, {
-        ...currentBudget,
-        data: {
-          ...currentBudget.data,
-          budgetCategories: [...budgetCategories, newBudgetCategory],
-        },
-      });
+      updateBudgetLocally(budgets, updatedBudget);
 
       //update current budget
-      updateCurrentBudget({
-        ...currentBudget,
-        data: {
-          ...currentBudget.data,
-          budgetCategories: [...budgetCategories, newBudgetCategory],
-        },
-      });
+      updateCurrentBudget(updatedBudget);
 
       //reset form
       setFormData({
@@ -152,14 +149,18 @@ const AddBudgetCategoryForm = () => {
             />
             
             <label>Allocation:</label>
-            <input
-              className="active-input"
-              name="amount"
-              type="number"
-              value={formData.amount}
-              onChange={handleChange}
-              placeholder="Budget..."
-            />
+            <div className="currency-input">
+              {currencySymbol}
+              <input
+                className="active-input"
+                name="amount"
+                type="text"
+                value={formData.amount}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="0.00"
+              />
+            </div>
             <button className="button" onClick={onSubmit} id="addBudgetButton">
               Add Category
             </button>
@@ -203,7 +204,7 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
     top: 1rem;
     left: 1rem;
   }
-
+  
   .toggle-icon {
     width: 2rem;
     height: 2rem;
@@ -224,8 +225,8 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    font-size: 10pt;
+    justify-content: space-evenly;
+    //font-size: 10pt;
     width: 100%;
   }
   label {
@@ -235,6 +236,11 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
     padding: 0.25rem;
     //outline: none;
     //margin-right: 1rem;
+  }
+  .currency-input{
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
   }
 `;
 

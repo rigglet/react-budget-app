@@ -12,19 +12,20 @@ import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 
-const AddBudgetCategoryItemForm = ( {budgetCategory}) => {
+const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm}) => {
   const [formData, setFormData] = useState({
     item: "",
-    amount: 0.0,
+    amount: "",
   });
 
-  const [showForm, toggleShowForm] = useState(false);
+  //const [showForm, toggleShowForm] = useState(false);
 
   const {
     updateBudget,
     budgets,
     currentBudget,
     updateCurrentBudget,
+    currencySymbol
   } = useContext(GlobalContext);
 
   const notify = (type) => {
@@ -57,6 +58,15 @@ const AddBudgetCategoryItemForm = ( {budgetCategory}) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleBlur = (e) => {
+    //check if component mounted
+    setFormData({
+      ...formData,
+      [e.target.name]: Number(e.target.value).toFixed(2)
+      //[e.target.name]: Number(e.target.value).toFixed(2),
     });
   };
 
@@ -94,8 +104,8 @@ const AddBudgetCategoryItemForm = ( {budgetCategory}) => {
 
       //reset form
       setFormData({
-        item: "item...",
-        amount: "0",
+        item: "",
+        amount: "",
       });
       notify("ADDED");
     } else {
@@ -141,14 +151,18 @@ const AddBudgetCategoryItemForm = ( {budgetCategory}) => {
             />
             
             <label>Amount:</label>
-            <input
-              className="active-input"
-              name="amount"
-              type="number"
-              value={formData.amount}
-              onChange={handleChange}
-              placeholder="Enter amount..."
-            />
+            <div className="currency-input">
+              {currencySymbol}
+              <input
+                className="active-input"
+                name="amount"
+                type="text"
+                value={formData.amount}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="0.00"
+              />
+            </div>
             <button className="button" onClick={onSubmit} id="AddItemButton">
               Add Item
             </button>
@@ -162,7 +176,6 @@ const AddBudgetCategoryItemForm = ( {budgetCategory}) => {
             />
             <h4>New Item</h4>
           </div>
-          
       )}
       
     </StyledAddBudgetCategoryForm>
@@ -170,30 +183,27 @@ const AddBudgetCategoryItemForm = ( {budgetCategory}) => {
 };
 
 const StyledAddBudgetCategoryForm = styled(motion.div)`
-  border: 1px solid green;
-  padding: ${({showForm}) => (showForm ? "1rem": "0.25rem")};
-  display: ${({ showForm }) => (showForm ? "flex" : "none")};
+  //display: ${({ showForm }) => (showForm ? "flex" : "none")};
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex-grow: 1;
+  row-gap: 0.5rem;
   border-radius: 4px;
   background-color: ${({showForm}) => (showForm ? "#39393c": "transparent")};
   color: #848586;
-  display: flex;
-  flex-direction: column;
-  padding-top: 4rem;
-  //align-items: ${({showForm}) => (showForm ? "flex-start": "flex-start")};
-  //justify-content: center;
-  position: relative;
+  //position: relative;
   transition: 0.3s ease-in all;
   
   .show-header{
-    //border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     column-gap: 1rem;
-    position: absolute;
-    width: 100%;
     top: 0;
     left: 0;
+    z-index: 2;
   }
 
   .toggle-icon {
@@ -205,19 +215,20 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
     border: 2px solid #00b4ee;
     border-radius: 50%;
     padding: 0.25rem;
+    //align-self: center;
   }
-
+  
   h4 {
     color: white;
     font-weight: 500;
   }
-
+  
   form {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    font-size: 10pt;
+    justify-content: space-evenly;
+    column-gap: 1rem;
     width: 100%;
   }
   label {
@@ -225,8 +236,11 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
   }
   input{
     padding: 0.25rem;
-    //outline: none;
-    //margin-right: 1rem;
+  }
+  .currency-input{
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
   }
 `;
 

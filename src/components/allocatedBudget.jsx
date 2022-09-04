@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 //import { updateBudgetLocally} from "../util";
 import Progressbar from "./Progressbar";
 
-const UncategorizedBudget = ({uncategorisedPercentage, uncategorisedTotal, uncategorisedBudgetTotal}) => {
+const AllocatedBudget = ({uncategorisedPercentage, uncategorisedTotal, uncategorisedBudgetTotal}) => {
   
   return (
-    <StyledUncategorizedBudget>
+    <StyledAllocatedBudget>
       <div className="titlebar">
         <h4>Unallocated funds</h4>
         <div className="percentage">{Number(uncategorisedPercentage).toFixed()} %</div>  
@@ -14,11 +14,11 @@ const UncategorizedBudget = ({uncategorisedPercentage, uncategorisedTotal, uncat
       </div>
       <Progressbar percentage={uncategorisedPercentage}/>
       
-    </StyledUncategorizedBudget>
+    </StyledAllocatedBudget>
   );
 };
 
-const StyledUncategorizedBudget = styled(motion.div)`
+const StyledAllocatedBudget = styled(motion.div)`
   /* padding: 1rem;
   width: 100%;
   border-radius: 4px;
@@ -58,4 +58,4 @@ const StyledUncategorizedBudget = styled(motion.div)`
   }
 `;
 
-export default UncategorizedBudget;
+export default AllocatedBudget;
