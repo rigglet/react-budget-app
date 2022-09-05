@@ -43,8 +43,30 @@ const Summary = () => {
         <div className="title">
           <h3 className="">Summary</h3>
         </div>
-        <div className="content">
-          
+        
+        <div className="key">
+          <div className="element">
+            <div className="color background-income-color"></div>
+            <h5 className="legend">Income</h5>
+          </div>
+          <div className="element">
+            <div className="color background-allocated-color"></div>
+            <h5 className="legend">Allocated</h5>
+          </div>
+          <div className="element">
+            <div className="color background-unallocated-color"></div>
+            <h5 className="legend">Unallocated</h5>
+          </div>
+          <div className="element">
+            <div className="color background-expenditure-color"></div>
+            <h5 className="legend">Expenditure</h5>
+          </div>
+          <div className="element">
+            <div className="color background-balance-color"></div>
+            <h5 className="legend">Balance</h5>
+          </div>
+        </div>
+        <div className="content">  
           <UncategorizedBudget
             uncategorisedTotal={uncategorisedTotal}
             netIncome={netIncome}
@@ -94,6 +116,30 @@ const StyledSummary = styled(motion.div)`
     flex-direction: column;
     width: 70vw;
   }
+
+  .key {
+    width: 100%;
+    display: flex;
+    column-gap: 0.25rem;
+    justify-content: space-between;
+    
+    .element {
+      display: flex;
+      align-items: center;
+      column-gap: 0.25rem;
+      flex-shrink: 1;
+      
+      .color {
+        width: 25px;
+        height: 25px;
+        border-radius: 4px;
+      }
+      .legend {
+        color: whitesmoke;
+      }
+    }
+
+  } 
 
   .charts {
     display: flex;

@@ -44,6 +44,22 @@ const GlobalStyle = createGlobalStyle`
 .expenditure-color{
   color: var(--expenditure-color);
 }
+//background utility classes 
+.background-income-color{
+  background-color: var(--income-color);
+}
+.background-allocated-color{
+  background-color: var(--allocated-color);
+}
+.background-unallocated-color{
+  background-color: var(--unallocated-color);
+}
+.background-balance-color{
+  background-color: var(--balance-color);
+}
+.background-expenditure-color{
+  background-color: var(--expenditure-color);
+}
 
 body{
     color: #FFFFFF;

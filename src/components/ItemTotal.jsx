@@ -6,9 +6,6 @@ import Progressbar from "./Progressbar";
 const ItemTotal = ({expenditureTotal, allocatedFundsTotal}) => {
  
   const percentage = expenditureTotal / (allocatedFundsTotal/100) * 100;
-  console.log(expenditureTotal);
-  console.log(allocatedFundsTotal/100);
-  console.log(percentage);
 
   return (
     <StyledItemTotal>
