@@ -13,16 +13,12 @@ const Summary = () => {
       return category.items.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
     
-    // const allocatedTotal = currentBudget.data.budgetCategories.map((category) => {
-    //   return category.items.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0)
-    // }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    console.log(expenditureTotal) 
   
     //annual net income
-    const uncategorisedBudgetTotal = currentBudget.data.income.annualNet / 100;
+    const netIncome = currentBudget.data.income.annualNet / 100;
     //annual net income minus total allocated funds
-    const uncategorisedTotal = uncategorisedBudgetTotal - allocatedFundsTotal / 100;
-    //uncategorised funds as percentage of annual net figure
-    const uncategorisedPercentage = uncategorisedTotal / uncategorisedBudgetTotal * 100;
+    const uncategorisedTotal = netIncome - allocatedFundsTotal / 100;
     
 
   return (
@@ -50,10 +46,9 @@ const Summary = () => {
         <div className="content">
           
           <UncategorizedBudget
-              uncategorisedTotal={uncategorisedTotal}
-              uncategorisedBudgetTotal={uncategorisedBudgetTotal}
-              uncategorisedPercentage={uncategorisedPercentage}
-              />
+            uncategorisedTotal={uncategorisedTotal}
+            netIncome={netIncome}
+          />
           <AllocatedBudget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal} />
           <ItemTotal expenditureTotal={expenditureTotal} allocatedFundsTotal={allocatedFundsTotal}/>
         </div>

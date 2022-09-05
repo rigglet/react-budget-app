@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
   --allocated-color: #9f5f90;
   --unallocated-color: #22a2bb;
   --balance-color: #b27525;
+  --expenditure-color: #e52424;
 }
 
 *{
@@ -39,6 +40,9 @@ const GlobalStyle = createGlobalStyle`
 }
 .balance-color{
   color: var(--balance-color);
+}
+.expenditure-color{
+  color: var(--expenditure-color);
 }
 
 body{

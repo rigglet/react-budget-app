@@ -3,17 +3,20 @@ import { motion } from "framer-motion";
 //import { updateBudgetLocally} from "../util";
 import Progressbar from "./Progressbar";
 
-const UncategorizedBudget = ({uncategorisedPercentage, uncategorisedTotal, uncategorisedBudgetTotal}) => {
+const UncategorizedBudget = ({uncategorisedTotal, netIncome}) => {
+  
+  //uncategorised funds as percentage of annual net figure
+  const percentage = uncategorisedTotal / netIncome * 100;
   
   return (
     <StyledUncategorizedBudget>
       <div className="titlebar">
         <h4>Unallocated funds / income</h4>
-        <div className="percentage">{Number(uncategorisedPercentage).toFixed()} %</div>  
-        <div className="total"><span className="unallocated-color">${Number(uncategorisedTotal).toFixed(2)}</span> / <span className="income-color">${Number(uncategorisedBudgetTotal).toFixed(2)}</span></div>  
+        <div className="percentage">{Number(percentage).toFixed()} %</div>  
+        <div className="total"><span className="unallocated-color">${Number(uncategorisedTotal).toFixed(2)}</span> / <span className="income-color">${Number(netIncome).toFixed(2)}</span></div>  
       </div>
 
-      <Progressbar percentage={uncategorisedPercentage}/>
+      <Progressbar percentage={percentage}/>
       
     </StyledUncategorizedBudget>
   );
@@ -32,7 +35,7 @@ const StyledUncategorizedBudget = styled(motion.div)`
   .titlebar{
     display: flex;
     column-gap: 1rem;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     color: whitesmoke;
 

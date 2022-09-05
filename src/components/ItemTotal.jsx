@@ -4,15 +4,18 @@ import { motion } from "framer-motion";
 import Progressbar from "./Progressbar";
 
 const ItemTotal = ({expenditureTotal, allocatedFundsTotal}) => {
-  
-  const percentage = expenditureTotal / allocatedFundsTotal * 100;
+ 
+  const percentage = expenditureTotal / (allocatedFundsTotal/100) * 100;
+  console.log(expenditureTotal);
+  console.log(allocatedFundsTotal/100);
+  console.log(percentage);
 
   return (
     <StyledItemTotal>
       <div className="titlebar">
-        <h4>Expenditure total / allocated</h4>
+        <h4>Expenditure total / allocated budget</h4>
         <div className="percentage">{Number(percentage).toFixed()} %</div>  
-        <div className="total"><span className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</span> / <span className="income-color">${Number(56/100).toFixed(2)}</span></div>  
+        <div className="total"><span className="expenditure-color">${Number(expenditureTotal).toFixed(2)}</span> / <span className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</span></div>  
       </div>
       <Progressbar percentage={percentage}/>
       
@@ -21,13 +24,6 @@ const ItemTotal = ({expenditureTotal, allocatedFundsTotal}) => {
 };
 
 const StyledItemTotal = styled(motion.div)`
-  /* padding: 1rem;
-  width: 100%;
-  border-radius: 4px;
-  background-color: #39393c;
-  color: #848586;
-  align-items: flex-start;
-  */
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -35,29 +31,18 @@ const StyledItemTotal = styled(motion.div)`
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
-  color: #848586;
+  row-gap: 1rem;
     
   .titlebar{
     display: flex;
+    column-gap: 1rem;
     justify-content: space-between;
     align-items: center;
+    color: whitesmoke;
 
     h4 {
-    color: white;
     font-weight: 500;
-    margin-bottom: 1rem;
     }
-    .total, .percentage {
-      //color: whitesmoke;
-    }
-  }
-  
-  .buttons{
-    padding: 0.5rem 0rem;
-    display: flex;
-    align-items: center;
-    justify-contents: flex-start;
-    column-gap: 1rem;
   }
 `;
 

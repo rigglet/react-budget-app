@@ -20,30 +20,6 @@ const AllocatedBudget = ({income, allocatedFundsTotal}) => {
 };
 
 const StyledAllocatedBudget = styled(motion.div)`
-  /* display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 1;
-  padding: 1rem;
-  border-radius: 4px;
-  background-color: #39393c;
-  color: #848586;
-    
-  .titlebar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    h4 {
-    color: white;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    }
-    .total, .percentage {
-      //color: whitesmoke;
-    }
-  } */
-  
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -56,13 +32,12 @@ const StyledAllocatedBudget = styled(motion.div)`
   .titlebar{
     display: flex;
     column-gap: 1rem;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     color: whitesmoke;
 
     h4 {
-    //color: white;
-    font-weight: 500;
+      font-weight: 500;
     }
   }
 `;
