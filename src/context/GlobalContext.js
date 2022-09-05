@@ -38,7 +38,7 @@ const initialState = {
   },
   
   currentBudgetId: "",
-  //currentBudget: {},
+  currentBudget: {},
   isBudgetLoaded: false,
   includeMandatory: false,
   includeDisposableOnly: false,
@@ -47,6 +47,7 @@ const initialState = {
     from: moment().startOf("month"),
     to: moment().endOf("month"),
   },
+  allocatedFundsTotal: 0,
 };
 
 //create context
@@ -57,6 +58,12 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   //BUDGET Actions
+  const updateAllocatedFunds = (allocated) => {
+    dispatch({
+      type: "UPDATE_ALLOCATED",
+      payload: allocated,
+    });
+  };
   const loadBudgets = (budgets) => {
     dispatch({
       type: "LOAD_BUDGETS",
@@ -81,6 +88,7 @@ export const GlobalProvider = ({ children }) => {
       payload: budget,
     });
   };
+
   //BUDGET ITEM ACTIONS
   const addBudgetItem = (budget) => {
     dispatch({
@@ -146,6 +154,8 @@ export const GlobalProvider = ({ children }) => {
         includeDisposableOnly: state.includeDisposableOnly,
         currencySymbol: state.currencySymbol,
         dateRange: state.dateRange,
+        allocatedFundsTotal: state.allocatedFundsTotal,
+        updateAllocatedFunds,
         loadBudgets,
         addBudget,
         deleteBudget,

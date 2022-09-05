@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import BudgetList from "../components/settings/BudgetList";
@@ -7,15 +7,15 @@ import { GlobalContext } from "../context/GlobalContext";
 
 const Budget = () => {
   
-  const {currentBudget} = useContext(GlobalContext);
-  
-  const expenditureTotal = currentBudget.data.budgetCategories.map((category) => {
-    return category.items.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0)
-  }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-  
+  const {currentBudget, updateAllocatedFunds} = useContext(GlobalContext);
+
   const allocatedFundsTotal = currentBudget.data.budgetCategories
     .map(category => category.amount)
     .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  
+  useEffect(() => {
+    updateAllocatedFunds(allocatedFundsTotal);
+  },[allocatedFundsTotal])
 
   return (
     <StyledBudget>

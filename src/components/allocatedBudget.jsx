@@ -3,32 +3,27 @@ import { motion } from "framer-motion";
 //import { updateBudgetLocally} from "../util";
 import Progressbar from "./Progressbar";
 
-const AllocatedBudget = ({uncategorisedPercentage, uncategorisedTotal, uncategorisedBudgetTotal}) => {
+const AllocatedBudget = ({income, allocatedFundsTotal}) => {
   
+  const percentage = allocatedFundsTotal / income * 100;
   return (
     <StyledAllocatedBudget>
       <div className="titlebar">
-        <h4>Unallocated funds</h4>
-        <div className="percentage">{Number(uncategorisedPercentage).toFixed()} %</div>  
-        <div className="total">${Number(uncategorisedTotal).toFixed(2)} / <span className="allocated-color">${Number(uncategorisedBudgetTotal).toFixed(2)}</span></div>  
+        <h4>Allocated budget / income</h4>
+        <div className="percentage">{Number(percentage).toFixed()} %</div>  
+        <div className="total"><span className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</span> / <span className="income-color">${Number(income/100).toFixed(2)}</span></div>  
       </div>
-      <Progressbar percentage={uncategorisedPercentage}/>
+      <Progressbar percentage={percentage}/>
       
     </StyledAllocatedBudget>
   );
 };
 
 const StyledAllocatedBudget = styled(motion.div)`
-  /* padding: 1rem;
-  width: 100%;
-  border-radius: 4px;
-  background-color: #39393c;
-  color: #848586;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  */
-  
+  flex-grow: 1;
+  flex-shrink: 1;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
@@ -47,14 +42,28 @@ const StyledAllocatedBudget = styled(motion.div)`
     .total, .percentage {
       //color: whitesmoke;
     }
-  }
+  } */
   
-  .buttons{
-    padding: 0.5rem 0rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #39393c;
+  row-gap: 1rem;
+    
+  .titlebar{
     display: flex;
-    align-items: center;
-    justify-contents: flex-start;
     column-gap: 1rem;
+    justify-content: space-evenly;
+    align-items: center;
+    color: whitesmoke;
+
+    h4 {
+    //color: white;
+    font-weight: 500;
+    }
   }
 `;
 

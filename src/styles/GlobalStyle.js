@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
 :root {
   --income-color: #1effa5;
   --allocated-color: #9f5f90;
+  --unallocated-color: #22a2bb;
   --balance-color: #b27525;
 }
 
@@ -32,6 +33,9 @@ const GlobalStyle = createGlobalStyle`
 }
 .allocated-color{
   color: var(--allocated-color);
+}
+.unallocated-color{
+  color: var(--unallocated-color);
 }
 .balance-color{
   color: var(--balance-color);

@@ -1,5 +1,6 @@
 export const reducer = (state, action) => {
   const ACTIONS = {
+    updateAllocatedFunds: "UPDATE_ALLOCATED",
     loadBudgets: "LOAD_BUDGETS",
     addBudget: "ADD_BUDGET",
     deleteBudget: "DELETE_BUDGET",
@@ -33,7 +34,7 @@ export const reducer = (state, action) => {
         ...state,
         budgets: state.budgets.filter((item) => item.id !== action.payload),
       };
-    case ACTIONS.updateBudget:
+      case ACTIONS.updateBudget:
       //const bi = state.budgets.filter((item) => item.id !== action.payload.id);
       return {
         ...state,
@@ -44,19 +45,24 @@ export const reducer = (state, action) => {
       };
 
     //OTHER
+    case ACTIONS.updateAllocatedFunds:
+      return {
+        ...state,
+        allocatedFundsTotal: action.payload,
+      };
     case ACTIONS.updateCurrentBudgetId:
       return {
         ...state,
         currentBudgetId: action.payload,
       };
-    case ACTIONS.updateCurrentBudget:
-      return {
-        ...state,
-        currentBudget: action.payload,
-      };
-    case ACTIONS.updateBudgetLoaded:
-      return {
-        ...state,
+      case ACTIONS.updateCurrentBudget:
+        return {
+          ...state,
+          currentBudget: action.payload,
+        };
+        case ACTIONS.updateBudgetLoaded:
+          return {
+            ...state,
         isBudgetLoaded: action.payload,
       };
     case ACTIONS.updateIncludeMandatory:
