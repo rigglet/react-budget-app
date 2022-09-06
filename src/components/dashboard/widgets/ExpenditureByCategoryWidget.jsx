@@ -20,13 +20,18 @@ const BudgetByCategoryWidget = () => {
   const [period, setPeriod] = useState("daily");
   const { currencySymbol, currentBudget } = useContext(GlobalContext);
 
-  const budgetItems = currentBudget.data.budgetItems;
-  let subTotal = getAllocatedPerPeriod(currentBudget, period);
-  let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
-  const remaining = (selectedPeriod - subTotal).toFixed(2);
+  console.log(currentBudget)
+
+  // const budgetCategories = currentBudget.data.budgetCategories;
+  // //let subTotal = getAllocatedPerPeriod(currentBudget, period);
+  // //let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
+  let subTotal = 100;
+  let selectedPeriod = currentBudget.data.income.annualNet;
+  // const remaining = (selectedPeriod - subTotal).toFixed(2);
   let maxYRange = 0;
 
-  let accumulatedSubTotals = getAccumulatedSubTotals(currentBudget);
+  // //let accumulatedSubTotals = getAccumulatedSubTotals(currentBudget);
+  let accumulatedSubTotals = [10, 20, 30, 40, 50];
 
   const handlePeriodChange = (v) => {
     setPeriod(v);
@@ -37,32 +42,34 @@ const BudgetByCategoryWidget = () => {
     setToggleTable(!toggleTable);
   };
 
-  //Chart data
-  const filteredCategories = [
-    ...new Set(budgetItems.map((b) => b.category.toLowerCase())),
-  ];
+  // //Chart data
+  // const filteredCategories = [
+  //   ...new Set(budgetCategories.map((b) => b.category.toLowerCase())),
+  // ];
   
-  //CREATE ARRAY DATA FROM YEARLY ACCUMULATED TOTALS
+  // //CREATE ARRAY DATA FROM YEARLY ACCUMULATED TOTALS
   let dataArray = [];
-  switch (period) {
-    case "daily":
-      dataArray = accumulatedSubTotals.map((category) => category.amount / 365);
-      break;
-    case "weekly":
-      dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
-      break;
-    case "monthly":
-      dataArray = accumulatedSubTotals.map((category) => category.amount / 12);
-      break;
-    case "annually":
-      dataArray = accumulatedSubTotals.map((category) => category.amount);
-      break;
-    default:
-      dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
-  }
+  dataArray = [1,2,3,4,5]
+  // switch (period) {
+  //   case "daily":
+  //     dataArray = accumulatedSubTotals.map((category) => category.amount / 365);
+  //     break;
+  //   case "weekly":
+  //     dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
+  //     break;
+  //   case "monthly":
+  //     dataArray = accumulatedSubTotals.map((category) => category.amount / 12);
+  //     break;
+  //   case "annually":
+  //     dataArray = accumulatedSubTotals.map((category) => category.amount);
+  //     break;
+  //   default:
+  //     dataArray = accumulatedSubTotals.map((category) => category.amount / 52);
+  // }
 
-  //set upper ranage of y axis to highest number plus 10%
-  maxYRange = Math.max(...dataArray) * 1.1;
+  // //set upper ranage of y axis to highest number plus 10%
+  //maxYRange = Math.max(...dataArray) * 1.1;
+  maxYRange = 100;
 
   const options = {
     //maintainAspectRatio: false,
@@ -99,8 +106,10 @@ const BudgetByCategoryWidget = () => {
     responsiveAnimationDuration: 300,
     aspectRatio: 1,
   };
+
   const data = {
-    labels: filteredCategories,
+    //labels: filteredCategories,
+    labels: ["a","b","c","d","e"],
     datasets: [
       {
         //#e69a07
@@ -131,14 +140,15 @@ const BudgetByCategoryWidget = () => {
     "% of total",
   ];
 
-  const rows = accumulatedSubTotals.map((item) => {
-    return [
-      item.category,
-      item.amount,
-      (100 / subTotal) * item.amount,
-      (100 / selectedPeriod) * item.amount,
-    ];
-  });
+  // const rows = accumulatedSubTotals.map((item) => {
+  //   return [
+  //     item.category,
+  //     item.amount,
+  //     (100 / subTotal) * item.amount,
+  //     (100 / selectedPeriod) * item.amount,
+  //   ];
+  // });
+  const rows = [["cat", 1, 1, 2]]
 
   const getTableData = (headerRow, dataRows) => {
     let arr2D = [];
@@ -147,14 +157,14 @@ const BudgetByCategoryWidget = () => {
   };
 
   const arrData = getTableData(headerRow, rows);
-  console.log(arrData);
+  // console.log(arrData);
 
   return (
     <StyledBreakdown>
       <div className="heading">
         <h4>Budget breakdown by category</h4>
-        {currentBudget.data.income.yearlyNet > 0 &&
-          currentBudget.data.budgetItems.length > 0 && (
+        {currentBudget.data.income.annualNet > 0 &&
+          currentBudget.data.budgetCategories.length > 0 && (
             <div className="iconSelect">
               {toggleTable ? (
                 <AiOutlineTable
@@ -168,17 +178,24 @@ const BudgetByCategoryWidget = () => {
           )}
       </div>
 
-      {currentBudget.data.income.yearlyNet > 0 &&
-      currentBudget.data.budgetItems.length > 0 ? (
-        <>
-          <AllocatedSelector
+      {currentBudget.data.income.annualNet > 0 &&
+      currentBudget.data.budgetCategories.length > 0 ? (
+          <>
+            <Table
+                arrData={arrData}
+                accumulatedSubTotals={accumulatedSubTotals}
+                data={dataArray}
+                allocated={subTotal}
+                total={selectedPeriod}
+              />
+          {/* <AllocatedSelector
             period={period}
             handlePeriodChange={handlePeriodChange}
             subTotal={subTotal}
             remaining={remaining}
             selectedPeriod={selectedPeriod}
-          />
-          <div className="data">
+          /> */}
+          {/* <div className="data">
             {toggleTable ? (
               <div className="chart">
                 <Bar
@@ -198,7 +215,8 @@ const BudgetByCategoryWidget = () => {
               />
             )}
           </div>
-        </>
+        */}
+        </> 
       ) : (
         <>
           <p>No data to display.</p>

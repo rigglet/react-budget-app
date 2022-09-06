@@ -113,30 +113,41 @@ const AddBudgetForm = () => {
         />
         
         <h4>New Budget</h4>
+        
         <form>
-          <label>Name:</label>
-          <input
-            className="active-input"
-            size="30"
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name..."
-          />
-          <label>Description:</label>
-          <input
-            className="active-input"
-            size="40"
-            name="description"
-            type="text"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Description..."
-          />
-          <button className="button" onClick={onSubmit} id="addBudgetButton">
+          <div className="fields">
+            <div className="item">
+              <label>Name:</label>
+              <input
+                className="active-input"
+                // size="40"
+                name="name"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name..."
+              />
+            </div>
+
+            <div className="item">
+              <label>Description:</label>
+              <input
+                className="active-input"
+                // size="40"
+                name="description"
+                type="text"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Description..."
+              />
+            </div>
+          </div>
+          
+          <div>
+            <button className="button" onClick={onSubmit} id="addBudgetButton">
             Add Budget
           </button>
+          </div>
         </form>
       </StyledAddbudgetForm>
     </div>
@@ -146,15 +157,9 @@ const AddBudgetForm = () => {
 const StyledAddbudgetForm = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  //align-items: flex-start;
-  //justify-content: space-between;
-  //margin-bottom: 1rem;
   padding: 1rem 1.5rem;
-  //min-width: 100%;
-  //min-height: 8vh;
   border-radius: 4px;
   background-color: #39393c;
-  //border-left: transparent 0.25rem solid;
   color: #848586;
   width: 70vw;
 
@@ -165,18 +170,31 @@ const StyledAddbudgetForm = styled(motion.div)`
   }
   form {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 10pt;
-    width: 100%;
-  }
-  label {
-    margin-right: 0.25rem;
-  }
-  input {
-    padding: 0.25rem;
-    outline: none;
-    margin-right: 1rem;
+    flex-wrap: wrap;
+    row-gap: 1rem; 
+    column-gap: 2rem;
+    
+    .fields{
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      row-gap: 1rem;
+      column-gap: 2rem;
+
+      .item {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5rem;
+        
+        input {
+          flex-grow: 1;
+          padding: 0.25rem;
+          outline: none;
+        }
+      }
+    }
   }
 `;
 

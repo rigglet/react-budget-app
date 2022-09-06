@@ -41,7 +41,7 @@ export const divideValues = (o) => {
 
 //returns an array of budget subtotals per category
 export const getAccumulatedSubTotals = (currentBudget) => {
-  return currentBudget.data.budgetItems.reduce(
+  return currentBudget?.data?.budgetItems.reduce(
     (acc, obj, currentIndex, array) => {
       let found = false;
       let pointer = 0;

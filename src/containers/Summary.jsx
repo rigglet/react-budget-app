@@ -6,7 +6,8 @@ import AllocatedBudget from "../components/AllocatedBudget";
 import ExpenditureByIncomeWidget from "../components/ExpeditureByIncomeWidget";
 import ItemTotal from "../components/ItemTotal";
 import { GlobalContext } from "../context/GlobalContext";
-import AllocatedWidget from "../components/dashboard/widgets/AllocatedWidget";
+//import AllocatedWidget from "../components/dashboard/widgets/AllocatedWidget";
+import ExpenditureByCategoryWidget from "../components/dashboard/widgets/ExpenditureByCategoryWidget";
 
 const Summary = () => {
   const {currentBudget, allocatedFundsTotal} = useContext(GlobalContext);
@@ -76,7 +77,8 @@ const Summary = () => {
           <AllocatedBudget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal} />
           <ExpenditureByIncomeWidget expenditureTotal={expenditureTotal} income={currentBudget.data.income.annualNet} />
           <ItemTotal expenditureTotal={expenditureTotal} allocatedFundsTotal={allocatedFundsTotal} />
-          <AllocatedWidget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal}/>
+          {/* <AllocatedWidget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal}/> */}
+          <ExpenditureByCategoryWidget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal}/>
         </div>
       </div>
     </StyledSummary>

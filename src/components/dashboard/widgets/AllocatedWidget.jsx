@@ -23,10 +23,10 @@ const AllocatedWidget = ({income, allocatedFundsTotal}) => {
   let selectedPeriod = income/100;
   const remaining = Number(selectedPeriod) - Number(subTotal);
 
-  console.log(subTotal)
-  console.log(selectedPeriod)
-  console.log(remaining)
-  console.log(currentBudget)
+  // console.log(subTotal)
+  // console.log(selectedPeriod)
+  // console.log(remaining)
+  // console.log(currentBudget)
 
   const handlePeriodChange = (value) => {
     setPeriod(value);
