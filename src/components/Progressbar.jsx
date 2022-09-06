@@ -7,7 +7,8 @@ const Progressbar = ({ percentage }) => {
     
     return (
     <StyledProgressBar width={percentage} progressColor={progressColor}>
-          <div className="value"></div>
+            <div className="value"></div>
+            <h5 className="percentage"><span className="number">{Number(percentage).toFixed()}%</span></h5>
     </StyledProgressBar>
   )
 }
@@ -15,10 +16,10 @@ const Progressbar = ({ percentage }) => {
 const StyledProgressBar = styled(motion.div)`
     position: relative;
     width: 100%;
-    height: 15px;
+    height: 20px;
     background-color: #aeaeae;
     border-radius: 4px;
-    
+
     .value{
         position: absolute;
         top: 0;
@@ -28,6 +29,21 @@ const StyledProgressBar = styled(motion.div)`
         width: ${({ width }) => (width)}%;
         background-color: ${({ progressColor }) => (progressColor)};
     }
+    .percentage{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .number{
+            color: #313131;
+        }
+    }
+
 `;
 
 export default Progressbar;

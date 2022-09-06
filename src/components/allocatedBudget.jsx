@@ -10,7 +10,7 @@ const AllocatedBudget = ({income, allocatedFundsTotal}) => {
     <StyledAllocatedBudget>
       <div className="titlebar">
         <h4>Allocated budget / income</h4>
-        <div className="percentage">{Number(percentage).toFixed()} %</div>  
+        {/* <div className="percentage">{Number(percentage).toFixed()} %</div>   */}
         <div className="total"><span className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</span> / <span className="income-color">${Number(income/100).toFixed(2)}</span></div>  
       </div>
       <Progressbar percentage={percentage}/>

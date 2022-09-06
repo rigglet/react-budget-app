@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
   --income-color: #1effa5;
   --allocated-color: #9f5f90;
   --unallocated-color: #22a2bb;
-  --balance-color: #b27525;
+  --balance-color: #dee14b;
   --expenditure-color: #e52424;
 }
 

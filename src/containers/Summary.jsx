@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import UncategorizedBudget from "../components/UncategorizedBudget";
 import AllocatedBudget from "../components/AllocatedBudget";
+import ExpenditureByIncomeWidget from "../components/ExpeditureByIncomeWidget";
 import ItemTotal from "../components/ItemTotal";
 import { GlobalContext } from "../context/GlobalContext";
+import AllocatedWidget from "../components/dashboard/widgets/AllocatedWidget";
 
 const Summary = () => {
   const {currentBudget, allocatedFundsTotal} = useContext(GlobalContext);
@@ -13,7 +15,7 @@ const Summary = () => {
       return category.items.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
     
-    console.log(expenditureTotal) 
+    //console.log(expenditureTotal) 
   
     //annual net income
     const netIncome = currentBudget.data.income.annualNet / 100;
@@ -72,7 +74,9 @@ const Summary = () => {
             netIncome={netIncome}
           />
           <AllocatedBudget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal} />
-          <ItemTotal expenditureTotal={expenditureTotal} allocatedFundsTotal={allocatedFundsTotal}/>
+          <ExpenditureByIncomeWidget expenditureTotal={expenditureTotal} income={currentBudget.data.income.annualNet} />
+          <ItemTotal expenditureTotal={expenditureTotal} allocatedFundsTotal={allocatedFundsTotal} />
+          <AllocatedWidget income={currentBudget.data.income.annualNet} allocatedFundsTotal={allocatedFundsTotal}/>
         </div>
       </div>
     </StyledSummary>
@@ -80,7 +84,7 @@ const Summary = () => {
 };
 
 const StyledSummary = styled(motion.div)`
-  padding-top: 1rem;
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,8 +95,9 @@ const StyledSummary = styled(motion.div)`
     width: 70vw;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
+    justify-content: center;
+    column-gap: 3rem;
+    flex-wrap: wrap;
     
     .item {
       display: flex;
@@ -120,13 +125,15 @@ const StyledSummary = styled(motion.div)`
   .key {
     width: 100%;
     display: flex;
-    column-gap: 0.25rem;
-    justify-content: space-between;
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
     
     .element {
       display: flex;
       align-items: center;
-      column-gap: 0.25rem;
+      column-gap: 0.5rem;
       flex-shrink: 1;
       
       .color {

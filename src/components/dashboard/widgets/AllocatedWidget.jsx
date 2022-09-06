@@ -11,13 +11,22 @@ import {
 import AllocatedSelector from "../AllocatedSelector";
 import AllocatedChart from "../AllocatedChart";
 
-const AllocatedWidget = () => {
+const AllocatedWidget = ({income, allocatedFundsTotal}) => {
   const [period, setPeriod] = useState("daily");
   const { currentBudget } = useContext(GlobalContext);
 
-  let subTotal = getAllocatedPerPeriod(currentBudget, period);
-  let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
+  // let subTotal = getAllocatedPerPeriod(currentBudget, period);
+  // let selectedPeriod = getNetIncomeForPeriod(currentBudget, period);
+  // const remaining = Number(selectedPeriod) - Number(subTotal);
+  
+  let subTotal = allocatedFundsTotal/100;
+  let selectedPeriod = income/100;
   const remaining = Number(selectedPeriod) - Number(subTotal);
+
+  console.log(subTotal)
+  console.log(selectedPeriod)
+  console.log(remaining)
+  console.log(currentBudget)
 
   const handlePeriodChange = (value) => {
     setPeriod(value);
@@ -26,7 +35,7 @@ const AllocatedWidget = () => {
   return (
     <StyledAllocated>
       <h4>Budget allocated / remaining</h4>
-      {currentBudget.data.income.yearlyNet > 0 ? (
+      {currentBudget.data.income.annualNet > 0 ? (
         <>
           <AllocatedSelector
             period={period}

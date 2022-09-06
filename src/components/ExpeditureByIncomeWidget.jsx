@@ -3,24 +3,24 @@ import { motion } from "framer-motion";
 //import { updateBudgetLocally} from "../util";
 import Progressbar from "./Progressbar";
 
-const ItemTotal = ({expenditureTotal, allocatedFundsTotal}) => {
+const ExpenditureByIncomeWidget = ({expenditureTotal, income}) => {
  
-  const percentage = expenditureTotal / (allocatedFundsTotal/100) * 100;
+  const percentage = expenditureTotal / (income/100) * 100;
 
   return (
-    <StyledItemTotal>
+    <StyledExpenditureByIncomeWidget>
       <div className="titlebar">
-        <h4>Expenditure total / allocated budget</h4>
+        <h4>Expenditure total / Income</h4>
         {/* <div className="percentage">{Number(percentage).toFixed()} %</div>   */}
-        <div className="total"><span className="expenditure-color">${Number(expenditureTotal).toFixed(2)}</span> / <span className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</span></div>  
+        <div className="total"><span className="expenditure-color">${Number(expenditureTotal).toFixed(2)}</span> / <span className="income-color">${Number(income/100).toFixed(2)}</span></div>  
       </div>
       <Progressbar percentage={percentage}/>
       
-    </StyledItemTotal>
+    </StyledExpenditureByIncomeWidget>
   );
 };
 
-const StyledItemTotal = styled(motion.div)`
+const StyledExpenditureByIncomeWidget = styled(motion.div)`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -43,4 +43,4 @@ const StyledItemTotal = styled(motion.div)`
   }
 `;
 
-export default ItemTotal;
+export default ExpenditureByIncomeWidget;

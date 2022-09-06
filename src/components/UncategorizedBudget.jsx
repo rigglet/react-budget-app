@@ -12,7 +12,7 @@ const UncategorizedBudget = ({uncategorisedTotal, netIncome}) => {
     <StyledUncategorizedBudget>
       <div className="titlebar">
         <h4>Unallocated funds / income</h4>
-        <div className="percentage">{Number(percentage).toFixed()} %</div>  
+        {/* <div className="percentage">{Number(percentage).toFixed()} %</div>   */}
         <div className="total"><span className="unallocated-color">${Number(uncategorisedTotal).toFixed(2)}</span> / <span className="income-color">${Number(netIncome).toFixed(2)}</span></div>  
       </div>
 

@@ -75,7 +75,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
 
           <div className="titlebar">
             <h4>{budgetCategory?.category}</h4>
-            <div className="percentage">{Number(categorisedPercentage).toFixed()} %</div>
+            {/* <div className="percentage">{Number(categorisedPercentage).toFixed()} %</div> */}
             <div className="total">${itemTotal} / ${budgetTotal}</div>  
           </div>
           
