@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FaTrashAlt} from "react-icons/fa";
-import { GlobalContext } from "../context/GlobalContext";
 import Progressbar from "./Progressbar";
 import AddBudgetCategoryItemForm from "../components/settings/AddBudgetCategoryItemForm";
 import { updateBudgetLocally} from "../utilities";
+import { formatNumber } from "../utilities";
 
 const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
   
@@ -14,6 +15,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
     currentBudget,
     updateBudget,
     updateCurrentBudget,
+    currencySymbol
   } = useContext(GlobalContext);
 
   const [showForm, toggleShowForm] = useState(false);
@@ -76,7 +78,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
           <div className="titlebar">
             <h4>{budgetCategory?.category}</h4>
             {/* <div className="percentage">{Number(categorisedPercentage).toFixed()} %</div> */}
-            <div className="total">${itemTotal} / ${budgetTotal}</div>  
+            <div className="total">{currencySymbol}{formatNumber(itemTotal)} / {currencySymbol}{formatNumber(budgetTotal)}</div>  
           </div>
           
           <Progressbar percentage={categorisedPercentage}/>

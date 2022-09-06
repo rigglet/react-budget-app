@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import BudgetList from "../components/settings/BudgetList";
 import AddBudgetCategoryForm from "../components/settings/AddBudgetCategoryForm";
 import { GlobalContext } from "../context/GlobalContext";
+import { formatNumber } from "../utilities";
 
 const Budget = () => {
   
@@ -22,15 +23,15 @@ const Budget = () => {
       <div className="heading">
         <div className="item">
           <h3>Income:</h3>
-          <p className="income-color">${Number(currentBudget.data.income.annualNet/100).toFixed(2)}</p>
+          <p className="income-color">${formatNumber(Number(currentBudget.data.income.annualNet / 100).toFixed(2))}</p>
         </div>
         <div className="item">
           <h3>Allocated:</h3>
-          <p className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</p>
+          <p className="allocated-color">${formatNumber(Number(allocatedFundsTotal/100).toFixed(2))}</p>
         </div>
         <div className="item">
           <h3>Balance:</h3>
-          <p className="balance-color">${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100).toFixed(2)}</p>
+          <p className="balance-color">${formatNumber(Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100).toFixed(2))}</p>
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+import { formatNumber } from "../../utilities";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { formatNumber } from "../../utilities";
 
 const AllocatedSelector = ({
   handlePeriodChange,
@@ -10,7 +10,7 @@ const AllocatedSelector = ({
   subTotal,
   remaining,
 }) => {
-  
+
   const { currencySymbol } = useContext(GlobalContext);
 
   return (

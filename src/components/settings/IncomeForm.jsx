@@ -18,6 +18,8 @@ const IncomeForm = () => {
     currencySymbol,
   } = useContext(GlobalContext);
 
+  console.log(currencySymbol);
+  
   //form data hook
   const [incomeData, setIncomeData] = useState(
     //divide values by 100

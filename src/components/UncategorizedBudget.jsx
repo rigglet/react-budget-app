@@ -1,9 +1,13 @@
+import { useContext } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//import { updateBudgetLocally} from "../util";
 import Progressbar from "./Progressbar";
+import { formatNumber } from "../utilities";
 
 const UncategorizedBudget = ({uncategorisedTotal, netIncome}) => {
+  
+  const { currencySymbol } = useContext(GlobalContext);
   
   //uncategorised funds as percentage of annual net figure
   const percentage = uncategorisedTotal / netIncome * 100;
@@ -13,7 +17,7 @@ const UncategorizedBudget = ({uncategorisedTotal, netIncome}) => {
       <div className="titlebar">
         <h4>Unallocated funds / income</h4>
         {/* <div className="percentage">{Number(percentage).toFixed()} %</div>   */}
-        <div className="total"><span className="unallocated-color">${Number(uncategorisedTotal).toFixed(2)}</span> / <span className="income-color">${Number(netIncome).toFixed(2)}</span></div>  
+        <div className="total"><span className="unallocated-color">{currencySymbol}{formatNumber(Number(uncategorisedTotal).toFixed(2))}</span> / <span className="income-color">${formatNumber(Number(netIncome).toFixed(2))}</span></div>  
       </div>
 
       <Progressbar percentage={percentage}/>

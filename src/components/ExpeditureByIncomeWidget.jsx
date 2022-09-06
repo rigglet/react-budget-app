@@ -1,10 +1,14 @@
+import { useContext} from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//import { updateBudgetLocally} from "../util";
+import { formatNumber } from "../utilities";
 import Progressbar from "./Progressbar";
 
 const ExpenditureByIncomeWidget = ({expenditureTotal, income}) => {
  
+  const { currencySymbol } = useContext(GlobalContext);
+
   const percentage = expenditureTotal / (income/100) * 100;
 
   return (
@@ -12,7 +16,7 @@ const ExpenditureByIncomeWidget = ({expenditureTotal, income}) => {
       <div className="titlebar">
         <h4>Expenditure total / Income</h4>
         {/* <div className="percentage">{Number(percentage).toFixed()} %</div>   */}
-        <div className="total"><span className="expenditure-color">${Number(expenditureTotal).toFixed(2)}</span> / <span className="income-color">${Number(income/100).toFixed(2)}</span></div>  
+        <div className="total"><span className="expenditure-color">{currencySymbol}{formatNumber(Number(expenditureTotal).toFixed(2))}</span> / <span className="income-color">{currencySymbol}{formatNumber(Number(income/100).toFixed(2))}</span></div>  
       </div>
       <Progressbar percentage={percentage}/>
       

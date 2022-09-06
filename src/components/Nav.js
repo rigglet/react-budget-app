@@ -33,14 +33,16 @@ const Nav = () => {
   }
 
   return (
-    <StyledNav>
-      <div className="brand">
-        <FcCalculator className="logo" />
-        <Link to="/">
-          <h4>BudgetApp</h4>
-        </Link>
-      </div>
+    
+    <StyledNav>      
       <div className="header-info">
+        <div className="brand">
+          <FcCalculator className="logo" />
+          <Link to="/">
+            <h4>BudgetApp</h4>
+          </Link>
+        </div>
+
         <ul>
           <li>
             <Link
@@ -67,6 +69,7 @@ const Nav = () => {
             
           )}
         </ul>
+       
         <ul>
           {isBudgetLoaded && (
             <>
@@ -137,6 +140,8 @@ const StyledNav = styled(motion.div)`
   align-items: center;
   justify-content: space-between;
   padding: 0 12vw;
+  flex-wrap: wrap;
+  
   //app name and icon (far left)
   .brand {
     display: flex;
@@ -165,10 +170,12 @@ const StyledNav = styled(motion.div)`
   }
   //links (middle)
   ul {
+    //flex-wrap: wrap;
     display: flex;
     align-items: center;
     list-style: none;
     text-decoration: none;
+    flex-grow: 1;
     .exit {
       display: flex;
       align-items: center;

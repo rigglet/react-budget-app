@@ -232,7 +232,6 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
   }
   
   form {
-    border: 1px solid red;
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;

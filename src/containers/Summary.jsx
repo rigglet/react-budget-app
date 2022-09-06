@@ -8,16 +8,15 @@ import ItemTotal from "../components/ItemTotal";
 import { GlobalContext } from "../context/GlobalContext";
 //import AllocatedWidget from "../components/dashboard/widgets/AllocatedWidget";
 import ExpenditureByCategoryWidget from "../components/dashboard/widgets/ExpenditureByCategoryWidget";
+import { formatNumber } from "../utilities";
 
 const Summary = () => {
-  const {currentBudget, allocatedFundsTotal} = useContext(GlobalContext);
+  const {currentBudget, allocatedFundsTotal, currencySymbol} = useContext(GlobalContext);
     
     const expenditureTotal = currentBudget.data.budgetCategories.map((category) => {
       return category.items.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0)
     }).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
     
-    //console.log(expenditureTotal) 
-  
     //annual net income
     const netIncome = currentBudget.data.income.annualNet / 100;
     //annual net income minus total allocated funds
@@ -29,15 +28,15 @@ const Summary = () => {
       <div className="heading">
         <div className="item">
           <h3>Income:</h3>
-          <p className="income-color">${Number(currentBudget.data.income.annualNet/100).toFixed(2)}</p>
+          <p className="income-color">{currencySymbol}{formatNumber(Number(currentBudget.data.income.annualNet/100).toFixed(2))}</p>
         </div>
         <div className="item">
           <h3>Allocated:</h3>
-          <p className="allocated-color">${Number(allocatedFundsTotal / 100).toFixed(2)}</p>
+          <p className="allocated-color">{currencySymbol}{formatNumber(Number(allocatedFundsTotal / 100).toFixed(2))}</p>
         </div>
         <div className="item">
           <h3>Balance:</h3>
-          <p className="balance-color">${Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100).toFixed(2)}</p>
+          <p className="balance-color">{currencySymbol}{formatNumber(Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100).toFixed(2))}</p>
         </div>
       </div>
 

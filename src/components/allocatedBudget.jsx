@@ -1,17 +1,22 @@
+import { useContext} from "react";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-//import { updateBudgetLocally} from "../util";
+import { formatNumber } from "../utilities";
 import Progressbar from "./Progressbar";
 
 const AllocatedBudget = ({income, allocatedFundsTotal}) => {
   
+  const { currencySymbol } = useContext(GlobalContext);
+
   const percentage = allocatedFundsTotal / income * 100;
+  
   return (
     <StyledAllocatedBudget>
       <div className="titlebar">
         <h4>Allocated budget / income</h4>
         {/* <div className="percentage">{Number(percentage).toFixed()} %</div>   */}
-        <div className="total"><span className="allocated-color">${Number(allocatedFundsTotal/100).toFixed(2)}</span> / <span className="income-color">${Number(income/100).toFixed(2)}</span></div>  
+        <div className="total"><span className="allocated-color">{currencySymbol}{formatNumber(Number(allocatedFundsTotal/100).toFixed(2))}</span> / <span className="income-color">{currencySymbol}{formatNumber(Number(income/100).toFixed(2))}</span></div>  
       </div>
       <Progressbar percentage={percentage}/>
       
