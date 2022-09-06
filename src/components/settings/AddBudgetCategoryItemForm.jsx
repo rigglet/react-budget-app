@@ -140,32 +140,41 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm}) 
           </div>
           
           <form>
-            <label>Item:</label>
-            <input
-              className="active-input"
-              name="item"
-              type="text"
-              value={formData.item}
-              onChange={handleChange}
-              placeholder="Item..."
-            />
-            
-            <label>Amount:</label>
-            <div className="currency-input">
-              {currencySymbol}
-              <input
-                className="active-input"
-                name="amount"
-                type="text"
-                value={formData.amount}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="0.00"
-              />
+            <div className="fields">
+              <div className="item">
+                <label>Item:</label>
+                <input
+                  className="active-input"
+                  name="item"
+                  type="text"
+                  value={formData.item}
+                  onChange={handleChange}
+                  placeholder="Item..."
+                  />
+              </div>
+              
+              <div className="item">
+                <label>Amount:</label>
+                <div className="currency-input">
+                  {currencySymbol}
+                  <input
+                    className="active-input"
+                    name="amount"
+                    type="text"
+                    value={formData.amount}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="0.00"
+                    />
+                </div>
+              </div>  
             </div>
-            <button className="button" onClick={onSubmit} id="AddItemButton">
-              Add Item
-            </button>
+            
+            <div>
+              <button className="button" onClick={onSubmit} id="AddItemButton">
+                Add Item
+              </button>
+            </div>
           </form>
             </>
       ) : (
@@ -193,7 +202,6 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
   border-radius: 4px;
   background-color: ${({showForm}) => (showForm ? "#39393c": "transparent")};
   color: #848586;
-  //position: relative;
   transition: 0.3s ease-in all;
   
   .show-header{
@@ -224,23 +232,40 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
   }
   
   form {
+    border: 1px solid red;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    column-gap: 1rem;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    row-gap: 1rem; 
+    column-gap: 2rem;
     width: 100%;
-  }
-  label {
-    margin-right: 0.25rem;
-  }
-  input{
-    padding: 0.25rem;
+
+    .fields{
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      row-gap: 1rem;
+      column-gap: 2rem;
+
+      .item {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5rem;
+        input {
+          flex-grow: 1;
+          padding: 0.25rem;
+          outline: none;
+        }        
+      }
+    }
   }
   .currency-input{
     display: flex;
     align-items: center;
     column-gap: 0.25rem;
+    flex-grow: 1;
   }
 `;
 

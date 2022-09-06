@@ -55,8 +55,11 @@ const StyledBudget = styled(motion.div)`
     width: 70vw;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
+    justify-content: center;
+    column-gap: 2rem;
+    //padding: 0 1rem;
+    flex-wrap: wrap;
+    flex-grow: 1;
     
     .item {
       display: flex;
