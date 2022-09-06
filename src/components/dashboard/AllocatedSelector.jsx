@@ -10,6 +10,7 @@ const AllocatedSelector = ({
   subTotal,
   remaining,
 }) => {
+  
   const { currencySymbol } = useContext(GlobalContext);
 
   return (

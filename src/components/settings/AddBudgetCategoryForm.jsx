@@ -138,32 +138,40 @@ const AddBudgetCategoryForm = () => {
           </div>
           
           <form>
-            <label>Category:</label>
-            <input
-              className="active-input"
-              name="category"
-              type="text"
-              value={formData.category}
-              onChange={handleChange}
-              placeholder="Category..."
-            />
-            
-            <label>Allocation:</label>
-            <div className="currency-input">
-              {currencySymbol}
-              <input
-                className="active-input"
-                name="amount"
-                type="text"
-                value={formData.amount}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="0.00"
-              />
+            <div className="fields">
+              <div className="item">
+                <label>Category:</label>
+                <input
+                  className="active-input"
+                  name="category"
+                  type="text"
+                  value={formData.category}
+                  onChange={handleChange}
+                  placeholder="Category..."
+                />
+              </div>
+              <div className="item">
+                <label>Allocation:</label>
+                <div className="currency-input">
+                  {currencySymbol}
+                  <input
+                    className="active-input"
+                    name="amount"
+                    type="text"
+                    value={formData.amount}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="0.00"
+                  />
+                </div>
+              </div>
             </div>
-            <button className="button" onClick={onSubmit} id="addBudgetButton">
-              Add Category
-            </button>
+            
+            <div className="">
+              <button className="button" onClick={onSubmit} id="addBudgetButton">
+                Add Category
+              </button>
+            </div>
           </form>
             </>
       ) : (
@@ -219,28 +227,41 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
   h4 {
     color: white;
     font-weight: 500;
-    //margin-bottom: 1rem;
   }
+
   form {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    //font-size: 10pt;
-    width: 100%;
+    flex-wrap: wrap;
+    row-gap: 1rem; 
+    column-gap: 2rem;
+
+    .fields{
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      row-gap: 1rem;
+      column-gap: 2rem;
+
+      .item {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5rem;
+        input {
+          flex-grow: 1;
+          padding: 0.25rem;
+          outline: none;
+        }        
+      }
+    }
   }
-  label {
-    margin-right: 0.25rem;
-  }
-  input{
-    padding: 0.25rem;
-    //outline: none;
-    //margin-right: 1rem;
-  }
+  
   .currency-input{
     display: flex;
     align-items: center;
     column-gap: 0.25rem;
+    flex-grow: 1;
   }
 `;
 
