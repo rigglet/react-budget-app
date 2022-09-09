@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
-import { updateBudgetLocally, sortByCategoryThenByItem } from "../../utilities";
+import { updateBudgetLocally, sortByCategoryThenByItem, calculateFundsTotal } from "../../utilities";
 //import UncategorizedBudget from "../../components/UncategorizedBudget"
 import CategorizedBudget from "../../components/CategorizedBudget"
 
@@ -13,6 +13,7 @@ const BudgetList = () => {
     currentBudget,
     updateBudget,
     updateCurrentBudget,
+    updateAllocatedFunds,
   } = useContext(GlobalContext);
 
   const budgetCategories = currentBudget.data.budgetCategories;
@@ -25,6 +26,8 @@ const BudgetList = () => {
         budgetCategories: budgetCategories.filter((item) => item.id !== id),
        },
     };
+
+    updateAllocatedFunds(calculateFundsTotal(newBudget));
 
     //update global context
     updateBudget(newBudget);
@@ -41,12 +44,6 @@ const BudgetList = () => {
   return (
     <StyledBudgetList>
         
-      {/* <UncategorizedBudget
-        uncategorisedTotal={uncategorisedTotal}
-        uncategorisedBudgetTotal={uncategorisedBudgetTotal}
-        uncategorisedPercentage={uncategorisedPercentage}
-      /> */}
-      
       {
         budgetCategories.map((category) => (
           <CategorizedBudget

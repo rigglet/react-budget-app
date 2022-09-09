@@ -5,53 +5,54 @@ import { motion } from "framer-motion";
 import { formatNumber } from "../../utilities";
 import { v4 as uuidv4 } from "uuid";
 
-//BUILD GENERIC TABLE COMPONENT
-const Table = ({ accumulatedSubTotals, data, allocated, total }) => {
-  const { currencySymbol } = useContext(GlobalContext);
 
+//BUILD GENERIC TABLE COMPONENT
+const Table = ({ headings, accumulatedSubTotals, dataArray, netIncomeForPeriod}) => {
+  const { currencySymbol } = useContext(GlobalContext);
+  console.log(accumulatedSubTotals);
   return (
     <StyledTable>
       <table>
         <thead>
           <tr>
-            <th>
-              <h5>Category</h5>
-            </th>
-            <th>
-              <h5>Category sub-total</h5>
-            </th>
-            <th>
-              <h5>% of allocated</h5>
-            </th>
-            <th>
-              <h5>% of total</h5>
-            </th>
+            {headings.map(heading => {
+              return (
+              <th key={uuidv4()}>
+                  <h5>{ heading }</h5>
+              </th>
+              )
+            })}
           </tr>
         </thead>
+
         <tbody>
           {accumulatedSubTotals
-            //.sort((a, b) => (a < b ? 1 : -1))
+            .sort((a, b) => (a < b ? 1 : -1))
             .map((item, i) => (
               <tr key={uuidv4()}>
                 <td>
-                  <p className="tableItem">{item.category}</p>
+                  <p>{item.category}</p>
                 </td>
                 <td>
-                  <p className="tableItem">
+                  <p>
                     <span className="symbol">{currencySymbol} </span>
-                    {formatNumber(data[i].toFixed(2))}
+                    {formatNumber((item.categoryTotal / 100).toFixed(2))}
                   </p>
                 </td>
                 <td>
-                  <p className="tableItem">
-                    {formatNumber((100 / allocated) * data[i])} %
-                    {/* {((100 / allocated) * data[i]).toFixed(2)} % */}
+                  <p>
+                    <span className="symbol">{currencySymbol} </span>
+                    {formatNumber((item.itemTotal).toFixed(2))}
                   </p>
                 </td>
                 <td>
-                  <p className="tableItem">
-                    {formatNumber((100 / total) * data[i])} %
-                    {/* {((100 / total) * data[i]).toFixed(2)}% */}
+                  <p>
+                    {formatNumber((item.itemTotal / (item.categoryTotal/100) * 100).toFixed(2))} %
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    {formatNumber(((item.categoryTotal/100) / 500 * 100).toFixed(2))} %
                   </p>
                 </td>
               </tr>
@@ -73,6 +74,5 @@ const StyledTable = styled(motion.div)`
   }
   td {
     text-align: center;
-    //min-width: 30%;
   }
 `;

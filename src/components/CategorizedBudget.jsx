@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { FaTrashAlt} from "react-icons/fa";
 import Progressbar from "./Progressbar";
 import AddBudgetCategoryItemForm from "../components/settings/AddBudgetCategoryItemForm";
-import { updateBudgetLocally} from "../utilities";
-import { formatNumber } from "../utilities";
+import { updateBudgetLocally, formatNumber, calculateFundsTotal} from "../utilities";
 
 const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
   
@@ -15,7 +14,8 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
     currentBudget,
     updateBudget,
     updateCurrentBudget,
-    currencySymbol
+    currencySymbol,
+    updateAllocatedFunds,
   } = useContext(GlobalContext);
 
   const [showForm, toggleShowForm] = useState(false);
@@ -30,6 +30,8 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
         },
       }
 
+    updateAllocatedFunds(calculateFundsTotal(updatedBudget));
+
     //update global context
     updateBudget(updatedBudget);
 
@@ -40,16 +42,22 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
     updateCurrentBudget(updatedBudget);
   };
 
-  const itemTotal = budgetCategory?.items?.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  let itemTotal = budgetCategory?.items?.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   const budgetTotal = budgetCategory?.amount / 100;
   
   let categorisedPercentage = 0;
+
   if (itemTotal > 0 && budgetTotal > 0) {
-    categorisedPercentage = itemTotal / budgetTotal * 100
+    categorisedPercentage = itemTotal / budgetTotal * 100;
   };
-  
+
+  itemTotal = formatNumber(Number(itemTotal));
+  //console.log(itemTotal);
+  //console.log(typeof itemTotal);
+
   return (
-    <StyledUncategorizedBudget>
+    <StyledCategorizedBudget>
+      {itemTotal}
       {viewItems ? (
         <div className="list-container">
           <h4>{`"${budgetCategory?.category}" expense items`}</h4>
@@ -78,7 +86,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
           <div className="titlebar">
             <h4>{budgetCategory?.category}</h4>
             {/* <div className="percentage">{Number(categorisedPercentage).toFixed()} %</div> */}
-            <div className="total">{currencySymbol}{formatNumber(itemTotal)} / {currencySymbol}{formatNumber(budgetTotal)}</div>  
+            <div className="total">{currencySymbol}{itemTotal} / {currencySymbol}{formatNumber(Number(budgetTotal).toFixed(2))}</div>
           </div>
           
           <Progressbar percentage={categorisedPercentage}/>
@@ -87,10 +95,10 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
           <FaTrashAlt className="delete-icon" />
           </div>
         </>)}
-        </StyledUncategorizedBudget>
+        </StyledCategorizedBudget>
         )}
         
-const StyledUncategorizedBudget = styled(motion.div)`
+const StyledCategorizedBudget = styled(motion.div)`
   position: relative;
   padding: 1rem;
   border-radius: 4px;

@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 
 const AllocatedSelector = ({
   handlePeriodChange,
-  selectedPeriod,
-  subTotal,
+  netIncomeForPeriod,
+  allocatedTotalForPeriod,
   remaining,
 }) => {
 
@@ -21,17 +21,17 @@ const AllocatedSelector = ({
           name="period"
           onChange={(e) => handlePeriodChange(e.target.value)}
         >
-          <option value="daily" key="daily">
-            Daily
-          </option>
-          <option value="weekly" key="weekly">
-            Weekly
+          <option value="annually" key="annually">
+            Annually
           </option>
           <option value="monthly" key="monthly">
             Monthly
           </option>
-          <option value="annually" key="annually">
-            Annually
+          <option value="weekly" key="weekly">
+            Weekly
+          </option>
+          <option value="daily" key="daily">
+            Daily
           </option>
         </select>
       </div>
@@ -39,10 +39,10 @@ const AllocatedSelector = ({
       <div className="figures">
         <div className="item">
           <h5>Allocated</h5>
-          <span className={subTotal < 0 ? "negative" : "positive"}>
+          <span className={allocatedTotalForPeriod < 0 ? "negative" : "positive"}>
             <p className="tableItem">
               <span className="symbol">{currencySymbol} </span>
-              {formatNumber(subTotal)}
+              {formatNumber(allocatedTotalForPeriod)}
             </p>
           </span>
         </div>
@@ -59,11 +59,11 @@ const AllocatedSelector = ({
           <h5>Total</h5>
           <span
             id="total"
-            className={selectedPeriod < 0 ? "negative" : "positive"}
+            className={netIncomeForPeriod < 0 ? "negative" : "positive"}
           >
             <p className="tableItem">
               <span className="symbol">{currencySymbol} </span>
-              {formatNumber(selectedPeriod)}
+              {formatNumber(netIncomeForPeriod)}
             </p>
           </span>
         </div>
@@ -73,11 +73,18 @@ const AllocatedSelector = ({
 };
 
 const StyledAllocatedSelector = styled(motion.div)`
+  border: 2px solid var(--highlight-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  padding: 0.5rem;
+  
   .drop {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.25rem;
+    
     label {
       margin-right: 0.25rem;
     }

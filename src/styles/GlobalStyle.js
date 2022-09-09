@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
   --unallocated-color: #22a2bb;
   --balance-color: #dee14b;
   --expenditure-color: #e52424;
+  --highlight-color: #00b4ee;
 }
 
 *{

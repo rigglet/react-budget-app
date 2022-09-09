@@ -8,16 +8,9 @@ import { formatNumber } from "../utilities";
 
 const Budget = () => {
   
-  const {currentBudget, updateAllocatedFunds} = useContext(GlobalContext);
+  const { currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
 
-  const allocatedFundsTotal = currentBudget.data.budgetCategories
-    .map(category => category.amount)
-    .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   
-  useEffect(() => {
-    updateAllocatedFunds(allocatedFundsTotal);
-  },[allocatedFundsTotal])
-
   return (
     <StyledBudget>
       <div className="heading">

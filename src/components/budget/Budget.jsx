@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { BsFileText } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import { FaTrashAlt, FaFolderOpen } from "react-icons/fa";
-import { deleteBudgetLocally } from "../../utilities";
+import { calculateFundsTotal, deleteBudgetLocally } from "../../utilities";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -18,6 +18,7 @@ const Budget = ({ budget }) => {
     deleteBudget,
     currentBudgetId,
     budgets,
+    updateAllocatedFunds,
   } = useContext(GlobalContext);
 
   const handleBudgetDelete = () => {
@@ -33,7 +34,9 @@ const Budget = ({ budget }) => {
   const handleBudgetOpen = () => {
     updateCurrentBudgetId(budget.id);
     updateCurrentBudget(budget);
+    updateAllocatedFunds(calculateFundsTotal(budget));
     updateBudgetLoaded(true);
+
     history.push(`/income`);
   };
 

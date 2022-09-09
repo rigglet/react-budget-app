@@ -6,12 +6,11 @@ import {FaChevronDown, FaChevronUp} from "react-icons/fa"
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { updateBudgetLocally } from "../../utilities";
+import { updateBudgetLocally, calculateFundsTotal } from "../../utilities";
 //context
 import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
-import { formatStrings, divideValues, multiplyValues } from "../../utilities";
 
 const AddBudgetCategoryForm = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +26,7 @@ const AddBudgetCategoryForm = () => {
     currentBudget,
     updateCurrentBudget,
     currencySymbol,
+    updateAllocatedFunds
   } = useContext(GlobalContext);
 
   const notify = (type) => {
@@ -90,6 +90,8 @@ const AddBudgetCategoryForm = () => {
           budgetCategories: [...currentBudget.data.budgetCategories, newBudgetCategory],
         },
       }
+
+      updateAllocatedFunds(calculateFundsTotal(updatedBudget));
 
       //add budget to app context
       updateBudget(updatedBudget);

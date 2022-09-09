@@ -8,82 +8,226 @@ import moment from "moment";
 import AnnualOverviewWidget from "./components/dashboard/widgets/AnnualOverviewWidget";
 
 export const divideValues = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: o[key] / 100 }
-    }
-    return newobj
+  let newobj = {}
+  for (const key in o) {
+    newobj = { ...newobj, [key]: o[key] / 100 }
   }
-  
-  export const multiplyValues = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: o[key] * 100 }
-    }
-    return newobj
-  }
+  return newobj
+}
 
-  export const convertToNumbers = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: Number(o[key]) }
-    }
-    return newobj
+export const multiplyValues = (o) => {  
+  let newobj = {}
+  for (const key in o) {
+    newobj = { ...newobj, [key]: o[key] * 100 }
   }
+  return newobj
+}
+
+export const convertToNumbers = (o) => {  
+  let newobj = {}
+  for (const key in o) {
+    newobj = { ...newobj, [key]: Number(o[key]) }
+  }
+  return newobj
+}
   
-  export const formatStrings = (o) => {  
-    let newobj = {}
-    for (const key in o) {
-      newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) }
-    }
-    return newobj
+export const formatStrings = (o) => {  
+  let newobj = {}
+  for (const key in o) {
+    newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) }
   }
+  return newobj
+}
+
+export const calculateFundsTotal = (currentBudget) => { 
+  return currentBudget?.data?.budgetCategories
+    .map(category => category?.amount)
+    .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+}
+
+// //returns an array of budget subtotals per category
+// export const getAccumulatedSubTotals = (currentBudget) => {
+//   console.log(currentBudget)
+//   return currentBudget?.data?.budgetItems.reduce(
+//     (acc, obj, currentIndex, array) => {
+//       let found = false;
+//       let pointer = 0;
+
+//       for (let i = 0; i < acc.length; i++) {
+//         if (acc[i].category === array[currentIndex].category) {
+//           pointer = i;
+//           found = true;
+//         }
+//       }
+//       if (!found) {
+//         let yearlyAmount = 0;
+//         switch (array[currentIndex].frequency) {
+//           case "daily":
+//             yearlyAmount = Number(array[currentIndex].amount * 365);
+//             break;
+//           case "weekly":
+//             yearlyAmount = Number(array[currentIndex].amount * 52);
+//             break;
+//           case "monthly":
+//             yearlyAmount = Number(array[currentIndex].amount * 12);
+//             break;
+//           case "annually":
+//             yearlyAmount = Number(array[currentIndex].amount);
+//             break;
+//           default:
+//             yearlyAmount = Number(array[currentIndex].amount * 12);
+//         }
+//         acc.push({
+//           category: array[currentIndex].category,
+//           amount: yearlyAmount,
+//         });
+//       } else {
+//         acc[pointer] = {
+//           ...acc[pointer],
+//           amount: acc[pointer].amount + array[currentIndex].amount,
+//         };
+//       }
+//       return acc;
+//     },
+//     []
+//   );
+// };
+
+
+// //returns an array of budget subtotals per category
+// export const getAccumulatedSubTotals = (currentBudget) => {
+//   //console.log(currentBudget)
+  
+//   return currentBudget?.data?.budgetCategories.reduce(
+//     (acc, obj, currentIndex, array) => {
+//       let found = false;
+//       let pointer = 0;
+
+//       for (let i = 0; i < acc.length; i++) {
+//         if (acc[i].category === array[currentIndex].category) {
+//           pointer = i;
+//           found = true;
+//         }
+//       }
+//       if (!found) {
+//         let yearlyAmount = 0;
+//         switch (array[currentIndex].frequency) {
+//           case "daily":
+//             yearlyAmount = Number(array[currentIndex].amount * 365);
+//             break;
+//           case "weekly":
+//             yearlyAmount = Number(array[currentIndex].amount * 52);
+//             break;
+//           case "monthly":
+//             yearlyAmount = Number(array[currentIndex].amount * 12);
+//             break;
+//           case "annually":
+//             yearlyAmount = Number(array[currentIndex].amount);
+//             break;
+//           default:
+//             yearlyAmount = Number(array[currentIndex].amount * 12);
+//         }
+//         acc.push({
+//           category: array[currentIndex].category,
+//           amount: yearlyAmount,
+//         });
+//       } else {
+//         acc[pointer] = {
+//           ...acc[pointer],
+//           amount: acc[pointer].amount + array[currentIndex].amount,
+//         };
+//       }
+//       return acc;
+//     },
+//     []
+//   );
+// };
 
 //returns an array of budget subtotals per category
-export const getAccumulatedSubTotals = (currentBudget) => {
-  return currentBudget?.data?.budgetItems.reduce(
-    (acc, obj, currentIndex, array) => {
-      let found = false;
-      let pointer = 0;
+export const getAccumulatedSubTotals = (currentBudget, period) => {
+  
+  return currentBudget?.data?.budgetCategories.map(category => {
+    console.log(category)
+    let itemTotal = category.items.reduce((acc, obj, currentIndex, array) => acc + array[currentIndex].amount, 0);
+    let categoryTotal = 0;
 
-      for (let i = 0; i < acc.length; i++) {
-        if (acc[i].category === array[currentIndex].category) {
-          pointer = i;
-          found = true;
-        }
-      }
-      if (!found) {
-        let yearlyAmount = 0;
-        switch (array[currentIndex].frequency) {
+    switch (period) {
           case "daily":
-            yearlyAmount = Number(array[currentIndex].amount * 365);
+        {
+          categoryTotal = Number(category.amount / 365);
+              itemTotal = Number(itemTotal / 365);
+            }
             break;
-          case "weekly":
-            yearlyAmount = Number(array[currentIndex].amount * 52);
+            case "weekly":
+            {
+
+              categoryTotal = Number(category.amount / 52);
+              itemTotal = Number(itemTotal / 52);
+            }  
             break;
-          case "monthly":
-            yearlyAmount = Number(array[currentIndex].amount * 12);
-            break;
-          case "annually":
-            yearlyAmount = Number(array[currentIndex].amount);
+            case "monthly":
+              {
+                categoryTotal = Number(category.amount / 12);
+                itemTotal = Number(itemTotal / 12);
+              }
+              break;
+              case "annually":
+                {
+
+                  categoryTotal = Number(category.amount);
+                  itemTotal = Number(itemTotal);
+                }
             break;
           default:
-            yearlyAmount = Number(array[currentIndex].amount * 12);
-        }
-        acc.push({
-          category: array[currentIndex].category,
-          amount: yearlyAmount,
-        });
-      } else {
-        acc[pointer] = {
-          ...acc[pointer],
-          amount: acc[pointer].amount + array[currentIndex].amount,
-        };
-      }
-      return acc;
-    },
-    []
-  );
+            categoryTotal = Number(category.amount / 12);
+    }
+    
+    return { category: category.category, categoryTotal: categoryTotal, itemTotal: itemTotal }
+  })
+
+  // return currentBudget?.data?.budgetCategories.reduce(
+  //   (acc, obj, currentIndex, array) => {
+  //     let found = false;
+  //     let pointer = 0;
+
+  //     for (let i = 0; i < acc.length; i++) {
+  //       if (acc[i].category === array[currentIndex].category) {
+  //         pointer = i;
+  //         found = true;
+  //       }
+  //     }
+  //     if (!found) {
+  //       let yearlyAmount = 0;
+  //       switch (array[currentIndex].frequency) {
+  //         case "daily":
+  //           yearlyAmount = Number(array[currentIndex].amount * 365);
+  //           break;
+  //         case "weekly":
+  //           yearlyAmount = Number(array[currentIndex].amount * 52);
+  //           break;
+  //         case "monthly":
+  //           yearlyAmount = Number(array[currentIndex].amount * 12);
+  //           break;
+  //         case "annually":
+  //           yearlyAmount = Number(array[currentIndex].amount);
+  //           break;
+  //         default:
+  //           yearlyAmount = Number(array[currentIndex].amount * 12);
+  //       }
+  //       acc.push({
+  //         category: array[currentIndex].category,
+  //         amount: yearlyAmount,
+  //       });
+  //     } else {
+  //       acc[pointer] = {
+  //         ...acc[pointer],
+  //         amount: acc[pointer].amount + array[currentIndex].amount,
+  //       };
+  //     }
+  //     return acc;
+  //   },
+  //   []
+  // );
 };
 
 export const getNetIncomeForPeriod = (currentBudget, period) => {
@@ -95,22 +239,38 @@ export const getNetIncomeForPeriod = (currentBudget, period) => {
     case "monthly":
       return currentBudget.data.income.monthlyNet;
     case "annually":
-      return currentBudget.data.income.yearlyNet;
+      return currentBudget.data.income.annualNet;
     default:
       return 0;
   }
 };
 
-export const getAllocatedPerPeriod = (currentBudget, period) => {
+// export const getAllocatedPerPeriod = (currentBudget, period) => {
+//   switch (period) {
+//     case "daily":
+//       return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 365);
+//     case "weekly":
+//       return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 52);
+//     case "monthly":
+//       return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 12);
+//     case "annually":
+//       return Number(getYearlyAllocated(currentBudget.data.budgetItems));
+
+//     default:
+//       return Number(0);
+//   }
+// };
+
+export const getAllocatedPerPeriod = (allocated, period) => {
   switch (period) {
     case "daily":
-      return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 365);
+      return Number(allocated / 365);
     case "weekly":
-      return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 52);
+      return Number(allocated / 52);
     case "monthly":
-      return Number(getYearlyAllocated(currentBudget.data.budgetItems) / 12);
+      return Number(allocated / 12);
     case "annually":
-      return Number(getYearlyAllocated(currentBudget.data.budgetItems));
+      return Number(allocated);
 
     default:
       return Number(0);
