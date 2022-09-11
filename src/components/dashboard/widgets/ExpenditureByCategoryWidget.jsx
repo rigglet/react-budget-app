@@ -69,7 +69,7 @@ const BudgetByCategoryWidget = () => {
   }
 
   //set upper ranage of y axis to highest number plus 10%
-  maxYRange = Math.max(...dataArray) * 1.1;
+  maxYRange = Math.max(...dataArray) * 1.05;
   
   const options = {
     //maintainAspectRatio: false,
@@ -89,7 +89,7 @@ const BudgetByCategoryWidget = () => {
 
     title: {
       display: true,
-      text: `Budget breakdown by category (${currencySymbol})`,
+      text: `Budget allocated by category (${currencySymbol})`,
       position: "bottom",
       fontSize: 16,
       fontStyle: "bold",
@@ -117,13 +117,13 @@ const BudgetByCategoryWidget = () => {
         //rgba(75,192,192,1)
         //rgba(220,220,220,1)
 
-        label: "Budget breakdown",
+        label: "Allocated budget per category",
         backgroundColor: "#e69a07",
         borderColor: "#00b4ee",
-        borderWidth: 2,
+        borderWidth: 3,
         hoverBackgroundColor: "#e69a07",
         hoverBorderColor: "#00b4ee",
-        barPercentage: 5,
+        barPercentage: 10,
         barThickness: 50,
         maxBarThickness: 50,
         minBarLength: 0,
@@ -246,12 +246,14 @@ const StyledBreakdown = styled(motion.div)`
       position: absolute;
       top: 0;
       right: 0;
-      padding: 0.7rem 0.7rem 0.5rem 0.7rem;
+      padding: 0.9rem 0.9rem 0.7rem 0.9rem;
       background-color: #848586;
       border-radius: 50%;
+      border-radius: 4px 25px 4px 4px;
     }
-    .iconSelect:hover {
-      transition: transform 1s ease;
+    .iconSelect:hover .icon{
+      transition: all 0.3s ease;
+      color: var(--highlight-color);
     }
     .icon {
       width: 20px;

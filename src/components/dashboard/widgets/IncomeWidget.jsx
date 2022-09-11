@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
-import Xarrow from "react-xarrows";
+import Xarrow, {useXarrow, Xwrapper} from 'react-xarrows';
 
 const IncomeWidget = () => {
   const { currencySymbol } = useContext(GlobalContext);
@@ -63,8 +63,10 @@ const IncomeWidget = () => {
     endAnchor: "auto",
   };
 
+  const updateXarrow = useXarrow();
+
   return (
-    <StyledIncomeWidget>
+    <StyledIncomeWidget onUpdate={updateXarrow}>
       <Xarrow start="annualGross" end="taxable" {...taxableInStyle} />
       <Xarrow start="annualGross" end="taxfree" {...incomingStyle} />
       <Xarrow start="taxfree" end="yearlyNet" {...incomingStyle} />

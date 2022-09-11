@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 //BUILD GENERIC TABLE COMPONENT
 const Table = ({ headings, accumulatedSubTotals, dataArray, netIncomeForPeriod}) => {
   const { currencySymbol } = useContext(GlobalContext);
-  console.log(accumulatedSubTotals);
+  //console.log(accumulatedSubTotals);
   return (
     <StyledTable>
       <table>
