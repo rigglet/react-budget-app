@@ -52,12 +52,9 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
   };
 
   itemTotal = formatNumber(Number(itemTotal));
-  //console.log(itemTotal);
-  //console.log(typeof itemTotal);
 
   return (
     <StyledCategorizedBudget>
-      {itemTotal}
       {viewItems ? (
         <div className="list-container">
           <h4>{`"${budgetCategory?.category}" expense items`}</h4>

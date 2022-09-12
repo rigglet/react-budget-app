@@ -52,8 +52,6 @@ function App() {
 
 const StyledApp = styled(motion.div)`
   height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
   `;
 
 export default App;

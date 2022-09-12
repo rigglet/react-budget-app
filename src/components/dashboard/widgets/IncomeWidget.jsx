@@ -66,7 +66,8 @@ const IncomeWidget = () => {
   const updateXarrow = useXarrow();
 
   return (
-    <StyledIncomeWidget onUpdate={updateXarrow}>
+    <StyledIncomeWidget onChange={updateXarrow} onScroll={updateXarrow}>
+
       <Xarrow start="annualGross" end="taxable" {...taxableInStyle} />
       <Xarrow start="annualGross" end="taxfree" {...incomingStyle} />
       <Xarrow start="taxfree" end="yearlyNet" {...incomingStyle} />
@@ -79,7 +80,7 @@ const IncomeWidget = () => {
 
       <h4>Income Flowchart</h4>
       <div className="data">
-        <div className="featureNumber" id="annualGross">
+        <div className="feature-number" id="annualGross">
           <h5>Annual (Gross) salary</h5>
           <div className="item">
             <span className="incoming">
@@ -88,7 +89,7 @@ const IncomeWidget = () => {
           </div>
         </div>
 
-        <div className="featureNumber" id="taxfree">
+        <div className="feature-number" id="taxfree">
           <h5>Tax Free Allowance</h5>
           <div className="item">
             <span className="incoming">
@@ -97,7 +98,7 @@ const IncomeWidget = () => {
           </div>
         </div>
 
-        <div className="featureNumber" id="taxable">
+        <div className="feature-number" id="taxable">
           <h5>Taxable</h5>
           <div className="item">
             <span className="incoming">
@@ -106,7 +107,7 @@ const IncomeWidget = () => {
           </div>
         </div>
 
-        <div className="featureNumber" id="ni">
+        <div className="feature-number" id="ni">
           <h5>National Insurance</h5>
           <div className="item">
             <span className="outgoing">
@@ -114,7 +115,7 @@ const IncomeWidget = () => {
             </span>
           </div>
         </div>
-        <div className="featureNumber" id="incomeTax">
+        <div className="feature-number" id="incomeTax">
           <h5>Income Tax</h5>
           <div className="item">
             <span className="outgoing">
@@ -122,7 +123,7 @@ const IncomeWidget = () => {
             </span>
           </div>
         </div>
-        <div className="featureNumber" id="totalDeductions">
+        <div className="feature-number" id="totalDeductions">
           <h5>Total Deductions</h5>
           <div className="item">
             <span className="outgoing">
@@ -131,7 +132,7 @@ const IncomeWidget = () => {
           </div>
         </div>
 
-        <div className="featureNumber" id="yearlyNet">
+        <div className="feature-number" id="yearlyNet">
           <h5>Annual Salary (Net)</h5>
           <div className="item">
             <span className="incoming">
@@ -140,7 +141,7 @@ const IncomeWidget = () => {
           </div>
         </div>
 
-        <div className="featureNumber" id="monthlyNet">
+        <div className="feature-number" id="monthlyNet">
           <h5>Monthly Salary (Net)</h5>
           <div className="item">
             <span className="incoming">
@@ -149,7 +150,7 @@ const IncomeWidget = () => {
           </div>
         </div>
 
-        <div className="featureNumber" id="weeklyNet">
+        <div className="feature-number" id="weeklyNet">
           <h5>Weekly Salary (Net)</h5>
           <div className="item">
             <span className="incoming">
@@ -158,6 +159,7 @@ const IncomeWidget = () => {
           </div>
         </div>
       </div>
+
     </StyledIncomeWidget>
   );
 };
@@ -223,7 +225,7 @@ const StyledIncomeWidget = styled(motion.div)`
       grid-row: 3 / span 1;
     }
   }
-  .featureNumber {
+  .feature-number {
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -173,13 +173,14 @@ export const getAccumulatedSubTotals = (currentBudget, period) => {
               break;
               case "annually":
                 {
-
+                  
                   categoryTotal = Number(category.amount);
                   itemTotal = Number(itemTotal);
                 }
-            break;
-          default:
-            categoryTotal = Number(category.amount / 12);
+                break;
+                default:
+                  categoryTotal = Number(category.amount / 12);
+                  itemTotal = Number(itemTotal / 12);
     }
     
     return { category: category.category, categoryTotal: categoryTotal, itemTotal: itemTotal }
@@ -280,7 +281,7 @@ export const getAllocatedPerPeriod = (allocated, period) => {
 export const formatNumber = (number) => {
   let formattedWholeNumber = null;
   let formattedDecimalNumber = null;
-  if (number > 0) {
+  if (number >= 0) {
     formattedWholeNumber = Math.floor(Number(number).toFixed(2));
     formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
   } else {
