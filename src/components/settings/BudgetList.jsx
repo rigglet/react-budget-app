@@ -45,7 +45,9 @@ const BudgetList = () => {
     <StyledBudgetList>
         
       {
-        budgetCategories.map((category) => (
+        budgetCategories
+          .sort((a, b) => (a.category > b.category ? 1 : -1))
+          .map((category) => (
           <CategorizedBudget
             key={category.id}
             budgetCategory={category}

@@ -38,7 +38,6 @@ const initialState = {
   },
   
   currentBudgetId: "",
-  currentBudget: {},
   isBudgetLoaded: false,
   includeMandatory: false,
   includeDisposableOnly: false,

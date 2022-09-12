@@ -153,34 +153,24 @@ export const getAccumulatedSubTotals = (currentBudget, period) => {
 
     switch (period) {
           case "daily":
-        {
-          categoryTotal = Number(category.amount / 365);
-              itemTotal = Number(itemTotal / 365);
-            }
+            categoryTotal = Number(category.amount / 365);
+            itemTotal = Number(itemTotal / 365);
             break;
-            case "weekly":
-            {
-
-              categoryTotal = Number(category.amount / 52);
-              itemTotal = Number(itemTotal / 52);
-            }  
+          case "weekly":
+            categoryTotal = Number(category.amount / 52);
+            itemTotal = Number(itemTotal / 52); 
             break;
-            case "monthly":
-              {
-                categoryTotal = Number(category.amount / 12);
-                itemTotal = Number(itemTotal / 12);
-              }
-              break;
-              case "annually":
-                {
-                  
-                  categoryTotal = Number(category.amount);
-                  itemTotal = Number(itemTotal);
-                }
-                break;
-                default:
-                  categoryTotal = Number(category.amount / 12);
-                  itemTotal = Number(itemTotal / 12);
+          case "monthly":
+            categoryTotal = Number(category.amount / 12);
+            itemTotal = Number(itemTotal / 12);
+            break;
+          case "annually":
+            categoryTotal = Number(category.amount);
+            itemTotal = Number(itemTotal);
+            break;
+          default:
+            categoryTotal = Number(category.amount / 12);
+            itemTotal = Number(itemTotal / 12);
     }
     
     return { category: category.category, categoryTotal: categoryTotal, itemTotal: itemTotal }
@@ -489,6 +479,9 @@ export const filterTransactionsByDateRangeAndReturnTotal = (
         )
       ) {
         return transaction;
+      }
+      else {
+        return null;
       }
     }, [])
     .map((transaction) => transaction.amount)

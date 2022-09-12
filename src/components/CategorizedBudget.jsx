@@ -57,41 +57,43 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
     <StyledCategorizedBudget>
       {viewItems ? (
         <div className="list-container">
-          <h4>{`"${budgetCategory?.category}" expense items`}</h4>
+          <h4> <span className="category-name">{budgetCategory?.category}</span> expense items</h4>
           <div className="expense-list">
-          {budgetCategory?.items.map((item) => (
-            <div className="expense" key={item.id}>
-              <p>{item.item}</p>
-              <p>${item.amount}</p>
-              <div className="item-actions" onClick={() => deleteCategoryItem(item.id)}>
-                <FaTrashAlt className="item-delete-icon" />
+            {budgetCategory?.items
+              .sort((a, b) => (a.item > b.item ? 1 : -1))
+              .map((item) => (
+              <div className="expense" key={item.id}>
+                <p className="expense-name">{item.item}</p>
+                <p>${item.amount}</p>
+                <div className="item-actions" onClick={() => deleteCategoryItem(item.id)}>
+                  <FaTrashAlt className="item-delete-icon" />
+                </div>
               </div>
-            </div>
-          ))}
+              ))
+            }
           </div>
           <div className="item-buttons">
               <button className="button" onClick={() => toggleViewItems(!viewItems)}>Exit</button>
           </div>
-        </div>) : (<>
-          {!showForm && (
-            <div className="add-buttons">
-              <button className="button" onClick={() => toggleViewItems(!viewItems)}>View items</button>
-            </div>
-            )}
-          <AddBudgetCategoryItemForm budgetCategory={budgetCategory} showForm={showForm} toggleShowForm={toggleShowForm} />
-
+        </div>) : (
+        <>
           <div className="titlebar">
-            <h4>{budgetCategory?.category}</h4>
-            {/* <div className="percentage">{Number(categorisedPercentage).toFixed()} %</div> */}
+            <h4 className="category-name">{budgetCategory?.category}</h4>
             <div className="total">{currencySymbol}{itemTotal} / {currencySymbol}{formatNumber(Number(budgetTotal).toFixed(2))}</div>
           </div>
           
           <Progressbar percentage={categorisedPercentage}/>
+
+          {!showForm && (
+            <div className="actions" onClick={() => deleteBudgetCategory(budgetCategory.id)}>
+              <FaTrashAlt className="delete-icon" />
+            </div>
+          )}
           
-          <div className="actions" onClick={() => deleteBudgetCategory(budgetCategory.id)}>
-          <FaTrashAlt className="delete-icon" />
-          </div>
-        </>)}
+          <AddBudgetCategoryItemForm budgetCategory={budgetCategory} showForm={showForm} toggleShowForm={toggleShowForm} viewItems={ viewItems} toggleViewItems={toggleViewItems} />
+          
+        </>
+      )}
         </StyledCategorizedBudget>
         )}
         
@@ -106,6 +108,20 @@ const StyledCategorizedBudget = styled(motion.div)`
   flex-direction: column;
   row-gap: 0.5rem;
   
+  .category-name {
+    //text-transform: uppercase;
+    font-variant-caps: all-small-caps;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--highlight-color);
+  }
+
+  .expense-name {
+    //text-transform: uppercase;
+    font-variant-caps: all-small-caps;
+    font-size: 1.2rem;
+  }
+
   &:hover .actions{
     width: 100px;
   }
@@ -163,17 +179,26 @@ const StyledCategorizedBudget = styled(motion.div)`
     //align-items: center;
     justify-content: center;
     width: 100%;
-    row-gap: 0.5rem;
+    row-gap: 0.75rem;
   }
   
   .expense-list {
     display: flex;
-    flex-direction: column;
-    row-gap: 0.25rem;
+    //flex-direction: column;
+    gap: 0.5rem;
     width: 70%;
     align-self: center;
     
     .expense{
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-grow: 1;
+      border: 1px solid grey;
+      border-radius: 8px;
+      padding: 0.25rem;
+      position: relative;
+      
       &:hover .item-actions {
         width: 100px;
         //color: rgba(184, 114, 114, 75%);
@@ -182,12 +207,6 @@ const StyledCategorizedBudget = styled(motion.div)`
         }
       }
 
-      border: 1px solid #00b4ee;
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.25rem;
-      position: relative;
       p{
         color: whitesmoke;
         background-color: #39393c;
@@ -215,9 +234,9 @@ const StyledCategorizedBudget = styled(motion.div)`
     //column-gap: 2rem;
   }
   .add-buttons{
-    position: absolute;
+    /* position: absolute;
     top: 1rem;
-    right: 1rem;
+    right: 1rem; */
     display: flex;
     align-items: center;
     justify-content: flex-end;

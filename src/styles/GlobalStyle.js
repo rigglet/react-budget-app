@@ -75,16 +75,20 @@ body{
     background-color: #848586;
     height: 1px;
   }
+
 .button {
   font-weight: lighter;
-  //font-size: 10pt;
-  min-width: 100px;
-  cursor: pointer;
-  color: white;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-variant-caps: all-small-caps;
+  font-weight: 400;
   padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  border: none;
-  background-color: #00b4ee;
+  min-width: 100px;
+  border: 2px solid var(--highlight-color);
+  color: var(--highlight-color);
+  background-color: #39393c;
+  cursor: pointer;
+  
   transition: all 0.3s ease;
   outline-style: none;
   &:active {
@@ -94,7 +98,8 @@ body{
   &:hover,
   &:active {
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
-    background: rgb(0, 180, 238, 0.5);
+    background: var(--highlight-color);
+    color: #39393c;
   }
 }
 

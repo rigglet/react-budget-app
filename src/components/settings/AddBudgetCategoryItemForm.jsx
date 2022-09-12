@@ -12,13 +12,12 @@ import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 
-const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm}) => {
+const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, toggleViewItems, viewItems}) => {
   const [formData, setFormData] = useState({
     item: "",
     amount: "",
   });
 
-  //const [showForm, toggleShowForm] = useState(false);
 
   const {
     updateBudget,
@@ -184,6 +183,7 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm}) 
             onClick={() => toggleShowForm(!showForm)}
             />
             <h4>New Item</h4>
+            <button className="button" onClick={() => toggleViewItems(!viewItems)}>View items</button>
           </div>
       )}
       
