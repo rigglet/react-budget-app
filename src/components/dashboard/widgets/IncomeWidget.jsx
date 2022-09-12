@@ -165,11 +165,13 @@ const IncomeWidget = () => {
 };
 
 const StyledIncomeWidget = styled(motion.div)`
-  width: 50%;
+  //width: 50%;
   background-color: #39393c;
   color: #848586;
   border-radius: 4px;
   padding: 1rem;
+  flex-grow: 1;
+
   h4 {
     color: white;
     font-weight: 500;

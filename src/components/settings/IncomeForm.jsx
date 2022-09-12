@@ -363,11 +363,12 @@ const IncomeForm = () => {
 const StyledIncomeForm = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  //width: 50%;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
+  flex-grow: 1;
 
   h4 {
     color: white;

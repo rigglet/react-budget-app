@@ -30,9 +30,12 @@ const StyledIncome = styled(motion.div)`
     padding-left: 15vw;
   }
   .widgets {
+    border: 1px solid green;
+    flex-wrap: wrap;
     width: 70vw;
     display: flex;
     gap: 2rem;
+    //flex-grow: 1;
   }
   `;
 
