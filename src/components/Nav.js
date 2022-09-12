@@ -141,6 +141,7 @@ const StyledNav = styled(motion.div)`
   justify-content: space-between;
   padding: 0 12vw;
   flex-wrap: wrap;
+  column-gap: 1rem;
   
   //app name and icon (far left)
   .brand {
@@ -170,30 +171,38 @@ const StyledNav = styled(motion.div)`
     align-items: center;
     width: 100%;
     row-gap: 0.5rem;
+    column-gap: 1rem;
     flex-wrap: wrap;
-
+    
   }
+  
+  /* ul:nth-of-type(2) {
+    justify-content: flex-end;
+  } */
   //links (middle)
   ul {
+    //border: 1px solid green;
     display: flex;
     align-items: center;
+    justify-content: center;
     list-style: none;
     text-decoration: none;
     flex-grow: 1;
+    column-gap: 1.2rem;
+
     .exit {
       display: flex;
       align-items: center;
       justify-content: center;
       p{
         color: #00b4ee;
-        margin-left: 0.5rem;
         cursor: pointer;
         font-weight: normal;
         font-size: 12pt;
       }
     }
     li {
-      margin-left: 2rem;
+      //margin-left: 2rem;
       text-decoration: none;
       position: relative;
       a {
