@@ -58,13 +58,25 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
       {viewItems ? (
         <div className="list-container">
           <h4> <span className="category-name">{budgetCategory?.category}</span> expense items</h4>
+          <div className="key">
+          <div className="element">
+            <div className="color key-deposit"></div>
+            <h5 className="legend">Deposit</h5>
+          </div>
+          <div className="element">
+            <div className="color key-withdrawal"></div>
+            <h5 className="legend">Withdrawal</h5>
+          </div>
+          </div>
+          
           <div className="expense-list">
             {budgetCategory?.items
               .sort((a, b) => (a.item > b.item ? 1 : -1))
               .map((item) => (
               <div className="expense" key={item.id}>
-                <p className="expense-name">{item.item}</p>
-                <p>${item.amount}</p>
+                <p className={item.amount > 0 ? "expense-name withdrawal" : "expense-name deposit"}>{item.item}</p>
+                {/* <p className={item.amount > 0 ? "withdrawal" : "deposit"}>{item.amount > 0 ? "Withdrawal" : "Deposit"}</p> */}
+                <p className={item.amount > 0 ? "withdrawal" : "deposit"}>${item.amount}</p>
                 <div className="item-actions" onClick={() => deleteCategoryItem(item.id)}>
                   <FaTrashAlt className="item-delete-icon" />
                 </div>
@@ -109,24 +121,19 @@ const StyledCategorizedBudget = styled(motion.div)`
   row-gap: 0.5rem;
   
   .category-name {
-    //text-transform: uppercase;
     font-variant-caps: all-small-caps;
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--highlight-color);
   }
-
-  .expense-name {
-    //text-transform: uppercase;
-    font-variant-caps: all-small-caps;
-    font-size: 1.2rem;
-  }
-
+  
+  
   &:hover .actions{
     width: 100px;
   }
   
   .item-actions {
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,32 +195,38 @@ const StyledCategorizedBudget = styled(motion.div)`
     gap: 0.5rem;
     width: 70%;
     align-self: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
     
     .expense{
       display:flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-grow: 1;
       border: 1px solid grey;
       border-radius: 8px;
-      padding: 0.25rem;
+      padding: 0.5rem;
+      min-width: 150px;
       position: relative;
       
       &:hover .item-actions {
         width: 100px;
-        //color: rgba(184, 114, 114, 75%);
-        .item-actions{
-          width: 3rem;
-        }
+      }
+      
+      .expense-name {
+        font-variant-caps: all-small-caps;
+        font-size: 1.2rem;
+        font-weight: bold;
       }
 
-      p{
+      p {
         color: whitesmoke;
         background-color: #39393c;
+        //flex-grow: 1;
       }
     }
   }
-   
+  
   h4 {
     color: white;
     font-weight: 500;
@@ -229,14 +242,8 @@ const StyledCategorizedBudget = styled(motion.div)`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    //width: 100%;
-    //padding: 0rem;
-    //column-gap: 2rem;
   }
   .add-buttons{
-    /* position: absolute;
-    top: 1rem;
-    right: 1rem; */
     display: flex;
     align-items: center;
     justify-content: flex-end;

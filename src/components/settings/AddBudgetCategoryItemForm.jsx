@@ -174,6 +174,8 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
                 Add Item
               </button>
             </div>
+
+            <p>Enter positve number for expense, negative for deposit</p>
           </form>
             </>
       ) : (
@@ -239,6 +241,10 @@ const StyledAddBudgetCategoryForm = styled(motion.div)`
     column-gap: 2rem;
     width: 100%;
 
+    p {
+      text-align: right;
+      width: 100%;
+    }
     .fields{
       display: flex;
       flex-grow: 1;

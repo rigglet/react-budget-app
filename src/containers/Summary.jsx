@@ -123,32 +123,6 @@ const StyledSummary = styled(motion.div)`
     width: 70vw;
   }
 
-  .key {
-    width: 100%;
-    display: flex;
-    column-gap: 1.5rem;
-    row-gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    
-    .element {
-      display: flex;
-      align-items: center;
-      column-gap: 0.5rem;
-      flex-shrink: 1;
-      
-      .color {
-        width: 25px;
-        height: 25px;
-        border-radius: 4px;
-      }
-      .legend {
-        color: whitesmoke;
-      }
-    }
-
-  } 
-
   .charts {
     display: flex;
     flex-direction: column;

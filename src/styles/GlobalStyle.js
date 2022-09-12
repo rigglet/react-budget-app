@@ -69,6 +69,7 @@ body{
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
 }
+
 .line {
     width: 100%;
     margin: 1rem 0;
@@ -147,35 +148,47 @@ input {
   .symbol {
     margin-right: 0.25rem;
   }
-.negative{
-  color: red;
-}
-.positive{
-  color:  #00b4ee;
-}
-.deposit {
-    color: #17cf98;
+
+  .negative{
+    color: red;
   }
+
+  .positive{
+    color:  #00b4ee;
+  }
+
+  .deposit {
+    color: #17cf98 !important;
+  }
+
   .withdrawal {
-    color: #f58e8e;
+    color: #f58e8e !important;
   }
 
-  .decimal {
-    font-size: 0.7rem;
+  .key-deposit {
+    background-color: #17cf98 !important;
   }
 
-  //ICONS
-  .icon {
-    height: 25px;
-    width: 25px;
-    cursor: pointer;
+  .key-withdrawal {
+    background-color: #f58e8e !important;
   }
-  .del {
-    color: #b87272;
-    &:hover {
-      color: rgba(184, 114, 114, 75%);
-    }
+
+.decimal {
+  font-size: 0.7rem;
+}
+
+//ICONS
+.icon {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+.del {
+  color: #b87272;
+  &:hover {
+    color: rgba(184, 114, 114, 75%);
   }
+}
 
 //React-toastify - Toast close button
 .toastClose{
@@ -194,6 +207,33 @@ input {
       transform: translateY(1px);
     }
 }
+
+//KEY
+.key {
+    width: 100%;
+    display: flex;
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    .element {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+      flex-shrink: 1;
+      
+      .color {
+        width: 25px;
+        height: 25px;
+        border-radius: 4px;
+      }
+      .legend {
+        color: whitesmoke;
+      }
+    }
+
+  }
 `;
 
 export default GlobalStyle;
