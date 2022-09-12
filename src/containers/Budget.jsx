@@ -38,7 +38,6 @@ const Budget = () => {
 };
 
 const StyledBudget = styled(motion.div)`
-  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

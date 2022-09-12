@@ -58,7 +58,7 @@ const Nav = () => {
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "home" || path === "" ? "90%" : "0%" }}
+              animate={{ width: path === "home" || path === "" ? "100%" : "0%" }}
             />
           </li>
           {isBudgetLoaded && (
@@ -87,7 +87,7 @@ const Nav = () => {
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "income" ? "90%" : "0%" }}
+              animate={{ width: path === "income" ? "100%" : "0%" }}
             />
           </li>
           <li>
@@ -104,7 +104,7 @@ const Nav = () => {
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "budget" ? "90%" : "0%" }}
+              animate={{ width: path === "budget" ? "100%" : "0%" }}
             />
           </li>
           <li>
@@ -121,7 +121,7 @@ const Nav = () => {
             <Line
               transition={{ duration: 0.75 }}
               initial={{ width: "0%" }}
-              animate={{ width: path === "summary" ? "90%" : "0%" }}
+              animate={{ width: path === "summary" ? "100%" : "0%" }}
             />
           </li>
         </>
@@ -165,7 +165,6 @@ const StyledNav = styled(motion.div)`
   
   //needed to separate links from budget name
   .header-info {
-    border: 1px solid red;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -173,15 +172,9 @@ const StyledNav = styled(motion.div)`
     row-gap: 0.5rem;
     column-gap: 1rem;
     flex-wrap: wrap;
-    
   }
   
-  /* ul:nth-of-type(2) {
-    justify-content: flex-end;
-  } */
-  //links (middle)
   ul {
-    //border: 1px solid green;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,43 +185,45 @@ const StyledNav = styled(motion.div)`
 
     .exit {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      p{
+      column-gap: 0.5rem;
+      cursor: pointer;
+      
+      p {
         color: #00b4ee;
-        cursor: pointer;
-        font-weight: normal;
-        font-size: 12pt;
+        font-weight: bold;
+        font-size: 15pt;
+        font-variant-caps: all-small-caps;
       }
     }
+
     li {
-      //margin-left: 2rem;
       text-decoration: none;
       position: relative;
+      align-items: center;
+      display: flex;
       a {
-        color: #848586;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
+        column-gap: 0.5rem;
         font-weight: bolder;
-        margin-right: 1rem;
         font-variant-caps: all-small-caps;
         font-size: 15pt;
+        color: #848586;
       }
 
       .selected {
         color: white;
       }
+
       .navIcon {
         color: inherit;
-        margin-right: 0.5rem;
         color: #848586;
         height: 25px;
         width: 25px;
       }
       .navIconSelected {
-        margin-right: 0.5rem;
         color: white;
         height: 25px;
         width: 25px;
