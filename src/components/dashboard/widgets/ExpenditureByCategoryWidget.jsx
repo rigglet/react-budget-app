@@ -20,18 +20,13 @@ const BudgetByCategoryWidget = () => {
   const [period, setPeriod] = useState("annually");
   const { currencySymbol, currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
 
-  //console.log(currentBudget)
-
   const budgetCategories = currentBudget.data.budgetCategories;
   
   let allocatedTotalForPeriod = getAllocatedPerPeriod(allocatedFundsTotal / 100, period);
   let netIncomeForPeriod = getNetIncomeForPeriod(currentBudget, period) / 100;
   const remaining = (netIncomeForPeriod - allocatedTotalForPeriod).toFixed(2);
   let maxYRange = 0;
-
   let accumulatedSubTotals = getAccumulatedSubTotals(currentBudget, period);
-  
-  console.log("accumulatedSubTotals", accumulatedSubTotals);
   
   const handlePeriodChange = (v) => {
     setPeriod(v);
@@ -129,7 +124,7 @@ const BudgetByCategoryWidget = () => {
     "Allocated (A) sub-total",
     "Expenditure (E) sub-total",
     "E as % of A",
-    "E as % of total A",
+    "E as % of income",
   ];
 
   return (
@@ -173,6 +168,7 @@ const BudgetByCategoryWidget = () => {
               <Table
                 headings={headings}
                 accumulatedSubTotals={accumulatedSubTotals}
+                netIncomeForPeriod={netIncomeForPeriod}
               />
             )}
           </div>

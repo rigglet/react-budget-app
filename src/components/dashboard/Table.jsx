@@ -7,9 +7,9 @@ import { v4 as uuidv4 } from "uuid";
 
 
 //BUILD GENERIC TABLE COMPONENT
-const Table = ({ headings, accumulatedSubTotals}) => {
+const Table = ({ headings, accumulatedSubTotals, netIncomeForPeriod}) => {
   const { currencySymbol } = useContext(GlobalContext);
-  //console.log(accumulatedSubTotals);
+
   return (
     <StyledTable>
       <table>
@@ -36,7 +36,7 @@ const Table = ({ headings, accumulatedSubTotals}) => {
                 <td>
                   <p>
                     <span className="symbol">{currencySymbol} </span>
-                    {formatNumber((item.categoryTotal / 100).toFixed(2))}
+                    {formatNumber((item.categoryTotal).toFixed(2))}
                   </p>
                 </td>
                 <td>
@@ -47,12 +47,12 @@ const Table = ({ headings, accumulatedSubTotals}) => {
                 </td>
                 <td>
                   <p>
-                    {formatNumber((item.itemTotal / (item.categoryTotal/100) * 100).toFixed(2))} %
+                    {formatNumber((item.itemTotal / item.categoryTotal * 100).toFixed(2))} %
                   </p>
                 </td>
                 <td>
                   <p>
-                    {formatNumber(((item.categoryTotal/100) / 500 * 100).toFixed(2))} %
+                    {formatNumber(((item.itemTotal / netIncomeForPeriod) * 100).toFixed(2))} %
                   </p>
                 </td>
               </tr>
