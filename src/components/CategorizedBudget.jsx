@@ -58,32 +58,39 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
       {viewItems ? (
         <div className="list-container">
           <h4> <span className="category-name">{budgetCategory?.category}</span> expense items</h4>
-          <div className="key">
-          <div className="element">
-            <div className="color key-deposit"></div>
-            <h5 className="legend">Deposit</h5>
-          </div>
-          <div className="element">
-            <div className="color key-withdrawal"></div>
-            <h5 className="legend">Withdrawal</h5>
-          </div>
-          </div>
           
-          <div className="expense-list">
-            {budgetCategory?.items
-              .sort((a, b) => (a.item > b.item ? 1 : -1))
-              .map((item) => (
-              <div className="expense" key={item.id}>
-                <p className={item.amount > 0 ? "expense-name withdrawal" : "expense-name deposit"}>{item.item}</p>
-                {/* <p className={item.amount > 0 ? "withdrawal" : "deposit"}>{item.amount > 0 ? "Withdrawal" : "Deposit"}</p> */}
-                <p className={item.amount > 0 ? "withdrawal" : "deposit"}>${item.amount}</p>
-                <div className="item-actions" onClick={() => deleteCategoryItem(item.id)}>
-                  <FaTrashAlt className="item-delete-icon" />
-                </div>
+          {budgetCategory?.items?.length > 0 ? (
+            <>
+            <div className="key">
+              <div className="element">
+                <div className="color key-deposit"></div>
+                <h5 className="legend">Deposit</h5>
               </div>
-              ))
-            }
-          </div>
+              <div className="element">
+                <div className="color key-withdrawal"></div>
+                <h5 className="legend">Withdrawal</h5>
+              </div>
+            </div>
+            <div className="expense-list">
+              {budgetCategory?.items
+                .sort((a, b) => (a.item > b.item ? 1 : -1))
+                .map((item) => (
+                <div className="expense" key={item.id}>
+                  <p className={item.amount > 0 ? "expense-name withdrawal" : "expense-name deposit"}>{item.item}</p>
+                  {/* <p className={item.amount > 0 ? "withdrawal" : "deposit"}>{item.amount > 0 ? "Withdrawal" : "Deposit"}</p> */}
+                  <p className={item.amount > 0 ? "withdrawal" : "deposit"}>${item.amount}</p>
+                  <div className="item-actions" onClick={() => deleteCategoryItem(item.id)}>
+                    <FaTrashAlt className="item-delete-icon" />
+                  </div>
+                </div>
+                ))
+              }
+            </div>
+              </>
+          ) : ( 
+              <p className="no-data-message">No data to display</p>
+          )}
+
           <div className="item-buttons">
               <button className="button" onClick={() => toggleViewItems(!viewItems)}>Exit</button>
           </div>
@@ -188,7 +195,10 @@ const StyledCategorizedBudget = styled(motion.div)`
     width: 100%;
     row-gap: 0.75rem;
   }
-  
+  .no-data-message {
+    width: 100%;
+    text-align: center;
+  }
   .expense-list {
     display: flex;
     //flex-direction: column;

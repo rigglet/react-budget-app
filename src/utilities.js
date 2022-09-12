@@ -147,29 +147,28 @@ export const calculateFundsTotal = (currentBudget) => {
 export const getAccumulatedSubTotals = (currentBudget, period) => {
   
   return currentBudget?.data?.budgetCategories.map(category => {
-    console.log(category)
     let itemTotal = category.items.reduce((acc, obj, currentIndex, array) => acc + array[currentIndex].amount, 0);
     let categoryTotal = 0;
 
     switch (period) {
           case "daily":
-            categoryTotal = Number(category.amount / 365);
+            categoryTotal = Number((category.amount /100) / 365);
             itemTotal = Number(itemTotal / 365);
             break;
           case "weekly":
-            categoryTotal = Number(category.amount / 52);
+            categoryTotal = Number((category.amount / 100) / 52);
             itemTotal = Number(itemTotal / 52); 
             break;
           case "monthly":
-            categoryTotal = Number(category.amount / 12);
+            categoryTotal = Number((category.amount / 100) / 12);
             itemTotal = Number(itemTotal / 12);
             break;
           case "annually":
-            categoryTotal = Number(category.amount);
+            categoryTotal = Number((category.amount / 100));
             itemTotal = Number(itemTotal);
             break;
           default:
-            categoryTotal = Number(category.amount / 12);
+            categoryTotal = Number((category.amount / 100) / 12);
             itemTotal = Number(itemTotal / 12);
     }
     

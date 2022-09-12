@@ -25,13 +25,13 @@ const BudgetByCategoryWidget = () => {
   const budgetCategories = currentBudget.data.budgetCategories;
   
   let allocatedTotalForPeriod = getAllocatedPerPeriod(allocatedFundsTotal / 100, period);
-  let netIncomeForPeriod = getNetIncomeForPeriod(currentBudget, period)/100;
+  let netIncomeForPeriod = getNetIncomeForPeriod(currentBudget, period) / 100;
   const remaining = (netIncomeForPeriod - allocatedTotalForPeriod).toFixed(2);
   let maxYRange = 0;
 
   let accumulatedSubTotals = getAccumulatedSubTotals(currentBudget, period);
   
-  console.log(accumulatedSubTotals);
+  console.log("accumulatedSubTotals", accumulatedSubTotals);
   
   const handlePeriodChange = (v) => {
     setPeriod(v);
@@ -44,35 +44,20 @@ const BudgetByCategoryWidget = () => {
 
   //Chart data
   const filteredCategories = [
-    ...new Set(budgetCategories.map((category) => category.category.toLowerCase())),
+    ...new Set(budgetCategories.map((category) => category.category.toUpperCase()).sort()),
   ];
   
   //CREATE ARRAY DATA FROM ALLOCATED CATEGORY AMOUNTS
   //creates array of amounts from array of objects
-  let dataArray = [];
-  
-  switch (period) {
-    case "daily":
-      dataArray = accumulatedSubTotals.map((category) => (category.categoryTotal /100) / 365);
-      break;
-    case "weekly":
-      dataArray = accumulatedSubTotals.map((category) => (category.categoryTotal /100) / 52);
-      break;
-    case "monthly":
-      dataArray = accumulatedSubTotals.map((category) => (category.categoryTotal /100) / 12);
-      break;
-    case "annually":
-      dataArray = accumulatedSubTotals.map((category) => (category.categoryTotal /100));
-      break;
-    default:
-      dataArray = accumulatedSubTotals.map((category) => (category.categoryTotal /100) / 52);
-  }
+  let budgetDataArray = accumulatedSubTotals.map((category) => (Number(category.categoryTotal).toFixed(2)));
+  let expenditureDataArray = accumulatedSubTotals.map((category) => (Number(category.itemTotal).toFixed(2)));
 
   //set upper ranage of y axis to highest number plus 10%
-  maxYRange = Math.max(...dataArray) * 1.05;
+  maxYRange = Math.max(...budgetDataArray) * 1.05;
   
   const options = {
     //maintainAspectRatio: false,
+    
     scales: {
       yAxes: [
         {
@@ -111,23 +96,30 @@ const BudgetByCategoryWidget = () => {
     labels: filteredCategories,
     datasets: [
       {
-        //#e69a07
-        //#656b74
-        //#00b4ee
-        //rgba(75,192,192,1)
-        //rgba(220,220,220,1)
-
-        label: "Allocated budget per category",
-        backgroundColor: "#e69a07",
+        label: `Allocated budget per category ${currencySymbol}`,
+        backgroundColor: "#9f5f90",
         borderColor: "#00b4ee",
-        borderWidth: 3,
-        hoverBackgroundColor: "#e69a07",
+        borderWidth: 2,
+        hoverBackgroundColor: "#9f5f90",
+        hoverBorderColor: "#00b4ee",
+        barPercentage: 10,
+        barThickness: 40,
+        maxBarThickness: 50,
+        minBarLength: 0,
+        data: budgetDataArray,
+      },
+      {
+        label: `Expenditure per category ${currencySymbol}`,
+        backgroundColor: "#e52424",
+        borderColor: "#00b4ee",
+        borderWidth: 2,
+        hoverBackgroundColor: "#e52424",
         hoverBorderColor: "#00b4ee",
         barPercentage: 10,
         barThickness: 50,
-        maxBarThickness: 50,
+        maxBarThickness: 40,
         minBarLength: 0,
-        data: dataArray,
+        data: expenditureDataArray,
       },
     ],
   };
@@ -139,23 +131,6 @@ const BudgetByCategoryWidget = () => {
     "E as % of A",
     "E as % of total A",
   ];
-
-  // const rows = accumulatedSubTotals.map((item) => {
-  //   return [
-  //     item.category,
-  //     item.amount,
-  //     (100 / allocatedTotalForPeriod) * item.amount,
-  //     (100 / netIncomeForPeriod) * item.amount,
-  //   ];
-  // });
-
-  // const getTableData = (headerRow, dataRows) => {
-  //   let arr2D = [];
-  //   arr2D = [headerRow, dataRows];
-  //   return arr2D;
-  // };
-
-  // const arrData = getTableData(headerRow, rows);
 
   return (
     <StyledBreakdown>
@@ -191,19 +166,13 @@ const BudgetByCategoryWidget = () => {
               <div className="chart">
                 <Bar
                   data={data}
-                  //width={100}
-                  //height={200}
                   options={options}
                 />
               </div>
             ) : (
               <Table
-                // arrData={arrData}
                 headings={headings}
                 accumulatedSubTotals={accumulatedSubTotals}
-                dataArray={dataArray}
-                //allocatedTotalForPeriod={allocatedTotalForPeriod}
-                netIncomeForPeriod={netIncomeForPeriod}
               />
             )}
           </div>

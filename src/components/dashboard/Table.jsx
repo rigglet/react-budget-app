@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 
 //BUILD GENERIC TABLE COMPONENT
-const Table = ({ headings, accumulatedSubTotals, dataArray, netIncomeForPeriod}) => {
+const Table = ({ headings, accumulatedSubTotals}) => {
   const { currencySymbol } = useContext(GlobalContext);
   //console.log(accumulatedSubTotals);
   return (
@@ -31,7 +31,7 @@ const Table = ({ headings, accumulatedSubTotals, dataArray, netIncomeForPeriod})
             .map((item, i) => (
               <tr key={uuidv4()}>
                 <td>
-                  <p>{item.category}</p>
+                  <p className="category-name">{item.category}</p>
                 </td>
                 <td>
                   <p>
@@ -74,5 +74,9 @@ const StyledTable = styled(motion.div)`
   }
   td {
     text-align: center;
+  }
+  .category-name {
+    font-variant-caps: all-small-caps;
+    font-size: 1.2rem;
   }
 `;
