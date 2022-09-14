@@ -58,7 +58,7 @@ const IncomeForm = () => {
       case "INVALID":
         toast.dark("Please enter positive numbers only");
         break;
-        case "INVALID ANNUAL":
+      case "INVALID ANNUAL":
           toast.dark(
             "Please ensure Annual (Net) figure is lower than Annual (gross)"
         );
@@ -110,7 +110,6 @@ const IncomeForm = () => {
   //handle form data change
   const handleChange = (e) => {
     if (handleFormatValidation(e.target.value)) {
-      console.log(incomeData);
       setIncomeData(() => ({
         ...incomeData,
         [e.target.name]: e.target.value,

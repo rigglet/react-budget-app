@@ -31,13 +31,20 @@ const AddBudgetCategoryForm = () => {
 
   const notify = (type) => {
     switch (type) {
+      case "INVALID":
+        toast.dark("Please enter positive numbers only");
+        break;
       case "ADDED":
         toast.dark("Budget Category Added");
         break;
-      case "INVALID":
-        toast.warn(
-          "Please enter a name and description longer than 5 characters",
-          { color: "black" }
+      case "CAT_LENGTH":
+        toast.dark(
+          "Please enter a category name",
+        );
+        break;
+      case "AMOUNT":
+        toast.dark(
+          "Please enter an amount greater than 0",
         );
         break;
       default:
@@ -45,21 +52,56 @@ const AddBudgetCategoryForm = () => {
     }
   };
 
-  const handleValidation = (formData) => {
-    let valid = true;
-    //console.log(formData.name.length);
-    // if (formData.name.length < 5 || formData.description.length < 5) {
-    //   valid = false;
-    // }
+  //VALIDATION
+  //FORMAT
+  const handleFormatValidation = (value) => {
+    const reg = /^[0-9]*(?:\.?)[0-9]*$/;
+    return value.match(reg);
+  };
+
+  const handleAmountValidation = () => {
+    let valid = false;
+    if (!Number(formData.amount) > 0) {
+      notify("AMOUNT");
+      document.getElementById("amount").focus();
+    } else {
+      valid = true;
+    }
+    return valid;
+  };
+
+  const handleCategoryValidation = () => {
+    let valid = false;
+    if (formData.category.length < 1) {
+      notify("CAT_LENGTH");
+      document.getElementById("category").focus();
+    } else {
+      valid = true;
+    }
     return valid;
   };
 
   const handleChange = (e) => {
-    //console.log(`${e.target.name}: ${e.target.value}`);
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    
+    if (e.target.name === "amount") {
+      if(handleFormatValidation(e.target.value))
+      {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value,
+        });
+      }
+      else
+      {
+        notify("INVALID");
+      }
+    }
+    else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleBlur = (e) => {
@@ -67,18 +109,17 @@ const AddBudgetCategoryForm = () => {
     setFormData({
       ...formData,
       [e.target.name]: Number(e.target.value).toFixed(2)
-      //[e.target.name]: Number(e.target.value).toFixed(2),
     });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    if (handleValidation(formData)) {
+    if (handleCategoryValidation() &&
+        handleAmountValidation()) {
       
       const newBudgetCategory = {
         id: uuidv4(),
-        category: formData.category.toLowerCase() || "Category",
+        category: formData.category.toLowerCase(),
         amount: Number(formData.amount) * 100,
         items: []
       };
@@ -108,8 +149,6 @@ const AddBudgetCategoryForm = () => {
         amount: "",
       });
       notify("ADDED");
-    } else {
-      notify("INVALID");
     }
   };
 
@@ -145,6 +184,7 @@ const AddBudgetCategoryForm = () => {
                 <label>Category:</label>
                 <input
                   className="active-input"
+                  id="category"
                   name="category"
                   type="text"
                   value={formData.category}
@@ -158,6 +198,7 @@ const AddBudgetCategoryForm = () => {
                   {currencySymbol}
                   <input
                     className="active-input"
+                    id="amount"
                     name="amount"
                     type="text"
                     value={formData.amount}
