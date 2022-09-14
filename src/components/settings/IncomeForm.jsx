@@ -86,16 +86,16 @@ const IncomeForm = () => {
   };
 
   //NET less than gross annual income
-  const validateAnnual = () => {
-    let isValid = false;
-    if (incomeData.annual > incomeData.annualNet) {
-      isValid = true;
-    } else {
-      notify("INVALID annualGross");
-      document.getElementById("annualNet").focus();
-    }
-    return isValid;
-  };
+  // const validateAnnual = () => {
+  //   let isValid = false;
+  //   if (incomeData.annual > incomeData.annualNet) {
+  //     isValid = true;
+  //   } else {
+  //     notify("INVALID annualGross");
+  //     document.getElementById("annualNet").focus();
+  //   }
+  //   return isValid;
+  // };
 
   const validateAllowance = () => {
     let isValid = false;
@@ -164,10 +164,8 @@ const IncomeForm = () => {
   //handle form submit
   const handleSaveBudget = () => {
     if (
-      // validateAnnual() === true &&
-      // validateAllowance() === true &&
-      // validateDeductions() === true
-      true
+      validateAllowance() === true &&
+      validateDeductions() === true
     ) {
       //update global provider
       updateBudget(updatedBudget);
