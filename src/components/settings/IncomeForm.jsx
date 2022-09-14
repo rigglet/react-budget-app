@@ -56,7 +56,7 @@ const IncomeForm = () => {
         toast.dark("Income updated");
         break;
       case "INVALID":
-        toast.dark("Please enter numbers only");
+        toast.dark("Please enter positive numbers only");
         break;
         case "INVALID ANNUAL":
           toast.dark(
@@ -85,21 +85,9 @@ const IncomeForm = () => {
     return value.match(reg);
   };
 
-  //NET less than gross annual income
-  const validateAnnual = () => {
-    let isValid = false;
-    if (incomeData.annual > incomeData.annualNet) {
-      isValid = true;
-    } else {
-      notify("INVALID annualGross");
-      document.getElementById("annualNet").focus();
-    }
-    return isValid;
-  };
-
   const validateAllowance = () => {
     let isValid = false;
-    if (incomeData.taxFreeAllowance < incomeData.annualGross) {
+    if (Number(incomeData.taxFreeAllowance) < Number(incomeData.annualGross)) {
       isValid = true;
     } else {
       notify("INVALID ALLOWANCE");
@@ -110,7 +98,7 @@ const IncomeForm = () => {
 
   const validateDeductions = () => {
     let isValid = false;
-    if (incomeData.totalDeductions < incomeData.annualGross) {
+    if (Number(totalDeductions) < Number(incomeData.annualGross)) {
       isValid = true;
     } else {
       notify("INVALID DEDUCTIONS");
@@ -122,6 +110,7 @@ const IncomeForm = () => {
   //handle form data change
   const handleChange = (e) => {
     if (handleFormatValidation(e.target.value)) {
+      console.log(incomeData);
       setIncomeData(() => ({
         ...incomeData,
         [e.target.name]: e.target.value,
@@ -164,10 +153,8 @@ const IncomeForm = () => {
   //handle form submit
   const handleSaveBudget = () => {
     if (
-      // validateAnnual() === true &&
-      // validateAllowance() === true &&
-      // validateDeductions() === true
-      true
+      validateAllowance() === true && 
+      validateDeductions() === true
     ) {
       //update global provider
       updateBudget(updatedBudget);
@@ -186,7 +173,7 @@ const IncomeForm = () => {
     for (const key in initialData) {
       initialData[key] = Number(initialData[key]).toFixed(2);
     }
-    setIncomeData(initialData);
+    setIncomeData(initialData)
   };
 
   return (
