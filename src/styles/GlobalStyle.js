@@ -71,8 +71,7 @@ body{
 }
 
 .line {
-    width: 100%;
-    margin: 1rem 0;
+    width: 90%;
     background-color: #848586;
     height: 1px;
   }

@@ -205,6 +205,7 @@ const IncomeForm = () => {
         pauseOnFocusLoss
       />
       <h4>Income Information</h4>
+      
       <div className="container">
         <form>
           <div className="row">
@@ -270,7 +271,7 @@ const IncomeForm = () => {
           </div>
           <div className="row">
             <label htmlFor="nationalInsurance">National Insurance</label>
-            <div className="currency-iput">
+            <div className="currency-input">
               {currencySymbol}
               <input
                 className="active-input"
@@ -346,24 +347,12 @@ const IncomeForm = () => {
               />
             </div>
           </div>
-          {/* <div className="row">
-            <label htmlFor="dailyNet">Daily Salary (Net)</label>
-            <div className="currency-input">
-              {currencySymbol}
-              <input
-                type="text"
-                name="dailyNet"
-                id="dailyNet"
-                value={dailyNet}
-                onChange={handleChange}
-                readOnly
-              />
-            </div>
-          </div> */}
         </form>
 
-        <button className="button" onClick={() => handleSaveBudget()}>SAVE</button>
-        <button className="button" onClick={() => handleResetChanges()}>RESET</button>
+        <div className="buttons">
+          <button className="button" onClick={() => handleSaveBudget()}>SAVE</button>
+          <button className="button" onClick={() => handleResetChanges()}>RESET</button>
+        </div>
       </div>
     </StyledIncomeForm>
   );
@@ -372,58 +361,57 @@ const IncomeForm = () => {
 const StyledIncomeForm = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  //width: 50%;
+  align-items: flex-start;
+  flex-grow: 1;
   padding: 1rem;
   border-radius: 4px;
   background-color: #39393c;
   color: #848586;
-  flex-grow: 1;
 
   h4 {
     color: white;
     font-weight: 500;
     margin-bottom: 1rem;
   }
-  .charts {
+
+  .container {
     display: flex;
     flex-direction: column;
+    width: 100%;
     row-gap: 1rem;
-    column-gap: 1rem;
   }
 
-  .line {
-    width: 100%;
-    margin: 0.5rem;
-    background-color: #848586;
-    height: 1px;
-  }
-  h3 {
-    margin-bottom: 1rem;
-    color: white;
-  }
+  
   form {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    row-gap: 0.75rem;
+    
     .row {
       display: flex;
       justify-content: space-between;
-      padding: 0.5rem 0rem;
-    }
-    label {
-      //margin-right: 1rem;
+      flex-grow: 1;
     }
     .currency-input {
       display: flex;
       align-items: center;
+      column-gap: 0.5rem;
     }
-
-    input {
-      margin-left: 0.5rem;
+    .line {
+      width: 90%;
+      background-color: #848586;
+      height: 0.2rem;
+      border-radius: 4px;
+      margin: 0.5rem 0;
+      align-self: center;
     }
   }
-  button {
-    margin-top: 1rem;
+  
+  .buttons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    column-gap: 1rem;
   }
 
   p {
