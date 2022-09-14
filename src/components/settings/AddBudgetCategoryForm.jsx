@@ -66,8 +66,6 @@ const AddBudgetCategoryForm = ({balance}) => {
 
   const checkAvailableCredit = () => {
     let valid = false;
-    console.log(typeof balance);
-    console.log(typeof Number(formData.amount));
     if (Number(formData.amount) > balance) {
       notify("BALANCE");
       document.getElementById("amount").focus();
@@ -251,14 +249,14 @@ const AddBudgetCategoryForm = ({balance}) => {
 };
 
 const StyledAddBudgetCategoryForm = styled(motion.div)`
-  padding: ${({showForm}) => (showForm ? "1rem": "0.25rem")};
+  padding: ${({ showForm }) => (showForm ? "1rem" : "0.25rem")};
   display: ${({ showForm }) => (showForm ? "flex" : "none")};
   border-radius: 4px;
   background-color: ${({showForm}) => (showForm ? "#39393c": "transparent")};
   color: #848586;
   display: flex;
   flex-direction: column;
-  padding-top: 4rem;
+  padding-top: 3rem;
   align-items: ${({showForm}) => (showForm ? "flex-start": "flex-start")};
   justify-content: center;
   position: relative;

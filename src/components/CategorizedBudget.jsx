@@ -44,7 +44,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
 
   let itemTotal = budgetCategory?.items?.map(i => i.amount).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   const budgetTotal = budgetCategory?.amount / 100;
-  
+  const preformatedItemtotal = itemTotal;
   let categorisedPercentage = 0;
 
   if (itemTotal > 0 && budgetTotal > 0) {
@@ -109,7 +109,7 @@ const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {
             </div>
           )}
           
-          <AddBudgetCategoryItemForm budgetCategory={budgetCategory} showForm={showForm} toggleShowForm={toggleShowForm} viewItems={ viewItems} toggleViewItems={toggleViewItems} />
+            <AddBudgetCategoryItemForm budgetCategory={budgetCategory} showForm={showForm} toggleShowForm={toggleShowForm} viewItems={viewItems} toggleViewItems={toggleViewItems} itemTotal={preformatedItemtotal} />
           
         </>
       )}

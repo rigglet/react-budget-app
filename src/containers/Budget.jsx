@@ -28,7 +28,7 @@ const Budget = () => {
         </div>
       </div>
 
-      <div className="charts">
+      <div className="content">
         {balance > 0 && (
           <AddBudgetCategoryForm balance={balance} />
         )}
@@ -44,15 +44,15 @@ const StyledBudget = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  row-gap: 1rem;
-  
+  margin-top: 1rem;
+ 
   .heading {
     width: 70vw;
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 2rem;
-    //padding: 0 1rem;
+    padding: 1rem;
     flex-wrap: wrap;
     flex-grow: 1;
     
@@ -67,7 +67,6 @@ const StyledBudget = styled(motion.div)`
       }
 
       p {
-        //color: #00b4ee;
         font-size: 1.5rem;
         font-weight: bold;
       }
@@ -79,11 +78,11 @@ const StyledBudget = styled(motion.div)`
     padding-left: 15vw;
   }
 
-  .charts {
+  .content {
     display: flex;
     flex-direction: column;
     width: 70vw;
-    gap: 2rem;
+    row-gap: 1rem;
   }
 `;
 

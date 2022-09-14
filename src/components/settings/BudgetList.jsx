@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../context/GlobalContext";
 import { updateBudgetLocally, sortByCategoryThenByItem, calculateFundsTotal } from "../../utilities";
-//import UncategorizedBudget from "../../components/UncategorizedBudget"
 import CategorizedBudget from "../../components/CategorizedBudget"
 
 const BudgetList = () => {

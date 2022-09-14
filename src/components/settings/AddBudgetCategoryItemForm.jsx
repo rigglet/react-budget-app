@@ -12,13 +12,12 @@ import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 
-const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, toggleViewItems, viewItems}) => {
+const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, toggleViewItems, viewItems, itemTotal}) => {
   const [formData, setFormData] = useState({
     item: "",
     amount: "",
   });
-
-
+  
   const {
     updateBudget,
     budgets,
@@ -27,15 +26,29 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
     currencySymbol
   } = useContext(GlobalContext);
 
+  const balance = Number(budgetCategory.amount / 100) - Number(itemTotal);
+
   const notify = (type) => {
     switch (type) {
       case "ADDED":
         toast.dark("Budget Item Added");
         break;
       case "INVALID":
-        toast.warn(
-          "Please enter a name and description longer than 5 characters",
-          { color: "black" }
+        toast.dark("Please enter positive numbers only");
+        break;
+      case "ITEM_LENGTH":
+        toast.dark(
+          "Please enter an item name",
+        );
+        break;
+      case "AMOUNT":
+        toast.dark(
+          "Please enter an amount greater than 0",
+        );
+        break;
+      case "BALANCE":
+        toast.dark(
+          "Please enter an amount less than the available budget",
         );
         break;
       default:
@@ -43,21 +56,65 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
     }
   };
 
-  const handleValidation = (formData) => {
-    let valid = true;
-    //console.log(formData.name.length);
-    // if (formData.name.length < 5 || formData.description.length < 5) {
-    //   valid = false;
-    // }
+  //VALIDATION
+  //FORMAT
+  const handleFormatValidation = (value) => {
+    const reg = /^[0-9]*(?:\.?)[0-9]*$/;
+    return value.match(reg);
+  };
+
+  const checkAvailableCredit = () => {
+    let valid = false;
+    if (Number(formData.amount) > balance) {
+      notify("BALANCE");
+      document.getElementById("amount").focus();
+    } else {
+      valid = true;
+    }
+    return valid;
+  };
+  const handleAmountValidation = () => {
+    let valid = false;
+    if (!Number(formData.amount) > 0) {
+      notify("AMOUNT");
+      document.getElementById("amount").focus();
+    } else {
+      valid = true;
+    }
+    return valid;
+  };
+
+  const handleItemValidation = () => {
+    let valid = false;
+    if (formData.item.length < 1) {
+      notify("ITEM_LENGTH");
+      document.getElementById("item").focus();
+    } else {
+      valid = true;
+    }
     return valid;
   };
 
   const handleChange = (e) => {
-    //console.log(`${e.target.name}: ${e.target.value}`);
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "amount") {
+      if(handleFormatValidation(e.target.value))
+      {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value,
+        });
+      }
+      else
+      {
+        notify("INVALID");
+      }
+    }
+    else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleBlur = (e) => {
@@ -65,16 +122,15 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
     setFormData({
       ...formData,
       [e.target.name]: Number(e.target.value).toFixed(2)
-      //[e.target.name]: Number(e.target.value).toFixed(2),
     });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (handleValidation(formData)) {
-      //const date = new Date(Date.now());
-      //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+    if (handleItemValidation() &&
+      handleAmountValidation() &&
+      checkAvailableCredit()) {
       
       const newBudgetItem = {
         id: uuidv4(),
@@ -107,8 +163,6 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
         amount: "",
       });
       notify("ADDED");
-    } else {
-      notify("INVALID");
     }
   };
 
@@ -144,6 +198,7 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
                 <label>Item:</label>
                 <input
                   className="active-input"
+                  id="item"
                   name="item"
                   type="text"
                   value={formData.item}
@@ -158,6 +213,7 @@ const AddBudgetCategoryItemForm = ( {budgetCategory, showForm, toggleShowForm, t
                   {currencySymbol}
                   <input
                     className="active-input"
+                    id="amount"
                     name="amount"
                     type="text"
                     value={formData.amount}
