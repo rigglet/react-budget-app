@@ -22,12 +22,10 @@ const IncomeForm = () => {
     currencySymbol,
   } = useContext(GlobalContext);
 
+  //divide values by 100
+  const initialData = divideValues(currentBudget?.data?.income)
   //form data hook
-  const [incomeData, setIncomeData] = useState(
-    //divide values by 100
-    divideValues(currentBudget?.data?.income)
-    // {...currentBudget?.data?.income}
-  );
+  const [incomeData, setIncomeData] = useState(initialData);
 
     //let annualGross = currentBudget?.data?.income.annualGross;
     //taxFreeAllowance
@@ -181,6 +179,14 @@ const IncomeForm = () => {
       //toast message
       notify("UPDATED");
     }
+  };
+
+  //handle form reset
+  const handleResetChanges = () => {
+    for (const key in initialData) {
+      initialData[key] = Number(initialData[key]).toFixed(2);
+    }
+    setIncomeData(initialData);
   };
 
   return (
@@ -356,9 +362,8 @@ const IncomeForm = () => {
           </div> */}
         </form>
 
-        <button className="button" onClick={() => handleSaveBudget()}>
-          SAVE
-        </button>
+        <button className="button" onClick={() => handleSaveBudget()}>SAVE</button>
+        <button className="button" onClick={() => handleResetChanges()}>RESET</button>
       </div>
     </StyledIncomeForm>
   );
