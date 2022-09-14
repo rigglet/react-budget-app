@@ -153,7 +153,7 @@ const IncomeForm = () => {
   //handle form submit
   const handleSaveBudget = () => {
     if (
-      validateAllowance() === true && 
+      validateAllowance() === true &&
       validateDeductions() === true
     ) {
       //update global provider
