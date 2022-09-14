@@ -12,7 +12,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 
-const AddBudgetCategoryForm = () => {
+const AddBudgetCategoryForm = ({balance}) => {
   const [formData, setFormData] = useState({
     category: "",
     amount: "",
@@ -47,6 +47,11 @@ const AddBudgetCategoryForm = () => {
           "Please enter an amount greater than 0",
         );
         break;
+      case "BALANCE":
+        toast.dark(
+          "Please enter an amount less than the available balance",
+        );
+        break;
       default:
         toast.dark("Nothing to report");
     }
@@ -59,6 +64,18 @@ const AddBudgetCategoryForm = () => {
     return value.match(reg);
   };
 
+  const checkAvailableCredit = () => {
+    let valid = false;
+    console.log(typeof balance);
+    console.log(typeof Number(formData.amount));
+    if (Number(formData.amount) > balance) {
+      notify("BALANCE");
+      document.getElementById("amount").focus();
+    } else {
+      valid = true;
+    }
+    return valid;
+  };
   const handleAmountValidation = () => {
     let valid = false;
     if (!Number(formData.amount) > 0) {
@@ -115,7 +132,8 @@ const AddBudgetCategoryForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (handleCategoryValidation() &&
-        handleAmountValidation()) {
+      handleAmountValidation() &&
+      checkAvailableCredit()) {
       
       const newBudgetCategory = {
         id: uuidv4(),

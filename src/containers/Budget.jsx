@@ -9,7 +9,7 @@ import { formatNumber } from "../utilities";
 const Budget = () => {
   
   const { currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
-
+  let balance = Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100)
   
   return (
     <StyledBudget>
@@ -24,13 +24,15 @@ const Budget = () => {
         </div>
         <div className="item">
           <h3>Balance:</h3>
-          <p className="balance-color">${formatNumber(Number(currentBudget.data.income.annualNet/100-allocatedFundsTotal/100).toFixed(2))}</p>
+          <p className="balance-color">${formatNumber(Number(balance).toFixed(2))}</p>
         </div>
       </div>
 
       <div className="charts">
-        <AddBudgetCategoryForm />
-        <h3 className="">Budgets by category</h3>
+        {balance > 0 && (
+          <AddBudgetCategoryForm balance={balance} />
+        )}
+        <h3>Budgets by category</h3>
         <BudgetList />
       </div>
     </StyledBudget>
