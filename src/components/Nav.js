@@ -61,13 +61,7 @@ const Nav = () => {
               animate={{ width: path === "home" || path === "" ? "100%" : "0%" }}
             />
           </li>
-          {isBudgetLoaded && (
-            <li className="exit" onClick={() => handleBudgetClose()}>
-              <ImExit className="icon"/>
-              <p>{currentBudget.saveName}</p>
-            </li>
             
-          )}
         </ul>
        
         <ul>
@@ -98,7 +92,7 @@ const Nav = () => {
             >
               <BsFileSpreadsheet
                 className={path === "budget" ? "navIconSelected" : "navIcon"}
-              />
+                />
               <p className={path === "budget" ? "selected" : ""}>Budget</p>
             </Link>
             <Line
@@ -115,7 +109,7 @@ const Nav = () => {
             >
               <BiAbacus
                 className={path === "summary" ? "navIconSelected" : "navIcon"}
-              />
+                />
               <p className={path === "summary" ? "selected" : ""}>Summary</p>
             </Link>
             <Line
@@ -124,10 +118,15 @@ const Nav = () => {
               animate={{ width: path === "summary" ? "100%" : "0%" }}
             />
           </li>
+          <li className="exit" onClick={() => handleBudgetClose()}>
+            <ImExit className="icon"/>
+            <p>Exit</p>
+          </li>
         </>
           )}
         </ul>
       </div>
+      
     </StyledNav>
   );
 };
@@ -147,9 +146,11 @@ const StyledNav = styled(motion.div)`
   .brand {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    column-gap: 1rem;
+    
     .logo {
-      width: 5vw;
+      width: auto;
       height: 5vh;
     }
     a {
@@ -170,31 +171,23 @@ const StyledNav = styled(motion.div)`
     align-items: center;
     width: 100%;
     row-gap: 0.5rem;
-    column-gap: 1rem;
+    column-gap: 2rem;
     flex-wrap: wrap;
   }
   
+  ul: nth-of-type(1) {
+    justify-content: space-around;
+    flex-grow: 0;
+  }
+
   ul {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     list-style: none;
     text-decoration: none;
     flex-grow: 1;
-    column-gap: 1.2rem;
-
-    .exit {
-      display: flex;
-      column-gap: 0.5rem;
-      cursor: pointer;
-      
-      p {
-        color: #00b4ee;
-        font-weight: bold;
-        font-size: 15pt;
-        font-variant-caps: all-small-caps;
-      }
-    }
+    column-gap: 3rem;
 
     li {
       text-decoration: none;
@@ -212,11 +205,11 @@ const StyledNav = styled(motion.div)`
         font-size: 15pt;
         color: #848586;
       }
-
+      
       .selected {
         color: white;
       }
-
+      
       .navIcon {
         color: inherit;
         color: #848586;
@@ -229,8 +222,21 @@ const StyledNav = styled(motion.div)`
         width: 25px;
       }
     }
+
+    .exit {
+      display: flex;
+      column-gap: 0.5rem;
+      cursor: pointer;
+      
+      p {
+        color: #00b4ee;
+        font-weight: bold;
+        font-size: 15pt;
+        font-variant-caps: all-small-caps;
+      }
+    }
   }
-`;
+  `;
 
 const Line = styled(motion.div)`
   height: 0.15rem;

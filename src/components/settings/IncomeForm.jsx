@@ -8,6 +8,10 @@ import { GlobalContext } from "../../context/GlobalContext";
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+//todo: form validation
+//todo: unnecessary file cleanup
+//todo: branch to new repository?
+
 const IncomeForm = () => {
   //global context
   const {
