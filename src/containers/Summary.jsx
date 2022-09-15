@@ -118,7 +118,7 @@ const StyledSummary = styled(motion.div)`
       }
     }
   }
-  
+
   .title {
     display: flex;
     flex-direction: column;
@@ -131,6 +131,7 @@ const StyledSummary = styled(motion.div)`
     width: 70vw;
     gap: 1rem;
   }
+  
   .content {
     width: 100%;
     display: flex;
