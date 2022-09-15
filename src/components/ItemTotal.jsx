@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import Progressbar from "./Progressbar";
 
 const ItemTotal = ({expenditureTotal, allocatedFundsTotal}) => {
- 
   const { currencySymbol } = useContext(GlobalContext);
-  
-  const percentage = expenditureTotal / (allocatedFundsTotal / 100) * 100;
+  let percentage = 0;
+  if (expenditureTotal > 0 && allocatedFundsTotal > 0) {
+    percentage = expenditureTotal / (allocatedFundsTotal / 100) * 100;
+  }
   
   return (
     <StyledItemTotal>

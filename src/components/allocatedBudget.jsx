@@ -9,8 +9,11 @@ const AllocatedBudget = ({income, allocatedFundsTotal}) => {
   
   const { currencySymbol } = useContext(GlobalContext);
 
-  const percentage = allocatedFundsTotal / income * 100;
-  
+  let percentage = 0;
+  if (income > 0 && allocatedFundsTotal > 0) {
+    percentage = allocatedFundsTotal / income * 100;
+  }
+
   return (
     <StyledAllocatedBudget>
       <div className="titlebar">

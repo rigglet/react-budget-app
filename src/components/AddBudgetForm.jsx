@@ -63,7 +63,7 @@ const AddBudgetForm = () => {
           "/" +
           date.getFullYear(),
         data: {
-          budgetCategories: [{name: "UncategorizedBudget", total: 0}],
+          budgetCategories: [],
           income: {
             annualGross: 0,
             taxFreeAllowance: 0,

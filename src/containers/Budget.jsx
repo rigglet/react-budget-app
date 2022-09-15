@@ -33,7 +33,14 @@ const Budget = () => {
           <AddBudgetCategoryForm balance={balance} />
         )}
         <h3>Budgets by category</h3>
-        <BudgetList />
+        {currentBudget.data.budgetCategories.length > 0 ? (
+          <BudgetList />
+        ) : (
+            <>
+              <p>No budget categories to display</p>
+              <p>Please create a budget category above</p>
+            </>
+        )}
       </div>
     </StyledBudget>
   );

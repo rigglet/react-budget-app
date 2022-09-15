@@ -10,7 +10,10 @@ const UncategorizedBudget = ({uncategorisedTotal, netIncome}) => {
   const { currencySymbol } = useContext(GlobalContext);
   
   //uncategorised funds as percentage of annual net figure
-  const percentage = uncategorisedTotal / netIncome * 100;
+  let percentage = 0;
+  if (uncategorisedTotal > 0 && netIncome > 0) {
+    percentage = uncategorisedTotal / netIncome * 100;
+  }
   
   return (
     <StyledUncategorizedBudget>

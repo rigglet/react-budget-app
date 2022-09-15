@@ -9,8 +9,11 @@ const ExpenditureByIncomeWidget = ({expenditureTotal, income}) => {
  
   const { currencySymbol } = useContext(GlobalContext);
 
-  const percentage = expenditureTotal / (income/100) * 100;
-
+  let percentage = 0;
+  if (expenditureTotal > 0 && income > 0) {
+    percentage = expenditureTotal / (income/100) * 100;
+  }
+  
   return (
     <StyledExpenditureByIncomeWidget>
       <div className="titlebar">
