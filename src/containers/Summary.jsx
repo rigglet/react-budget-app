@@ -42,9 +42,6 @@ const Summary = () => {
 
       
       <div className="charts">
-        <div className="title">
-          <h3 className="">Summary</h3>
-        </div>
         
         <div className="key">
           <div className="element">
@@ -68,6 +65,11 @@ const Summary = () => {
             <h5 className="legend">Balance</h5>
           </div>
         </div>
+        
+        <div className="title">
+          <h3 className="">Summary</h3>
+        </div>
+
         <div className="content">  
           <UncategorizedBudget
             uncategorisedTotal={uncategorisedTotal}
@@ -127,7 +129,7 @@ const StyledSummary = styled(motion.div)`
     display: flex;
     flex-direction: column;
     width: 70vw;
-    gap: 2rem;
+    gap: 1rem;
   }
   .content {
     width: 100%;
