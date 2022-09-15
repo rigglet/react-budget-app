@@ -1,19 +1,19 @@
 import { useContext, useState } from "react";
-import { GlobalContext } from "../../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import Table from "../Table";
+import Table from "./Table";
 //chart
 import { Bar } from "react-chartjs-2";
 //icons
 import { AiOutlineTable } from "react-icons/ai";
 import { GoGraph } from "react-icons/go";
-import AllocatedSelector from "../AllocatedSelector";
+import AllocatedSelector from "./AllocatedSelector";
 import {
   getAllocatedPerPeriod,
   getNetIncomeForPeriod,
   getAccumulatedSubTotals,
-} from "../../../utilities";
+} from "../utilities";
 
 const BudgetByCategoryWidget = () => {
   const [toggleTable, setToggleTable] = useState(false);

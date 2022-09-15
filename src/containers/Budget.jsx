@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import BudgetList from "../components/settings/BudgetList";
-import AddBudgetCategoryForm from "../components/settings/AddBudgetCategoryForm";
+import BudgetList from "../components/BudgetList";
+import AddBudgetCategoryForm from "../components/AddBudgetCategoryForm";
 import { GlobalContext } from "../context/GlobalContext";
 import { formatNumber } from "../utilities";
 

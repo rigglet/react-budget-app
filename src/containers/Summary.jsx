@@ -7,7 +7,7 @@ import ExpenditureByIncomeWidget from "../components/ExpeditureByIncomeWidget";
 import ItemTotal from "../components/ItemTotal";
 import { GlobalContext } from "../context/GlobalContext";
 //import AllocatedWidget from "../components/dashboard/widgets/AllocatedWidget";
-import ExpenditureByCategoryWidget from "../components/dashboard/widgets/ExpenditureByCategoryWidget";
+import ExpenditureByCategoryWidget from "../components/ExpenditureByCategoryWidget";
 import { formatNumber } from "../utilities";
 
 const Summary = () => {

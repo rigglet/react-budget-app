@@ -27,14 +27,9 @@ function App() {
           <Route exact path="/">
             <Budgets />
           </Route>
-          
           <Route exact path="/home">
             <Budgets />
           </Route>
-          
-          {/* <Route exact path="/">
-            <Income />
-          </Route> */}
           <Route exact path="/income">
             <Income />
           </Route>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FaTrashAlt} from "react-icons/fa";
 import Progressbar from "./Progressbar";
-import AddBudgetCategoryItemForm from "../components/settings/AddBudgetCategoryItemForm";
+import AddBudgetCategoryItemForm from "../components/AddBudgetCategoryItemForm";
 import { updateBudgetLocally, formatNumber, calculateFundsTotal} from "../utilities";
 
 const CategorizedBudget = ({budgetCategory, deleteBudgetCategory}) => {

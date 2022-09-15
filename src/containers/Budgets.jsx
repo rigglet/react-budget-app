@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //context
 import { GlobalContext } from "../context/GlobalContext";
-import AddBudgetForm from "../components/budget/AddBudgetForm";
-import BudgetList from "../components/budget/BudgetList";
+import AddBudgetForm from "../components/AddBudgetForm";
+import BudgetList from "../components/BudgetFileList";
 import Spinner from "../components/Spinner";
 import { seedData } from "../seedData";
 
@@ -16,7 +16,6 @@ const Budgets = () => {
   const data = seedData();
   //setData
   //data.setData()
-  //console.log(data)
   
   //get seed data
   useEffect(() => {

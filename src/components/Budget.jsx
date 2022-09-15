@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { BsFileText } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import { FaTrashAlt, FaFolderOpen } from "react-icons/fa";
-import { calculateFundsTotal, deleteBudgetLocally } from "../../utilities";
+import { calculateFundsTotal, deleteBudgetLocally } from "../utilities";
 //context
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 
 const Budget = ({ budget }) => {
   let history = useHistory();

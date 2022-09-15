@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { formatNumber } from "../../utilities";
+import { formatNumber } from "../utilities";
 import { v4 as uuidv4 } from "uuid";
 
 

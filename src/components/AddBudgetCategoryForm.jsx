@@ -6,9 +6,9 @@ import {FaChevronDown, FaChevronUp} from "react-icons/fa"
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { updateBudgetLocally, calculateFundsTotal } from "../../utilities";
+import { updateBudgetLocally, calculateFundsTotal } from "../utilities";
 //context
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
 

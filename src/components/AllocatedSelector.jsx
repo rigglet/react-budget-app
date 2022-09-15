@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
-import { formatNumber } from "../../utilities";
+import { GlobalContext } from "../context/GlobalContext";
+import { formatNumber } from "../utilities";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 

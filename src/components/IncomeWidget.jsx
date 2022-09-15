@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useContext } from "react";
-import { GlobalContext } from "../../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 import Xarrow, {useXarrow, Xwrapper} from 'react-xarrows';
 
 const IncomeWidget = () => {

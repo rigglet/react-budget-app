@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion, frame } from "framer-motion";
 import Budget from "./Budget";
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 
 const BudgetList = () => {
   const { budgets } = useContext(GlobalContext);

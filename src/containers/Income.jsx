@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //message components
 import "react-toastify/dist/ReactToastify.css";
-import IncomeWidget from "../components/dashboard/widgets/IncomeWidget";
-import IncomeForm from "../components/settings/IncomeForm";
+import IncomeWidget from "../components/IncomeWidget";
+import IncomeForm from "../components/IncomeForm";
 
 const Income = () => {
   return (

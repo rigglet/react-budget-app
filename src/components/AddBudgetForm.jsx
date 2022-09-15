@@ -5,13 +5,11 @@ import { motion } from "framer-motion";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { saveBudgetLocally } from "../../utilities";
+import { saveBudgetLocally } from "../utilities";
 //context
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 //UUID inique ID generator
 import { v4 as uuidv4 } from "uuid";
-import { getWidgets } from "../../data";
-import UncategorizedBudget from "../UncategorizedBudget";
 
 const AddBudgetForm = () => {
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -54,7 +52,6 @@ const AddBudgetForm = () => {
 
     if (handleValidation(formData)) {
       const date = new Date(Date.now());
-      //const sd = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
       const newBudget = {
         id: uuidv4(),
         saveName: formData.name,
@@ -67,7 +64,6 @@ const AddBudgetForm = () => {
           date.getFullYear(),
         data: {
           budgetCategories: [{name: "UncategorizedBudget", total: 0}],
-          transactions: new Array(),
           income: {
             annualGross: 0,
             taxFreeAllowance: 0,
@@ -79,8 +75,7 @@ const AddBudgetForm = () => {
             monthlyNet: 0,
             weeklyNet: 0,
           },
-        },
-        widgets: getWidgets(),
+        }
       };
 
       //add budget to app context

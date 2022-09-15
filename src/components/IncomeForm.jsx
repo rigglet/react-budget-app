@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { formatStrings, divideValues, multiplyValues, updateBudgetLocally } from "../../utilities";
+import { formatStrings, divideValues, multiplyValues, updateBudgetLocally } from "../utilities";
 //context
-import { GlobalContext } from "../../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalContext";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

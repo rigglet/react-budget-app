@@ -1,11 +1,11 @@
-import Allocated from "./components/dashboard/widgets/AllocatedWidget";
-import BudgetByCategoryWidget from "./components/dashboard/widgets/BudgetByCategoryWidget";
-import BudgetByItemWidget from "./components/dashboard/widgets/BudgetByItemWidget";
-import Salary from "./components/dashboard/widgets/SalaryWidget";
-import ExpenditureWidget from "./components/dashboard/widgets/ExpenditureWidget";
-import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
-import AnnualOverviewWidget from "./components/dashboard/widgets/AnnualOverviewWidget";
+// import Allocated from "./components/dashboard/widgets/AllocatedWidget";
+// import BudgetByCategoryWidget from "./components/dashboard/widgets/BudgetByCategoryWidget";
+// import BudgetByItemWidget from "./components/dashboard/widgets/BudgetByItemWidget";
+// import Salary from "./components/dashboard/widgets/SalaryWidget";
+// import ExpenditureWidget from "./components/dashboard/widgets/ExpenditureWidget";
+// import AnnualOverviewWidget from "./components/dashboard/widgets/AnnualOverviewWidget";
+//import { v4 as uuidv4 } from "uuid";
+//import moment from "moment";
 
 export const divideValues = (o) => {  
   let newobj = {}
@@ -321,27 +321,27 @@ export const deleteBudgetLocally = (budgets, id) => {
   window.localStorage.setItem("EXPENSE-APP", JSON.stringify([...newBudgets]));
 };
 
-export const getWidget = (name) => {
-  switch (name) {
-    //INCOME
-    case "Budget allocated / remaining":
-      return <Allocated key="allocated" />;
-    case "Salary gross and net breakdown":
-      return <Salary key={uuidv4()} />;
-    //BUDGET
-    case "Budget breakdown by category":
-      return <BudgetByCategoryWidget key={uuidv4()} />;
-    case "Budget breakdown by item":
-      return <BudgetByItemWidget key={uuidv4()} />;
-    case "Expenditure":
-      return <ExpenditureWidget key={uuidv4()} />;
-    case "Tracker":
-      return <AnnualOverviewWidget key={uuidv4()} />;
+// export const getWidget = (name) => {
+//   switch (name) {
+//     //INCOME
+//     case "Budget allocated / remaining":
+//       return <Allocated key="allocated" />;
+//     case "Salary gross and net breakdown":
+//       return <Salary key={uuidv4()} />;
+//     //BUDGET
+//     case "Budget breakdown by category":
+//       return <BudgetByCategoryWidget key={uuidv4()} />;
+//     case "Budget breakdown by item":
+//       return <BudgetByItemWidget key={uuidv4()} />;
+//     case "Expenditure":
+//       return <ExpenditureWidget key={uuidv4()} />;
+//     case "Tracker":
+//       return <AnnualOverviewWidget key={uuidv4()} />;
 
-    default:
-      return <Salary key={uuidv4()} />;
-  }
-};
+//     default:
+//       return <Salary key={uuidv4()} />;
+//   }
+// };
 
 //returns an total figure of all budgets items for the year
 //eg:  $1 per week = $52
@@ -433,14 +433,14 @@ export const sortByCategoryThenByItem = (arr) => {
 //   return sortedByItem;
 // };
 
-export const getToday = () => {
-  const date = new Date(Date.now());
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  if (month < 10) month = `0${month}`;
-  return year + "-" + month + "-" + day;
-};
+// export const getToday = () => {
+//   const date = new Date(Date.now());
+//   let day = date.getDate();
+//   let month = date.getMonth() + 1;
+//   let year = date.getFullYear();
+//   if (month < 10) month = `0${month}`;
+//   return year + "-" + month + "-" + day;
+// };
 
 // export const getTodayDDMMYYY = () => {
 //   const date = new Date(Date.now());
@@ -454,38 +454,38 @@ export const getToday = () => {
 //isBetween is exclusive by default, so to make inclusive of shown date
 //so subtract  by 1 day from 'from'
 //add 1 day to 'to'
-export const filterTransactionsByDateRange = (transactions, range) => {
-  return transactions.filter((transaction) => {
-    return moment(transaction.date).isBetween(
-      moment(range.from).subtract(1, "M"),
-      moment(range.to).add(1, "M"),
-      "month"
-    );
-  }, []);
-};
+// export const filterTransactionsByDateRange = (transactions, range) => {
+//   return transactions.filter((transaction) => {
+//     return moment(transaction.date).isBetween(
+//       moment(range.from).subtract(1, "M"),
+//       moment(range.to).add(1, "M"),
+//       "month"
+//     );
+//   }, []);
+// };
 
-export const filterTransactionsByDateRangeAndReturnTotal = (
-  transactions,
-  range
-) => {
-  return transactions
-    .filter((transaction) => {
-      if (
-        moment(transaction.date).isBetween(
-          moment(range.from).subtract(1, "M"),
-          moment(range.to).add(1, "M"),
-          "month"
-        )
-      ) {
-        return transaction;
-      }
-      else {
-        return null;
-      }
-    }, [])
-    .map((transaction) => transaction.amount)
-    .reduce((acc, current) => Number(acc) + Number(current), []);
-};
+// export const filterTransactionsByDateRangeAndReturnTotal = (
+//   transactions,
+//   range
+// ) => {
+//   return transactions
+//     .filter((transaction) => {
+//       if (
+//         moment(transaction.date).isBetween(
+//           moment(range.from).subtract(1, "M"),
+//           moment(range.to).add(1, "M"),
+//           "month"
+//         )
+//       ) {
+//         return transaction;
+//       }
+//       else {
+//         return null;
+//       }
+//     }, [])
+//     .map((transaction) => transaction.amount)
+//     .reduce((acc, current) => Number(acc) + Number(current), []);
+// };
 
 // //getAllocatedFilteredByMonth
 // export const getAllocatedFilteredByMonth = (transactions, month) => {
