@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
-import Xarrow, {useXarrow, Xwrapper} from 'react-xarrows';
+import Xarrow, {useXarrow} from 'react-xarrows';
 
 const IncomeWidget = () => {
   const { currencySymbol } = useContext(GlobalContext);
@@ -30,12 +30,12 @@ const IncomeWidget = () => {
   const taxToDeductStyle = {
     ...outgoingStyle,
     startAnchor: "auto",
-    endAnchor: { position: "auto", offset: { bottomness: 5 } },
+    endAnchor: "auto",
   };
 
   const niInStyle = {
     ...outgoingStyle,
-    startAnchor: { position: "auto", offset: { bottomness: -5 } },
+    startAnchor: "auto",
     endAnchor: "auto",
   };
 
@@ -48,18 +48,18 @@ const IncomeWidget = () => {
   const taxableInStyle = {
     ...incomingStyle,
     startAnchor: "auto",
-    endAnchor: { position: "auto", offset: { bottomness: -5 } },
+    endAnchor: "auto",
   };
 
   const taxableOutStyle = {
     ...incomingStyle,
-    startAnchor: { position: "auto", offset: { bottomness: 5 } },
-    endAnchor: { position: "auto", offset: { bottomness: -5 } },
+    startAnchor: "auto",
+    endAnchor: "auto",
   };
 
   const yearlyNetOutStyle = {
     ...incomingStyle,
-    startAnchor: { position: "auto", offset: { bottomness: 5 } },
+    startAnchor: "auto",
     endAnchor: "auto",
   };
 
@@ -68,7 +68,7 @@ const IncomeWidget = () => {
   return (
     <StyledIncomeWidget onChange={updateXarrow} onScroll={updateXarrow}>
 
-      <Xarrow start="annualGross" end="taxable" {...taxableInStyle} />
+       <Xarrow start="annualGross" end="taxable" {...taxableInStyle} />
       <Xarrow start="annualGross" end="taxfree" {...incomingStyle} />
       <Xarrow start="taxfree" end="yearlyNet" {...incomingStyle} />
       <Xarrow start="taxable" end="totalDeductions" {...taxToDeductStyle} />
@@ -76,8 +76,8 @@ const IncomeWidget = () => {
       <Xarrow start="totalDeductions" end="incomeTax" {...incomeTaxInStyle} />
       <Xarrow start="totalDeductions" end="ni" {...niInStyle} />
       <Xarrow start="yearlyNet" end="monthlyNet" {...yearlyNetOutStyle} />
-      <Xarrow start="monthlyNet" end="weeklyNet" {...incomingStyle} />
-
+      <Xarrow start="monthlyNet" end="weeklyNet" {...incomingStyle} />  
+      
       <h4>Income Flowchart</h4>
       <div className="data">
         <div className="feature-number" id="annualGross">
