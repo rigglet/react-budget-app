@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import BudgetList from "../components/BudgetList";
@@ -38,7 +38,7 @@ const Budget = () => {
         ) : (
             <>
               <p>No budget categories to display</p>
-              <p>Please create a budget category above</p>
+              <p>Please ensure that income data has been entered then create a budget category above</p>
             </>
         )}
       </div>

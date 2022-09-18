@@ -7,6 +7,21 @@
 //import { v4 as uuidv4 } from "uuid";
 //import moment from "moment";
 
+export const getLocalData = (localName = "EXPENSE-APP") => {
+    //return data "EXPENSE-APP"
+    const localData = JSON.parse(window.localStorage.getItem(localName));
+
+    return new Promise((resolve, reject) => {
+      if (localData !== undefined && localData !== null) {
+        setTimeout(() => {
+          resolve(localData);
+        }, 500);
+      } else {
+        reject(Error("Error: No local data returned"));
+      }
+    });
+};
+  
 export const divideValues = (o) => {  
   let newobj = {}
   for (const key in o) {

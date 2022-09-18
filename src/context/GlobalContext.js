@@ -1,15 +1,5 @@
 import { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
-//import { getWidgets } from "../data";
-import moment from "moment";
-
-//TODO: this could be an application setting
-// Set Monday as first day of the week.
-moment.updateLocale("en", {
-  week: {
-    dow: 1,
-  },
-});
 
 //intialState
 const initialState = {
@@ -42,10 +32,6 @@ const initialState = {
   includeMandatory: false,
   includeDisposableOnly: false,
   currencySymbol: "£",
-  dateRange: {
-    from: moment().startOf("month"),
-    to: moment().endOf("month"),
-  },
   allocatedFundsTotal: 0,
 };
 
@@ -69,6 +55,7 @@ export const GlobalProvider = ({ children }) => {
       payload: budgets,
     });
   };
+
   const deleteBudget = (id) => {
     dispatch({
       type: "DELETE_BUDGET",

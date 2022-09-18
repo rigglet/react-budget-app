@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect} from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { formatStrings, divideValues, multiplyValues, updateBudgetLocally } from "../utilities";
@@ -25,9 +25,9 @@ const IncomeForm = () => {
   const initialData = divideValues(currentBudget?.data?.income)
   //form data hook
   const [incomeData, setIncomeData] = useState(initialData);
-
-    //let annualGross = currentBudget?.data?.income.annualGross;
-    //taxFreeAllowance
+  
+  //let annualGross = currentBudget?.data?.income.annualGross;
+  //taxFreeAllowance
     let taxable = Number(incomeData.annualGross - incomeData.taxFreeAllowance).toFixed(2);
     
     //incomeTax
@@ -41,16 +41,15 @@ const IncomeForm = () => {
     
   annualNet = Number(annualNet).toFixed(2);
   totalDeductions = Number(totalDeductions).toFixed(2);
-
   
   useEffect(() => {
     //Format to string to Numbers
-    setIncomeData(()=>(formatStrings(incomeData)))
+    setIncomeData((prevData)=>(formatStrings(prevData)))
   },[])
     
-  //TOAST MESSAGE
-  const notify = (type) => {
-    switch (type) {
+    //TOAST MESSAGE
+    const notify = (type) => {
+      switch (type) {
       case "UPDATED":
         toast.dark("Income updated");
         break;

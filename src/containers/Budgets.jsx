@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 //context
@@ -6,36 +6,39 @@ import { GlobalContext } from "../context/GlobalContext";
 import AddBudgetForm from "../components/AddBudgetForm";
 import BudgetList from "../components/BudgetFileList";
 import Spinner from "../components/Spinner";
-import { seedData } from "../seedData";
+import { getLocalData } from "../utilities";
 
 const Budgets = () => {
 
-  const { loadBudgets } = useContext(GlobalContext);
   const [isLoading, setLoading] = useState(true);
-
-  const data = seedData();
-  //setData
-  //data.setData()
+  const { loadBudgets } = useContext(GlobalContext);
+  let budgets = []
   
-  //get seed data
-  useEffect(() => {
-    data.getLocalData().then(
+  const fetchProduct = useRef(async () => {
+    budgets =  await getLocalData().then(
       (response) => {
-        //save returned data to global context
-        loadBudgets(response);
+        console.log("Load budgets");
         //set loading flag to false
         setLoading(false);
+        return response
       },
-      (reject) => {
+      (err) => {
         //on reject log error
-        console.log(reject);
+        console.log(err);
         //set loading flag to false
         setLoading(false);
       }
-    );
+    )
+    //safe data to local contenxt
+    loadBudgets(budgets);
   }, []);
 
-  return (
+  useEffect(() => {
+    fetchProduct.current()
+  }, [fetchProduct])
+
+
+    return (
     <StyledBudgetContainer>
         <h3>Budgets</h3>
       <div className="main">

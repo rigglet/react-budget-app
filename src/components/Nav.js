@@ -20,7 +20,7 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 
 const Nav = () => {
 
-  const {isBudgetLoaded, currentBudget, updateBudgetLoaded, updateCurrentBudget, updateCurrentBudgetId} = useContext(GlobalContext);
+  const {isBudgetLoaded, updateBudgetLoaded, updateCurrentBudget, updateCurrentBudgetId} = useContext(GlobalContext);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const history = useHistory();
