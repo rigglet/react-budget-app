@@ -12,12 +12,14 @@ const Budgets = () => {
 
   const [isLoading, setLoading] = useState(true);
   const { loadBudgets } = useContext(GlobalContext);
-  let budgets = []
+  //let budgets = []
   
-  const fetchProduct = useRef(async () => {
-    budgets =  await getLocalData().then(
+  const fetchProduct = useRef(() => {
+    getLocalData().then(
       (response) => {
-        console.log("Load budgets");
+        console.log("Load budgets into from local-storage, if any returned");
+        //save data to local context
+        loadBudgets(response);
         //set loading flag to false
         setLoading(false);
         return response
@@ -28,9 +30,8 @@ const Budgets = () => {
         //set loading flag to false
         setLoading(false);
       }
-    )
-    //safe data to local contenxt
-    loadBudgets(budgets);
+      )
+      
   }, []);
 
   useEffect(() => {

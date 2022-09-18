@@ -6,7 +6,6 @@ import AllocatedBudget from "../components/AllocatedBudget";
 import ExpenditureByIncomeWidget from "../components/ExpeditureByIncomeWidget";
 import ItemTotal from "../components/ItemTotal";
 import { GlobalContext } from "../context/GlobalContext";
-//import AllocatedWidget from "../components/dashboard/widgets/AllocatedWidget";
 import ExpenditureByCategoryWidget from "../components/ExpenditureByCategoryWidget";
 import { formatNumber } from "../utilities";
 
