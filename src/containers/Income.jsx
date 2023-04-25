@@ -6,35 +6,37 @@ import IncomeWidget from "../components/IncomeWidget";
 import IncomeForm from "../components/IncomeForm";
 
 const Income = () => {
-  return (
-    <StyledIncome>
-      <h3>Income</h3>
-      <div className="widgets">
-        <IncomeWidget />
-        <IncomeForm />
-      </div>
-    </StyledIncome>
-  );
+   return (
+      <StyledIncome>
+         <h3>Income</h3>
+         <div className="widgets">
+            <IncomeWidget />
+            <IncomeForm />
+         </div>
+      </StyledIncome>
+   );
 };
 
 const StyledIncome = styled(motion.div)`
-  padding-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 1rem;
-  
-  h3{
-    align-self: flex-start;
-    padding-left: 15vw;
-  }
-  .widgets {
-    flex-wrap: wrap;
-    width: 70vw;
-    display: flex;
-    gap: 2rem;
-  }
-  `;
+   padding-top: 1rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   row-gap: 1rem;
+
+   h3 {
+      align-self: flex-start;
+      padding-left: 15vw;
+   }
+   .widgets {
+      flex-wrap: wrap;
+      width: 70vw;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: flex-start;
+   }
+`;
 
 export default Income;
