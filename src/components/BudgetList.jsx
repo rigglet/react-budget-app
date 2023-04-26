@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
@@ -8,6 +8,87 @@ import BudgetListSummary from "./BudgetListSummary";
 import { formatNumber } from "../utilities";
 import { FaTrashAlt } from "react-icons/fa";
 import { v4 } from "uuid";
+
+const BudgetCategoryRow = ({
+   deleteBudgetCategory,
+   category,
+   income,
+   currencySymbol,
+}) => {
+   return (
+      <StyledBudgetCategoryRow
+         key={v4()}
+         color={category.color}
+      >
+         <div className="color-key"></div>
+         <h4 className="category-name">{category.category}</h4>
+         <h5 className="category-percentage">
+            <span className="number">
+               {Number(
+                  Number(100 / income) * Number(category.amount / 100)
+               ).toFixed()}
+               %
+            </span>
+         </h5>
+         <div className="category-total">
+            {currencySymbol}
+            {formatNumber(Number(category.amount / 100).toFixed(2))}
+         </div>
+
+         <div
+            className="actions"
+            onClick={() => deleteBudgetCategory(category.id)}
+         >
+            <FaTrashAlt className="delete-icon" />
+         </div>
+      </StyledBudgetCategoryRow>
+   );
+};
+
+const StyledBudgetCategoryRow = styled(motion.div)`
+   margin: 0 auto;
+   display: flex;
+
+   //grid-auto-columns: 1fr 1fr 1fr;
+   align-items: center;
+   justify-content: space-between;
+   flex-grow: 1;
+   border: 1px solid grey;
+   border-radius: 8px;
+   padding: 0.5rem;
+   min-width: 150px;
+   position: relative;
+   width: 70%;
+
+   .color-key {
+      width: 25px;
+      height: 25px;
+      border-radius: 8px;
+      border: 1px solid white;
+      background: ${({ color }) => color};
+   }
+
+   &:hover .actions {
+      width: 100px;
+   }
+
+   .category-name {
+      font-variant-caps: all-small-caps;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+   }
+
+   .category-total {
+      color: whitesmoke;
+      background-color: #39393c;
+      //flex-grow: 1;
+   }
+
+   .category-percentage {
+      color: white;
+   }
+`;
 
 const BudgetList = () => {
    const {
@@ -34,6 +115,7 @@ const BudgetList = () => {
          return {
             category: category.category,
             percentage: (100 / income) * (category.amount / 100),
+            color: category.color,
          };
       }
    );
@@ -65,38 +147,50 @@ const BudgetList = () => {
             budgetTotal={budgetTotal}
             income={income}
             budgetPercentages={budgetPercentages}
+            deleteBudgetCategory={deleteBudgetCategory}
          />
 
          <div className="budget-category-list">
             {budgetCategories
                .sort((a, b) => (a.category > b.category ? 1 : -1))
                .map((category) => (
-                  <div
-                     className="category-item"
+                  <BudgetCategoryRow
                      key={v4()}
-                  >
-                     <h4 className="category-name">{category.category}</h4>
-                     <h5 className="category-percentage">
-                        <span className="number">
-                           {Number(
-                              Number(100 / income) *
-                                 Number(category.amount / 100)
-                           ).toFixed()}
-                           %
-                        </span>
-                     </h5>
-                     <div className="category-total">
-                        {currencySymbol}
-                        {formatNumber(Number(category.amount / 100).toFixed(2))}
-                     </div>
+                     category={category}
+                     income={income}
+                     currencySymbol={currencySymbol}
+                     deleteBudgetCategory={deleteBudgetCategory}
+                  />
+                  // <div
+                  //    className="category-item"
+                  //    key={v4()}
+                  //    color={category.color}
+                  // >
+                  //    <div
+                  //       className="color-key"
+                  //    ></div>
+                  //    <h4 className="category-name">{category.category}</h4>
+                  //    <h5 className="category-percentage">
+                  //       <span className="number">
+                  //          {Number(
+                  //             Number(100 / income) *
+                  //                Number(category.amount / 100)
+                  //          ).toFixed()}
+                  //          %
+                  //       </span>
+                  //    </h5>
+                  //    <div className="category-total">
+                  //       {currencySymbol}
+                  //       {formatNumber(Number(category.amount / 100).toFixed(2))}
+                  //    </div>
 
-                     <div
-                        className="actions"
-                        onClick={() => deleteBudgetCategory(category.id)}
-                     >
-                        <FaTrashAlt className="delete-icon" />
-                     </div>
-                  </div>
+                  //    <div
+                  //       className="actions"
+                  //       onClick={() => deleteBudgetCategory(category.id)}
+                  //    >
+                  //       <FaTrashAlt className="delete-icon" />
+                  //    </div>
+                  // </div>
                ))}
          </div>
       </StyledBudgetList>
@@ -148,7 +242,7 @@ const StyledBudgetList = styled(motion.div)`
       flex-direction: column;
       row-gap: 0.5rem;
 
-      .category-item {
+      /* .category-item {
          margin: 0 auto;
          display: flex;
 
@@ -162,6 +256,14 @@ const StyledBudgetList = styled(motion.div)`
          min-width: 150px;
          position: relative;
          width: 70%;
+
+         .color-key {
+            width: 25px;
+            height: 25px;
+            border-radius: 8px;
+            border: 1px solid white;
+            background: ${({ color }) => color};
+         }
 
          &:hover .actions {
             width: 100px;
@@ -180,12 +282,12 @@ const StyledBudgetList = styled(motion.div)`
          }
 
          .category-percentage {
-            position: absolute;
-            width: 98%;
-            display: flex;
-            justify-content: center;
+            //position: absolute;
+            //width: 98%;
+            //display: flex;
+            //justify-content: center;
          }
-      }
+      } */
    }
 
    .actions {

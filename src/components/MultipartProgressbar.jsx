@@ -16,7 +16,7 @@ const BarSection = ({ width, progressColor, children, name }) => {
          {tooltipShow && (
             <div className="tooltip">
                <p>{name}</p>
-               <p>{Number(width).toFixed()}%</p>
+               <p>{Number(width).toFixed(2)}%</p>
             </div>
          )}
 
@@ -27,17 +27,11 @@ const BarSection = ({ width, progressColor, children, name }) => {
 
 const MultipartProgressbar = ({ percentages }) => {
    const arrBarSections = percentages.map((section) => {
-      const progressColor =
-         section.percentage < 33
-            ? "#7eb47f"
-            : section.percentage < 66
-            ? "#bc9373"
-            : "#c07676";
       return (
          <BarSection
             name={section.category}
             width={section.percentage}
-            progressColor={progressColor}
+            progressColor={section.color}
             key={v4()}
          ></BarSection>
       );
@@ -54,7 +48,7 @@ const StyledBarSection = styled.div`
    border-radius: 4px;
    //background: pink;
    width: ${({ width }) => width}%;
-   background-color: ${({ progressColor }) => progressColor};
+   background: ${({ progressColor }) => progressColor};
    //border-right: 1px solid black;
    border: 1px solid black;
    position: relative;

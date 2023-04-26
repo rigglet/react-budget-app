@@ -6,7 +6,11 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 //message components
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { updateBudgetLocally, calculateFundsTotal } from "../utilities";
+import {
+   updateBudgetLocally,
+   calculateFundsTotal,
+   getColor,
+} from "../utilities";
 //context
 import { GlobalContext } from "../context/GlobalContext";
 //UUID inique ID generator
@@ -48,6 +52,9 @@ const AddBudgetCategoryForm = ({ balance }) => {
                "Please enter an amount less than the available balance"
             );
             break;
+         case "UNIQUE":
+            toast.dark("Please enter a unique category name");
+            break;
          default:
             toast.dark("Nothing to report");
       }
@@ -60,6 +67,20 @@ const AddBudgetCategoryForm = ({ balance }) => {
       return value.match(reg);
    };
 
+   const handleUniqueValue = () => {
+      let valid = false;
+      if (
+         currentBudget.data.budgetCategories
+            .map((category) => category.category.toLowerCase())
+            .includes(formData.category.toLowerCase())
+      ) {
+         notify("UNIQUE");
+         document.getElementById("category").focus();
+      } else {
+         valid = true;
+      }
+      return valid;
+   };
    const checkAvailableCredit = () => {
       let valid = false;
       if (Number(formData.amount) > balance) {
@@ -123,13 +144,15 @@ const AddBudgetCategoryForm = ({ balance }) => {
       if (
          handleCategoryValidation() &&
          handleAmountValidation() &&
-         checkAvailableCredit()
+         checkAvailableCredit() &&
+         handleUniqueValue()
       ) {
          const newBudgetCategory = {
             id: uuidv4(),
             category: formData.category.toLowerCase(),
             amount: Number(formData.amount) * 100,
             items: [],
+            color: getColor(),
          };
 
          const updatedBudget = {

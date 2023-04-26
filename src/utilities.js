@@ -7,58 +7,67 @@
 //import { v4 as uuidv4 } from "uuid";
 //import moment from "moment";
 
-export const getLocalData = (localName = "EXPENSE-APP") => {
-    //return data "EXPENSE-APP"
-    const localData = JSON.parse(window.localStorage.getItem(localName));
-
-    return new Promise((resolve, reject) => {
-      if (localData !== undefined && localData !== null) {
-        setTimeout(() => {
-          resolve(localData);
-        }, 500);
-      } else {
-        reject(Error("Error: No local data returned"));
-      }
-    });
+export const getColor = () => {
+   var letters = "0123456789ABCDEF";
+   var color = "#";
+   for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+   }
+   return color;
 };
-  
-export const divideValues = (o) => {  
-  let newobj = {}
-  for (const key in o) {
-    newobj = { ...newobj, [key]: o[key] / 100 }
-  }
-  return newobj
-}
 
-export const multiplyValues = (o) => {  
-  let newobj = {}
-  for (const key in o) {
-    newobj = { ...newobj, [key]: o[key] * 100 }
-  }
-  return newobj
-}
+export const getLocalData = (localName = "EXPENSE-APP") => {
+   //return data "EXPENSE-APP"
+   const localData = JSON.parse(window.localStorage.getItem(localName));
 
-export const convertToNumbers = (o) => {  
-  let newobj = {}
-  for (const key in o) {
-    newobj = { ...newobj, [key]: Number(o[key]) }
-  }
-  return newobj
-}
-  
-export const formatStrings = (o) => {  
-  let newobj = {}
-  for (const key in o) {
-    newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) }
-  }
-  return newobj
-}
+   return new Promise((resolve, reject) => {
+      if (localData !== undefined && localData !== null) {
+         setTimeout(() => {
+            resolve(localData);
+         }, 500);
+      } else {
+         reject(Error("Error: No local data returned"));
+      }
+   });
+};
 
-export const calculateFundsTotal = (currentBudget) => { 
-  return currentBudget?.data?.budgetCategories
-    .map(category => category?.amount)
-    .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
-}
+export const divideValues = (o) => {
+   let newobj = {};
+   for (const key in o) {
+      newobj = { ...newobj, [key]: o[key] / 100 };
+   }
+   return newobj;
+};
+
+export const multiplyValues = (o) => {
+   let newobj = {};
+   for (const key in o) {
+      newobj = { ...newobj, [key]: o[key] * 100 };
+   }
+   return newobj;
+};
+
+export const convertToNumbers = (o) => {
+   let newobj = {};
+   for (const key in o) {
+      newobj = { ...newobj, [key]: Number(o[key]) };
+   }
+   return newobj;
+};
+
+export const formatStrings = (o) => {
+   let newobj = {};
+   for (const key in o) {
+      newobj = { ...newobj, [key]: Number(o[key]).toFixed(2) };
+   }
+   return newobj;
+};
+
+export const calculateFundsTotal = (currentBudget) => {
+   return currentBudget?.data?.budgetCategories
+      .map((category) => category?.amount)
+      .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+};
 
 // //returns an array of budget subtotals per category
 // export const getAccumulatedSubTotals = (currentBudget) => {
@@ -108,11 +117,10 @@ export const calculateFundsTotal = (currentBudget) => {
 //   );
 // };
 
-
 // //returns an array of budget subtotals per category
 // export const getAccumulatedSubTotals = (currentBudget) => {
 //   //console.log(currentBudget)
-  
+
 //   return currentBudget?.data?.budgetCategories.reduce(
 //     (acc, obj, currentIndex, array) => {
 //       let found = false;
@@ -160,94 +168,100 @@ export const calculateFundsTotal = (currentBudget) => {
 
 //returns an array of budget subtotals per category
 export const getAccumulatedSubTotals = (currentBudget, period) => {
-  
-  return currentBudget?.data?.budgetCategories.map(category => {
-    let itemTotal = category.items.reduce((acc, obj, currentIndex, array) => acc + array[currentIndex].amount, 0);
-    let categoryTotal = 0;
+   return currentBudget?.data?.budgetCategories.map((category) => {
+      let itemTotal = category.items.reduce(
+         (acc, obj, currentIndex, array) => acc + array[currentIndex].amount,
+         0
+      );
+      let categoryTotal = 0;
 
-    switch (period) {
-          case "daily":
-            categoryTotal = Number((category.amount /100) / 365);
+      switch (period) {
+         case "daily":
+            categoryTotal = Number(category.amount / 100 / 365);
             itemTotal = Number(itemTotal / 365);
             break;
-          case "weekly":
-            categoryTotal = Number((category.amount / 100) / 52);
-            itemTotal = Number(itemTotal / 52); 
+         case "weekly":
+            categoryTotal = Number(category.amount / 100 / 52);
+            itemTotal = Number(itemTotal / 52);
             break;
-          case "monthly":
-            categoryTotal = Number((category.amount / 100) / 12);
+         case "monthly":
+            categoryTotal = Number(category.amount / 100 / 12);
             itemTotal = Number(itemTotal / 12);
             break;
-          case "annually":
-            categoryTotal = Number((category.amount / 100));
+         case "annually":
+            categoryTotal = Number(category.amount / 100);
             itemTotal = Number(itemTotal);
             break;
-          default:
-            categoryTotal = Number((category.amount / 100) / 12);
+         default:
+            categoryTotal = Number(category.amount / 100 / 12);
             itemTotal = Number(itemTotal / 12);
-    }
-    
-    return { category: category.category, categoryTotal: categoryTotal, itemTotal: itemTotal }
-  })
+      }
 
-  // return currentBudget?.data?.budgetCategories.reduce(
-  //   (acc, obj, currentIndex, array) => {
-  //     let found = false;
-  //     let pointer = 0;
+      return {
+         category: category.category,
+         categoryTotal: categoryTotal,
+         itemTotal: itemTotal,
+      };
+   });
 
-  //     for (let i = 0; i < acc.length; i++) {
-  //       if (acc[i].category === array[currentIndex].category) {
-  //         pointer = i;
-  //         found = true;
-  //       }
-  //     }
-  //     if (!found) {
-  //       let yearlyAmount = 0;
-  //       switch (array[currentIndex].frequency) {
-  //         case "daily":
-  //           yearlyAmount = Number(array[currentIndex].amount * 365);
-  //           break;
-  //         case "weekly":
-  //           yearlyAmount = Number(array[currentIndex].amount * 52);
-  //           break;
-  //         case "monthly":
-  //           yearlyAmount = Number(array[currentIndex].amount * 12);
-  //           break;
-  //         case "annually":
-  //           yearlyAmount = Number(array[currentIndex].amount);
-  //           break;
-  //         default:
-  //           yearlyAmount = Number(array[currentIndex].amount * 12);
-  //       }
-  //       acc.push({
-  //         category: array[currentIndex].category,
-  //         amount: yearlyAmount,
-  //       });
-  //     } else {
-  //       acc[pointer] = {
-  //         ...acc[pointer],
-  //         amount: acc[pointer].amount + array[currentIndex].amount,
-  //       };
-  //     }
-  //     return acc;
-  //   },
-  //   []
-  // );
+   // return currentBudget?.data?.budgetCategories.reduce(
+   //   (acc, obj, currentIndex, array) => {
+   //     let found = false;
+   //     let pointer = 0;
+
+   //     for (let i = 0; i < acc.length; i++) {
+   //       if (acc[i].category === array[currentIndex].category) {
+   //         pointer = i;
+   //         found = true;
+   //       }
+   //     }
+   //     if (!found) {
+   //       let yearlyAmount = 0;
+   //       switch (array[currentIndex].frequency) {
+   //         case "daily":
+   //           yearlyAmount = Number(array[currentIndex].amount * 365);
+   //           break;
+   //         case "weekly":
+   //           yearlyAmount = Number(array[currentIndex].amount * 52);
+   //           break;
+   //         case "monthly":
+   //           yearlyAmount = Number(array[currentIndex].amount * 12);
+   //           break;
+   //         case "annually":
+   //           yearlyAmount = Number(array[currentIndex].amount);
+   //           break;
+   //         default:
+   //           yearlyAmount = Number(array[currentIndex].amount * 12);
+   //       }
+   //       acc.push({
+   //         category: array[currentIndex].category,
+   //         amount: yearlyAmount,
+   //       });
+   //     } else {
+   //       acc[pointer] = {
+   //         ...acc[pointer],
+   //         amount: acc[pointer].amount + array[currentIndex].amount,
+   //       };
+   //     }
+   //     return acc;
+   //   },
+   //   []
+   // );
 };
 
 export const getNetIncomeForPeriod = (currentBudget, period) => {
-  switch (period) {
-    case "daily":
-      return currentBudget.data.income.weeklyNet / 7;
-    case "weekly":
-      return currentBudget.data.income.weeklyNet;
-    case "monthly":
-      return currentBudget.data.income.monthlyNet;
-    case "annually":
-      return currentBudget.data.income.annualNet;
-    default:
-      return 0;
-  }
+   switch (period) {
+      case "daily":
+         return currentBudget.data.income.weeklyNet / 7;
+      case "weekly":
+         return currentBudget.data.income.weeklyNet;
+      case "monthly":
+         return currentBudget.data.income.monthlyNet;
+      case "annually":
+         return currentBudget.data.income.annualNet;
+      default:
+         return 0;
+   }
 };
 
 // export const getAllocatedPerPeriod = (currentBudget, period) => {
@@ -267,38 +281,38 @@ export const getNetIncomeForPeriod = (currentBudget, period) => {
 // };
 
 export const getAllocatedPerPeriod = (allocated, period) => {
-  switch (period) {
-    case "daily":
-      return Number(allocated / 365);
-    case "weekly":
-      return Number(allocated / 52);
-    case "monthly":
-      return Number(allocated / 12);
-    case "annually":
-      return Number(allocated);
+   switch (period) {
+      case "daily":
+         return Number(allocated / 365);
+      case "weekly":
+         return Number(allocated / 52);
+      case "monthly":
+         return Number(allocated / 12);
+      case "annually":
+         return Number(allocated);
 
-    default:
-      return Number(0);
-  }
+      default:
+         return Number(0);
+   }
 };
 
 export const formatNumber = (number) => {
-  let formattedWholeNumber = null;
-  let formattedDecimalNumber = null;
-  if (number >= 0) {
-    formattedWholeNumber = Math.floor(Number(number).toFixed(2));
-    formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
-  } else {
-    formattedWholeNumber = Number(number).toFixed(2);
-    formattedDecimalNumber = "";
-  }
+   let formattedWholeNumber = null;
+   let formattedDecimalNumber = null;
+   if (number >= 0) {
+      formattedWholeNumber = Math.floor(Number(number).toFixed(2));
+      formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
+   } else {
+      formattedWholeNumber = Number(number).toFixed(2);
+      formattedDecimalNumber = "";
+   }
 
-  return (
-    <>
-      <span className="whole">{formattedWholeNumber}</span>
-      <span className="decimal">{formattedDecimalNumber}</span>
-    </>
-  );
+   return (
+      <>
+         <span className="whole">{formattedWholeNumber}</span>
+         <span className="decimal">{formattedDecimalNumber}</span>
+      </>
+   );
 };
 
 // export const saveBudgetLocally = (newBudget) => {
@@ -309,18 +323,18 @@ export const formatNumber = (number) => {
 // };
 
 export const saveBudgetLocally = (budgets, newBudget) => {
-  window.localStorage.setItem(
-    "EXPENSE-APP",
-    JSON.stringify([...budgets, newBudget])
-  );
+   window.localStorage.setItem(
+      "EXPENSE-APP",
+      JSON.stringify([...budgets, newBudget])
+   );
 };
 
 export const updateBudgetLocally = (budgets, updateBudget) => {
-  const subSet = budgets.filter((b) => b.id !== updateBudget.id);
-  window.localStorage.setItem(
-    "EXPENSE-APP",
-    JSON.stringify([...subSet, updateBudget])
-  );
+   const subSet = budgets.filter((b) => b.id !== updateBudget.id);
+   window.localStorage.setItem(
+      "EXPENSE-APP",
+      JSON.stringify([...subSet, updateBudget])
+   );
 };
 
 // export const updateBudgetLocally = (updateBudget) => {
@@ -332,8 +346,8 @@ export const updateBudgetLocally = (budgets, updateBudget) => {
 // };
 
 export const deleteBudgetLocally = (budgets, id) => {
-  const newBudgets = budgets.filter((b) => b.id !== id);
-  window.localStorage.setItem("EXPENSE-APP", JSON.stringify([...newBudgets]));
+   const newBudgets = budgets.filter((b) => b.id !== id);
+   window.localStorage.setItem("EXPENSE-APP", JSON.stringify([...newBudgets]));
 };
 
 // export const getWidget = (name) => {
@@ -363,50 +377,50 @@ export const deleteBudgetLocally = (budgets, id) => {
 //    $1 per month = $12
 //    yearly total = $64
 export const getYearlyAllocated = (budgetItems) => {
-  return budgetItems
-    .map((item) => {
-      if (!item.paid) {
-        if (item.frequency === "daily") {
-          return item.amount * 365;
-        }
-        if (item.frequency === "weekly") {
-          return item.amount * 52;
-        }
-        if (item.frequency === "monthly") {
-          return item.amount * 12;
-        }
-        if (item.frequency === "annually") {
-          return item.amount;
-        }
-      }
-      return 0;
-    })
-    .reduce((acc, current) => Number(acc) + Number(current), []);
+   return budgetItems
+      .map((item) => {
+         if (!item.paid) {
+            if (item.frequency === "daily") {
+               return item.amount * 365;
+            }
+            if (item.frequency === "weekly") {
+               return item.amount * 52;
+            }
+            if (item.frequency === "monthly") {
+               return item.amount * 12;
+            }
+            if (item.frequency === "annually") {
+               return item.amount;
+            }
+         }
+         return 0;
+      })
+      .reduce((acc, current) => Number(acc) + Number(current), []);
 };
 
 //returns an total figure of all budgets items for the year averaged to a daily figure
 export const getYearlyAllocatedPerDay = (budgetItems) => {
-  return (
-    budgetItems
-      .map((item) => {
-        if (!item.paid) {
-          if (item.frequency === "daily") {
-            return item.amount * 365;
-          }
-          if (item.frequency === "weekly") {
-            return item.amount * 52;
-          }
-          if (item.frequency === "monthly") {
-            return item.amount * 12;
-          }
-          if (item.frequency === "annually") {
-            return item.amount;
-          }
-        }
-        return 0;
-      })
-      .reduce((acc, current) => Number(acc) + Number(current), []) / 365
-  );
+   return (
+      budgetItems
+         .map((item) => {
+            if (!item.paid) {
+               if (item.frequency === "daily") {
+                  return item.amount * 365;
+               }
+               if (item.frequency === "weekly") {
+                  return item.amount * 52;
+               }
+               if (item.frequency === "monthly") {
+                  return item.amount * 12;
+               }
+               if (item.frequency === "annually") {
+                  return item.amount;
+               }
+            }
+            return 0;
+         })
+         .reduce((acc, current) => Number(acc) + Number(current), []) / 365
+   );
 };
 
 // custom sort function to sort by category
@@ -414,22 +428,22 @@ export const getYearlyAllocatedPerDay = (budgetItems) => {
 // builds new array with sorted results
 // Quite proud of this!
 export const sortByCategoryThenByItem = (arr) => {
-  let arrSortedByItem = [];
+   let arrSortedByItem = [];
 
-  //ceate set of unique category names
-  let uniqueSet = new Set();
-  arr?.map((item) => uniqueSet.add(item.category));
+   //ceate set of unique category names
+   let uniqueSet = new Set();
+   arr?.map((item) => uniqueSet.add(item.category));
 
-  uniqueSet.forEach((category) => {
-    arrSortedByItem.push(
-      ...arr
-        .sort((a, b) => (a.category > b.category ? 1 : -1))
-        .filter((item) => item.category === category)
-        .sort((a, b) => (a.item > b.item ? 1 : -1))
-    );
-  });
+   uniqueSet.forEach((category) => {
+      arrSortedByItem.push(
+         ...arr
+            .sort((a, b) => (a.category > b.category ? 1 : -1))
+            .filter((item) => item.category === category)
+            .sort((a, b) => (a.item > b.item ? 1 : -1))
+      );
+   });
 
-  return arrSortedByItem;
+   return arrSortedByItem;
 };
 
 // export const sortByCategoryThenByItem = (arr) => {
@@ -526,19 +540,19 @@ export const sortByCategoryThenByItem = (arr) => {
 // );
 
 export const getItemAmountForRange = (frequency, amount, dateRange) => {
-  //add one day to difference to figure is inclusive of the day (otherwise 1 day = 0)
-  const numOfDays = dateRange.to.diff(dateRange.from, "days") + 1;
+   //add one day to difference to figure is inclusive of the day (otherwise 1 day = 0)
+   const numOfDays = dateRange.to.diff(dateRange.from, "days") + 1;
 
-  if (frequency === "daily") {
-    return amount * numOfDays;
-  }
-  if (frequency === "weekly") {
-    return ((amount * 52) / 365) * numOfDays;
-  }
-  if (frequency === "monthly") {
-    return ((amount * 12) / 365) * numOfDays;
-  }
-  if (frequency === "annually") {
-    return (amount / 365) * numOfDays;
-  }
+   if (frequency === "daily") {
+      return amount * numOfDays;
+   }
+   if (frequency === "weekly") {
+      return ((amount * 52) / 365) * numOfDays;
+   }
+   if (frequency === "monthly") {
+      return ((amount * 12) / 365) * numOfDays;
+   }
+   if (frequency === "annually") {
+      return (amount / 365) * numOfDays;
+   }
 };
