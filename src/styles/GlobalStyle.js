@@ -207,7 +207,7 @@ input {
     }
 }
 
-//KEY
+//SUMMARY KEY
 .key {
     width: 100%;
     display: flex;

@@ -2,9 +2,9 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import BudgetList from "../components/BudgetList";
+import FundsSummary from "../components/FundsSummary";
 import AddBudgetCategoryForm from "../components/AddBudgetCategoryForm";
 import { GlobalContext } from "../context/GlobalContext";
-import { formatNumber } from "../utilities";
 
 const Budget = () => {
    const { currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
@@ -14,31 +14,7 @@ const Budget = () => {
 
    return (
       <StyledBudget>
-         <div className="heading">
-            <div className="item">
-               <h3>Income:</h3>
-               <p className="income-color">
-                  $
-                  {formatNumber(
-                     Number(currentBudget.data.income.annualNet / 100).toFixed(
-                        2
-                     )
-                  )}
-               </p>
-            </div>
-            <div className="item">
-               <h3>Allocated:</h3>
-               <p className="allocated-color">
-                  ${formatNumber(Number(allocatedFundsTotal / 100).toFixed(2))}
-               </p>
-            </div>
-            <div className="item">
-               <h3>Balance:</h3>
-               <p className="balance-color">
-                  ${formatNumber(Number(balance).toFixed(2))}
-               </p>
-            </div>
-         </div>
+         <FundsSummary />
 
          <div className="content">
             {balance > 0 && <AddBudgetCategoryForm balance={balance} />}
