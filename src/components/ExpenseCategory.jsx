@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ import {
    calculateFundsTotal,
 } from "../utilities";
 
-const ExpenseCategory = ({ budgetCategory, deleteBudgetCategory }) => {
+const ExpenseCategory = ({ budgetCategory }) => {
    const {
       budgets,
       currentBudget,
@@ -20,9 +20,6 @@ const ExpenseCategory = ({ budgetCategory, deleteBudgetCategory }) => {
       currencySymbol,
       updateAllocatedFunds,
    } = useContext(GlobalContext);
-
-   const [showForm, toggleShowForm] = useState(false);
-   const [viewItems, toggleViewItems] = useState(false);
 
    const deleteCategoryItem = (id) => {
       const updatedBudget = {
@@ -59,7 +56,7 @@ const ExpenseCategory = ({ budgetCategory, deleteBudgetCategory }) => {
       ?.map((i) => i.amount)
       .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
    const budgetTotal = budgetCategory?.amount / 100;
-   const preformatedItemtotal = itemTotal;
+   //const preformatedItemtotal = itemTotal;
    let categorisedPercentage = 0;
 
    if (itemTotal > 0 && budgetTotal > 0) {
@@ -69,83 +66,17 @@ const ExpenseCategory = ({ budgetCategory, deleteBudgetCategory }) => {
    itemTotal = formatNumber(Number(itemTotal));
 
    return (
-      <StyledExpenseCategory>
-         {viewItems ? (
-            <div className="list-container">
-               <h4>
-                  {" "}
-                  <span className="category-name">
-                     {budgetCategory?.category}
-                  </span>{" "}
-                  expense items
-               </h4>
-
-               {budgetCategory?.items?.length > 0 ? (
-                  <>
-                     <div className="key">
-                        <div className="element">
-                           <div className="color key-deposit"></div>
-                           <h5 className="legend">Deposit</h5>
-                        </div>
-                        <div className="element">
-                           <div className="color key-withdrawal"></div>
-                           <h5 className="legend">Withdrawal</h5>
-                        </div>
-                     </div>
-                     <div className="expense-list">
-                        {budgetCategory?.items
-                           .sort((a, b) => (a.item > b.item ? 1 : -1))
-                           .map((item) => (
-                              <div
-                                 className="expense"
-                                 key={item.id}
-                              >
-                                 <p
-                                    className={
-                                       item.amount > 0
-                                          ? "expense-name withdrawal"
-                                          : "expense-name deposit"
-                                    }
-                                 >
-                                    {item.item}
-                                 </p>
-                                 {/* <p className={item.amount > 0 ? "withdrawal" : "deposit"}>{item.amount > 0 ? "Withdrawal" : "Deposit"}</p> */}
-                                 <p
-                                    className={
-                                       item.amount > 0
-                                          ? "withdrawal"
-                                          : "deposit"
-                                    }
-                                 >
-                                    ${item.amount}
-                                 </p>
-                                 <div
-                                    className="item-actions"
-                                    onClick={() => deleteCategoryItem(item.id)}
-                                 >
-                                    <FaTrashAlt className="item-delete-icon" />
-                                 </div>
-                              </div>
-                           ))}
-                     </div>
-                  </>
-               ) : (
-                  <p className="no-data-message">No data to display</p>
-               )}
-
-               <div className="item-buttons">
-                  <button
-                     className="button"
-                     onClick={() => toggleViewItems(!viewItems)}
-                  >
-                     Exit
-                  </button>
-               </div>
-            </div>
-         ) : (
+      <StyledExpenseCategory selectedColor={budgetCategory.color}>
+         <div className="list-container">
             <>
                <div className="titlebar">
-                  <h4 className="category-name">{budgetCategory?.category}</h4>
+                  <h4>
+                     <div className="category-color"></div>
+                     <span className="category-name">
+                        {budgetCategory?.category}
+                     </span>
+                     &nbsp;expense items
+                  </h4>
                   <div className="total">
                      {currencySymbol}
                      {itemTotal} / {currencySymbol}
@@ -155,7 +86,58 @@ const ExpenseCategory = ({ budgetCategory, deleteBudgetCategory }) => {
 
                <Progressbar percentage={categorisedPercentage} />
             </>
-         )}
+
+            {budgetCategory?.items?.length > 0 ? (
+               <>
+                  {/* <div className="key">
+                     <div className="element">
+                        <div className="color key-deposit"></div>
+                        <h5 className="legend">Deposit</h5>
+                     </div>
+                     <div className="element">
+                        <div className="color key-withdrawal"></div>
+                        <h5 className="legend">Withdrawal</h5>
+                     </div>
+                  </div> */}
+                  <div className="expense-list">
+                     {budgetCategory?.items
+                        .sort((a, b) => (a.item > b.item ? 1 : -1))
+                        .map((item) => (
+                           <div
+                              className="expense"
+                              key={item.id}
+                           >
+                              <p
+                                 className={
+                                    item.amount > 0
+                                       ? "expense-name withdrawal"
+                                       : "expense-name deposit"
+                                 }
+                              >
+                                 {item.item}
+                              </p>
+                              {/* <p className={item.amount > 0 ? "withdrawal" : "deposit"}>{item.amount > 0 ? "Withdrawal" : "Deposit"}</p> */}
+                              <p
+                                 className={
+                                    item.amount > 0 ? "withdrawal" : "deposit"
+                                 }
+                              >
+                                 ${item.amount}
+                              </p>
+                              <div
+                                 className="item-actions"
+                                 onClick={() => deleteCategoryItem(item.id)}
+                              >
+                                 <FaTrashAlt className="item-delete-icon" />
+                              </div>
+                           </div>
+                        ))}
+                  </div>
+               </>
+            ) : (
+               <p className="no-data-message">No data to display</p>
+            )}
+         </div>
       </StyledExpenseCategory>
    );
 };
@@ -244,7 +226,7 @@ const StyledExpenseCategory = styled(motion.div)`
    }
    .expense-list {
       display: flex;
-      //flex-direction: column;
+      flex-direction: column;
       gap: 0.5rem;
       width: 70%;
       align-self: center;
@@ -279,18 +261,29 @@ const StyledExpenseCategory = styled(motion.div)`
       }
    }
 
-   h4 {
-      color: white;
-      font-weight: 500;
-      //margin-bottom: 1rem;
-   }
    .titlebar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: whitesmoke;
+      h4 {
+         display: flex;
+         justify-content: flex-start;
+         align-items: center;
+         column-gap: 1rem;
+         color: white;
+         font-weight: 500;
+         //margin-bottom: 1rem;
+      }
+      .category-color {
+         width: 25px;
+         height: 25px;
+         border-radius: 4px;
+         border: 2px solid #848586;
+         background: ${({ selectedColor }) => selectedColor};
+      }
    }
-   .item-buttons {
+   /* .item-buttons {
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -302,7 +295,7 @@ const StyledExpenseCategory = styled(motion.div)`
       width: 100%;
       padding: 0rem;
       column-gap: 2rem;
-   }
+   } */
 `;
 
 export default ExpenseCategory;

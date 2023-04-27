@@ -299,13 +299,15 @@ export const getAllocatedPerPeriod = (allocated, period) => {
 export const formatNumber = (number) => {
    let formattedWholeNumber = null;
    let formattedDecimalNumber = null;
-   if (number >= 0) {
-      formattedWholeNumber = Math.floor(Number(number).toFixed(2));
-      formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
-   } else {
-      formattedWholeNumber = Number(number).toFixed(2);
-      formattedDecimalNumber = "";
-   }
+   formattedWholeNumber = Math.floor(Number(number).toFixed(2));
+   formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
+   // if (number >= 0) {
+   //    formattedWholeNumber = Math.floor(Number(number).toFixed(2));
+   //    formattedDecimalNumber = (Number(number) % 1).toFixed(2).substring(1);
+   // } else {
+   //    formattedWholeNumber = Number(number).toFixed(2);
+   //    formattedDecimalNumber = "";
+   // }
 
    return (
       <>

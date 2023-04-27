@@ -24,17 +24,24 @@ const AddExpenseItemForm = ({ showForm, toggleShowForm, itemTotal }) => {
    const [formData, setFormData] = useState({
       item: "",
       amount: "",
-      category: currentBudget.data.budgetCategories.sort()[0].category || "",
+      category: currentBudget.data.budgetCategories.sort()[0].category,
    });
 
-   const budgetCategory = currentBudget.data.budgetCategories.filter(
-      (category) => {
-         return (
-            category.category.toLowerCase() ===
-            formData?.category?.toLowerCase()
-         );
-      }
-   )[0];
+   let budgetCategory = {};
+   if (formData?.category) {
+      budgetCategory = currentBudget.data.budgetCategories.filter(
+         (category) => {
+            return (
+               category.category.toLowerCase() ===
+               formData?.category?.toLowerCase()
+            );
+         }
+      )[0];
+   } else {
+      budgetCategory = currentBudget.data.budgetCategories.sort()[0].category;
+   }
+
+   console.log("budgetCategory", budgetCategory);
 
    const balance = Number(10000 / 100) - Number(itemTotal);
    const budgetCategories = currentBudget.data.budgetCategories;
@@ -170,6 +177,7 @@ const AddExpenseItemForm = ({ showForm, toggleShowForm, itemTotal }) => {
          setFormData({
             item: "",
             amount: "",
+            category: currentBudget.data.budgetCategories[0].category,
          });
          notify("ADDED");
       }
@@ -219,14 +227,12 @@ const AddExpenseItemForm = ({ showForm, toggleShowForm, itemTotal }) => {
                         >
                            {budgetCategories.map((category) => {
                               return (
-                                 <>
-                                    <option
-                                       key={category.category}
-                                       value={category.category}
-                                    >
-                                       {category.category}
-                                    </option>
-                                 </>
+                                 <option
+                                    key={category.category}
+                                    value={category.category}
+                                 >
+                                    {category.category}
+                                 </option>
                               );
                            })}
                         </select>

@@ -7,7 +7,7 @@ import ExpenditureByIncomeWidget from "../components/ExpeditureByIncomeWidget";
 import ItemTotal from "../components/ItemTotal";
 import { GlobalContext } from "../context/GlobalContext";
 import ExpenditureByCategoryWidget from "../components/ExpenditureByCategoryWidget";
-import FundsSummary from "../components/FundsSummary";
+import BudgetFundsSummary from "../components/summary/BudgetFundsSummary";
 import SummaryKey from "../components/SummaryKey";
 
 const Summary = () => {
@@ -31,7 +31,7 @@ const Summary = () => {
 
    return (
       <StyledSummary>
-         <FundsSummary />
+         <BudgetFundsSummary />
 
          <div className="charts">
             <SummaryKey />

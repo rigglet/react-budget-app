@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { formatNumber } from "../utilities";
+import { formatNumber } from "../../utilities";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../../context/GlobalContext";
 
-const FundsSummary = () => {
+const BudgetFundsSummary = () => {
    const { currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
    let balance = Number(
       currentBudget.data.income.annualNet / 100 - allocatedFundsTotal / 100
    );
 
    return (
-      <StyledFundsSummary>
+      <StyledBudgetFundsSummary>
          <div className="item">
             <h3>Income:</h3>
             <p className="income-color">
@@ -28,16 +28,16 @@ const FundsSummary = () => {
             </p>
          </div>
          <div className="item">
-            <h3>Balance:</h3>
+            <h3>Remaining:</h3>
             <p className="balance-color">
                ${formatNumber(Number(balance).toFixed(2))}
             </p>
          </div>
-      </StyledFundsSummary>
+      </StyledBudgetFundsSummary>
    );
 };
 
-const StyledFundsSummary = styled(motion.div)`
+const StyledBudgetFundsSummary = styled(motion.div)`
    width: 70vw;
    display: flex;
    align-items: center;
@@ -64,4 +64,4 @@ const StyledFundsSummary = styled(motion.div)`
    }
 `;
 
-export default FundsSummary;
+export default BudgetFundsSummary;

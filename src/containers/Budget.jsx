@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import BudgetList from "../components/BudgetList";
-import FundsSummary from "../components/FundsSummary";
+import BudgetFundsSummary from "../components/summary/BudgetFundsSummary";
 import AddBudgetCategoryForm from "../components/AddBudgetCategoryForm";
 import { GlobalContext } from "../context/GlobalContext";
 
@@ -14,7 +14,7 @@ const Budget = () => {
 
    return (
       <StyledBudget>
-         <FundsSummary />
+         <BudgetFundsSummary />
 
          <div className="content">
             {balance > 0 && <AddBudgetCategoryForm balance={balance} />}

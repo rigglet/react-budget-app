@@ -4,13 +4,10 @@ import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
 import ExpenseList from "../components/ExpenseList";
 import AddExpenseItemForm from "../components/AddExpenseItemForm";
-import FundsSummary from "../components/FundsSummary";
-import { formatNumber } from "../utilities";
+import ExpenditureFundsSummary from "../components/summary/ExpenditureFundsSummary";
 
 const Expenditure = () => {
    const [showForm, toggleShowForm] = useState(false);
-   const [viewItems, toggleViewItems] = useState(false);
-
    const { currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
 
    // const budgetCategory = currentBudget.data.budgetCategories[0];
@@ -32,18 +29,14 @@ const Expenditure = () => {
 
    return (
       <StyledExpenditure>
-         <FundsSummary />
+         <ExpenditureFundsSummary />
 
          <div className="content">
             {balance > 0 && (
                <AddExpenseItemForm
                   balance={balance}
-                  //budgetCategory={budgetCategory}
                   showForm={showForm}
                   toggleShowForm={toggleShowForm}
-                  //toggleViewItems={toggleViewItems}
-                  //viewItems={viewItems}
-                  //itemTotal={itemTotal}
                />
             )}
             <h3>Expenditure</h3>
