@@ -1,13 +1,31 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../context/GlobalContext";
-import BudgetList from "../components/BudgetList";
-import AddBudgetCategoryForm from "../components/AddBudgetCategoryForm";
+import ExpenseList from "../components/ExpenseList";
+import AddExpenseItemForm from "../components/AddExpenseItemForm";
 import FundsSummary from "../components/FundsSummary";
+import { formatNumber } from "../utilities";
 
 const Expenditure = () => {
+   const [showForm, toggleShowForm] = useState(false);
+   const [viewItems, toggleViewItems] = useState(false);
+
    const { currentBudget, allocatedFundsTotal } = useContext(GlobalContext);
+
+   // const budgetCategory = currentBudget.data.budgetCategories[0];
+
+   // let itemTotal = budgetCategory?.items
+   //    ?.map((i) => i.amount)
+   //    .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+   //const budgetTotal = budgetCategory?.amount / 100;
+
+   // if (itemTotal > 0 && budgetTotal > 0) {
+   //    categorisedPercentage = (itemTotal / budgetTotal) * 100;
+   // }
+
+   //itemTotal = formatNumber(Number(itemTotal));
+
    let balance = Number(
       currentBudget.data.income.annualNet / 100 - allocatedFundsTotal / 100
    );
@@ -17,10 +35,20 @@ const Expenditure = () => {
          <FundsSummary />
 
          <div className="content">
-            {balance > 0 && <AddBudgetCategoryForm balance={balance} />}
-            <h3>Annual budgets by category</h3>
+            {balance > 0 && (
+               <AddExpenseItemForm
+                  balance={balance}
+                  //budgetCategory={budgetCategory}
+                  showForm={showForm}
+                  toggleShowForm={toggleShowForm}
+                  //toggleViewItems={toggleViewItems}
+                  //viewItems={viewItems}
+                  //itemTotal={itemTotal}
+               />
+            )}
+            <h3>Expenditure</h3>
             {currentBudget.data.budgetCategories.length > 0 ? (
-               <BudgetList />
+               <ExpenseList />
             ) : (
                <>
                   <p>No budget categories to display</p>

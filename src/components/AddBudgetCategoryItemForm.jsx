@@ -172,7 +172,7 @@ const AddBudgetCategoryItemForm = ({
    };
 
    return (
-      <StyledAddBudgetCategoryForm showForm={showForm}>
+      <StyledAddBudgetCategoryItemForm showForm={showForm}>
          <ToastContainer
             closeButton={false}
             transition={Zoom}
@@ -258,11 +258,11 @@ const AddBudgetCategoryItemForm = ({
                </button>
             </div>
          )}
-      </StyledAddBudgetCategoryForm>
+      </StyledAddBudgetCategoryItemForm>
    );
 };
 
-const StyledAddBudgetCategoryForm = styled(motion.div)`
+const StyledAddBudgetCategoryItemForm = styled(div)`
    //display: ${({ showForm }) => (showForm ? "flex" : "none")};
    display: flex;
    flex-direction: column;

@@ -103,7 +103,7 @@ body{
   }
 }
 
-input {
+input, select {
     outline: none;
     padding: 0.25rem;
     font-size: 1rem;
@@ -128,7 +128,7 @@ input {
       }
     }
 
-  select{
+  /* select{
     outline-style: none;
     outline: none;
     color: #39393c;
@@ -136,7 +136,7 @@ input {
     padding:0.25rem;
     font-weight: 700;
     font-size: 10pt;
-  }
+  } */
     
   option{
     padding:0.25rem;
