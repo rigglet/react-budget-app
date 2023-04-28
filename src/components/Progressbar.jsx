@@ -25,7 +25,7 @@ const Progressbar = ({ percentage }) => {
             <span className="number">{Number(percentage).toFixed()}%</span>
          </h5>
          <div className="marker"></div>
-         <h5 className="container-bar"></h5>
+         <div className="container-bar"></div>
       </StyledProgressBar>
    );
 };
