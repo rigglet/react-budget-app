@@ -32,13 +32,12 @@ const Expenditure = () => {
          <ExpenditureFundsSummary />
 
          <div className="content">
-            {balance > 0 && (
-               <AddExpenseItemForm
-                  balance={balance}
-                  showForm={showForm}
-                  toggleShowForm={toggleShowForm}
-               />
-            )}
+            <AddExpenseItemForm
+               balance={balance}
+               showForm={showForm}
+               toggleShowForm={toggleShowForm}
+            />
+
             <h3>Expenditure</h3>
             {currentBudget.data.budgetCategories.length > 0 ? (
                <ExpenseList />
